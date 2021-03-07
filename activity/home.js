@@ -1,23 +1,17 @@
 
 
 import React, { Component } from "react";
-import { View, Text, Image,  ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar  } from 'react-native-elements';
 import { Icon } from 'react-native-elements'
+import Styles from "../styles";
 function Home ({navigation}){
   return (
       <ScrollView >
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15}}>
-          <Text
-            style={{
-              color: "#535353",
-              fontFamily: "RobotoRegular",
-              marginTop: 10,
-              fontSize: 17,
-            }}
-          >
+          <Text style={Styles.box_title} >
             Events
           </Text>
           <ScrollView
@@ -66,14 +60,7 @@ function Home ({navigation}){
           </ScrollView>
         </View>
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
-          <Text
-            style={{
-              color: "#535353",
-              fontFamily: "RobotoRegular",
-              marginTop: 10,
-              fontSize: 17,
-            }}
-          >
+          <Text  style={Styles.box_title} >
             Category
           </Text>
           <ScrollView
@@ -109,6 +96,10 @@ function Home ({navigation}){
                 marginHorizontal: 22,
               }}
             >
+              <Image
+                source={require("../img/images/p.png")}
+                style={{ height: 24, width: 24 }}
+              />
             </View>
 
             <View
@@ -121,6 +112,10 @@ function Home ({navigation}){
                 backgroundColor: "#ffa06c",
               }}
             >
+              <Image
+                source={require("../img/images/p.png")}
+                style={{ height: 24, width: 24 }}
+              />
             </View>
             <View
               style={{
@@ -133,6 +128,10 @@ function Home ({navigation}){
                 marginLeft: 22,
               }}
             >
+              <Image
+                source={require("../img/images/p.png")}
+                style={{ height: 24, width: 24 }}
+              />
             </View>
 
             <View
@@ -146,6 +145,10 @@ function Home ({navigation}){
                 marginLeft: 22,
               }}
             >
+              <Image
+                source={require("../img/images/p.png")}
+                style={{ height: 24, width: 24 }}
+              />
             </View>
           </ScrollView>
         </View>
@@ -170,9 +173,13 @@ function Home ({navigation}){
               width: '100%',
             }}>
               <Avatar rounded   size="medium" source={require('../img/images/2.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> Chris Jackson </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
+              <ListItem.Content >
+                <ListItem.Title> Chris   </ListItem.Title>
+                <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
+              </ListItem.Content>
+
+              <ListItem.Content >
+                <Text style={Styles.following}>+ Following</Text>
               </ListItem.Content>
             </ListItem>
             <Text

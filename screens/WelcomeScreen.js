@@ -61,12 +61,4 @@ function WelcomeScreen ({ navigation }) {
     );
 }
 
-const style = StyleSheet.create({
-
-  icone : {
-    width : 8 ,
-    textAlign : 'left'
-  },
-
-});
 export default WelcomeScreen;

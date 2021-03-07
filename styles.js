@@ -147,4 +147,31 @@ module.exports={
     paddingTop: 13,
     color : 'white',
   },
+  box_title : {
+    color: "#535353",
+    fontFamily: "RobotoRegular",
+    marginTop: 10,
+    fontSize: 17,
+  },
+  categories_icon : {
+    paddingHorizontal: 10 ,
+    backgroundColor: '#fff' ,
+    paddingBottom : 15 ,
+    marginTop : 10
+  },
+  cat_icon : {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 66,
+    width: 66,
+    borderRadius: 50,
+    backgroundColor: "#ff5c83",
+    marginHorizontal: 22,
+  },
+  following :{
+    borderRadius:25 ,
+    borderColor : '#ff5c83',
+    color : '#ff5c83'
+  }
+
 }
