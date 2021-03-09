@@ -3,8 +3,7 @@ import { Button ,StyleSheet, Text, TouchableOpacity ,Image, View , TextInput  } 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-
+ 
 import Login from "./activity/login";
 import { MasterContext } from "./context";
 import AuthNavigator from "./navigation/AuthNavigator";
@@ -88,104 +87,62 @@ const ScreenContainer = ({ children }) => (
 // }
 //
 
+ 
+const Stack = createStackNavigator();
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-
-
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-         tabBarOptions={{
-           activeBackgroundColor : "tomato",
-           activeTintColor : "white",
-           inactiveBackgroundColor :  "#eee",
-           inactiveTintColor : 'black'
-         }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-        />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-        <Tab.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown : false}} />
-      </Tab.Navigator>
+      <AuthNavigator/>
+      {/*<Stack.Navigator initialRouteName="Home">*/}
+      {/*  <Stack.Screen name="Home" component={HomeScreen} />*/}
+
+      {/*  <Stack.Screen name="Login" component={LoginPage} options={{*/}
+      {/*    title: 'Login'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="Forgot" component={ForgotYourPassword} options={{*/}
+      {/*    title: 'Forgot Your Password'*/}
+      {/*  }}/>*/}
+
+      {/*  <Stack.Screen name="CheckEmail" component={CheckYourEmail} options={{*/}
+      {/*    title: 'Check your email'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="PasswordReset" component={Password_Reset} options={{*/}
+      {/*    title: 'Password Reset'*/}
+      {/*  }}/>*/}
+      {/*<Stack.Screen name="CongratulationResetPassword" component={Congratulation_ResetPassword} options={{*/}
+      {/*    title: 'Congratulation Reset Password'*/}
+      {/*  }}/>*/}
+
+      {/*  <Stack.Screen name="tutorial" component={Tutorial_page} options={{*/}
+      {/*    title: 'Tutorial'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="home" component={Home_page} options={{*/}
+      {/*    title: 'Home'*/}
+      {/*  }}/>*/}
+
+      {/*  <Stack.Screen name="sign_up" component={SignUp} options={{*/}
+      {/*    title: 'SignUp'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="notification" component={Notification_page} options={{*/}
+      {/*    title: 'Notification'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="profile" component={Profile_page} options={{*/}
+      {/*    title: 'Profile'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="Rateus" component={Rateus_page} options={{*/}
+      {/*    title: 'Rateus'*/}
+      {/*  }}/>*/}
+      {/*  <Stack.Screen name="Settings" component={Settings_page} options={{*/}
+      {/*    title: 'Settings'*/}
+      {/*  }}/>*/}
+
+
+      {/*</Stack.Navigator>*/}
     </NavigationContainer>
   );
 }
 
 
-// const Stack = createStackNavigator();
 
-// function App() {
-//   return (
-//     <NavigationContainer>
-//       <AuthNavigator/>
-//       {/*<Stack.Navigator initialRouteName="Home">*/}
-//       {/*  <Stack.Screen name="Home" component={HomeScreen} />*/}
-//
-//       {/*  <Stack.Screen name="Login" component={LoginPage} options={{*/}
-//       {/*    title: 'Login'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="Forgot" component={ForgotYourPassword} options={{*/}
-//       {/*    title: 'Forgot Your Password'*/}
-//       {/*  }}/>*/}
-//
-//       {/*  <Stack.Screen name="CheckEmail" component={CheckYourEmail} options={{*/}
-//       {/*    title: 'Check your email'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="PasswordReset" component={Password_Reset} options={{*/}
-//       {/*    title: 'Password Reset'*/}
-//       {/*  }}/>*/}
-//       {/*<Stack.Screen name="CongratulationResetPassword" component={Congratulation_ResetPassword} options={{*/}
-//       {/*    title: 'Congratulation Reset Password'*/}
-//       {/*  }}/>*/}
-//
-//       {/*  <Stack.Screen name="tutorial" component={Tutorial_page} options={{*/}
-//       {/*    title: 'Tutorial'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="home" component={Home_page} options={{*/}
-//       {/*    title: 'Home'*/}
-//       {/*  }}/>*/}
-//
-//       {/*  <Stack.Screen name="sign_up" component={SignUp} options={{*/}
-//       {/*    title: 'SignUp'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="notification" component={Notification_page} options={{*/}
-//       {/*    title: 'Notification'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="profile" component={Profile_page} options={{*/}
-//       {/*    title: 'Profile'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="Rateus" component={Rateus_page} options={{*/}
-//       {/*    title: 'Rateus'*/}
-//       {/*  }}/>*/}
-//       {/*  <Stack.Screen name="Settings" component={Settings_page} options={{*/}
-//       {/*    title: 'Settings'*/}
-//       {/*  }}/>*/}
-//
-//
-//       {/*</Stack.Navigator>*/}
-//     </NavigationContainer>
-//   );
-// }
-//
-
-
-//export default App;
+export default App;

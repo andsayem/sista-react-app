@@ -4,8 +4,7 @@ import React, { Component } from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar  } from 'react-native-elements';
-import { Icon } from 'react-native-elements'
+import { ListItem, Avatar  } from 'react-native-elements'; 
 import Styles from "../styles";
 function Home ({navigation}){
   return (
