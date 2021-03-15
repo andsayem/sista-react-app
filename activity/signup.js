@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   inputText:{
     height:50,
     color:"black",
-    textAlign : "left",
+    alignItems : "left",
     width:"80%",
     backgroundColor:"#f8f8f8",
     paddingLeft : 30,
@@ -116,24 +116,24 @@ const styles = StyleSheet.create({
     width:"80%",
     color : "#383838" ,
     paddingLeft: 15,
-    textAlign: "left"
+    alignItems: "left"
   },
   title :{
     width:"80%",
     paddingLeft: 15,
     fontSize: 22 ,
     fontWeight : 'bold',
-    textAlign: "left"
+    alignItems: "left"
   },
   sub_title : {
     width:"80%",
     paddingLeft: 15,
     color : "#929292",
     fontSize: 12 ,
-    textAlign: "left"
+    alignItems: "left"
   },
   signup :{
-    textAlign : "center" ,
+    alignItems : "center" ,
     color : "#383838" ,
     fontSize:11,
     paddingTop :25 ,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   lebel_right:{
     width:"80%",
     paddingRight: 15,
-    textAlign: "right"
+    alignItems: "right"
   },
   loginBtn:{
     width:"80%",
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     height:50,
     alignItems:"center",
     justifyContent:"center",
-    textAlign : "center",
+    alignItems : "center",
     marginTop:20,
     marginBottom:10
   },

@@ -1,12 +1,18 @@
 
 
-import React, { Component } from "react";
+import React, { Component, useEffect, useState} from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar  } from 'react-native-elements'; 
 import Styles from "../styles";
+import AsyncStorage from '@react-native-community/async-storage';
 function Home ({navigation}){
+  // useEffect(()=>{
+  //   let sdfsdf = AsyncStorage.getItem('user_id');
+  //     console.log('home_page ',sdfsdf.status);      
+  // })
+  
   return (
       <ScrollView >
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15}}>
