@@ -6,6 +6,8 @@ import  RegisterScreen from '../screens/RegisterScreen';
 import  ForgotPassword  from  '../activity/forgot_password';
 import  PasswordReset  from  '../activity/password_reset';
 import  CheckYourEmail  from '../activity/check_your_email';
+import PostDetails  from '../activity/PostDetails';
+import Chats from "../activity/Chats";
 import CongratulationResetPassword from '../activity/Congratulation_reset_password';
 import Home from '../activity/home.js';
 
@@ -13,6 +15,8 @@ const  Stack  = createStackNavigator();
 
 const  AuthNavigator = () => (
   <Stack.Navigator >
+    <Stack.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
+    <Stack.Screen name="PostDetails" component={PostDetails} options={{ headerShown : true}} />
     <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown : false}} />
     <Stack.Screen name="Login" component={LoginScreen}  options={{ headerShown : false}} />
     <Stack.Screen name="Register" component={RegisterScreen}  options={{ headerShown : false}} />
