@@ -1,26 +1,69 @@
 import React, { Component,useEffect, useState, createRef } from "react";
-import { Button, Image, Text, TextInput, TouchableOpacity, View,KeyboardAvoidingView,
+import { Image, Text, TextInput, TouchableOpacity, View, ToastAndroid, Button, StatusBar,
   Keyboard } from "react-native";
 import Styles from "../styles";
 import ForgotPassword from "../activity/forgot_password";
 import AsyncStorage from '@react-native-community/async-storage';
+
+const showToast = () => {
+  ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
+};
+
+const showToastWithGravity = () => {
+  ToastAndroid.showWithGravity(
+    "All Your Base Are Belong To Us",
+    ToastAndroid.SHORT,
+    ToastAndroid.CENTER
+  );
+};
+
+const showToastWithGravityAndOffset = () => {
+  ToastAndroid.showWithGravityAndOffset(
+    "A wild toast appeared!",
+    ToastAndroid.LONG,
+    ToastAndroid.BOTTOM,
+    25,
+    50
+  );
+};
+
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
+ 
 
 function LoginScreen({ navigation }){
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState('');
+    const [successtext, setSuccesstext] = useState('');
     const [data, setData] = useState([]);
-    const passwordInputRef = createRef();
-
+    const [visibleToast, setvisibleToast] = useState(false); 
+    
+    const passwordInputRef = createRef(); 
     const handleSubmitPress = () => {
-      setErrortext('');
+      
+      //setErrortext('');
       if (!userEmail) {
-        alert('Please fill Email');
+        setvisibleToast(true);
+        setErrortext({message:'Please fill Email'});
+        //alert('Please fill Email');
         return;
       }
       if (!userPassword) {
-        alert('Please fill Password');
+        setvisibleToast(true);
+        setErrortext({message:'Please fill Password'}); 
         return;
       }
       setLoading(true);
@@ -52,12 +95,13 @@ function LoginScreen({ navigation }){
         //If server response message same as Data Matched
         if (json.status===1) {
           AsyncStorage.setItem('user_id', json);
-          //console.log(responseJson.data.email);
-          navigation.replace('Home_page');
+          setSuccesstext({message:data.message}) 
+          console.log(json.response.message);
+          //navigation.replace('Tabs');
           //navigation.replace('DrawerNavigationRoutes');
         } else {
-          setErrortext(json);
-          console.log('Please check your email id or password');
+          setvisibleToast(true);
+          setErrortext({message:'Please check your email id or password'}); 
         }
       })
       .catch((error) => {
@@ -67,17 +111,19 @@ function LoginScreen({ navigation }){
       });
     };
     
-    useEffect(()=>{
+    useEffect(()=>{ 
         if(data){
-          if(data.status ===1 && data.access_token !='')
-          navigation.replace('Home_page')
+          if(data.status ===1 && data.access_token !=''){ 
+            navigation.replace('Tabs')
+          }
         }        
-    })
+    }) 
+    useEffect(() => setvisibleToast(false), [visibleToast]);
 
     return (
       <View  style={Styles.container} > 
         <Text
-          style={Styles.title} >Login {data.message}</Text>
+          style={Styles.title} >Login </Text>
         <Text
           style={Styles.sub_title} >To flourish your inner creativity</Text>
         <Image
@@ -118,6 +164,9 @@ function LoginScreen({ navigation }){
           returnKeyType="next"/>
         <Text title="Forgot Password" onPress={() => navigation.navigate('Forgot_password') }
           style={Styles.lebel_right} >Forgot password?</Text>
+      <Toast visible={visibleToast} message={errortext.message} />
+      <Toast visible={data.status} message={successtext.message} />
+      {/* <Toast visible={visibleToast} message={errortext.message} />  */}
 
         <Text title="Register" onPress={() => navigation.navigate('Register') } style={Styles.signup}>Don't have any account? Signup</Text>
 

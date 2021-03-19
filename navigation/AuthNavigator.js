@@ -8,6 +8,7 @@ import  PasswordReset  from  '../activity/password_reset';
 import  CheckYourEmail  from '../activity/check_your_email';
 import CongratulationResetPassword from '../activity/Congratulation_reset_password';
 import Home from '../activity/home.js';
+import Tabs from '../screens/TabsScreen.js';
 
 const  Stack  = createStackNavigator();
 
@@ -21,6 +22,7 @@ const  AuthNavigator = () => (
     <Stack.Screen name="Check_your_email" component={CheckYourEmail}  options={{ headerShown : false}} />
     <Stack.Screen name="Congratulation_reset" component={CongratulationResetPassword}  options={{ headerShown : false}} />
     <Stack.Screen name="Home_page" component={Home}  options={{ title: 'Inspire me'  }} />
+    <Stack.Screen name="Tabs" component={Tabs}  options={{ headerShown : false}} />
   </Stack.Navigator>
 )
 export default  AuthNavigator ;

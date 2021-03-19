@@ -2,6 +2,35 @@ import React, { Component, useEffect, useState, createRef } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, 
         TextInput, TouchableOpacity, View, Keyboard } from "react-native";
 import Styles from "../styles";
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import  WelcomeScreen from '../screens/WelcomeScreen';
+import  LoginScreen from '../screens/LoginScreen'; 
+import  ForgotPassword  from  '../activity/forgot_password';
+import  PasswordReset  from  '../activity/password_reset';
+import  CheckYourEmail  from '../activity/check_your_email';
+import Home from '../activity/home.js';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <WelcomeScreen/>
+    </View>
+  );
+}
+
+function SettingsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
 function RegisterScreen ({navigation,props}){
  
     const [userEmail, setUserEmail] = useState('');
@@ -84,92 +113,13 @@ function RegisterScreen ({navigation,props}){
           console.error(error);
         });
     };
-    return (
-      <SafeAreaView style={Styles.container}>
-        <ScrollView style={Styles.scrollView}> 
-          <View style={Styles.container}>
-            <Text
-              style={Styles.title} >Sign up</Text>
-            <Text
-              style={Styles.sub_title} >Create an account so your reading our
-              poetry and other services.</Text>
-            <Image
-              style={Styles.logo}
-              source={require('../img/Screenshot_1.png')}
-            />
-            <Text
-              style={Styles.lebel} >E-mail address</Text>
-            <TextInput
-              style={Styles.inputText}
-              onChangeText={(UserEmail) => setUserEmail(UserEmail)} 
-              keyboardType="email-address"
-              ref={emailInputRef}
-              returnKeyType="next"
-              onSubmitEditing={() =>
-                passwordInputRef.current &&
-                passwordInputRef.current.focus()
-              }
-              blurOnSubmit={false}
-              placeholder="tina@gmail.com"
-              placeholderTextColor="#707070" />
-            <Text
-              style={Styles.lebel} >Password</Text>
-            <TextInput
-              style={Styles.inputText}
-              placeholder="Enter password"
-              placeholderTextColor="#707070"
-              onChangeText={(UserPassword) =>
-                setUserPassword(UserPassword)
-              } 
-              ref={passwordInputRef}
-              returnKeyType="next"
-              secureTextEntry={true}
-              onSubmitEditing={() =>
-                ageInputRef.current &&
-                ageInputRef.current.focus()
-              }
-              blurOnSubmit={false}/>
-
-            <Text
-              style={Styles.lebel} >Age range</Text>
-            <TextInput
-              style={Styles.inputText}
-              placeholder="Select you age range"
-              placeholderTextColor="#707070"
-              onChangeText={text => this.setState({email:text})}/>
-            <Text
-              style={Styles.lebel} >Gender</Text>
-            <TextInput
-              style={Styles.inputText}
-              placeholder="Gender"
-              placeholderTextColor="#707070"
-              onChangeText={text => this.setState({email:text})}/>
-
-            <Text
-              style={Styles.lebel} >ZIP code</Text>
-            <TextInput
-              style={Styles.inputText}
-              placeholder="ZIP code"
-              placeholderTextColor="#707070"
-              onChangeText={(UserAddress) =>
-                setUserAddress(UserAddress)
-              } 
-              autoCapitalize="sentences"
-              ref={addressInputRef}
-              returnKeyType="next"
-              onSubmitEditing={Keyboard.dismiss}
-              blurOnSubmit={false}/>
- 
-            <Text style={Styles.signup}>By continuing, you agree to ours's
-              Terms  & Privacy policy</Text>
-              {/* onPress={() => navigation.navigate('Home_page') }  */}
-            <TouchableOpacity onPress={handleSubmitButton}  style={Styles.loginBtn}>
-              <Text style={Styles.loginText}>Sign Up</Text>
-            </TouchableOpacity>
-
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+    return ( 
+        <Tab.Navigator>
+          <Tab.Screen name="Login" component={LoginScreen} />
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Getstarted" component={WelcomeScreen} />
+          <Tab.Screen name="ForgotPassword" component={ForgotPassword} />
+        </Tab.Navigator> 
     );
 }
 
