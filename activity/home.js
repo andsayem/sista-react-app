@@ -164,6 +164,7 @@ function Home ({navigation}){
           marginTop : 10}} >
 
           <View
+          
             style={{
               backgroundColor: '#fff' ,
               height: 300,
@@ -177,17 +178,18 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',
             }}>
-              <Avatar rounded   size="medium" source={require('../img/images/2.jpg')} />
+              <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
               <ListItem.Content >
                 <ListItem.Title> Chris   </ListItem.Title>
                 <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
               </ListItem.Content>
 
               <ListItem.Content >
-                <Text style={Styles.following}>+ Following</Text>
+                <Text  style={Styles.following}>+ Following</Text>
               </ListItem.Content>
             </ListItem>
-            <Text
+            <Text 
+            onPress={() => navigation.navigate('PostDetails') } 
               style={{
                 fontFamily: "RobotoRegular",
                 fontSize: 12,
@@ -198,6 +200,7 @@ function Home ({navigation}){
               Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,
             </Text>
             <Image
+            onPress={() => navigation.navigate('PostDetails') } 
               source={require("../img/images/1.jpg")}
               style={{ width: '100%', borderRadius: 10, height: 130 }}
             />
@@ -250,13 +253,14 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',
             }}>
-              <Avatar rounded   size="medium" source={require('../img/images/2.jpg')} />
+              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> Chris Jackson </ListItem.Title>
                 <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <Text
+            onPress={() => navigation.navigate('PostDetails') } 
               style={{
                 fontFamily: "RobotoRegular",
                 fontSize: 12,
@@ -319,13 +323,14 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',
             }}>
-              <Avatar rounded   size="medium" source={require('../img/images/2.jpg')} />
+              <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> Chris Jackson </ListItem.Title>
                 <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <Text
+            onPress={() => navigation.navigate('PostDetails') } 
               style={{
                 fontFamily: "RobotoRegular",
                 fontSize: 12,
@@ -389,13 +394,14 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',
             }}>
-              <Avatar rounded   size="medium" source={require('../img/images/2.jpg')} />
+              <Avatar rounded   size="medium" source={require('../img/images/user_2.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> Chris Jackson </ListItem.Title>
                 <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <Text
+            onPress={() => navigation.navigate('PostDetails') } 
               style={{
                 fontFamily: "RobotoRegular",
                 fontSize: 12,
@@ -458,13 +464,14 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',
             }}>
-              <Avatar rounded   size="medium" source={require('../img/images/2.jpg')} />
+              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> Chris Jackson </ListItem.Title>
                 <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <Text
+            onPress={() => navigation.navigate('PostDetails') } 
               style={{
                 fontFamily: "RobotoRegular",
                 fontSize: 12,

@@ -2,15 +2,15 @@ import React, { Component, useEffect, useState, createRef } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, 
         TextInput, TouchableOpacity, View, Keyboard } from "react-native";
 import Styles from "../styles";
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import  WelcomeScreen from '../screens/WelcomeScreen';
-import  LoginScreen from '../screens/LoginScreen'; 
-import  ForgotPassword  from  '../activity/forgot_password';
-import  PasswordReset  from  '../activity/password_reset';
-import  CheckYourEmail  from '../activity/check_your_email';
+import WelcomeScreen from '../screens/WelcomeScreen'; 
+import LoginScreen from '../screens/LoginScreen'; 
+import ForgotPassword  from  '../activity/forgot_password';
+import PasswordReset  from  '../activity/password_reset';
+import CheckYourEmail  from '../activity/check_your_email';
+import Profile from '../activity/Profile';
+import Chats from "../activity/Chats";
 import Home from '../activity/home.js';
 
 function HomeScreen() {
@@ -115,10 +115,11 @@ function RegisterScreen ({navigation,props}){
     };
     return ( 
         <Tab.Navigator>
-          <Tab.Screen name="Login" component={LoginScreen} />
           <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Getstarted" component={WelcomeScreen} />
-          <Tab.Screen name="ForgotPassword" component={ForgotPassword} />
+          <Tab.Screen name="Chats" component={Chats} />
+          <Tab.Screen name="Add" component={Chats} /> 
+          <Tab.Screen name="Journal" component={Chats} />
+          <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator> 
     );
 }
