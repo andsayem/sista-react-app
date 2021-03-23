@@ -10,7 +10,7 @@ import ForgotPassword  from  '../activity/forgot_password';
 import PasswordReset  from  '../activity/password_reset';
 import CheckYourEmail  from '../activity/check_your_email';
 import Profile from '../activity/Profile';
-import Chats from "../activity/Chats";
+import Chats from "../activity/Chats"; 
 import Home from '../activity/home.js';
 
 function HomeScreen() {
