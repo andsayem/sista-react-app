@@ -247,10 +247,10 @@ function Journal({navigation}) {
             <TouchableOpacity
               style={Styles.journalBtn}
               activeOpacity={0.5} >
-              <Text style={Styles.journalText} >Create a new Journal</Text>
-            </TouchableOpacity>
-
-             
+              <Text style={Styles.journalText} 
+               onPress={() => navigation.navigate('Journal_add') }
+              >Create a new Journal</Text>
+            </TouchableOpacity>  
           </ListItem>
           
         </ScrollView>
