@@ -4,7 +4,7 @@ import React, { Component, useEffect, useState} from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar  } from 'react-native-elements'; 
+import { ListItem, Avatar, colors  } from 'react-native-elements'; 
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 function Home ({navigation}){
@@ -23,45 +23,222 @@ function Home ({navigation}){
             horizontal
             showsHorizontalScrollIndicator={false}
             style={{
-              marginHorizontal: -0,
+              marginHorizontal: -10,
+              paddingEnd : 20 ,
+              marginRight : 20 ,
               marginTop: 10 }}
           >
-            <View
-              style={{
-                width: 190,
-                borderRadius: 15,
-                padding : 5,
-              }}
-            >
-              <Image
-                source={require("../img/images/1.jpg")}
-                style={{ width: 180, borderRadius: 10, height: 90 }}
-              />
-            </View>
-            <View
-              style={{
-                width: 190,
-                borderRadius: 15,
-                padding : 5,
-              }}
-            >
-              <Image
-                source={require("../img/images/2.jpg")}
-                style={{ width: 180, borderRadius: 10, height: 90 }}
-              />
-            </View>
-            <View
-              style={{
-                width: 190,
-                borderRadius: 15,
-                padding : 5,
-              }}
-            >
-              <Image
-                source={require("../img/images/3.jpg")}
-                style={{ width: 180, borderRadius: 10, height: 90 }}
-              />
-            </View>
+            <ListItem > 
+              <ListItem.Content 
+                style={{ 
+                  backgroundColor: "#341BA9",
+                  borderTopLeftRadius: 20, 
+                  borderBottomLeftRadius: 20, 
+                  height : 115,
+                  width : 100 ,
+                  paddingStart : 10,
+                  color : '#ffffff' , 
+                  alignItems : 'center' , 
+                  paddingHorizontal : 10
+                  }}>
+                <View  
+                style={{ borderRadius : 8 ,
+                 backgroundColor : '#FFFFFF',
+                 height : 80 ,
+                 alignItems : 'center',
+                 width : 60,
+                 paddingTop : 15
+                 }} >
+                   <Text style ={{ fontSize : 14 , 
+                    position : 'absolute' ,
+                    fontWeight : 'bold',
+                    alignItems : 'flex-end',
+                    textAlign : 'right',
+                    marginTop : 15 , 
+                    paddingEnd : 0,
+                    color : '#341BA9' ,
+                    width : '100%'
+                  }}> th </Text>  
+                  <ListItem.Title
+                    style={{ fontWeight : 'bold' , 
+                    color : '#341BA9' ,
+                  fontSize : 20 }}
+                  > 24
+                  </ListItem.Title> 
+                  <ListItem.Subtitle
+                  style={{ color : '#341BA9'}}
+                  >July</ListItem.Subtitle>
+                </View> 
+              </ListItem.Content> 
+              <ListItem.Content 
+              style={{ marginHorizontal : -17,  
+                backgroundColor: "#3D21B2",
+                borderTopRightRadius: 20, 
+                borderBottomRightRadius: 20, 
+                height : 115,
+                width : 170 ,
+                paddingStart : 10,
+                color : '#ffffff'
+                }} >
+                <Text 
+                style={{ color : '#ffffff' , 
+                fontWeight : 'bold' , 
+                paddingTop: 0,
+                paddingBottom: 6,
+                fontSize : 18}} >Poetry With Sista</Text>
+                <Text style={{
+                  color : '#ffffff' , 
+                }} > 4:00 Pm</Text>
+                <Text  style={{
+                  color : '#ffffff' , 
+                }} >Los Angeles,
+                Calefornia</Text>
+
+              </ListItem.Content>
+            </ListItem>
+
+
+
+            <ListItem > 
+              <ListItem.Content 
+                style={{ 
+                  backgroundColor: "#6F1A98",
+                  borderTopLeftRadius: 20, 
+                  borderBottomLeftRadius: 20, 
+                  height : 115,
+                  width : 100 ,
+                  paddingStart : 10,
+                  color : '#ffffff' , 
+                  alignItems : 'center' , 
+                  paddingHorizontal : 10
+                  }}>
+                <View  
+                style={{ borderRadius : 8 ,
+                 backgroundColor : '#FFFFFF',
+                 height : 80 ,
+                 alignItems : 'center',
+                 width : 60,
+                 paddingTop : 15
+                 }} >
+                   <Text style ={{ fontSize : 14 , 
+                    position : 'absolute' ,
+                    fontWeight : 'bold',
+                    alignItems : 'flex-end',
+                    textAlign : 'right',
+                    marginTop : 15 , 
+                    paddingEnd : 0,
+                    color : '#341BA9' ,
+                    width : '100%'
+                  }}> th </Text>  
+                  <ListItem.Title
+                    style={{ fontWeight : 'bold' , 
+                    color : '#341BA9' ,
+                  fontSize : 20 }}
+                  > 20
+                  </ListItem.Title> 
+                  <ListItem.Subtitle
+                  style={{ color : '#341BA9'}}
+                  >Jan</ListItem.Subtitle>
+                </View> 
+              </ListItem.Content> 
+              <ListItem.Content 
+              style={{ marginHorizontal : -17,  
+                backgroundColor: "#6F1A98",
+                borderTopRightRadius: 20, 
+                borderBottomRightRadius: 20, 
+                height : 115,
+                width : 170 ,
+                paddingStart : 10,
+                color : '#ffffff'
+                }} >
+                <Text 
+                style={{ color : '#ffffff' , 
+                fontWeight : 'bold' , 
+                paddingTop: 0,
+                paddingBottom: 6,
+                fontSize : 18}} >Learn with quotes</Text>
+                <Text style={{
+                  color : '#ffffff' , 
+                }} > 4:00 Pm</Text>
+                <Text  style={{
+                  color : '#ffffff' , 
+                }} >Los Angeles,
+                Calefornia</Text>
+
+              </ListItem.Content>
+            </ListItem>
+
+
+            <ListItem > 
+              <ListItem.Content 
+                style={{ 
+                  backgroundColor: "#341BA9",
+                  borderTopLeftRadius: 20, 
+                  borderBottomLeftRadius: 20, 
+                  height : 115,
+                  width : 100 ,
+                  paddingStart : 10,
+                  color : '#ffffff' , 
+                  alignItems : 'center' , 
+                  paddingHorizontal : 10
+                  }}>
+                <View  
+                style={{ borderRadius : 8 ,
+                 backgroundColor : '#FFFFFF',
+                 height : 80 ,
+                 alignItems : 'center',
+                 width : 60,
+                 paddingTop : 15
+                 }} >
+                   <Text style ={{ fontSize : 14 , 
+                    position : 'absolute' ,
+                    fontWeight : 'bold',
+                    alignItems : 'flex-end',
+                    textAlign : 'right',
+                    marginTop : 15 , 
+                    paddingEnd : 0,
+                    color : '#341BA9' ,
+                    width : '100%'
+                  }}> th </Text>  
+                  <ListItem.Title
+                    style={{ fontWeight : 'bold' , 
+                    color : '#341BA9' ,
+                  fontSize : 20 }}
+                  > 24
+                  </ListItem.Title> 
+                  <ListItem.Subtitle
+                  style={{ color : '#341BA9'}}
+                  >July</ListItem.Subtitle>
+                </View> 
+              </ListItem.Content> 
+              <ListItem.Content 
+              style={{ marginHorizontal : -17,  
+                backgroundColor: "#3D21B2",
+                borderTopRightRadius: 20, 
+                borderBottomRightRadius: 20, 
+                height : 115,
+                width : 170 ,
+                paddingStart : 10,
+                color : '#ffffff'
+                }} >
+                <Text 
+                style={{ color : '#ffffff' , 
+                fontWeight : 'bold' , 
+                paddingTop: 0,
+                paddingBottom: 6,
+                fontSize : 18}} >Poetry With Sista</Text>
+                <Text style={{
+                  color : '#ffffff' , 
+                }} > 4:00 Pm</Text>
+                <Text  style={{
+                  color : '#ffffff' , 
+                }} >Los Angeles,
+                Calefornia</Text>
+
+              </ListItem.Content>
+            </ListItem>
+            
+         
           </ScrollView>
         </View>
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>

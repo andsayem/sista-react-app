@@ -4,7 +4,7 @@ import { Image, Text, TextInput, TouchableOpacity, View, ToastAndroid, Button, S
 import Styles from "../styles";
 import ForgotPassword from "../activity/forgot_password";
 import AsyncStorage from '@react-native-community/async-storage';
-
+//import Icon from 'react-native-fa-icons';
 const showToast = () => {
   ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
 };
@@ -40,7 +40,7 @@ const Toast = ({ visible, message }) => {
   }
   return null;
 };
- 
+
 
 function LoginScreen({ navigation }){
     const [userEmail, setUserEmail] = useState('');
@@ -49,11 +49,11 @@ function LoginScreen({ navigation }){
     const [errortext, setErrortext] = useState('');
     const [successtext, setSuccesstext] = useState('');
     const [data, setData] = useState([]);
-    const [visibleToast, setvisibleToast] = useState(false); 
-    
-    const passwordInputRef = createRef(); 
+    const [visibleToast, setvisibleToast] = useState(false);
+
+    const passwordInputRef = createRef();
     const handleSubmitPress = () => {
-      
+
       //setErrortext('');
       if (!userEmail) {
         setvisibleToast(true);
@@ -63,7 +63,7 @@ function LoginScreen({ navigation }){
       }
       if (!userPassword) {
         setvisibleToast(true);
-        setErrortext({message:'Please fill Password'}); 
+        setErrortext({message:'Please fill Password'});
         return;
       }
       setLoading(true);
@@ -88,20 +88,20 @@ function LoginScreen({ navigation }){
       .then((response) => response.json())
       .then((json) => {
         console.log('response',json);
-        setData(json)       
+        setData(json)
         //Hide Loader
         setLoading(false);
-        
+
         //If server response message same as Data Matched
         if (json.status===1) {
           AsyncStorage.setItem('user_id', json);
-          setSuccesstext({message:data.message}) 
+          setSuccesstext({message:data.message})
           console.log(json.response.message);
           //navigation.replace('Tabs');
           //navigation.replace('DrawerNavigationRoutes');
         } else {
           setvisibleToast(true);
-          setErrortext({message:'Please check your email id or password'}); 
+          setErrortext({message:'Please check your email id or password'});
         }
       })
       .catch((error) => {
@@ -110,18 +110,18 @@ function LoginScreen({ navigation }){
         console.error(error);
       });
     };
-    
-    useEffect(()=>{ 
+
+    useEffect(()=>{
         if(data){
-          if(data.status ===1 && data.access_token !=''){ 
+          if(data.status ===1 && data.access_token !=''){
             navigation.replace('Tabs')
           }
-        }        
-    }) 
+        }
+    })
     useEffect(() => setvisibleToast(false), [visibleToast]);
 
     return (
-      <View  style={Styles.container} > 
+      <View  style={Styles.container} >
         <Text
           style={Styles.title} >Login </Text>
         <Text
