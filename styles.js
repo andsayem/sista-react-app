@@ -192,6 +192,22 @@ module.exports={
   },
   event_date_section : {
     backgroundColor :  '#FFFFFF' , 
-  }
+  },
+  journalBtn:{
+    width:"100%",
+    backgroundColor:"#FF5D8E",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    textAlign : "center",
+    marginTop:20,
+    marginBottom:10,
 
+
+  },
+  journalText : {
+    color : 'white',
+    fontWeight: 'bold'
+  },
 }

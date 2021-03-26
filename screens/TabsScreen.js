@@ -11,6 +11,7 @@ import PasswordReset  from  '../activity/password_reset';
 import CheckYourEmail  from '../activity/check_your_email';
 import Profile from '../activity/Profile';
 import Chats from "../activity/Chats"; 
+import Journal from "../activity/Journal"; 
 import Home from '../activity/home.js';
 
 function HomeScreen() {
@@ -115,11 +116,11 @@ function RegisterScreen ({navigation,props}){
     };
     return ( 
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Chats" component={Chats} />
-          <Tab.Screen name="Add" component={Chats} /> 
-          <Tab.Screen name="Journal" component={Chats} />
-          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Home" component={Home} options={{ headerShown : false}} />
+          <Tab.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
+          <Tab.Screen name="Add" component={Chats} options={{ headerShown : true}} /> 
+          <Tab.Screen name="Journal" component={Journal} options={{ headerShown : true}} />
+          <Tab.Screen name="Profile" component={Profile} options={{ headerShown : true}} />
         </Tab.Navigator> 
     );
 }
