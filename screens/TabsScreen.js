@@ -13,6 +13,8 @@ import Profile from '../activity/Profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
 import Home from '../activity/home.js';
+import { Avatar, ListItem , Icon  , Header} from "react-native-elements"; 
+
 
 function HomeScreen() {
   return (
@@ -116,11 +118,50 @@ function RegisterScreen ({navigation,props}){
     };
     return ( 
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} options={{ headerShown : false}} />
-          <Tab.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
-          <Tab.Screen name="Add" component={Chats} options={{ headerShown : true}} /> 
-          <Tab.Screen name="Journal" component={Journal} options={{ headerShown : true}} />
-          <Tab.Screen name="Profile" component={Profile} options={{ headerShown : true}} />
+          <Tab.Screen name="Home" component={Home}   
+            options={{
+              headerShown : false,
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ color, size }) => (
+                  <Icon name='home' />
+                )
+            }}/> 
+          <Tab.Screen name="Chats" component={Chats} 
+           options={{
+            headerShown : false,
+            tabBarLabel: 'Chats',
+            tabBarIcon: ({ color, size }) => (
+                <Icon name='home' />
+              )
+          }}
+           />
+          <Tab.Screen name="Add" component={Chats} 
+           options={{
+            headerShown : false,
+            tabBarLabel: 'Add',
+            tabBarIcon: ({ color, size }) => (
+                <Icon name='home' />
+              )
+          }}
+           /> 
+          <Tab.Screen name="Journal" component={Journal} 
+           options={{
+            headerShown : false,
+            tabBarLabel: 'Journal',
+            tabBarIcon: ({ color, size }) => (
+                <Icon name='home' />
+              )
+          }}
+           />
+          <Tab.Screen name="Profile" component={Profile} 
+           options={{
+            headerShown : false,
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({ color, size }) => (
+                <Icon name='home' />
+              )
+          }}
+           />
         </Tab.Navigator> 
     );
 }

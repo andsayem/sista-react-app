@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView , StyleSheet , TouchableOpacity , AppRegistry, FlatList, Alert, Platform } from "react-native"; 
 import { Avatar, ListItem , Icon , Image , Header} from "react-native-elements"; 
+
 import Styles from "../styles";
 function Profile ({navigation}){ 
     return ( <ScrollView>
@@ -17,7 +18,7 @@ function Profile ({navigation}){
             >
                <View style={{ width : 110}} >
                   <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-                  <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>Alina Hall</Text> 
+                  <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>Alina Hall </Text> 
                 </View> 
                 <View style={{ width : 110}} > 
                
