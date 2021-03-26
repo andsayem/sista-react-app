@@ -172,6 +172,42 @@ module.exports={
     borderRadius:25 ,
     borderColor : '#ff5c83',
     color : '#ff5c83'
-  }
+  },
+  event_title : {  
+      borderColor : '#ff5c83',
+      color : '#ff5c83'
+  },
+  event_date_box : { 
+    padding : 25, 
+    backgroundColor: "#374485", 
+    borderTopLeftRadius: 20, 
+    marginHorizontal : 0 ,
+    borderBottomLeftRadius: 20,
+  },
+  event_text_box : {  
+    backgroundColor: "#3D21B2", 
+    borderTopRightRadius: 20, 
+    borderBottomRightRadius: 20,
+    marginLeft : 0 ,
+  },
+  event_date_section : {
+    backgroundColor :  '#FFFFFF' , 
+  },
+  journalBtn:{
+    width:"100%",
+    backgroundColor:"#FF5D8E",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    textAlign : "center",
+    marginTop:20,
+    marginBottom:10,
 
+
+  },
+  journalText : {
+    color : 'white',
+    fontWeight: 'bold'
+  },
 }

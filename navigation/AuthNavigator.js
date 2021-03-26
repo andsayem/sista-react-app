@@ -10,12 +10,14 @@ import PostDetails  from '../activity/PostDetails';
 import Chats from "../activity/Chats";
 import CongratulationResetPassword from '../activity/Congratulation_reset_password';
 import Home from '../activity/home.js';
+import Chating from "../activity/Chating";
 import Tabs from '../screens/TabsScreen.js';
 const  Stack  = createStackNavigator();
 const  AuthNavigator = () => (
   <Stack.Navigator > 
     <Stack.Screen name="Welcome" component={RegisterScreen} options={{ headerShown : false}} />
     <Stack.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
+    <Stack.Screen name="Chating" component={Chating} options={{ headerShown : true}} />
     <Stack.Screen name="PostDetails" component={PostDetails} options={{ headerShown : true}} />
     <Stack.Screen name="Login" component={LoginScreen}  options={{ headerShown : false}} />
     <Stack.Screen name="Register" component={RegisterScreen}  options={{ headerShown : false}} />

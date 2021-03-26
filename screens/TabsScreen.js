@@ -10,11 +10,26 @@ import ForgotPassword  from  '../activity/forgot_password';
 import PasswordReset  from  '../activity/password_reset';
 import CheckYourEmail  from '../activity/check_your_email';
 import Profile from '../activity/Profile';
-import Chats from "../activity/Chats";
-import Home from '../activity/home.js'; 
-//import Icon from 'react-native-vector-icons/Ionicons';  
-import { Icon } from 'react-native-elements'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Chats from "../activity/Chats"; 
+import Journal from "../activity/Journal"; 
+import Home from '../activity/home.js';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <WelcomeScreen/>
+    </View>
+  );
+}
+
+function SettingsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
 function RegisterScreen ({navigation,props}){
@@ -100,19 +115,12 @@ function RegisterScreen ({navigation,props}){
         });
     };
     return ( 
-        <Tab.Navigator> 
-          <Tab.Screen name="Home" component={Home} options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: () => (
-            <Icon
-            name='find'
-            color='#00aced' />
-          )
-          }}/>
-          <Tab.Screen name="Chats" component={Chats} />
-          <Tab.Screen name="Add" component={Chats} /> 
-          <Tab.Screen name="Journal" component={Chats} />
-          <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={Home} options={{ headerShown : false}} />
+          <Tab.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
+          <Tab.Screen name="Add" component={Chats} options={{ headerShown : true}} /> 
+          <Tab.Screen name="Journal" component={Journal} options={{ headerShown : true}} />
+          <Tab.Screen name="Profile" component={Profile} options={{ headerShown : true}} />
         </Tab.Navigator> 
     );
 }
