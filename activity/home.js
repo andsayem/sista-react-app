@@ -649,11 +649,11 @@ function Home ({navigation}){
           >
             <ListItem style={{
               backgroundColor: "#FEFEFE",
-              width: '100%',
+              width: '100%',  
             }}>
               <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
               <ListItem.Content >
-                <ListItem.Title> Chris   </ListItem.Title>
+                <ListItem.Title> Chris  d </ListItem.Title>
                 <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
               </ListItem.Content>
 

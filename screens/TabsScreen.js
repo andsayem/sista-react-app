@@ -15,107 +15,11 @@ import Journal from "../activity/Journal";
 import Home from '../activity/home.js';
 import { Avatar, ListItem , Icon  , Header} from "react-native-elements"; 
 
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <WelcomeScreen/>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+ 
 
 const Tab = createBottomTabNavigator();
 
-function RegisterScreen ({navigation,props}){
- 
-    const [userEmail, setUserEmail] = useState('');
-    const [userAge, setUserAge] = useState('');
-    const [userAddress, setUserAddress] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [errortext, setErrortext] = useState('');
-    const [
-      isRegistraionSuccess,
-      setIsRegistraionSuccess
-    ] = useState(false);
-
-    const emailInputRef = createRef();
-    const ageInputRef = createRef();
-    const addressInputRef = createRef();
-    const passwordInputRef = createRef();
-
-    const handleSubmitButton = () => {
-      setErrortext(''); 
-      if (!userEmail) {
-        alert('Please fill Email');
-        return;
-      }
-      if (!userAge) {
-        alert('Please fill Age');
-        return;
-      }
-      if (!userAddress) {
-        alert('Please fill Address');
-        return;
-      }
-      if (!userPassword) {
-        alert('Please fill Password');
-        return;
-      }
-      //Show Loader
-      setLoading(true);
-      var dataToSend = { 
-        email: userEmail,
-        age: userAge,
-        address: userAddress,
-        password: userPassword,
-      };
-      var formBody = [];
-      for (var key in dataToSend) {
-        var encodedKey = encodeURIComponent(key);
-        var encodedValue = encodeURIComponent(dataToSend[key]);
-        formBody.push(encodedKey + '=' + encodedValue);
-      }
-      formBody = formBody.join('&');
-
-      fetch('http://sista.abdulmazidcse.com/api/users', {
-        method: 'POST',
-        body: formBody,
-        headers: {
-          //Header Defination
-          'Content-Type':
-          'application/x-www-form-urlencoded;charset=UTF-8',
-        },
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          //Hide Loader
-          setLoading(false);
-          console.log(responseJson);
-          // If server response message same as Data Matched
-          if (responseJson.status === 'success') {
-            setIsRegistraionSuccess(true);
-            console.log(
-              'Registration Successful. Please Login to proceed'
-            );
-          } else {
-            setErrortext(responseJson.msg);
-          }
-        })
-        .catch((error) => {
-          //Hide Loader
-          setLoading(false);
-          console.error(error);
-        });
-    };
+function TabsScreen ({navigation,props}){ 
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Home" component={Home}   
@@ -167,7 +71,7 @@ function RegisterScreen ({navigation,props}){
 }
 
 
-export default RegisterScreen;
+export default TabsScreen;
 
 const styles = StyleSheet.create({
   SectionStyle: {
