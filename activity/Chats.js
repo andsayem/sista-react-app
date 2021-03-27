@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar  } from 'react-native-elements'; 
-import BottomSheet from 'react-native-simple-bottom-sheet'; 
-import { Icon } from 'react-native-elements'
+import { ListItem, Avatar , Header  , Icon } from 'react-native-elements'; 
+import BottomSheet from 'react-native-simple-bottom-sheet';  
 import Styles from "../styles";
 function Chats({navigation}) {
     return (
       <ScrollView >
+        <Header 
+              leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
+              rightComponent={{ icon: 'notifications', color: '#fff' }}
+            />
          <ScrollView  horizontal  showsHorizontalScrollIndicator={false} style={{  backgroundColor: '#fff',  marginLeft : 0 }}  >
           <View  tyle={{  backgroundColor: '#fff' ,padding: 5,  marginBottom :2, marginLeft : 5 ,   }} > 
               <Avatar  onPress={() => navigation.navigate('Chating') }   rounded   size="medium" source={require('../img/images/user_1.jpg')} />

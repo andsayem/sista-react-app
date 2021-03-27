@@ -32,7 +32,7 @@ function TabsScreen ({navigation,props}){
             }}/> 
           <Tab.Screen name="Chats" component={Chats} 
            options={{
-            headerShown : false,
+            headerShown : true,
             tabBarLabel: 'Chats',
             tabBarIcon: ({ color, size }) => (
                 <Icon name='chat' />
@@ -41,7 +41,7 @@ function TabsScreen ({navigation,props}){
            />
           <Tab.Screen name="Add" component={Chats} 
            options={{
-            headerShown : false,
+            headerShown : true,
             tabBarLabel: 'Add',
             tabBarIcon: ({ color, size }) => (
                 <Icon name='add' />
@@ -50,7 +50,7 @@ function TabsScreen ({navigation,props}){
            /> 
           <Tab.Screen name="Journal" component={Journal} 
            options={{
-            headerShown : false,
+            headerShown : true,
             tabBarLabel: 'Journal',
             tabBarIcon: ({ color, size }) => (
                 <Icon name='book' />
@@ -59,7 +59,7 @@ function TabsScreen ({navigation,props}){
            />
           <Tab.Screen name="Profile" component={Profile} 
            options={{
-            headerShown : false,
+            headerShown : true,
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color, size }) => (
                 <Icon name='account' />
