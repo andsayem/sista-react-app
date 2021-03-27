@@ -131,7 +131,7 @@ function RegisterScreen ({navigation,props}){
             headerShown : false,
             tabBarLabel: 'Chats',
             tabBarIcon: ({ color, size }) => (
-                <Icon name='home' />
+                <Icon name='chat' />
               )
           }}
            />
@@ -140,7 +140,7 @@ function RegisterScreen ({navigation,props}){
             headerShown : false,
             tabBarLabel: 'Add',
             tabBarIcon: ({ color, size }) => (
-                <Icon name='home' />
+                <Icon name='add' />
               )
           }}
            /> 
@@ -149,7 +149,7 @@ function RegisterScreen ({navigation,props}){
             headerShown : false,
             tabBarLabel: 'Journal',
             tabBarIcon: ({ color, size }) => (
-                <Icon name='home' />
+                <Icon name='book' />
               )
           }}
            />
@@ -158,7 +158,7 @@ function RegisterScreen ({navigation,props}){
             headerShown : false,
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color, size }) => (
-                <Icon name='home' />
+                <Icon name='account' />
               )
           }}
            />

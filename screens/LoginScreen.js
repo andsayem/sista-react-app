@@ -1,4 +1,4 @@
-import React, { Component,useEffect, useState, createRef } from "react";
+import React, { Component,useEffect, useState,  createRef } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View, ToastAndroid, Button, StatusBar,
   Keyboard } from "react-native";
 import Styles from "../styles";

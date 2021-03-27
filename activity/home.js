@@ -4,7 +4,7 @@ import React, { Component, useEffect, useState} from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar, colors  } from 'react-native-elements'; 
+import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 function Home ({navigation}){
@@ -15,6 +15,12 @@ function Home ({navigation}){
   
   return (
       <ScrollView >
+        <Header
+        style={{ backgroundColor : 'red'}}
+              leftComponent={{ icon: 'menu', color: '#fff' }}
+              centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
+              rightComponent={{ icon: 'notifications', color: '#fff' }}
+            />
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
           <Text style={Styles.box_title} >
             Events
@@ -447,96 +453,181 @@ function Home ({navigation}){
           </ScrollView>
         </View>
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
-          <Text  style={Styles.box_title} >
-            Category
-          </Text>
+        <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false} 
+          >
+            <ListItem style={{ marginBottom: -10}} > 
+                    <ListItem.Content  >
+                      <Text  style={Styles.box_title} >
+                        Category
+                      </Text>
+                    </ListItem.Content>
+            </ListItem>
+        </ScrollView>
+            
+         
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{ marginRight: -40, marginTop: 30 }}
+            style={{ marginRight: -30}}
           >
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Detail")}
-              style={{
-                alignItems: "center",
+            <ListItem style={{ padding : 0 , margin : 0}} > 
+              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
                 justifyContent: "center",
                 height: 66,
                 width: 66,
                 borderRadius: 50,
-                backgroundColor: "#5facdb",
+                backgroundColor: "#ff5c83", 
               }}
-            >
-              <Image
-                source={require("../img/images/p.png")}
-                style={{ height: 24, width: 24 }}
-              />
-            </TouchableOpacity>
+            > 
+              <Icon  
+                color='#FFFFFF' 
+                name='book' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : '100%'}} >All</Text>
+              </ListItem.Content>
+            </ListItem>
 
-            <View
-              style={{
-                alignItems: "center",
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
                 justifyContent: "center",
                 height: 66,
                 width: 66,
                 borderRadius: 50,
-                backgroundColor: "#ff5c83",
-                marginHorizontal: 22,
+                backgroundColor: "#EEEEEE", 
               }}
-            >
-              <Image
-                source={require("../img/images/p.png")}
-                style={{ height: 24, width: 24 }}
-              />
-            </View>
+            > 
+              <Icon  
+                color='#000000' 
+                name='list' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : '100%'}} >Poetry</Text>
+              </ListItem.Content>
+            </ListItem>
 
-            <View
-              style={{
-                alignItems: "center",
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
                 justifyContent: "center",
                 height: 66,
                 width: 66,
                 borderRadius: 50,
-                backgroundColor: "#ffa06c",
+                backgroundColor: "#EEEEEE", 
               }}
-            >
-              <Image
-                source={require("../img/images/p.png")}
-                style={{ height: 24, width: 24 }}
-              />
-            </View>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#bb32fe",
-                marginLeft: 22,
-              }}
-            >
-              <Image
-                source={require("../img/images/p.png")}
-                style={{ height: 24, width: 24 }}
-              />
-            </View>
+            > 
+              <Icon  
+                color='#000000' 
+                name='duo' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width :66}} > videos</Text>
+              </ListItem.Content>
+            </ListItem> 
 
-            <View
-              style={{
-                alignItems: "center",
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
                 justifyContent: "center",
                 height: 66,
                 width: 66,
                 borderRadius: 50,
-                backgroundColor: "#ffa06c",
-                marginLeft: 22,
+                backgroundColor: "#EEEEEE", 
               }}
-            >
-              <Image
-                source={require("../img/images/p.png")}
-                style={{ height: 24, width: 24 }}
-              />
-            </View>
+            > 
+              <Icon  
+                color='#000000' 
+                name='dvr' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : 66}} >Quotes</Text>
+              </ListItem.Content>
+            </ListItem>
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
+                justifyContent: "center",
+                height: 66,
+                width: 66,
+                borderRadius: 50,
+                backgroundColor: "#EEEEEE", 
+              }}
+            > 
+              <Icon  
+                color='#000000' 
+                name='leaderboard' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : '100%'}} >Support</Text>
+              </ListItem.Content>
+            </ListItem>
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
+                justifyContent: "center",
+                height: 66,
+                width: 66,
+                borderRadius: 50,
+                backgroundColor: "#EEEEEE", 
+              }}
+            > 
+              <Icon  
+                color='#000000' 
+                name='list' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : '100%'}} >Poetry</Text>
+              </ListItem.Content>
+            </ListItem>
+
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
+                justifyContent: "center",
+                height: 66,
+                width: 66,
+                borderRadius: 50,
+                backgroundColor: "#EEEEEE", 
+              }}
+            > 
+              <Icon  
+                color='#000000' 
+                name='duo' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width :66}} > videos</Text>
+              </ListItem.Content>
+            </ListItem> 
+
+            <ListItem > 
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity
+              
+              style={{ 
+                justifyContent: "center",
+                height: 66,
+                width: 66,
+                borderRadius: 50,
+                backgroundColor: "#EEEEEE", 
+              }}
+            > 
+              <Icon  
+                color='#000000' 
+                name='dvr' />  
+            </TouchableOpacity> 
+          </ListItem.Content>
+          </ListItem> 
           </ScrollView>
         </View>
         <View style={{ marginHorizontal :10 ,
