@@ -9,7 +9,7 @@ import LoginScreen from '../screens/LoginScreen';
 import ForgotPassword  from  '../activity/forgot_password';
 import PasswordReset  from  '../activity/password_reset';
 import CheckYourEmail  from '../activity/check_your_email';
-import Profile from '../activity/Profile';
+import Profile from '../activity/profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
 import Home from '../activity/home.js';

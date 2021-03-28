@@ -4,7 +4,7 @@ import { Image, Text, TextInput, TouchableOpacity, View, ToastAndroid, Button, S
 import Styles from "../styles";
 import ForgotPassword from "../activity/forgot_password";
 import AsyncStorage from '@react-native-community/async-storage';
-//import Icon from 'react-native-fa-icons';
+import Loader from '../components/Loader'; 
 const showToast = () => {
   ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
 };
@@ -43,11 +43,11 @@ const Toast = ({ visible, message }) => {
 
 
 function LoginScreen({ navigation }){
-    const [userEmail, setUserEmail] = useState('');
-    const [userPassword, setUserPassword] = useState('');
+    const [userEmail, setUserEmail] = useState(false);
+    const [userPassword, setUserPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [errortext, setErrortext] = useState('');
-    const [successtext, setSuccesstext] = useState('');
+    const [errortext, setErrortext] = useState(false);
+    const [successtext, setSuccesstext] = useState(false);
     const [data, setData] = useState([]);
     const [visibleToast, setvisibleToast] = useState(false);
 
@@ -66,7 +66,7 @@ function LoginScreen({ navigation }){
         setErrortext({message:'Please fill Password'});
         return;
       }
-      setLoading(true);
+      
       let dataToSend = {email: userEmail, password: userPassword};
       let formBody = [];
       for (let key in dataToSend) {
@@ -87,20 +87,24 @@ function LoginScreen({ navigation }){
       })
       .then((response) => response.json())
       .then((json) => {
-        console.log('response',json);
+        console.log('response',json); 
         setData(json)
         //Hide Loader
         setLoading(false);
 
         //If server response message same as Data Matched
         if (json.status===1) {
+          setLoading(true);
           AsyncStorage.setItem('user_id', json);
-          setSuccesstext({message:data.message})
+          setSuccesstext({message:json.response.message})
+          setErrortext({message : json.response.message}); 
           console.log(json.response.message);
           //navigation.replace('Tabs');
           //navigation.replace('DrawerNavigationRoutes');
         } else {
+          setErrortext({message : 'Please check your email id or password'}); 
           setvisibleToast(true);
+          setErrortext({message : 'Please fill Name'}); 
           setErrortext({message:'Please check your email id or password'});
         }
       })
@@ -114,14 +118,20 @@ function LoginScreen({ navigation }){
     useEffect(()=>{
         if(data){
           if(data.status ===1 && data.access_token !=''){
+            setLoading(true);
             navigation.replace('Tabs')
           }
         }
     })
+    useEffect(()=>{
+      setErrortext(false);
+    })
     useEffect(() => setvisibleToast(false), [visibleToast]);
 
     return (
+      
       <View  style={Styles.container} >
+        <Loader loading={loading} />
         <Text
           style={Styles.title} >Login </Text>
         <Text
@@ -164,8 +174,8 @@ function LoginScreen({ navigation }){
           returnKeyType="next"/>
         <Text title="Forgot Password" onPress={() => navigation.navigate('Forgot_password') }
           style={Styles.lebel_right} >Forgot password?</Text>
-      <Toast visible={visibleToast} message={errortext.message} />
-      <Toast visible={data.status} message={successtext.message} />
+        <Toast visible={errortext} message={errortext.message} />
+        <Toast visible={successtext} message={successtext.message} />
       {/* <Toast visible={visibleToast} message={errortext.message} />  */}
 
         <Text title="Register" onPress={() => navigation.navigate('Register') } style={Styles.signup}>Don't have any account? Signup</Text>
