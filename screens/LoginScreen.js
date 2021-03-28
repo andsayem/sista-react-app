@@ -48,12 +48,12 @@ function LoginScreen({ navigation }){
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [successtext, setSuccesstext] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(false);
     const [visibleToast, setvisibleToast] = useState(false);
 
     const passwordInputRef = createRef();
     const handleSubmitPress = () => {
-
+      
       //setErrortext('');
       if (!userEmail) {
         setvisibleToast(true);
@@ -65,6 +65,12 @@ function LoginScreen({ navigation }){
         setvisibleToast(true);
         setErrortext({message:'Please fill Password'});
         return;
+      }
+      if (userEmail && userPassword) {
+        setLoading(true);
+        setErrortext(false)
+      }else{
+        setLoading(false); 
       }
       
       let dataToSend = {email: userEmail, password: userPassword};
@@ -89,23 +95,18 @@ function LoginScreen({ navigation }){
       .then((json) => {
         console.log('response',json); 
         setData(json)
-        //Hide Loader
-        setLoading(false);
-
         //If server response message same as Data Matched
         if (json.status===1) {
           setLoading(true);
+          setErrortext(false);
           AsyncStorage.setItem('user_id', json);
-          setSuccesstext({message:json.response.message})
-          setErrortext({message : json.response.message}); 
-          console.log(json.response.message);
+          setSuccesstext({message:json.message});
+          console.log('jsondata',json.message);
           //navigation.replace('Tabs');
           //navigation.replace('DrawerNavigationRoutes');
         } else {
-          setErrortext({message : 'Please check your email id or password'}); 
-          setvisibleToast(true);
-          setErrortext({message : 'Please fill Name'}); 
-          setErrortext({message:'Please check your email id or password'});
+          setLoading(false);
+          setErrortext({message : json.message});  
         }
       })
       .catch((error) => {
@@ -113,20 +114,20 @@ function LoginScreen({ navigation }){
         setLoading(false);
         console.error(error);
       });
-    };
-
+    }; 
     useEffect(()=>{
-        if(data){
+        if(data){ 
           if(data.status ===1 && data.access_token !=''){
             setLoading(true);
             navigation.replace('Tabs')
           }
         }
     })
-    useEffect(()=>{
-      setErrortext(false);
-    })
+    
     useEffect(() => setvisibleToast(false), [visibleToast]);
+    //useEffect(() => setLoading(false), [loading]);
+    useEffect(() => setErrortext(false), [errortext]);
+    //useEffect(() => setErrortext(false), [errortext]);
 
     return (
       
