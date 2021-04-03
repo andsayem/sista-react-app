@@ -7,12 +7,47 @@ import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
+const STORAGE_KEY = 'save_user';
+// const saveData = async () => {
+//   try {
+//     await AsyncStorage.setItem(STORAGE_KEY, user)
+//     alert('Data successfully saved')
+//   } catch (e) {
+//     alert('Failed to save the data to the storage')
+//   }
+// }
+
+const clearStorage = async () => {
+  try {
+      await AsyncStorage.clear()
+      alert('Storage successfully cleared!')
+  } catch (e) {
+      alert('Failed to clear the async storage.')
+  }
+}
+
 function Home ({navigation}){
   // useEffect(()=>{
   //   let sdfsdf = AsyncStorage.getItem('user_id');
   //     console.log('home_page ',sdfsdf.status);      
   // })
+  const [user, setUser] = useState('');
+  useEffect(() => {
+    readData()
+  },[])
   
+
+  const readData = async () => {
+    try {
+        const user = await AsyncStorage.getItem(STORAGE_KEY);
+        let sdfd = JSON.parse(user);
+        if (sdfd !== null) {
+        setUser(sdfd)
+        }
+    } catch (e) {
+        alert('Failed to fetch the data from storage')
+    }
+  }
   return (
       <ScrollView >
         <Header
@@ -25,6 +60,7 @@ function Home ({navigation}){
           <Text style={Styles.box_title} >
             Events
           </Text>
+          <Text>Your age is {user.status}</Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

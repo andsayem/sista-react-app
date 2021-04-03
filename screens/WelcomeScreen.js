@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Button, SafeAreaView, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import  Styles   from "../styles";
 function WelcomeScreen ({ navigation }) {

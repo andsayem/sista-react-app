@@ -282,12 +282,12 @@ const styles = StyleSheet.create({
   },
   errorTextStyle: {
     color: 'red',
-    textAlign: 'center',
+    alignItems: 'center',
     fontSize: 14,
   },
   successTextStyle: {
     color: 'white',
-    textAlign: 'center',
+    alignItems: 'center',
     fontSize: 18,
     padding: 30,
   },
