@@ -136,14 +136,12 @@ function LoginScreen({ navigation }) {
   useEffect(() => {
     if(userData.status===1){
       setLoading(true);
-        navigation.replace('Tabs')
-    }
-
+        //navigation.replace('Tabs')
+    } 
   })
 
   useEffect(() => {
     readData();
-
   }, [])
   useEffect(() => {
     // // Readyfun.chckesdff();
