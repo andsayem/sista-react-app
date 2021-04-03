@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {  StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+<<<<<<< Updated upstream
+=======
+import WelcomeScreen from '../screens/WelcomeScreen'; 
+import LoginScreen from '../screens/LoginScreen'; 
+import ForgotPassword  from  '../activity/forgot_password';
+import PasswordReset  from  '../activity/password_reset';
+import CheckYourEmail  from '../activity/check_your_email';
+>>>>>>> Stashed changes
 import Profile from '../activity/profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
