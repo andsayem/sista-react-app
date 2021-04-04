@@ -16,7 +16,7 @@ import Tabs from '../screens/TabsScreen.js';
 const  Stack  = createStackNavigator();
 const  AuthNavigator = () => (
   <Stack.Navigator > 
-    <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown : false}} />
+    <Stack.Screen name="Welcome" component={Tabs} options={{ headerShown : false}} />
     <Stack.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
     <Stack.Screen name="Chating" component={Chating} options={{ headerShown : true}} />
     <Stack.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false , name : 'Add Journal '}} />

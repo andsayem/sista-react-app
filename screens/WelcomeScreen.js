@@ -10,42 +10,33 @@ const STORAGE_KEY = 'save_user';
 function WelcomeScreen ({ navigation }) {
   const [user, setUser] = useState('');
   const [loading, setLoading] = useState('');
-  const handleSubmitPress = () => {
-    setLoading(true); 
-    console.log('welcomePadeaa@1',user);
-    if(!user){  
-      navigation.replace('Login')
-    } else{
-      console.log('welcomePadeaa@12',user);
-      navigation.replace('Tabs')
-    }  
-    //onPress={() => navigation.navigate('Login') }
-  } 
-  // useEffect(() => { 
-  //   handleSubmitPress();
-  //   if (user) {
-  //     if (user.status === 1 && user.access_token != '') { 
-  //       if (!user) return  
-  //       setLoading(false);
-  //       navigation.replace('Tabs')
-  //     }
-  //   }
-  // },[])
-  
-  useEffect(() => { 
-    readData() 
-  }) 
+  // const handleSubmitPress = () => {
+  //   setLoading(true); 
+  //   console.log('welcomePadeaa@1',user);
+  //   if(!user){  
+  //     navigation.replace('Login')
+  //   } else{
+  //     console.log('welcomePadeaa@12',user);
+  //     navigation.replace('Tabs')
+  //   }   
+  // }  
+   
   const readData = async () => {
     try {
-        const user = await AsyncStorage.getItem(STORAGE_KEY);
-        let sdfd = JSON.parse(user);
-        if (sdfd !== null) {
-        setUser(sdfd)
-        }
+      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
+      let jsonuser = JSON.parse(userInfo)
+      if (userInfo !== null) {
+        setUser(jsonuser)
+      }else{
+        navigation.replace('Login')
+      }
     } catch (e) {
-        alert('Failed to fetch the data from storage')
+      alert('Failed to fetch the data from storage')
     }
-  }
+  } 
+  useEffect(() => {
+    readData();
+  }, [])
 
     var state = {
       images: [
@@ -99,7 +90,7 @@ function WelcomeScreen ({ navigation }) {
         <Text style={ Styles.subtitle}>Boost your day with the
           power of poetry</Text>
         <Text style={ Styles.sub_subtitle}>Boost your day with the power of poetry</Text>
-        <Text  style={ Styles.lodin_button}  title="Get started" onPress={handleSubmitPress}> Get started </Text>
+        <Text style={ Styles.lodin_button}  title="Get started" onPress={handleSubmitPress}> Get started </Text>
 
       </View>
     );

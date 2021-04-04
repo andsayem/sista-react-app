@@ -1,57 +1,40 @@
 import React, { useEffect, useState } from "react";
 import {  StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-<<<<<<< Updated upstream
-=======
+ 
 import WelcomeScreen from '../screens/WelcomeScreen'; 
 import LoginScreen from '../screens/LoginScreen'; 
 import ForgotPassword  from  '../activity/forgot_password';
 import PasswordReset  from  '../activity/password_reset';
 import CheckYourEmail  from '../activity/check_your_email';
->>>>>>> Stashed changes
+ 
 import Profile from '../activity/profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
 import Home from '../activity/home.js';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from "react-native-elements"; 
-const STORAGE_KEY = 'save_user';
-// function clearAllData() {
-//   AsyncStorage.getAllKeys()
-//       .then(keys => AsyncStorage.multiRemove(keys))
-//       .then(() => alert('success'));
-// }
-// const readData = async () => {
-//   try {
-//       const user = await AsyncStorage.getItem(STORAGE_KEY)
-
-//       if (user !== null) {
-//       setUser(user)
-//       }
-//   } catch (e) {
-//       alert('Failed to fetch the data from storage')
-//   }
-// }
+const STORAGE_KEY = 'save_user'; 
 const Tab = createBottomTabNavigator();
 
 function TabsScreen ({navigation,props}){ 
   const [user, setUser] = useState('');
   const readData = async () => {
     try {
-        const user = await AsyncStorage.getItem(STORAGE_KEY);
-        let sdfd = JSON.parse(user);
-        if (sdfd !== null) {
-        setUser(sdfd)
-        }
+      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
+      let jsonuser = JSON.parse(userInfo)
+      if (userInfo !== null) {
+        setUser(jsonuser)
+      }else{
+        navigation.replace('Login')
+      }
     } catch (e) {
-        alert('Failed to fetch the data from storage')
+      alert('Failed to fetch the data from storage')
     }
-  }
-
-  useEffect(()=>{ 
+  } 
+  useEffect(() => {
     readData();
-      //alert(clearAllData);
-  },[])
+  }, [])
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Home" component={Home}   

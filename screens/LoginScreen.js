@@ -75,19 +75,13 @@ function LoginScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log('response', json);
-
-        
+        console.log('response', json); 
         //If server response message same as Data Matched
         if (json.status === 1) {
           setLoginData(json);
           setLoading(true);
-          setErrortext(false);
-          //AsyncStorage.setItem('user_info', json);
-          setSuccesstext({ message: json.message });
-          console.log('getData', json.message);
-          //navigation.replace('Tabs');
-          //navigation.replace('DrawerNavigationRoutes');
+          setErrortext(false); 
+          console.log('getData', json.message); 
         } else {
           setLoading(false);
           setErrortext({ message: json.message });
@@ -107,10 +101,10 @@ function LoginScreen({ navigation }) {
       console.log('1232sdxfd',loginData)
       let test =  JSON.stringify(loginData);
       await AsyncStorage.setItem(STORAGE_KEY, test)
-      alert('Data successfully saved')
+      setSuccesstext({ message:'Data successfully saved' }); 
     } catch (e) {
       console.log('successfullyerror', e);
-      alert('Failed to save the data to the storage login')
+      setErrortext({ message: 'Failed to save the data to the storage' }); 
     }
   }
   const readData = async () => {
@@ -121,17 +115,9 @@ function LoginScreen({ navigation }) {
         setUserData(jsonuser)
       }
     } catch (e) {
-      alert('Failed to fetch the data from storage')
+      setErrortext({ message: 'Failed to save the data to the storage' });  
     }
-  }
-  const clearStorage = async () => {
-    try {
-      await AsyncStorage.clear()
-      alert('Storage successfully cleared!')
-    } catch (e) {
-      alert('Failed to clear the async storage.')
-    }
-  }
+  } 
 
   useEffect(() => {
     if(userData.status===1){
@@ -147,6 +133,7 @@ function LoginScreen({ navigation }) {
     // // Readyfun.chckesdff();
     if (loginData) {
       if (loginData.status === 1 && loginData.access_token != '') {
+        setSuccesstext({ message:loginData.message }); 
         //AsyncStorage.setItem('access_token', data.access_token);
         if (!loginData) return
 
@@ -159,9 +146,8 @@ function LoginScreen({ navigation }) {
   })
 
   useEffect(() => setvisibleToast(false), [visibleToast]);
-  //useEffect(() => setLoading(false), [loading]);
-  useEffect(() => setErrortext(false), [errortext]);
-  //useEffect(() => setErrortext(false), [errortext]);
+  useEffect(() => setSuccesstext(false), [successtext]);  
+  useEffect(() => setErrortext(false), [errortext]); 
 
   return (
 
@@ -176,11 +162,7 @@ function LoginScreen({ navigation }) {
         source={require('../img/Screenshot_1.png')}
       />
       <Text
-        style={Styles.lebel} >E-mail address</Text>
-
-      <TouchableOpacity onPress={clearStorage} >
-        <Text  >Clear Storage</Text>
-      </TouchableOpacity>
+        style={Styles.lebel} >E-mail address</Text> 
       <TextInput
         style={Styles.inputText}
         placeholder="tina@gmail.com"
@@ -214,7 +196,7 @@ function LoginScreen({ navigation }) {
       <Text title="Forgot Password" onPress={() => navigation.navigate('Forgot_password')}
         style={Styles.lebel_right} >Forgot password?</Text>
       <Toast visible={errortext} message={errortext.message} />
-      <Toast visible={successtext} message={successtext.message} />
+      <Toast visible={successtext} message={successtext.message} /> 
 
       <Text title="Register" onPress={() => navigation.navigate('Register')} style={Styles.signup}>Don't have any account? Signup</Text>
 
