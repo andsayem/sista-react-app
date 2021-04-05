@@ -2,12 +2,12 @@
   "name": "Sista",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "android": "react-native run-android",
+  "scripts": { 
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.3",

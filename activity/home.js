@@ -1,18 +1,59 @@
 
 
 import React, { Component, useEffect, useState} from "react";
-import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
-function Home ({navigation}){
-  // useEffect(()=>{
-  //   let sdfsdf = AsyncStorage.getItem('user_id');
-  //     console.log('home_page ',sdfsdf.status);      
-  // })
-  
+const STORAGE_KEY = 'save_user';
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
+ 
+function Home ({navigation}){ 
+  const [users, setUser] = useState('');
+  const [successtext, setSuccesstext] = useState(false);
+  const [errortext, setErrortext] = useState(false);
+  const readData = async () => {
+    try {
+      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
+      let jsonuser = JSON.parse(userInfo);
+      console.log('HomePage',userInfo);
+      if (userInfo !== null) {
+        setUser(jsonuser)
+      }else{
+        navigation.replace('Login')
+      }
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage' }); 
+    }
+  } 
+  const clearStorage = async () => {
+    try {
+      await AsyncStorage.clear()
+      navigation.replace('Login')
+      setSuccesstext({ message:'Storage successfully cleared!' }); 
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage' });  
+    }
+  }
+  useEffect(() => {
+    readData();
+  },[]) 
+  useEffect(() => setSuccesstext(false), [successtext]); 
+  useEffect(() => setErrortext(false), [errortext]);
   return (
       <ScrollView >
         <Header
@@ -22,9 +63,11 @@ function Home ({navigation}){
               rightComponent={{ icon: 'notifications', color: '#fff' }}
             />
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
+        <Toast visible={errortext} message={errortext.message} />
+        <Toast visible={successtext} message={successtext.message} />
           <Text style={Styles.box_title} >
             Events
-          </Text>
+          </Text> 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
