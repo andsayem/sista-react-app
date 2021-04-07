@@ -9,68 +9,41 @@ function Journaladd({navigation}) {
     return ( 
       
         <ScrollView >
-          <Header
+          <Header 
             leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'Journal', style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
+            centerComponent={{ text: 'Writing Prompts', style: { color: '#fff' } }} 
           />
       
           <ListItem > 
+              <ListItem.Content 
+                style={{
+                  width: 30
+                }}
+              >  
+                    <ListItem.Subtitle>Title : </ListItem.Subtitle> 
+              </ListItem.Content>  
               <ListItem.Content
-                style={{   
+               style={{
+                width: 30
+              }}>  
                   
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content> 
+                  <ListItem.Input style={{
+                    textAlign: 'left'
+                  }}  placeholder="Title here"
+                    placeholderTextColor="#707070"></ListItem.Input>
                   
-                </ListItem.Content>  
-                <ListItem.Content
-                style={{   
+              </ListItem.Content>   
+            </ListItem>
+          
+            <ListItem > 
+             
+              <ListItem.Content >   
+                  <ListItem.Input style={{
+                    textAlign: 'left'
+                  }}  placeholder="Type here"
+                    placeholderTextColor="#707070"></ListItem.Input>
                   
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content>  
-                </ListItem.Content>   
+              </ListItem.Content>   
             </ListItem>
           
           <ListItem>

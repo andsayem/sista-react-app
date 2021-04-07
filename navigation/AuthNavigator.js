@@ -27,7 +27,9 @@ const  AuthNavigator = () => (
     <Stack.Screen name="Password_Reset" component={PasswordReset}  options={{ headerShown : false}} />
     <Stack.Screen name="Check_your_email" component={CheckYourEmail}  options={{ headerShown : false}} />
     <Stack.Screen name="Congratulation_reset" component={CongratulationResetPassword}  options={{ headerShown : false}} />
-    <Stack.Screen name="Home_page" component={Home}  options={{ title: 'Inspire me'  }} />
+    <Stack.Screen name="Home_page" component={Home}  options={{ title: 'Inspire me' , headerStyle : {
+      backgroundColor : "#F5F5F5"
+    }  }} />
     <Stack.Screen name="Tabs" component={Tabs}  options={{ headerShown : false}} />
   </Stack.Navigator>
 )

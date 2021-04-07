@@ -14,6 +14,7 @@ import Journal from "../activity/Journal";
 import Home from '../activity/home.js';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from "react-native-elements"; 
+import NewListingButton from "../navigation/NewListingButton";
 const STORAGE_KEY = 'save_user'; 
 const Tab = createBottomTabNavigator();
 
@@ -55,9 +56,8 @@ function TabsScreen ({navigation,props}){
           }}
            />
           <Tab.Screen name="Add" component={Chats} 
-           options={{
-            headerShown : true,
-            tabBarLabel: 'Add',
+           options={{ 
+            tabBarButton : () =><NewListingButton  ></NewListingButton>,
             tabBarIcon: ({ color, size }) => (
                 <Icon name='add' />
               )
