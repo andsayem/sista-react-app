@@ -56,12 +56,12 @@ function TabsScreen ({navigation,props}){
           }}
            />
           <Tab.Screen name="Add" component={Chats} 
-           options={{ 
-            tabBarButton : () =><NewListingButton  ></NewListingButton>,
+           options={({ navigation  })=>({ 
+            tabBarButton : () =><NewListingButton onPress={()=> navigation.navigate("Chats")  }  ></NewListingButton>,
             tabBarIcon: ({ color, size }) => (
                 <Icon name='add' />
               )
-          }}
+          })}
            /> 
           <Tab.Screen name="Journal" component={Journal} 
            options={{

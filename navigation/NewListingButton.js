@@ -3,9 +3,9 @@ import { View , StyleSheet , TouchableOpacity} from  'react-native' ;
 import { colors } from 'react-native-elements';
 import { Icon } from "react-native-elements"; 
 import Chats from "../activity/Chats"; 
-function NewListingButton(onPress) {
+function NewListingButton({onPress}) {
     return (
-        <TouchableOpacity  onPress={Chats}>
+        <TouchableOpacity  onPress={onPress}>
             <View style={styles.container}>
                 <Icon name='add' color={colors.white} size={30} />
             </View>
