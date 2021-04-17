@@ -171,7 +171,7 @@ function LoginScreen({ navigation }) {
           setUserEmail(UserEmail)
         }
         keyboardType="email-address"
-        returnKeyType="next"
+        returnKeyType="search"
         onSubmitEditing={() =>
           passwordInputRef.current &&
           passwordInputRef.current.focus()

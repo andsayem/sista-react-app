@@ -45,8 +45,47 @@ function Profile ({navigation}){
       setErrortext({ message: 'Failed to save the data to the storage' });  
     }
   }
+  const getData = () => {
+    fetch('http://sista.abdulmazidcse.com/api/auth/login', { 
+      method: 'POST',
+      body: JSON.stringify({
+        tokens: "john@example.org", 
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }, 
+    }) 
+    .then((response) => response.json())
+    .then((json) => {
+      console.log('response', json); 
+      echo.connector.options.auth.headers.Authorization =
+          "Bearer " + tokens.access_token;
+
+      echo.private("chats.1").listen("ChatMessageCreated", (ev) =>
+          console.log(ev.message.text)
+      );
+
+      //If server response message same as Data Matched
+      if (json.status === 1) {
+        setLoginData(json);
+        setLoading(true);
+        setErrortext(false); 
+        console.log('getData', json.message); 
+      } else {
+        setLoading(false);
+        setErrortext({ message: json.message });
+      }
+    })
+    .catch((error) => {
+      //Hide Loader
+      setLoading(false);
+      console.error(error);
+    });
+  }
   useEffect(() => {
     readData();
+    getData();
   },[]) 
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
@@ -60,35 +99,35 @@ function Profile ({navigation}){
         <View  style={{  backgroundColor: "#FEFEFE",   padding : 10 }}  > 
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} />
-            <ScrollView
-              horizontal 
-              style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
-            >
-               <View style={{ width : 110}} >
-                  <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
-                  <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>
-                     {users.name}</Text> 
-                     <TouchableOpacity
-                     style={Styles.loginBtn}
-                     activeOpacity={0.5}>
-                      <Text onPress={clearStorage} >Logout</Text>
-                    </TouchableOpacity>
-                     <Text ></Text>
-                </View>   
-                <View style={{ width : 110}} > 
-               
-                  <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17 , borderColor : 'red'}}>Message</Text> 
-                </View> 
-                <View style={{ width : 110}} > 
-                  <Text   style={{    justifyContent:"center",  backgroundColor : '#FF5D8E'  }}>Follow </Text> 
-                </View>  
+        <ScrollView
+          horizontal 
+          style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
+        >
+        <View style={{ width : 110}} >
+          <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
+          <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>
+              {users.name}</Text> 
+              <TouchableOpacity
+              style={Styles.loginBtn}
+              activeOpacity={0.5}>
+              <Text onPress={clearStorage} >Logout</Text>
+            </TouchableOpacity>
+              <Text ></Text>
+        </View>   
+        <View style={{ width : 110}} > 
+        
+          <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17 , borderColor : 'red'}}>Message</Text> 
+        </View> 
+        <View style={{ width : 110}} > 
+              <Text   style={{    justifyContent:"center",  backgroundColor : '#FF5D8E'  }}>Follow </Text> 
+            </View>  
 
-            </ScrollView>
-           
-            <Text>
-                Coventry is a city with a thousand years of history that has plenty to offer the visiting tourist.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia
-            </Text>  
-            <ScrollView   horizontal   style={{ marginRight: 0, width:'100%',  marginTop: 10 }}  > 
+        </ScrollView>
+        
+        <Text>
+            Coventry is a city with a thousand years of history that has plenty to offer the visiting tourist.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia
+        </Text>  
+        <ScrollView   horizontal   style={{ marginRight: 0, width:'100%',  marginTop: 10 }}  > 
               <View  style={{   width: 110,   alignItems : 'center' }} >
                 <Text style={{ color : '#1c81b0'}}> 488 </Text>
                 <Text style={{ color : '#1c81b0'}}> Photos </Text>
