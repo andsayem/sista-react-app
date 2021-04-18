@@ -61,7 +61,6 @@ function Profile ({navigation}){
       console.log('response', json); 
       echo.connector.options.auth.headers.Authorization =
           "Bearer " + tokens.access_token;
-
       echo.private("chats.1").listen("ChatMessageCreated", (ev) =>
           console.log(ev.message.text)
       );
@@ -84,8 +83,7 @@ function Profile ({navigation}){
     });
   }
   useEffect(() => {
-    readData();
-    getData();
+    readData(); 
   },[]) 
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
