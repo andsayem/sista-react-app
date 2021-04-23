@@ -694,8 +694,7 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',  
             }}>
-              <Avatar rounded 
-           
+              <Avatar rounded  
               size="medium" source={require('../img/images/user_3.jpg')} />
               <ListItem.Content >
                 <ListItem.Title> Chris  d </ListItem.Title>

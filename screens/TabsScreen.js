@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {  StyleSheet } from "react-native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
- 
-import WelcomeScreen from '../screens/WelcomeScreen'; 
-import LoginScreen from '../screens/LoginScreen'; 
-import ForgotPassword  from  '../activity/forgot_password';
-import PasswordReset  from  '../activity/password_reset';
-import CheckYourEmail  from '../activity/check_your_email';
- 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';  
 import Profile from '../activity/profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
 import Home from '../activity/home.js';
+import Newpost from '../activity/Newpost';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from "react-native-elements"; 
 import NewListingButton from "../navigation/NewListingButton";
@@ -55,9 +49,9 @@ function TabsScreen ({navigation,props}){
               )
           }}
            />
-          <Tab.Screen name="Add" component={Chats} 
+          <Tab.Screen name="Add" component={Newpost} 
            options={({ navigation  })=>({ 
-            tabBarButton : () =><NewListingButton onPress={()=> navigation.navigate("Chats")  }  ></NewListingButton>,
+            tabBarButton : () =><NewListingButton onPress={()=> navigation.navigate("Newpost")  }  ></NewListingButton>,
             tabBarIcon: ({ color, size }) => (
                 <Icon name='add' />
               )
