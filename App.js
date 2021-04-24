@@ -9,20 +9,52 @@ import { MasterContext } from "./context";
 import AuthNavigator from "./navigation/AuthNavigator";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import DrawerNavigator from "./navigation/DrawerNavigator";
 const ScreenContainer = ({ children }) => (
   <View >{children}</View>
 );
  
  
-const Stack = createStackNavigator();
 
-function App() {
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        onPress={() => navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
+    </View>
+  );
+}
+
+function NotificationsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+  function App() {
   return (
     <NavigationContainer>
-      <AuthNavigator/> 
+        <DrawerNavigator />
     </NavigationContainer>
   );
 }
+
+
+// const Stack = createStackNavigator();
+
+// function App() {
+//   return (
+//     <NavigationContainer>
+//       <AuthNavigator/> 
+//     </NavigationContainer>
+//   );
+// }
 
 
 
