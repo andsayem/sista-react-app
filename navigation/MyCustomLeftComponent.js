@@ -5,7 +5,7 @@ import { Icon } from "react-native-elements";
 import { DrawerActions } from '@react-navigation/native';
 function MyCustomLeftComponent() {
     return (
-        <TouchableOpacity onPress={() => DrawerActions.openDrawer()} >
+        <TouchableOpacity  >
             <View style={styles.container}>
                 <Icon name='menu' color={colors.white} size={30} />
             </View>

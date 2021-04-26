@@ -5,14 +5,14 @@ import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , Header } from 'react-native-elements'; 
 import Styles from "../styles";
 import PostNextButton from "../navigation/PostNextButton";
-function Newpost({navigation}) {
+function Newpost_text({navigation}) {
     return ( 
       
         <ScrollView >
           <Header
             leftComponent={{ icon: 'menu', color: '#fff' }}
             centerComponent={{ text: 'Add', style: { color: '#fff' } }}
-            rightComponent={<PostNextButton onPress={()=> navigation.navigate("Newpost_text")  }/>}
+            rightComponent={<PostNextButton onPress={()=> navigation.navigate("Chats")  } />}
           /> 
                
           <ListItem>
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
     
   }
 })
-export default Newpost;
+export default Newpost_text;

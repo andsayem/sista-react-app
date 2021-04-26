@@ -9,17 +9,17 @@ import CheckYourEmail  from '../activity/check_your_email';
 import PostDetails  from '../activity/PostDetails';
 import Chats from "../activity/Chats";
 import CongratulationResetPassword from '../activity/Congratulation_reset_password';
-import Home from '../activity/home.js';
-import Newpost from '../activity/Newpost';
+import Home from '../activity/home.js'; 
 import Chating from "../activity/Chating";
+import Newpost_text from "../activity/Newpost_text";
 import Journaladd from "../activity/Journaladd";
 import Tabs from '../screens/TabsScreen.js';
 const  Stack  = createStackNavigator();
 const  AuthNavigator = () => (
   <Stack.Navigator > 
     <Stack.Screen name="Welcome" component={Tabs} options={{ headerShown : false}} />
-    <Stack.Screen name="Chats" component={Chats} options={{ headerShown : true}} />
-    <Stack.Screen name="Newpost" component={Newpost} options={{ headerShown : false}} />
+    <Stack.Screen name="Chats" component={Chats} options={{ headerShown : true}} /> 
+    <Stack.Screen name="Newpost_text" component={Newpost_text} options={{ headerShown : true}} /> 
     <Stack.Screen name="Chating" component={Chating} options={{ headerShown : true}} />
     <Stack.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false , name : 'Add Journal '}} />
     <Stack.Screen name="PostDetails" component={PostDetails} options={{ headerShown : true}} />

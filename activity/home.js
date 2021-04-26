@@ -59,7 +59,7 @@ function Home ({navigation}){
       <ScrollView >
         <Header
         style={{ backgroundColor : 'red'}}
-              leftComponent={<MyCustomLeftComponent />}
+              leftComponent={<MyCustomLeftComponent onPress={()=> navigation.toggleDrawer()  }  />}
               centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
               rightComponent={{ icon: 'notifications', color: '#fff' }}
             />
