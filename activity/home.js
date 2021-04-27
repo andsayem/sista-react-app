@@ -6,7 +6,8 @@ import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacit
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'; 
+import MyCustomLeftComponent from "../navigation/MyCustomLeftComponent";
 const STORAGE_KEY = 'save_user';
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -58,7 +59,7 @@ function Home ({navigation}){
       <ScrollView >
         <Header
         style={{ backgroundColor : 'red'}}
-              leftComponent={{ icon: 'menu', color: '#fff' }}
+              leftComponent={<MyCustomLeftComponent onPress={()=> navigation.toggleDrawer()  }  />}
               centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
               rightComponent={{ icon: 'notifications', color: '#fff' }}
             />
@@ -694,8 +695,7 @@ function Home ({navigation}){
               backgroundColor: "#FEFEFE",
               width: '100%',  
             }}>
-              <Avatar rounded 
-           
+              <Avatar rounded  
               size="medium" source={require('../img/images/user_3.jpg')} />
               <ListItem.Content >
                 <ListItem.Title> Chris  d </ListItem.Title>

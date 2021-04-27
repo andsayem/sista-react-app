@@ -1,8 +1,7 @@
 import React from 'react' ;
 import { View , StyleSheet , TouchableOpacity} from  'react-native' ;
 import { colors } from 'react-native-elements';
-import { Icon } from "react-native-elements"; 
-import Chats from "../activity/Chats"; 
+import { Icon } from "react-native-elements";  
 function NewListingButton({onPress}) {
     return (
         <TouchableOpacity  onPress={onPress}>
@@ -14,8 +13,7 @@ function NewListingButton({onPress}) {
 }
 
 const styles = StyleSheet.create({
-    container : { 
-        alignItems : 'center',
+    container : {  
         backgroundColor : '#FF5D8E' ,
         borderColor :  colors.white ,
         color : colors.white,
@@ -24,7 +22,8 @@ const styles = StyleSheet.create({
         height : 80 ,
         bottom :22,
         justifyContent : 'center',
-        width : 80  
+        width : 80  , 
+        
     }
 })
 
