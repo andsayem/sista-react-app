@@ -9,6 +9,7 @@ import Newpost from '../activity/Newpost';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from "react-native-elements"; 
 import NewListingButton from "../navigation/NewListingButton";
+import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
 const STORAGE_KEY = 'save_user'; 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ function TabsScreen ({navigation,props}){
   }, [])
     return ( 
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home}   
+          <Tab.Screen name="Home" component={MainStackNavigator}   
             options={{
               headerShown : false,
               tabBarLabel: 'Home',

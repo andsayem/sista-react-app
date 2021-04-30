@@ -5,7 +5,7 @@ import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacit
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
-import Styles from "../styles";
+import Styles from "../styles"; 
 import AsyncStorage from '@react-native-community/async-storage'; 
 import MyCustomLeftComponent from "../navigation/MyCustomLeftComponent";
 const STORAGE_KEY = 'save_user';
@@ -59,14 +59,10 @@ function Home ({navigation}){
       <ScrollView >
         <Header
         style={{ backgroundColor : 'red'}}
-              leftComponent={<MyCustomLeftComponent />}
+              leftComponent={<Icon color={colors.white} size={30} name='menu' onPress={() => navigation.toggleDrawer()} />}
               centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
               rightComponent={{ icon: 'notifications', color: '#fff' }}
-            />
-            <Button
-              onPress={() => navigation.toggleDrawer()}
-              title="Go to notifications"
-            />
+            /> 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} />
