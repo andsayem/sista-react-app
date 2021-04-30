@@ -59,9 +59,13 @@ function Home ({navigation}){
       <ScrollView >
         <Header
         style={{ backgroundColor : 'red'}}
-              leftComponent={<MyCustomLeftComponent onPress={()=> navigation.toggleDrawer()  }  />}
+              leftComponent={<MyCustomLeftComponent />}
               centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
               rightComponent={{ icon: 'notifications', color: '#fff' }}
+            />
+            <Button
+              onPress={() => navigation.toggleDrawer()}
+              title="Go to notifications"
             />
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
         <Toast visible={errortext} message={errortext.message} />
