@@ -10,6 +10,8 @@ import {ContactStackNavigator , MainStackNavigator } from "./navigation/AuthNavi
 import WelcomeScreen from "./screens/WelcomeScreen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerNavigator from "./navigation/DrawerNavigator";
+import { DrawerContent } from './navigation/DrawerContent';
+import TabsScreen from "./screens/TabsScreen";
 const ScreenContainer = ({ children }) => (
   <View >{children}</View>
 );
@@ -22,7 +24,10 @@ const Drawer = createDrawerNavigator();
   function App() {
   return (
     <NavigationContainer>
-        <DrawerNavigator />
+      <Drawer.Navigator drawerContent={props => <DrawerContent {...props}></DrawerContent>}>
+      <Drawer.Screen name="Home" component={TabsScreen}   /> 
+      </Drawer.Navigator>
+        {/* <DrawerNavigator /> */}
     </NavigationContainer>
   );
 }
