@@ -12,13 +12,13 @@ const STORAGE_KEY = 'save_user';
 // MyPosts =[
 //   { caption : 'Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,' ,  created_at : '2021-04-30 08:46:08' }, 
 // ];
-ChildView=({Childcaption})=>{
+ChildView=({ ItemData ,Shortcaption})=>{
   return(
-    <View  style={{   backgroundColor: '#fff' , height: 300,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
+    <View  style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
     <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
       <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
       <ListItem.Content >
-        <ListItem.Title> Chris  d </ListItem.Title>
+        <ListItem.Title>  {ItemData.userjoin.name} </ListItem.Title>
         <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
       </ListItem.Content> 
       <ListItem.Content >
@@ -26,18 +26,18 @@ ChildView=({Childcaption})=>{
       </ListItem.Content>
     </ListItem>
     <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
-     {Childcaption} 
+     {Shortcaption} 
     </Text>
     <Image onPress={() => navigation.navigate('PostDetails') }  source={require("../img/images/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
     <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
       <View style={{   height: 66,  width: 80, }}  >
-        <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
+        <Text style={{ color : '#a21919'}}> Like {ItemData.like}  </Text>
       </View>
       <View  style={{   height: 66, width: 120,    }} >
-        <Text> Comment  3.5k </Text>
+        <Text> Comment {ItemData.comment} </Text>
       </View>
       <View style={{  height: 66,  width: 100,  }}  >
-        <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
+        <Text style={{ color : '#1c81b0'}} > Share {ItemData.share} </Text>
       </View>
     </ScrollView>
   </View> 
@@ -724,7 +724,7 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
         </View>
         <View style={{ marginHorizontal :10 , borderRadius: 10,   paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
           {/* Item start  */}
-              <FlatList data={MyPosts} renderItem={({item})=><this.ChildView Childcaption={item.caption}/>} />
+              <FlatList data={MyPosts} renderItem={({item})=><this.ChildView Shortcaption={item.short_caption} ItemData={item} />} />
           {/*Item end*/} 
         </View>
       </ScrollView>
