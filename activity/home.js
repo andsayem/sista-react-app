@@ -1,14 +1,48 @@
 
 
 import React, { Component, useEffect, useState} from "react";
-import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
+import { View, FlatList ,Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles"; 
-import AsyncStorage from '@react-native-community/async-storage'; 
-import MyCustomLeftComponent from "../navigation/MyCustomLeftComponent";
+import AsyncStorage from '@react-native-community/async-storage';  
 const STORAGE_KEY = 'save_user';
+
+// MyPosts =[
+//   { caption : 'Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,' ,  created_at : '2021-04-30 08:46:08' }, 
+// ];
+ChildView=({Childcaption})=>{
+  return(
+    <View  style={{   backgroundColor: '#fff' , height: 300,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
+    <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
+      <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
+      <ListItem.Content >
+        <ListItem.Title> Chris  d </ListItem.Title>
+        <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
+      </ListItem.Content> 
+      <ListItem.Content >
+        <Text  style={Styles.following}>+ Following</Text>
+      </ListItem.Content>
+    </ListItem>
+    <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
+     {Childcaption} 
+    </Text>
+    <Image onPress={() => navigation.navigate('PostDetails') }  source={require("../img/images/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
+    <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
+      <View style={{   height: 66,  width: 80, }}  >
+        <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
+      </View>
+      <View  style={{   height: 66, width: 120,    }} >
+        <Text> Comment  3.5k </Text>
+      </View>
+      <View style={{  height: 66,  width: 100,  }}  >
+        <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
+      </View>
+    </ScrollView>
+  </View> 
+  ) 
+}
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -24,6 +58,20 @@ const Toast = ({ visible, message }) => {
 };
  
 function Home ({navigation}){ 
+  const [MyPosts, setPost] = useState(''); 
+fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => response.json())
+  .then((json) => {
+    console.log('response', json.data); 
+    this.MyPosts =  json.data ;
+    //If server response message same as Data Matched  
+     setPost(json.data);
+  })
+  .catch((error) => {
+    //Hide Loader 
+    console.error(error);
+  }); 
+
+  //let respJsone  =   resp.json(); 
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
@@ -31,7 +79,7 @@ function Home ({navigation}){
     try {
       const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
       let jsonuser = JSON.parse(userInfo);
-      console.log('HomePage',userInfo);
+    //  console.log('HomePage',userInfo);
       if (userInfo !== null) {
         setUser(jsonuser)
       }else{
@@ -674,369 +722,10 @@ function Home ({navigation}){
           </ListItem> 
           </ScrollView>
         </View>
-        <View style={{ marginHorizontal :10 ,
-          borderRadius: 10,
-          paddingHorizontal: 8 ,
-          paddingBottom : 15 ,
-          marginTop : 10}} >
-
-          <View
-          
-            style={{
-              backgroundColor: '#fff' ,
-              height: 300,
-              width: '100%',
-              borderRadius: 15,
-              padding: 10,
-              marginBottom :10
-            }}
-          >
-            <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',  
-            }}>
-              <Avatar rounded  
-              size="medium" source={require('../img/images/user_3.jpg')} />
-              <ListItem.Content >
-                <ListItem.Title> Chris  d </ListItem.Title>
-                <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
-              </ListItem.Content>
-
-              <ListItem.Content >
-                <Text  style={Styles.following}>+ Following</Text>
-              </ListItem.Content>
-            </ListItem>
-            <Text 
-            onPress={() => navigation.navigate('PostDetails') } 
-              style={{
-                fontFamily: "RobotoRegular",
-                fontSize: 12,
-                paddingBottom :5 ,
-                color: "#0D0E10",
-              }}
-            >
-              Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,
-            </Text>
-            <Image
-            onPress={() => navigation.navigate('PostDetails') } 
-              source={require("../img/images/1.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 130 }}
-            />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginRight: -40, marginTop: 10 }}
-            >
-
-              <View
-                style={{
-                  height: 66,
-                  width: 80,
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 120,
-                }}
-              >
-                <Text> Comment  3.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 100,
-                }}
-              >
-                <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
-              </View>
-            </ScrollView>
-          </View>
-
-          {/*end*/}
-
-          <View
-            style={{
-              backgroundColor: '#fff' ,
-              height: 300,
-              width: '100%',
-              borderRadius: 15,
-              padding: 10,
-              marginBottom :10
-            }}
-          >
-            <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',
-            }}>
-              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> Chris Jackson </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <Text
-            onPress={() => navigation.navigate('PostDetails') } 
-              style={{
-                fontFamily: "RobotoRegular",
-                fontSize: 12,
-                paddingBottom :5 ,
-                color: "#0D0E10",
-              }}
-            >
-              Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,
-            </Text>
-            <Image
-              source={require("../img/images/2.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 130 }}
-            />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginRight: -40, marginTop: 10 }}
-            >
-
-              <View
-                style={{
-                  height: 66,
-                  width: 80,
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 120,
-                }}
-              >
-                <Text> Comment  3.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 100,
-                }}
-              >
-                <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
-              </View>
-            </ScrollView>
-          </View>
-
-          {/*end*/}
-
-          <View
-            style={{
-              backgroundColor: '#fff' ,
-              height: 300,
-              width: '100%',
-              borderRadius: 15,
-              padding: 10,
-              marginBottom :10
-            }}
-          >
-            <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',
-            }}>
-              <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> Chris Jackson </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <Text
-            onPress={() => navigation.navigate('PostDetails') } 
-              style={{
-                fontFamily: "RobotoRegular",
-                fontSize: 12,
-                paddingBottom :5 ,
-                color: "#0D0E10",
-              }}
-            >
-              Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,
-            </Text>
-            <Image
-              source={require("../img/images/3.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 130 }}
-            />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginRight: -40, marginTop: 10 }}
-            >
-
-              <View
-                style={{
-                  height: 66,
-                  width: 80,
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 120,
-                }}
-              >
-                <Text> Comment  3.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 100,
-                }}
-              >
-                <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
-              </View>
-            </ScrollView>
-          </View>
-
-          {/*end*/}
-
-
-          <View
-            style={{
-              backgroundColor: '#fff' ,
-              height: 300,
-              width: '100%',
-              borderRadius: 15,
-              padding: 10,
-              marginBottom :10
-            }}
-          >
-            <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',
-            }}>
-              <Avatar rounded   size="medium" source={require('../img/images/user_2.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> Chris Jackson </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <Text
-            onPress={() => navigation.navigate('PostDetails') } 
-              style={{
-                fontFamily: "RobotoRegular",
-                fontSize: 12,
-                paddingBottom :5 ,
-                color: "#0D0E10",
-              }}
-            >
-              Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,
-            </Text>
-            <Image
-              source={require("../img/images/2.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 130 }}
-            />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginRight: -40, marginTop: 10 }}
-            >
-
-              <View
-                style={{
-                  height: 66,
-                  width: 80,
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 120,
-                }}
-              >
-                <Text> Comment  3.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 100,
-                }}
-              >
-                <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
-              </View>
-            </ScrollView>
-          </View>
-
-          {/*end*/}
-
-          <View
-            style={{
-              backgroundColor: '#fff' ,
-              height: 300,
-              width: '100%',
-              borderRadius: 15,
-              padding: 10,
-              marginBottom :10
-            }}
-          >
-            <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',
-            }}>
-              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> Chris Jackson </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <Text
-            onPress={() => navigation.navigate('PostDetails') } 
-              style={{
-                fontFamily: "RobotoRegular",
-                fontSize: 12,
-                paddingBottom :5 ,
-                color: "#0D0E10",
-              }}
-            >
-              Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,
-            </Text>
-            <Image
-              source={require("../img/images/3.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 130 }}
-            />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginRight: -40, marginTop: 10 }}
-            >
-
-              <View
-                style={{
-                  height: 66,
-                  width: 80,
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like  4.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 120,
-                }}
-              >
-                <Text> Comment  3.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 100,
-                }}
-              >
-                <Text style={{ color : '#1c81b0'}} > Share 4.5k </Text>
-              </View>
-            </ScrollView>
-          </View>
-
-          {/*end*/}
+        <View style={{ marginHorizontal :10 , borderRadius: 10,   paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
+          {/* Item start  */}
+              <FlatList data={MyPosts} renderItem={({item})=><this.ChildView Childcaption={item.caption}/>} />
+          {/*Item end*/} 
         </View>
       </ScrollView>
   );
