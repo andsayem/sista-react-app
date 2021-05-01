@@ -23,43 +23,30 @@ const Toast = ({ visible, message }) => {
 
 
 function Newpost({navigation}) { 
-  const [caption, setCaption] = useState(false);
+  const [post_caption, setCaption] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState(false);
-  const [successText, setSuccesstext] = useState(false);  
+  const [successText, setSuccesstext] = useState(false);   
+  useEffect(() => setSuccesstext(false), [successText]);  
+  useEffect(() => setErrortext(false), [errortext]);
+
   useEffect(()=>{
     setErrortext(false);
-  })
-  const handleSubmitButton = () => {   
-    
+    setSuccesstext(false);
+  },[handleSubmitButton])
+  const handleSubmitButton = () => {    
     setErrortext(false);
-    if (!caption) { 
+    if (!post_caption) { 
       setErrortext({message : 'Please fill caption'});  
       return;
+    }else{
+      setSuccesstext(false);
     }
-    // if (!userEmail) {
-    //   setErrortext({message : 'Please fill Email'}); 
-    //   return;
-    // }
-    // if (!userPassword) {
-    //   setErrortext({message : 'Please fill Password'});   
-    //   return;
-    // } 
-    // if (!userAge) {
-    //   setErrortext({message : 'Please fill age'});  
-    //   return;
-    // }
-    // if (!userZipcode) {
-    //   setErrortext({message : 'Please fill Zip Code'}); 
-    //   return;
-    // }
-    
-    //Show Loader
     setLoading(true); 
     var dataToSend = { 
       user_id: 1,
       post_type: 1,
-      caption: 'dsfgdgdfg',
+      caption: post_caption,
       cat_id: 1,
       background_id : 1,
       font_style: 'small',
@@ -82,7 +69,8 @@ function Newpost({navigation}) {
         console.log('newpost_res',responseJson); 
         // If server response message same as Data Matched
         if (responseJson.success === true) { 
-          setSuccesstext({message:'Registration Successful. Please Login to proceed'}); 
+          setSuccesstext({message:'Post Submit Successful'}); 
+          setCaption('');
           // navigation.replace('Login')
         } else {
           // setErrortext(responseJson.msg);
@@ -122,7 +110,9 @@ function Newpost({navigation}) {
           </ListItem>     
              <View style={styles.textAreaContainer} >
                 <TextInput
-                  onChangeText={(caption) => setCaption(caption)} 
+                  onChangeText={(post_caption) => setCaption(post_caption)} 
+                  value={post_caption}
+                  blurOnSubmit={true}
                   style={styles.textArea}
                   underlineColorAndroid="transparent"
                   placeholder="Type something"
