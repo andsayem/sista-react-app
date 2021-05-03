@@ -28,7 +28,7 @@ ChildView=({ ItemData ,Shortcaption})=>{
     <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
      {Shortcaption} 
     </Text>
-    <Image onPress={() => navigation.navigate('PostDetails') }  source={require("../img/images/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
+    <Image onPress={() => navigation.navigate('PostDetails') }   source={{uri: ItemData.file }}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
     <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
       <View style={{   height: 66,  width: 80, }}  >
         <Text style={{ color : '#a21919'}}> Like {ItemData.like}  </Text>
