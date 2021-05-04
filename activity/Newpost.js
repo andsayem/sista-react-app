@@ -5,6 +5,7 @@ import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , Header } from 'react-native-elements'; 
 import Styles from "../styles";
 import PostNextButton from "../navigation/PostNextButton";
+import DropDownPicker from 'react-native-dropdown-picker';
 import Loader from '../components/Loader'; 
  
 const Toast = ({ visible, message }) => {
@@ -24,9 +25,11 @@ const Toast = ({ visible, message }) => {
 
 function Newpost({navigation}) { 
   const [post_caption, setCaption] = useState(false);
+  const [category, setCategories] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState(false);
   const [successText, setSuccesstext] = useState(false);   
+  
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
 
@@ -47,7 +50,7 @@ function Newpost({navigation}) {
       user_id: 1,
       post_type: 1,
       caption: post_caption,
-      cat_id: 1,
+      cat_id: category,
       background_id : 1,
       font_style: 'small',
       font_size: 12,
@@ -71,6 +74,7 @@ function Newpost({navigation}) {
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
           setCaption('');
+          setCategories('');
           // navigation.replace('Login')
         } else {
           // setErrortext(responseJson.msg);
@@ -119,6 +123,25 @@ function Newpost({navigation}) {
                   placeholderTextColor="grey" 
                   multiline={true}
                 />
+                </View> 
+                <View > 
+                </View> 
+                <View >
+                <DropDownPicker
+                  items={[
+                        {label: 'Test Cat', value: '1'},
+                        {label: 'Test Cat 2', value: '2'},
+                        {label: 'Test Cat 3', value: '3'},
+                        {label: 'Test Cat 4', value: '4'},
+                    ]} 
+                    placeholder="Select category"
+                    containerStyle={{height: 40, width:280}}
+                    style={Styles.DropDown} 
+                    itemStyle={{ justifyContent: 'flex-start'}}
+                    dropDownStyle={{backgroundColor: '#fafafa'}}
+                    onChangeItem={item => setCategories(item.value)}  
+                    value={setCategories}
+              /> 
               </View>      
          
           <ListItem > 
@@ -164,8 +187,7 @@ function Newpost({navigation}) {
              onPress={handleSubmitButton} 
               style={Styles.journalBtn}
               activeOpacity={0.5} >
-              <Text style={Styles.journalText} 
-              
+              <Text style={Styles.journalText}               
               >Submit</Text>
             </TouchableOpacity>  
           </ListItem>
