@@ -61,7 +61,7 @@ function Home ({navigation}){
   const [MyPosts, setPost] = useState(''); 
 fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => response.json())
   .then((json) => {
-    console.log('response', json.data); 
+    //console.log('response', json.data); 
     this.MyPosts =  json.data ;
     //If server response message same as Data Matched  
      setPost(json.data);
