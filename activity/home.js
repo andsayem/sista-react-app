@@ -27,8 +27,8 @@ ChildView=({ ItemData ,Shortcaption})=>{
     </ListItem>
     <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
      {Shortcaption} 
-    </Text>
-    <Image onPress={() => navigation.navigate('PostDetails') }   source={{uri: ItemData.file }}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
+    </Text> 
+    <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData ? {uri: ItemData.file } : null}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
     <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
       <View style={{   height: 66,  width: 80, }}  >
         <Text style={{ color : '#a21919'}}> Like {ItemData.like}  </Text>
@@ -58,11 +58,11 @@ const Toast = ({ visible, message }) => {
 };
  
 function Home ({navigation}){ 
-  const [MyPosts, setPost] = useState(''); 
+  const [MyPosts, setPost] = useState([]); 
 fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => response.json())
   .then((json) => {
     //console.log('response', json.data); 
-    this.MyPosts =  json.data ;
+     this.MyPosts =  json.data ;
     //If server response message same as Data Matched  
      setPost(json.data);
   })
@@ -75,6 +75,7 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
+  const [getCats, setCats] = useState([]);
   const readData = async () => {
     try {
       const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
@@ -98,11 +99,32 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
       setErrortext({ message: 'Failed to save the data to the storage' });  
     }
   }
+  const getCategories = async => {
+    fetch('http://sista.abdulmazidcse.com/api/post_categories', {
+      method: 'GET',  
+      })
+      .then((response) => response.json())
+      .then((responseJson) => { 
+        setCats(responseJson.data); 
+      })
+  };
   useEffect(() => {
     readData();
   },[]) 
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
+  useEffect(() => getCategories(false)); 
+
+  const list = [
+    {
+      title: 'Appointments',
+      icon: 'av-timer'
+    },
+    {
+      title: 'Trips',
+      icon: 'flight-takeoff'
+    }, 
+  ];
   return (
       <ScrollView >
         <Header
@@ -125,7 +147,7 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
               paddingEnd : 20 , 
               marginRight : 5,
               marginTop: 1 }}
-          >
+              >
             <ListItem > 
               <ListItem.Content 
                 style={{ 
@@ -194,8 +216,6 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
 
               </ListItem.Content>
             </ListItem>
-
-
             <ListItem > 
               <ListItem.Content 
                 style={{ 
@@ -264,7 +284,6 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
 
               </ListItem.Content>
             </ListItem>
-
             <ListItem > 
               <ListItem.Content 
                 style={{ 
@@ -401,8 +420,6 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
 
               </ListItem.Content>
             </ListItem>
-
-
             <ListItem > 
               <ListItem.Content 
                 style={{ 
@@ -471,7 +488,6 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
 
               </ListItem.Content>
             </ListItem>
-
             <ListItem > 
               <ListItem.Content 
                 style={{ 
@@ -539,16 +555,14 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
                 Calefornia</Text>
 
               </ListItem.Content>
-            </ListItem>
-
-         
+            </ListItem>         
           </ScrollView>
         </View>
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
         <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false} 
-          >
+            >
             <ListItem style={{ marginBottom: -10}} > 
                     <ListItem.Content  >
                       <Text  style={Styles.box_title} >
@@ -559,15 +573,14 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
         </ScrollView>
             
          
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginRight: -30}}
-          >
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginRight: -30}}
+        >
             <ListItem style={{ padding : 0 , margin : 0}} > 
               <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
+              <TouchableOpacity              
               style={{ 
                 justifyContent: "center",
                 height: 66,
@@ -575,7 +588,7 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
                 borderRadius: 50,
                 backgroundColor: "#ff5c83", 
               }}
-            > 
+              > 
               <Icon  
                 color='#FFFFFF' 
                 name='book' />  
@@ -584,142 +597,27 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
               </ListItem.Content>
             </ListItem>
 
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
+            <ListItem >  
+            { getCats.map((item, i) => (
+            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
+              <TouchableOpacity              
+                style={{ 
+                  justifyContent: "center",
+                  height: 66,
+                  width: 66,
+                  borderRadius: 50,
+                  backgroundColor: "#EEEEEE", 
+                }}
+              > 
               <Icon  
                 color='#000000' 
-                name='list' />  
+                name={item.cat_image} />  
             </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >Poetry</Text>
+            <Text style={{ textAlign : 'center' , width : '100%'}} >{item.cat_name}</Text>
               </ListItem.Content>
+            ))
+            }
             </ListItem>
-
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
-              <Icon  
-                color='#000000' 
-                name='duo' />  
-            </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width :66}} > videos</Text>
-              </ListItem.Content>
-            </ListItem> 
-
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
-              <Icon  
-                color='#000000' 
-                name='dvr' />  
-            </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : 66}} >Quotes</Text>
-              </ListItem.Content>
-            </ListItem>
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
-              <Icon  
-                color='#000000' 
-                name='leaderboard' />  
-            </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >Support</Text>
-              </ListItem.Content>
-            </ListItem>
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
-              <Icon  
-                color='#000000' 
-                name='list' />  
-            </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >Poetry</Text>
-              </ListItem.Content>
-            </ListItem>
-
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
-              <Icon  
-                color='#000000' 
-                name='duo' />  
-            </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width :66}} > videos</Text>
-              </ListItem.Content>
-            </ListItem> 
-
-            <ListItem > 
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity
-              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#EEEEEE", 
-              }}
-            > 
-              <Icon  
-                color='#000000' 
-                name='dvr' />  
-            </TouchableOpacity> 
-          </ListItem.Content>
-          </ListItem> 
           </ScrollView>
         </View>
         <View style={{ marginHorizontal :10 , borderRadius: 10,   paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 

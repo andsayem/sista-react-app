@@ -21,9 +21,7 @@ const Toast = ({ visible, message }) => {
     return null;
   }
   return null;
-};
-
-
+}; 
 function Newpost({navigation}) { 
   const [post_caption, setCaption] = useState(false);
   const [category, setCategories] = useState(false);
@@ -32,10 +30,11 @@ function Newpost({navigation}) {
   const [successText, setSuccesstext] = useState(false);   
   const [index, setIndex] = useState(0);
   const [photo, setPhoto] = useState(null);
+  const [getCats, setCats] = useState([]);
 
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
-
+  useEffect(() => getCategories(false));  
   useEffect(()=>{
     setErrortext(false);
     setSuccesstext(false);
@@ -105,6 +104,18 @@ function Newpost({navigation}) {
         console.log('response---------');
       }
     });
+  };
+  const getCategories = async => {
+    fetch('http://sista.abdulmazidcse.com/api/post_categories', {
+      method: 'GET',  
+      })
+      .then((response) => response.json())
+      .then((responseJson) => { 
+        setCats(responseJson.data);
+
+        console.log('getCatss', getCats);
+        console.log('newpost_res',responseJson.data);  
+      })
   };
   ChildViewEliment=()=>{
     if(index == 0){
@@ -217,12 +228,7 @@ function Newpost({navigation}) {
                 </View> 
                 <View >
                 <DropDownPicker
-                  items={[
-                        {label: 'Test Cat', value: '1'},
-                        {label: 'Test Cat 2', value: '2'},
-                        {label: 'Test Cat 3', value: '3'},
-                        {label: 'Test Cat 4', value: '4'},
-                    ]} 
+                  items={getCats.map(item=> ({label:item.cat_name,value:item.id}))}  
                     placeholder="Select category"
                     containerStyle={{height: 50, width:'100%'}}
                     style={Styles.DropDown} 
