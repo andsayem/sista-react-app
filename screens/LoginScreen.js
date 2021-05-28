@@ -6,7 +6,9 @@ import {
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
+import axios from 'axios';
 const STORAGE_KEY = 'save_user';
+const TOKEN = 'token';
 
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -55,52 +57,88 @@ function LoginScreen({ navigation }) {
       setLoading(false);
     }
 
-    let dataToSend = { email: userEmail, password: userPassword };
-    let formBody = [];
-    for (let key in dataToSend) {
-      let encodedKey = encodeURIComponent(key);
-      let encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    formBody = formBody.join('&');
-
-    fetch('http://sista.abdulmazidcse.com/api/auth/login', {
-      method: 'POST',
-      body: formBody,
-      headers: {
-        //Header Defination
-        'Content-Type':
-          'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log('response', json); 
-        //If server response message same as Data Matched
-        if (json.status === 1) {
-          setLoginData(json);
-          setLoading(true);
-          setErrortext(false); 
-          console.log('getData', json.message); 
-        } else {
-          setLoading(false);
-          setErrortext({ message: json.message });
-        }
+    // let dataToSend = { email: userEmail, password: userPassword };
+    // let formBody = [];
+    // for (let key in dataToSend) {
+    //   let encodedKey = encodeURIComponent(key);
+    //   let encodedValue = encodeURIComponent(dataToSend[key]);
+    //   formBody.push(encodedKey + '=' + encodedValue);
+    // }
+   // formBody = formBody.join('&');
+     axios.post('https://sista.abdulmazidcse.com/api/auth/login',
+     {
+      email: userEmail ,
+      password: userPassword 
+     },
+     {
+          headers: {
+              "Content-Type": "application/json", 
+          },
       })
-      .catch((error) => {
-        //Hide Loader
+      .then((res) => { 
+        let userData  = res.data ;   
+        saveToken(userData.access_token);
+          //AsyncStorage.setItem(STORAGE_KEY, userData.user);
         setLoading(false);
-        console.error(error);
+        
+         // setItems( res.data.data); 
+      }).catch(function (error) {
+        console.log('=========OUT========');
+        console.log(error);
+        setLoading(false);
       });
+
+
+
+    // fetch('http://sista.abdulmazidcse.com/api/auth/login', {
+    //   method: 'POST',
+    //   body: formBody,
+    //   headers: {
+    //     //Header Defination
+    //     'Content-Type':
+    //       'application/x-www-form-urlencoded;charset=UTF-8',
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     console.log('response', json); 
+    //     //If server response message same as Data Matched
+    //     if (json.status === 1) {
+    //       setLoginData(json);
+    //       setLoading(true);
+    //       setErrortext(false); 
+    //       console.log('getData', json.message); 
+    //     } else {
+    //       setLoading(false);
+    //       setErrortext({ message: json.message });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     //Hide Loader
+    //     setLoading(false);
+    //     console.error(error);
+    //   });
   };
 
-
-
+  const saveToken = async (token) =>{ 
+    try { 
+      console.log('token ==============');
+      console.log(token);
+      await AsyncStorage.setItem(TOKEN, JSON.stringify(token)); 
+      navigation.replace('Tabs') 
+      setSuccesstext({ message:'Data successfully saved' }); 
+    } catch (e) { 
+      setErrortext({ message: 'Failed to save the data to the storage' }); 
+    }
+  }
+ 
   const saveData = async () => {
     try {
       console.log('1232sdxfd',loginData)
-      let test =  JSON.stringify(loginData);
-      await AsyncStorage.setItem(STORAGE_KEY, test)
+      let userData =  JSON.stringify(loginData);
+      await AsyncStorage.setItem(TOKEN, loginData.access_token)
+     
+      await AsyncStorage.setItem(STORAGE_KEY, userData)
       setSuccesstext({ message:'Data successfully saved' }); 
     } catch (e) {
       console.log('successfullyerror', e);
@@ -108,15 +146,15 @@ function LoginScreen({ navigation }) {
     }
   }
   const readData = async () => {
-    try {
-      const user = await AsyncStorage.getItem(STORAGE_KEY);
-      let jsonuser = JSON.parse(user)
-      if (user !== null) {
-        setUserData(jsonuser)
-      }
-    } catch (e) {
-      setErrortext({ message: 'Failed to save the data to the storage' });  
-    }
+    // try {
+    //   const user = await AsyncStorage.getItem(STORAGE_KEY);
+    //   let jsonuser = JSON.parse(user)
+    //   if (user !== null) {
+    //     setUserData(jsonuser)
+    //   }
+    // } catch (e) {
+    //   setErrortext({ message: 'Failed to save the data to the storage' });  
+    // }
   } 
 
   useEffect(() => {

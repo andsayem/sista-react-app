@@ -23,65 +23,20 @@ function Profile ({navigation}){
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
   const readData = async () => {
-    try {
-      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-      let jsonuser = JSON.parse(userInfo); 
-      if (userInfo !== null) {
-        setUser(jsonuser.user);
-        console.log('profile',jsonuser.user);
-      }else{
-        navigation.replace('Login')
-      }
-    } catch (e) {
-      setErrortext({ message: 'Failed to save the data to the storage' }); 
-    }
-  } 
-  const clearStorage = async () => {
-    try {
-      await AsyncStorage.clear()
-      navigation.replace('Login')
-      setSuccesstext({ message:'Storage successfully cleared!' }); 
-    } catch (e) {
-      setErrortext({ message: 'Failed to save the data to the storage' });  
-    }
+ 
+  }  
+  const clearStorage = async () => { 
+    await  AsyncStorage.removeItem('token')
+    navigation.replace('Login')
+    // try {
+    //    AsyncStorage.clear()
+    //   navigation.replace('Login')
+    //   setSuccesstext({ message:'Storage successfully cleared!' }); 
+    // } catch (e) {
+    //   setErrortext({ message: 'Failed to save the data to the storage' });  
+    // }
   }
-  const getData = () => {
-    fetch('http://sista.abdulmazidcse.com/api/auth/login', { 
-      method: 'POST',
-      body: JSON.stringify({
-        tokens: "john@example.org", 
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }, 
-    }) 
-    .then((response) => response.json())
-    .then((json) => {
-      console.log('response', json); 
-      echo.connector.options.auth.headers.Authorization =
-          "Bearer " + tokens.access_token;
-      echo.private("chats.1").listen("ChatMessageCreated", (ev) =>
-          console.log(ev.message.text)
-      );
-
-      //If server response message same as Data Matched
-      if (json.status === 1) {
-        setLoginData(json);
-        setLoading(true);
-        setErrortext(false); 
-        console.log('getData', json.message); 
-      } else {
-        setLoading(false);
-        setErrortext({ message: json.message });
-      }
-    })
-    .catch((error) => {
-      //Hide Loader
-      setLoading(false);
-      console.error(error);
-    });
-  }
+  
   useEffect(() => {
     readData(); 
   },[]) 

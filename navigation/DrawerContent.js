@@ -90,8 +90,8 @@ export function DrawerContent(props){
           label="Privacy Policy" 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
-          label="Logout" 
+          onPress={()=>{props.navigation.navigate('Login')}} 
+          label="Login" 
         />
       </Drawer.Section>
     
