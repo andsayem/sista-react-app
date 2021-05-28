@@ -12,7 +12,8 @@ import api from '../api';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 
-const likeSubmitButton = (postid) => {    
+const likeSubmitButton = (postid) => {   
+  console.log('tes===========================' ,postid); 
   // console.log('postid', postid);
   // var dataToSend = { 
   //   user_id: 40,
@@ -69,7 +70,7 @@ ChildView=({ ItemData ,Shortcaption})=>{
     <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
       
       <TouchableOpacity
-          onPress={likeSubmitButton(ItemData.id)}  
+       
           activeOpacity={0.5} >
           <View style={{   height: 66,  width: 80, }}  >
             <Text style={{ color : '#a21919'}}> Like {ItemData.like}  {ItemData.id}  </Text>
@@ -184,7 +185,7 @@ function Home ({navigation}){
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} />
-          <Text style={Styles.box_title} >
+          <Text style={Styles.box_title}     onClick={likeSubmitButton('11')}  >
             Events
           </Text> 
           <ScrollView
