@@ -9,6 +9,30 @@ import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';  
 const STORAGE_KEY = 'save_user';
 
+const likeSubmitButton = (postid) => {    
+  console.log('postid', postid);
+  var dataToSend = { 
+    user_id: 40,
+    post_id: postid,
+    comm_id: 0, 
+  };  
+  fetch('http://sista.abdulmazidcse.com/api/all_likes', {
+    method: 'POST', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dataToSend) 
+    })
+    .then((response) => response.json())
+    .then((responseJson) => { 
+      console.log('newpost_res',responseJson);  
+    })
+    .catch((error) => { 
+      console.error(error);
+    });
+}; 
+
 // MyPosts =[
 //   { caption : 'Lorem impsum dolor sit amet, consectetuer adipscing elit,  consectetuer adipscing elit,' ,  created_at : '2021-04-30 08:46:08' }, 
 // ];
@@ -30,9 +54,14 @@ ChildView=({ ItemData ,Shortcaption})=>{
     </Text> 
     <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData ? {uri: ItemData.file } : null}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
     <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
-      <View style={{   height: 66,  width: 80, }}  >
-        <Text style={{ color : '#a21919'}}> Like {ItemData.like}  </Text>
-      </View>
+      
+      <TouchableOpacity
+          onPress={likeSubmitButton(ItemData.id)}  
+          activeOpacity={0.5} >
+          <View style={{   height: 66,  width: 80, }}  >
+            <Text style={{ color : '#a21919'}}> Like {ItemData.like}  {ItemData.id}  </Text>
+          </View>
+      </TouchableOpacity>  
       <View  style={{   height: 66, width: 120,    }} >
         <Text> Comment {ItemData.comment} </Text>
       </View>
@@ -59,7 +88,7 @@ const Toast = ({ visible, message }) => {
  
 function Home ({navigation}){ 
   const [MyPosts, setPost] = useState([]); 
-fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => response.json())
+  fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => response.json())
   .then((json) => {
     //console.log('response', json.data); 
      this.MyPosts =  json.data ;
@@ -107,7 +136,7 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
       .then((responseJson) => { 
         setCats(responseJson.data); 
       })
-  };
+  }; 
   useEffect(() => {
     readData();
   },[]) 
@@ -115,16 +144,6 @@ fetch('https://sista.abdulmazidcse.com/api/post_datas').then((response) => respo
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => getCategories(false)); 
 
-  const list = [
-    {
-      title: 'Appointments',
-      icon: 'av-timer'
-    },
-    {
-      title: 'Trips',
-      icon: 'flight-takeoff'
-    }, 
-  ];
   return (
       <ScrollView >
         <Header
