@@ -72,12 +72,10 @@ function Home ({navigation}){
       //     setItems( res.data.data); 
       // }).catch(function (error) {
       //   console.log(error);
-      // });
-
-      api.getData()
+      // }); 
+      api.getData('post_datas')
       .then((res)=>{
-          setItems( res.data.data); 
-          console.log(res)
+          setItems( res.data.data);  
       })
       .catch((error) => {
           console.log(error)
@@ -112,14 +110,23 @@ function Home ({navigation}){
   //   // }
   // }
   const getCategories = async => {
-    fetch('http://sista.abdulmazidcse.com/api/post_categories', {
-      method: 'GET',  
-      })
-      .then((response) => response.json())
-      .then((responseJson) => { 
-        setCats(responseJson.data); 
-      })
+    api.getData('post_categories')
+    .then((res)=>{
+      setCats( res.data.data);  
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    // fetch('http://sista.abdulmazidcse.com/api/post_categories', {
+    //   method: 'GET',  
+    //   })
+    //   .then((response) => response.json())
+    //   .then((responseJson) => { 
+    //     setCats(responseJson.data); 
+    //   })
   };
+ 
   useEffect(() => {
     readData();
   },[]) 

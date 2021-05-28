@@ -124,7 +124,7 @@ function LoginScreen({ navigation }) {
     try { 
       console.log('token ==============');
       console.log(token);
-      await AsyncStorage.setItem(TOKEN, JSON.stringify(token)); 
+      await AsyncStorage.setItem(TOKEN, token ); 
       navigation.replace('Tabs') 
       setSuccesstext({ message:'Data successfully saved' }); 
     } catch (e) { 
