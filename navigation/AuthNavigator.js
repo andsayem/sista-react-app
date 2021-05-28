@@ -42,7 +42,7 @@ const MainStackNavigator = () => {
   );
 }
 
-const ContactStackNavigator = () => {
+const StackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Contact" component={Journaladd} />
@@ -50,4 +50,4 @@ const ContactStackNavigator = () => {
   );
 }
 
-export { MainStackNavigator, ContactStackNavigator };
+export { MainStackNavigator, StackNavigator };

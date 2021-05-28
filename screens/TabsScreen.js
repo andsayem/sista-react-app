@@ -10,27 +10,28 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from "react-native-elements"; 
 import NewListingButton from "../navigation/NewListingButton";
 import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
-const STORAGE_KEY = 'save_user'; 
+const STORAGE_KEY = 'save_user';
+const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
 
 function TabsScreen ({navigation,props}){ 
-  const [user, setUser] = useState('');
-  const readData = async () => {
-    try {
-      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-      let jsonuser = JSON.parse(userInfo)
-      if (userInfo !== null) {
-        setUser(jsonuser)
-      }else{
-        navigation.replace('Login')
-      }
-    } catch (e) {
-      alert('Failed to fetch the data from storage')
-    }
-  } 
-  useEffect(() => {
-    readData();
-  }, [])
+  // const [user, setUser] = useState('');
+  // const readData = async () => {
+  //   try {
+  //     const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
+  //     let jsonuser = JSON.parse(userInfo)
+  //     if (userInfo !== null) {
+  //       setUser(jsonuser)
+  //     }else{
+  //       navigation.replace('Login')
+  //     }
+  //   } catch (e) {
+  //     alert('Failed to fetch the data from storage')
+  //   }
+  // } 
+  // useEffect(() => {
+  //   readData();
+  // }, [])
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Home" component={MainStackNavigator}   
@@ -44,6 +45,7 @@ function TabsScreen ({navigation,props}){
           <Tab.Screen name="Chats" component={Chats} 
            options={{
             headerShown : true,
+            tabBarBadge: '+9',
             tabBarLabel: 'Chats',
             tabBarIcon: ({ color, size }) => (
                 <Icon name='chat' />
