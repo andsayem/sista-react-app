@@ -13,27 +13,37 @@ const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 
 const likeSubmitButton = (postid) => {    
-  console.log('postid', postid);
-  var dataToSend = { 
-    user_id: 40,
-    post_id: postid,
-    comm_id: 0, 
-  };  
-  fetch('http://sista.abdulmazidcse.com/api/all_likes', {
-    method: 'POST', 
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataToSend) 
-    })
-    .then((response) => response.json())
-    .then((responseJson) => { 
-      console.log('newpost_res',responseJson);  
-    })
-    .catch((error) => { 
-      console.error(error);
-    });
+  // console.log('postid', postid);
+  // var dataToSend = { 
+  //   user_id: 40,
+  //   post_id: postid,
+  //   comm_id: 0, 
+  // }; 
+  let post_id  = 11 ; 
+  api.getData('postlike/'+ post_id)
+  .then((res)=>{
+      setItems( res.data.data);  
+  })
+  .catch((error) => {
+      console.log(error)
+  })
+
+
+  // fetch('http://sista.abdulmazidcse.com/api/all_likes', {
+  //   method: 'POST', 
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(dataToSend) 
+  //   })
+  //   .then((response) => response.json())
+  //   .then((responseJson) => { 
+  //     console.log('newpost_res',responseJson);  
+  //   })
+  //   .catch((error) => { 
+  //     console.error(error);
+  //   });
 }; 
 
 // MyPosts =[
