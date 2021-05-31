@@ -9,6 +9,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Loader from '../components/Loader'; 
 import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
+//import renderIf from './renderIf'
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -192,16 +193,16 @@ function Newpost({navigation}) {
           /> 
           <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
           <Toast visible={successText} message ={successText.message} />
-               
-           <ListItem>
-            <ListItem.Content>
-
-            <Image
-               source={{ uri: photo ?  photo.uri : '' }}
-              style={{ width: 300, height: 300 }}
-            />
-            </ListItem.Content> 
-          </ListItem>  
+              {photo.uri(     
+              <ListItem>
+                <ListItem.Content > 
+                <Image 
+                  source={{ uri: photo ?  photo.uri : '' }}
+                  style={{ width: 300, height: 300 }}
+                />
+                </ListItem.Content> 
+              </ListItem>  
+          )}
           <ListItem > 
               <ListItem.Content  > 
                   <ListItem.Content >

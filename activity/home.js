@@ -12,15 +12,8 @@ import api from '../api';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 
-const likeSubmitButton = (postid) => {   
-  console.log('tes===========================' ,postid); 
-  // console.log('postid', postid);
-  // var dataToSend = { 
-  //   user_id: 40,
-  //   post_id: postid,
-  //   comm_id: 0, 
-  // }; 
-  let post_id  = 11 ; 
+const likeSubmitButton = (postid) => {     
+  let post_id = 11 ;
   api.getData('postlike/'+ post_id)
   .then((res)=>{
       setItems( res.data.data);  
