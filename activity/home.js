@@ -66,14 +66,14 @@ ChildView=({ ItemData ,Shortcaption})=>{
        
           activeOpacity={0.5} >
           <View style={{   height: 66,  width: 80, }}  >
-            <Text style={{ color : '#a21919'}}> Like {ItemData.like}  {ItemData.id}  </Text>
+            <Text style={{ color : '#a21919'}}> <Icon  style={{paddingTop : 10}}  type='font-awesome' name="heart-o" size={15}  />  {ItemData.like}    </Text>
           </View>
       </TouchableOpacity>  
       <View  style={{   height: 66, width: 120,    }} >
-        <Text> Comment {ItemData.comment} </Text>
+        <Text> <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {ItemData.comment} </Text>
       </View>
       <View style={{  height: 66,  width: 100,  }}  >
-        <Text style={{ color : '#1c81b0'}} > Share {ItemData.share} </Text>
+        <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {ItemData.share} </Text>
       </View>
     </ScrollView>
   </View> 
@@ -250,10 +250,10 @@ function Home ({navigation}){
                 fontSize : 16}} >Poetry With Sista</Text>
                 <Text style={{
                   color : '#ffffff' , 
-                }} > 4:00 Pm</Text>
+                }} > <Icon color="#fff" style={{padding : 2 }}  type='font-awesome' name="clock-o" size={12}  /> 4:00 Pm</Text>
                 <Text  style={{
                   color : '#ffffff' , 
-                }} >Los Angeles,
+                }} > <Icon color="#fff" style={{padding : 2 }}  type='font-awesome' name="map-marker" size={12}  /> Los Angeles,
                 Calefornia</Text>
 
               </ListItem.Content>
