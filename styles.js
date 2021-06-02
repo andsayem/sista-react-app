@@ -6,7 +6,7 @@ module.exports={
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff', 
   },
 
   logo: {

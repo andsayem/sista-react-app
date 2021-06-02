@@ -1,8 +1,9 @@
 import React, { Component, useEffect, useState, createRef } from "react";
 import {
-  Image, Text, TextInput, TouchableOpacity, View, ToastAndroid, Button, StatusBar,
+  Image, Text, TextInput, ScrollView , TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
   Keyboard
 } from "react-native";
+import {Icon } from 'react-native-elements'; 
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
@@ -33,7 +34,45 @@ function LoginScreen({ navigation }) {
   const [userData, setUserData] = useState('');
   const [loginData, setLoginData] = useState('');
   const [visibleToast, setvisibleToast] = useState(false);
+  const [emailFocusStyle, setEmailInpuStyle] = useState({
+      backgroundColor:"#f8f8f8", 
+      iconColor : '#BABDC3'
+  });
+  const [passFocusStyle, setPassInpuStyle] = useState({
+    backgroundColor:"#f8f8f8", 
+    iconColor : '#BABDC3'
+});
   const onChangeText = userUser => setUser(userUser)
+
+  const onFocusEmail = () => {
+    setEmailInpuStyle({ 
+      backgroundColor:"#FF5D8F",
+      iconColor : "#fff",
+      inputColor : '#ffffff' 
+    });  
+  }
+  
+  const onBlurEmail = ()  => {
+    setEmailInpuStyle({ 
+      backgroundColor:"#f8f8f8", 
+      color : '#929292'
+    }); 
+  }
+
+  const onFocusPass = () => {
+    setPassInpuStyle({ 
+      backgroundColor:"#FF5D8F",
+      iconColor : "#fff",
+      inputColor : '#ffffff' 
+    });  
+  }
+
+  const onBlurPass = ()  => {
+    setPassInpuStyle({ 
+      backgroundColor:"#f8f8f8", 
+      color : '#929292'
+    }); 
+  }
 
   const passwordInputRef = createRef();
   const handleSubmitPress = () => {
@@ -56,15 +95,7 @@ function LoginScreen({ navigation }) {
     } else {
       setLoading(false);
     }
-
-    // let dataToSend = { email: userEmail, password: userPassword };
-    // let formBody = [];
-    // for (let key in dataToSend) {
-    //   let encodedKey = encodeURIComponent(key);
-    //   let encodedValue = encodeURIComponent(dataToSend[key]);
-    //   formBody.push(encodedKey + '=' + encodedValue);
-    // }
-   // formBody = formBody.join('&');
+ 
      axios.post('https://sista.abdulmazidcse.com/api/auth/login',
      {
       email: userEmail ,
@@ -86,38 +117,7 @@ function LoginScreen({ navigation }) {
         console.log('=========OUT========');
         console.log(error);
         setLoading(false);
-      });
-
-
-
-    // fetch('http://sista.abdulmazidcse.com/api/auth/login', {
-    //   method: 'POST',
-    //   body: formBody,
-    //   headers: {
-    //     //Header Defination
-    //     'Content-Type':
-    //       'application/x-www-form-urlencoded;charset=UTF-8',
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     console.log('response', json); 
-    //     //If server response message same as Data Matched
-    //     if (json.status === 1) {
-    //       setLoginData(json);
-    //       setLoading(true);
-    //       setErrortext(false); 
-    //       console.log('getData', json.message); 
-    //     } else {
-    //       setLoading(false);
-    //       setErrortext({ message: json.message });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     //Hide Loader
-    //     setLoading(false);
-    //     console.error(error);
-    //   });
+      }); 
   };
 
   const saveToken = async (token) =>{ 
@@ -187,66 +187,142 @@ function LoginScreen({ navigation }) {
   useEffect(() => setSuccesstext(false), [successtext]);  
   useEffect(() => setErrortext(false), [errortext]); 
 
-  return (
+  return ( 
+      <View style={Styles.container} >
+        <Loader loading={loading} />
+        <Text  style={Styles.title} >Login </Text>
+        <Text  style={Styles.sub_title} >To flourish your inner creativity</Text>
+        <Image style={Styles.logo} source={require('../img/Screenshot_1.png')} /> 
+        <Text  style={Styles.lebel} >E-mail address</Text> 
+          <View   style={{  flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center', 
+                            borderWidth: 1,
+                            borderColor: '#efefef',
+                            height:50,
+                            borderRadius:25, 
+                            margin: 10, 
+                            placeholderTextColor : 'red',
+                            backgroundColor : emailFocusStyle.backgroundColor ,
+                            color : emailFocusStyle.color }}> 
+          
+            <Icon  color={emailFocusStyle.iconColor} style={{padding : 10 }}  type='font-awesome' name="envelope-o" size={20}  />
+            <TextInput
+            onBlur={ () => onBlurEmail() }
+            onFocus={ () =>onFocusEmail() }
+            placeholderStyle={{ color : 'red'}}
+            style={{  
+              width :'75%' , 
+              placeholderTextColor :  emailFocusStyle.inputColor   , 
+              color :  emailFocusStyle.inputColor  }}
+              placeholder="tina@gmail.com"
+              placeholderTextColor="#707070"
+              onChangeText={(UserEmail) =>
+                setUserEmail(UserEmail)
+              }
+              tepe="email"
+              keyboardType="email-address"
+              returnKeyType="search"
+              onSubmitEditing={() =>
+                passwordInputRef.current &&
+                passwordInputRef.current.focus()
+              } 
+              blurOnSubmit={false} />
+            </View>
+        <Text
+          style={Styles.lebel} >Password</Text>
+        <View style={{  flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center', 
+                            borderWidth: 1,
+                            borderColor: '#efefef',
+                            height:50,
+                            borderRadius:25, 
+                            margin: 10, 
+                            placeholderTextColor : 'red',
+                            backgroundColor : passFocusStyle.backgroundColor ,
+                            color : passFocusStyle.color }}> 
+          
+          <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}    type='font-awesome' name="key" size={20}  />
+       
+            <TextInput 
+              style={{  
+                width :'65%' , 
+                placeholderTextColor :  passFocusStyle.inputColor   , 
+                color :  passFocusStyle.inputColor  }}
+              onChangeText={(UserPassword) =>
+                setUserPassword(UserPassword)
+              }
+              onBlur={ () => onBlurPass() }
+              onFocus={ () =>onFocusPass() }
+              placeholder="Enter password"
+              placeholderTextColor="#707070"
+              keyboardType="default"
+              ref={passwordInputRef}
+              onSubmitEditing={Keyboard.dismiss}
+              blurOnSubmit={false}
+              secureTextEntry={true}
+              returnKeyType="next" />
+            <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}   name="eye"  type='font-awesome' size={20}  />
+        </View>
+        <Text title="Forgot Password" onPress={() => navigation.navigate('Forgot_password')}
+          style={Styles.lebel_right} >Forgot password?</Text>
+        <Toast visible={errortext} message={errortext.message} />
+        <Toast visible={successtext} message={successtext.message} /> 
 
-    <View style={Styles.container} >
-      <Loader loading={loading} />
-      <Text
-        style={Styles.title} >Login </Text>
-      <Text
-        style={Styles.sub_title} >To flourish your inner creativity</Text>
-      <Image
-        style={Styles.logo}
-        source={require('../img/Screenshot_1.png')}
-      />
-      <Text
-        style={Styles.lebel} >E-mail address</Text> 
-      <TextInput
-        style={Styles.inputText}
-        placeholder="tina@gmail.com"
-        placeholderTextColor="#707070"
-        onChangeText={(UserEmail) =>
-          setUserEmail(UserEmail)
-        }
-        keyboardType="email-address"
-        returnKeyType="search"
-        onSubmitEditing={() =>
-          passwordInputRef.current &&
-          passwordInputRef.current.focus()
-        }
-        underlineColorAndroid="#f000"
-        blurOnSubmit={false} />
-      <Text
-        style={Styles.lebel} >Password</Text>
-      <TextInput
-        style={Styles.inputText}
-        onChangeText={(UserPassword) =>
-          setUserPassword(UserPassword)
-        }
-        placeholder="Enter password"
-        placeholderTextColor="#707070"
-        keyboardType="default"
-        ref={passwordInputRef}
-        onSubmitEditing={Keyboard.dismiss}
-        blurOnSubmit={false}
-        secureTextEntry={true}
-        returnKeyType="next" />
-      <Text title="Forgot Password" onPress={() => navigation.navigate('Forgot_password')}
-        style={Styles.lebel_right} >Forgot password?</Text>
-      <Toast visible={errortext} message={errortext.message} />
-      <Toast visible={successtext} message={successtext.message} /> 
+        <Text title="Register" onPress={() => navigation.navigate('Register')} style={Styles.signup}>Don't have any account? <Text style={styles2.signup}>Signup</Text></Text>
 
-      <Text title="Register" onPress={() => navigation.navigate('Register')} style={Styles.signup}>Don't have any account? Signup</Text>
+        <TouchableOpacity
+           
+          style={Styles.loginBtn}
+          activeOpacity={0.5}
+          onPress={handleSubmitPress}>
+          <Text style={Styles.loginText} >LOGIN</Text>
+        </TouchableOpacity> 
 
-      <TouchableOpacity
-        style={Styles.loginBtn}
-        activeOpacity={0.5}
-        onPress={handleSubmitPress}>
-        <Text style={Styles.loginText} >LOGIN</Text>
-      </TouchableOpacity>
-
-    </View>
+      </View>
   );
 }
 
 export default LoginScreen;
+const styles2 = StyleSheet.create({
+  SectionStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center', 
+    borderWidth: 0.5,
+    borderColor: '#000',
+    height:50,
+    borderRadius:25,
+    backgroundColor:"#f8f8f8",
+    margin: 10,
+    color:"black",
+    borderColor :'#efefef'
+},
+  inputStyle:{
+    width :'75%'
+  },
+  inputStylePass:{
+    width :'65%'
+  }, 
+   searchSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    leftIcon: {
+        padding: 10,
+        color :'#efefef'
+    },
+    rightIcon: {
+        padding: 10,
+        color :'#efefef'
+    },
+    signup : {
+      color : '#FF5D8F',
+      fontWeight :'bold'
+    }
+    
+})
