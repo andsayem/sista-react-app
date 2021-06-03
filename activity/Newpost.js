@@ -90,7 +90,9 @@ function Newpost({navigation}) {
         console.error(error);
       });
   }; 
-
+  // const handleTabs = (event) =>{
+  //   setIndex(event.nativeEvent.selectedSegmentIndex);
+  // }
   const handleChoosePhoto = () => {
     let options = {
       title: 'Select Image',
@@ -250,8 +252,11 @@ function Newpost({navigation}) {
               </View>      
          
      
-
-            <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={(event) =>  {  setIndex(event.nativeEvent.selectedSegmentIndex);  }}  />
+            <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={(event) =>  { 
+               setIndex(event.nativeEvent.selectedSegmentIndex); 
+               handleChoosePhoto() ;
+            }}  />  
+            {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}
             <Button title="Choose Photo" onPress={handleChoosePhoto} />
             { ChildViewEliment() } 
             <ListItem>
