@@ -11,34 +11,22 @@ import api from '../api';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 
-
-const Toast = ({ visible, message }) => {
-  if (visible) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50
-    );
-    return null;
-  }
-  return null;
-};
-
-const likeSubmitButton = (postid) => {    
-  console.log('tes===========================' ,postid);   
-  api.getData('postlike/'+ postid)
+const likeSubmitButton = (postid) => {   
+  console.log('tes===========================' ,postid);  
+  let post_id  = postid ; 
+  api.getData('postlike/'+ post_id)
   .then((res)=>{
-    alert(res.data.message);
-      console.log(res.data);  
+      console.log(res.data.data);  
   })
   .catch((error) => {
       console.log(error)
   }) 
 }; 
-const Item = ({ ItemData, Shortcaption }) => (
-  <View  style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
+
+ 
+ChildView=({ ItemData ,Shortcaption})=>{
+  return(
+    <View  style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
     <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
       <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
       <ListItem.Content >
@@ -53,33 +41,53 @@ const Item = ({ ItemData, Shortcaption }) => (
      {Shortcaption} 
     </Text> 
     <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData ? {uri: ItemData.file } : null}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
-   
-    <View  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
+    <ScrollView  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
       
       <TouchableOpacity
        
           activeOpacity={0.5} >
           <View style={{   height: 66,  width: 80, }}  >
-            <Text style={{ color : '#a21919'}}  onPress={() => likeSubmitButton(ItemData.id)} >Like {ItemData.like}  {ItemData.id}  </Text>
+            <Text style={{ color : '#a21919'}} > Like {ItemData.like}  {ItemData.id}  </Text>
           </View>
       </TouchableOpacity>  
       <View  style={{   height: 66, width: 120,    }} >
-        <Text> <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {ItemData.comment} </Text>
+        <Text> Comment {ItemData.comment} </Text>
       </View>
       <View style={{  height: 66,  width: 100,  }}  >
-        <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {ItemData.share} </Text>
+        <Text style={{ color : '#1c81b0'}} > Share {ItemData.share} </Text>
       </View>
-    </View>
+    </ScrollView>
   </View> 
-);
+  ) 
+}
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
  
 function Home ({navigation}){ 
   const [PostItems, setItems] = useState([]);  
+      api.getData('post_datas')
+      .then((res)=>{
+          setItems( res.data.data);  
+      })
+      .catch((error) => {
+          console.log(error)
+      })  
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
   const [getCats, setCats] = useState([]);
-   
+ 
   const getCategories = async => {
     api.getData('post_categories')
     .then((res)=>{
@@ -88,33 +96,37 @@ function Home ({navigation}){
     .catch((error) => {
         console.log(error)
     }) 
-  };  
-
-  const getPosts = () =>{
-    api.getData('post_datas')
-      .then((res)=>{
-          setItems( res.data.data);  
-          console.log('posts=====',res.data.data)
-      })
-      .catch((error) => {
-          console.log(error)
-      }) 
-  }
- 
+  }; 
+  
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
-  useEffect(() => getCategories(false),[getCats]); 
-  useEffect(() => getPosts(false),[PostItems]); 
- 
+  useEffect(() => getCategories(false)); 
 
-  const renderItem = ({ item }) => { 
-    return (
-      <Item
-        ItemData={item}  
-        keyExtractor={(item) => item.id} 
-      />
+  const likeSubmitButton = (postid) => {   
+    console.log('tes===========================' ,postid);  
+    Alert.alert(postid);
+    // api.getData('postlike/'+ postid)
+    // .then((res)=>{
+    //     console.log(res.data.data);  
+    // })
+    // .catch((error) => {
+    //     console.log(error)
+    // }) 
+  }; 
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Alert Title",
+      "My Alert Msg",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
     );
-  };
 
   return (
       <ScrollView>
@@ -126,8 +138,9 @@ function Home ({navigation}){
                 /> 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
         <Toast visible={errortext} message={errortext.message} />
-        <Toast visible={successtext} message={successtext.message} /> 
-          <Text style={Styles.box_title} >
+        <Toast visible={successtext} message={successtext.message} />
+        <Button title={"2-Button Alert"} onPress={likeSubmitButton('2')} />
+          <Text style={Styles.box_title} onPress={likeSubmitButton.bind('2')}>
             Events Alert
           </Text> 
           <ScrollView
@@ -199,10 +212,10 @@ function Home ({navigation}){
                 fontSize : 16}} >Poetry With Sista</Text>
                 <Text style={{
                   color : '#ffffff' , 
-                }} > <Icon color="#fff" style={{padding : 2 }}  type='font-awesome' name="clock-o" size={12}  /> 4:00 Pm</Text>
+                }} > 4:00 Pm</Text>
                 <Text  style={{
                   color : '#ffffff' , 
-                }} > <Icon color="#fff" style={{padding : 2 }}  type='font-awesome' name="map-marker" size={12}  /> Los Angeles,
+                }} >Los Angeles,
                 Calefornia</Text>
 
               </ListItem.Content>
@@ -610,11 +623,9 @@ function Home ({navigation}){
           </ScrollView>
         </View>
         <View style={{ marginHorizontal :10 , borderRadius: 10,   paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
-        <FlatList
-          data={PostItems}
-          renderItem={renderItem}
-          keyExtractor={(PostItems) => PostItems.id} 
-        />
+          {/* Item start  */}
+              <FlatList data={PostItems} renderItem={({item})=><ChildView Shortcaption={item.short_caption} ItemData={item} />} />
+          {/*Item end*/} 
         </View>
       </ScrollView>
   );

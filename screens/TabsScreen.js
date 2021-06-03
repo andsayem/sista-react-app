@@ -74,7 +74,7 @@ function TabsScreen ({navigation,props}){
             headerShown : true,
             tabBarLabel: 'Profile',
             tabBarIcon: ({ color, size }) => (
-                <Icon name='account' />
+                <Icon type='font-awesome' name='user' />
               )
           }}
            />

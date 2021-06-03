@@ -36,7 +36,7 @@ function RegisterScreen ({navigation,props}){
     const emailInputRef = createRef();
     const ageInputRef = createRef();
     const genderInputRef = createRef();
-    const zipcodeInputRef = createRef();``
+    const zipcodeInputRef = createRef();
     const passwordInputRef = createRef(); 
     useEffect(()=>{
       setErrortext(false);
