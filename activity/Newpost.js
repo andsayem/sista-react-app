@@ -218,6 +218,8 @@ function Newpost({navigation}) {
                   value={post_caption}
                   blurOnSubmit={true}
                   style={styles.textArea}
+                  ref={nameInputRef}
+                  returnKeyType="next"
                   underlineColorAndroid="transparent"
                   placeholder="Type something"
                   placeholderTextColor="grey" 
