@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState, createRef } from "react";
-import { View, Text , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text , SafeAreaView , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , Header } from 'react-native-elements'; 
@@ -9,6 +9,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Loader from '../components/Loader'; 
 import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
+import Textarea from 'react-native-textarea';
 import api from '../api';
 //import renderIf from './renderIf'
 const Toast = ({ visible, message }) => {
@@ -204,7 +205,7 @@ function Newpost({navigation}) {
           /> 
           <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
           <Toast visible={successText} message ={successText.message} />
-                    
+          
               <ListItem>
                 <ListItem.Content > 
                 <Image 
@@ -225,17 +226,20 @@ function Newpost({navigation}) {
               </ListItem.Content>  
           </ListItem>     
              <View style={styles.textAreaContainer} >
-                <TextInput
+                
+                <Textarea
                   onChangeText={(post_caption) => setCaption(post_caption)} 
                   value={post_caption}
                   blurOnSubmit={true}
-                  style={styles.textArea}
-                  ref={nameInputRef}
-                  returnKeyType="next"
-                  underlineColorAndroid="transparent"
-                  placeholder="Type something"
+                  containerStyle={styles.textareaContainer}
+                  style={styles.textarea}
+                  maxLength={1000}
+                  placeholder={'Type something。。。'}
                   placeholderTextColor="grey" 
+                  returnKeyType="next"
                   multiline={true}
+                  underlineColorAndroid="transparent"
+                  underlineColorAndroid={'transparent'}
                 />
                 </View> 
                 <View > 
@@ -255,8 +259,7 @@ function Newpost({navigation}) {
          
      
             <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={(event) =>  { 
-               setIndex(event.nativeEvent.selectedSegmentIndex); 
-               handleChoosePhoto() ;
+               setIndex(event.nativeEvent.selectedSegmentIndex);  
             }}  />  
             {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}
             <Button title="Choose Photo" onPress={handleChoosePhoto} />
@@ -283,7 +286,30 @@ const styles = StyleSheet.create({
   textArea: {
     height: 150, 
     
-  }
+  } ,
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+  },
+  container: {
+    flex: 1,
+    padding: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textareaContainer: {
+    height: 180,
+    padding: 5,
+    backgroundColor: '#F5FCFF',
+  },
+  textarea: {
+    textAlignVertical: 'top',  // hack android
+    height: 170,
+    fontSize: 14,
+    color: '#333',
+  },
+ 
 })
 
 export default Newpost;
