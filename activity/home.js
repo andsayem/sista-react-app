@@ -1,7 +1,5 @@
-
-
-import React, { Component, useEffect, useState} from "react";
-import { View, FlatList ,Text, Image, Alert , Button ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
+import React, { useEffect, useState} from "react";
+import { View, FlatList ,Text, Image, refreshControl, SafeAreaView, Alert , Button ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
@@ -9,76 +7,107 @@ import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';   
 import api from '../api';
 const STORAGE_KEY = 'save_user';
-const TOKEN = 'token'; 
-
-
-const Toast = ({ visible, message }) => {
-  if (visible) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50
-    );
-    return null;
-  }
-  return null;
-};
-
-const likeSubmitButton = (postid) => {    
-  console.log('tes===========================' ,postid);   
-  api.getData('postlike/'+ postid)
-  .then((res)=>{
-    alert(res.data.message);
-      console.log(res.data);  
-  })
-  .catch((error) => {
-      console.log(error)
-  }) 
-}; 
-const Item = ({ ItemData, Shortcaption }) => (
-  <View  style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
-    <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
-      <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
-      <ListItem.Content >
-        <ListItem.Title>  {ItemData.userjoin.name} </ListItem.Title>
-        <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
-      </ListItem.Content> 
-      <ListItem.Content >
-        <Text  style={Styles.following}>+ Following</Text>
-      </ListItem.Content>
-    </ListItem>
-    <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
-     {Shortcaption} 
-    </Text> 
-    <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData ? {uri: ItemData.file } : null}  style={{ width: '100%', borderRadius: 10, height: 130 }}   />
-   
-    <View  horizontal   showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
-      
-      <TouchableOpacity
-       
-          activeOpacity={0.5} >
-          <View style={{   height: 66,  width: 80, }}  >
-            <Text style={{ color : '#a21919'}}  onPress={() => likeSubmitButton(ItemData.id)} >Like {ItemData.like}  {ItemData.id}  </Text>
-          </View>
-      </TouchableOpacity>  
-      <View  style={{   height: 66, width: 120,    }} >
-        <Text> <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {ItemData.comment} </Text>
-      </View>
-      <View style={{  height: 66,  width: 100,  }}  >
-        <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {ItemData.share} </Text>
-      </View>
-    </View>
-  </View> 
-);
+const TOKEN = 'token';   
  
-function Home ({navigation}){ 
+const Home = ({navigation}) => { 
   const [PostItems, setItems] = useState([]);  
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
   const [getCats, setCats] = useState([]);
+  //
+  const [loading, setLoading] = useState(false);
+  const [dataSource, setDataSource] = useState([]);
+  const [offset, setOffset] = useState(1);
+  const [isListEnd, setIsListEnd] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+  //useEffect(() => getPosts(), []);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setItems(true);
+    getPosts();
+    setOffset(offset + 1); 
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
+
+  const wait = (timeout) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+      setItems(false);
+      getPosts();
+      setOffset(offset + 1); 
+    });
+  }
+  //
+
+  const Toast = ({ visible, message }) => {
+    if (visible) {
+      ToastAndroid.showWithGravityAndOffset(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+      return null;
+    }
+    return null;
+  };
+  
+  const likeSubmitButton = (postid) => {    
+    api.getData('postlike/'+ postid)
+    .then((res)=>{
+      alert(res.data.message);
+        console.log(res.data);  
+    })
+    .catch((error) => {
+        console.log(error)
+    }) 
+  }; 
+  const Item = ({ ItemData, Shortcaption }) => (
+    <View keyExtractor={'itm'+ItemData.id.toString()} style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
+      <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
+        <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
+        <ListItem.Content >
+          <ListItem.Title>  {ItemData.userjoin.name}  {ItemData.id}</ListItem.Title>
+          <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
+        </ListItem.Content> 
+        <ListItem.Content >
+          <Text  style={Styles.following}>+ Following</Text>
+        </ListItem.Content>
+      </ListItem>
+      <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
+       {Shortcaption} 
+      </Text>  
+      <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData.file ? {uri: ItemData.file } : null}  
+      style={{ width: '100%', borderRadius: 10, height: 130 }}   />
+     
+      <View  horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
+        
+        <TouchableOpacity      
+          onPress={() => likeSubmitButton(ItemData.id)}   
+            activeOpacity={0.5} >
+            <View style={{   height: 66,  width: 80, }} 
+            >
+            {ItemData.like ?
+              <Text style={{ color : '#a21919'}}  
+               >Unlike 
+              {ItemData.like}  {ItemData.id}  </Text>
+              : 
+              <Text style={{ color : '#a21919'}} >Like
+              {ItemData.like}  {ItemData.id}  </Text> }
+            </View>
+        </TouchableOpacity>   
+        <View  style={{   height: 66, width: 120}} >
+          <Text> Comment <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {ItemData.comment} </Text>
+        </View>
+        <View style={{  height: 66,  width: 100}}  >
+          <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {ItemData.share} </Text>
+        </View>
+      </View>
+    </View> 
+  );
    
   const getCategories = async => {
     api.getData('post_categories')
@@ -110,14 +139,15 @@ function Home ({navigation}){
   const renderItem = ({ item }) => { 
     return (
       <Item
-        ItemData={item}  
-        keyExtractor={(item) => item.id} 
+        ItemData={item}   
+        keyExtractor={(item) => 'rndItm'+item.id.toString()} 
       />
     );
   };
 
   return (
-      <ScrollView>
+      <SafeAreaView>
+        <ScrollView>
         <Header
             style={{ backgroundColor : 'red'}}
               leftComponent={<Icon color={colors.white} size={30} name='menu' onPress={() => navigation.toggleDrawer()} />}
@@ -154,13 +184,13 @@ function Home ({navigation}){
                   }}>
                 <View  
                 style={{ borderRadius : 8 ,
-                 backgroundColor : '#FFFFFF',
-                 height : 80 , 
-                 width : 55,
-                 paddingTop : 15,
-                 paddingLeft :6
-                 }} >
-                   <Text style ={{ fontSize : 14 , 
+                backgroundColor : '#FFFFFF',
+                height : 80 , 
+                width : 55,
+                paddingTop : 15,
+                paddingLeft :6
+                }} >
+                  <Text style ={{ fontSize : 14 , 
                     position : 'absolute' ,
                     fontWeight : 'bold',
                     alignItems : 'flex-end',
@@ -222,13 +252,13 @@ function Home ({navigation}){
                   }}>
                 <View  
                 style={{ borderRadius : 8 ,
-                 backgroundColor : '#FFFFFF',
-                 height : 80 , 
-                 width : 55,
-                 paddingTop : 15,
-                 paddingLeft :6
-                 }} >
-                   <Text style ={{ fontSize : 14 , 
+                backgroundColor : '#FFFFFF',
+                height : 80 , 
+                width : 55,
+                paddingTop : 15,
+                paddingLeft :6
+                }} >
+                  <Text style ={{ fontSize : 14 , 
                     position : 'absolute' ,
                     fontWeight : 'bold',
                     alignItems : 'flex-end',
@@ -290,13 +320,13 @@ function Home ({navigation}){
                   }}>
                 <View  
                 style={{ borderRadius : 8 ,
-                 backgroundColor : '#FFFFFF',
-                 height : 80 , 
-                 width : 55,
-                 paddingTop : 15,
-                 paddingLeft :6
-                 }} >
-                   <Text style ={{ fontSize : 14 , 
+                backgroundColor : '#FFFFFF',
+                height : 80 , 
+                width : 55,
+                paddingTop : 15,
+                paddingLeft :6
+                }} >
+                  <Text style ={{ fontSize : 14 , 
                     position : 'absolute' ,
                     fontWeight : 'bold',
                     alignItems : 'flex-end',
@@ -358,13 +388,13 @@ function Home ({navigation}){
                   }}>
                 <View  
                 style={{ borderRadius : 8 ,
-                 backgroundColor : '#FFFFFF',
-                 height : 80 , 
-                 width : 55,
-                 paddingTop : 15,
-                 paddingLeft :6
-                 }} >
-                   <Text style ={{ fontSize : 14 , 
+                backgroundColor : '#FFFFFF',
+                height : 80 , 
+                width : 55,
+                paddingTop : 15,
+                paddingLeft :6
+                }} >
+                  <Text style ={{ fontSize : 14 , 
                     position : 'absolute' ,
                     fontWeight : 'bold',
                     alignItems : 'flex-end',
@@ -426,13 +456,13 @@ function Home ({navigation}){
                   }}>
                 <View  
                 style={{ borderRadius : 8 ,
-                 backgroundColor : '#FFFFFF',
-                 height : 80 , 
-                 width : 55,
-                 paddingTop : 15,
-                 paddingLeft :6
-                 }} >
-                   <Text style ={{ fontSize : 14 , 
+                backgroundColor : '#FFFFFF',
+                height : 80 , 
+                width : 55,
+                paddingTop : 15,
+                paddingLeft :6
+                }} >
+                  <Text style ={{ fontSize : 14 , 
                     position : 'absolute' ,
                     fontWeight : 'bold',
                     alignItems : 'flex-end',
@@ -494,13 +524,13 @@ function Home ({navigation}){
                   }}>
                 <View  
                 style={{ borderRadius : 8 ,
-                 backgroundColor : '#FFFFFF',
-                 height : 80 , 
-                 width : 55,
-                 paddingTop : 15,
-                 paddingLeft :6
-                 }} >
-                   <Text style ={{ fontSize : 14 , 
+                backgroundColor : '#FFFFFF',
+                height : 80 , 
+                width : 55,
+                paddingTop : 15,
+                paddingLeft :6
+                }} >
+                  <Text style ={{ fontSize : 14 , 
                     position : 'absolute' ,
                     fontWeight : 'bold',
                     alignItems : 'flex-end',
@@ -609,14 +639,17 @@ function Home ({navigation}){
             </ListItem>
           </ScrollView>
         </View>
-        <View style={{ marginHorizontal :10 , borderRadius: 10,   paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
+        <View style={{ marginHorizontal :10 , borderRadius: 10, paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
         <FlatList
-          data={PostItems}
+          data={PostItems} 
+          keyExtractor={(PostItems, index) => 'fltl'+index.toString()} 
           renderItem={renderItem}
-          keyExtractor={(PostItems) => PostItems.id} 
-        />
+          onEndReached={getPosts}
+          onEndReachedThreshold={.05} 
+        />  
         </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
   );
 }
 export default Home;
