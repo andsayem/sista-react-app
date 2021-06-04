@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
@@ -6,7 +6,25 @@ import { ListItem, Avatar  } from 'react-native-elements';
 import BottomSheet from 'react-native-simple-bottom-sheet'; 
 import { Icon } from 'react-native-elements'
 import Styles from "../styles";
-function Chating({navigation}) {
+import api from '../api';
+function Chating({navigation, route}) {
+  const { item } = route.params;
+  const [senderId, setSenderId] = useState(null);
+  const [receiverId, setReceiverId] = useState(null);
+  const [getUser, setUser] = useState([]); 
+  //setSenderId(item);
+  //setSenderId(route.params);  
+  const user = async => { 
+    api.getData('users/'+route.params)
+      .then((res)=>{
+        setUser( res.data.data);  
+          console.log('users',res.data.data)
+      })
+      .catch((error) => {
+          //console.log(error)
+      }) 
+  }
+  useEffect(() => user(),[getUser]);  
     return (
       <ScrollView > 
         <View  style={{  paddingTop : 0  ,   backgroundColor: "#efefef",  }}  > 
@@ -17,7 +35,7 @@ function Chating({navigation}) {
                     }}>
                       <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
                       <ListItem.Content>
-                        <ListItem.Title> Amol Wadmalwar </ListItem.Title>
+                        <ListItem.Title> {getUser.name} </ListItem.Title>
                         <ListItem.Subtitle>Active</ListItem.Subtitle>
                       </ListItem.Content>
                     </ListItem>

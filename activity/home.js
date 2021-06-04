@@ -69,6 +69,34 @@ const Home = ({navigation}) => {
         //console.log(error)
     }) 
   }; 
+  
+   
+  const getCategories = async => {
+    api.getData('post_categories')
+    .then((res)=>{
+      setCats( res.data.data);  
+    })
+    .catch((error) => {
+        console.log(error)
+    }) 
+  };  
+
+  const getPosts = () =>{
+    api.getData('post_datas')
+      .then((res)=>{
+          setItems( res.data.data);  
+          //console.log('posts=====',res.data.data)
+      })
+      .catch((error) => {
+          //console.log(error)
+      }) 
+  }
+ 
+  useEffect(() => setSuccesstext(false), [successtext]); 
+  useEffect(() => setErrortext(false), [errortext]);
+  useEffect(() => getCategories(false),[getCats]); 
+  useEffect(() => getPosts(),[PostItems]); 
+ 
   const Item = ({ ItemData, onPress, likecount }) => (
     <View key={ItemData.id}
      style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
@@ -114,38 +142,10 @@ const Home = ({navigation}) => {
       </View>
     </View> 
   );
-   
-  const getCategories = async => {
-    api.getData('post_categories')
-    .then((res)=>{
-      setCats( res.data.data);  
-    })
-    .catch((error) => {
-        console.log(error)
-    }) 
-  };  
-
-  const getPosts = () =>{
-    api.getData('post_datas')
-      .then((res)=>{
-          setItems( res.data.data);  
-          console.log('posts=====',res.data.data)
-      })
-      .catch((error) => {
-          //console.log(error)
-      }) 
-  }
- 
-  useEffect(() => setSuccesstext(false), [successtext]); 
-  useEffect(() => setErrortext(false), [errortext]);
-  useEffect(() => getCategories(false),[getCats]); 
-  useEffect(() => getPosts(false),[PostItems]); 
- 
-
   const renderItem = ({ item }) => { 
-    console.log('renderItem',selectedId);
+    //console.log('renderItem',selectedId);
     const likeCount = item.id === selectedId ? item.like+1 : item.like;
-    console.log('likeCount',likeCount);
+    //console.log('likeCount',likeCount);
     return (
       <Item ItemData={item}
         onPress={() => setSelectedId(item.id)}
