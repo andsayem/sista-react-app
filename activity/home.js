@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { View, FlatList ,Text, Image, refreshControl, SafeAreaView, Alert , Button ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
+import { View, FlatList ,Text, Image, LogBox, refreshControl, SafeAreaView, Alert , Button ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import api from '../api';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';   
+//LogBox.ignoreAllLogs();
  
 const Home = ({navigation}) => { 
   const [PostItems, setItems] = useState([]);  
@@ -21,6 +22,7 @@ const Home = ({navigation}) => {
   const [offset, setOffset] = useState(1);
   const [isListEnd, setIsListEnd] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   //useEffect(() => getPosts(), []);
 
   const onRefresh = React.useCallback(() => {
@@ -55,21 +57,24 @@ const Home = ({navigation}) => {
     return null;
   };
   
-  const likeSubmitButton = (postid) => {    
-    api.getData('postlike/'+ postid)
+  const likeSubmitButton = (ItemData) => {    
+    console.log('likes======',ItemData)
+
+    api.getData('postlike/'+ ItemData.id)
     .then((res)=>{
       alert(res.data.message);
-        console.log(res.data);  
+        //console.log(res.data);  
     })
     .catch((error) => {
-        console.log(error)
+        //console.log(error)
     }) 
   }; 
-  const Item = ({ ItemData, Shortcaption }) => (
-    <View keyExtractor={'itm'+ItemData.id.toString()} style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
-      <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
+  const Item = ({ ItemData, onPress, likecount }) => (
+    <View key={ItemData.id}
+     style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
+      <ListItem key={ItemData.id+'avt'} style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
         <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
-        <ListItem.Content >
+        <ListItem.Content key={ItemData.id}>
           <ListItem.Title>  {ItemData.userjoin.name}  {ItemData.id}</ListItem.Title>
           <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
         </ListItem.Content> 
@@ -77,16 +82,17 @@ const Home = ({navigation}) => {
           <Text  style={Styles.following}>+ Following</Text>
         </ListItem.Content>
       </ListItem>
-      <Text  style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
-       {Shortcaption} 
+      <Text key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
+       ghdfgkjh
       </Text>  
       <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData.file ? {uri: ItemData.file } : null}  
       style={{ width: '100%', borderRadius: 10, height: 130 }}   />
      
-      <View  horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
-        
-        <TouchableOpacity      
-          onPress={() => likeSubmitButton(ItemData.id)}   
+      <View key={ItemData.id+'like-comment'} horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
+        {/* 
+          onPress={() => likeSubmitButton(ItemData)}  */}
+        <TouchableOpacity     
+          onPress={onPress}   
             activeOpacity={0.5} >
             <View style={{   height: 66,  width: 80, }} 
             >
@@ -96,7 +102,7 @@ const Home = ({navigation}) => {
               {ItemData.like}  {ItemData.id}  </Text>
               : 
               <Text style={{ color : '#a21919'}} >Like
-              {ItemData.like}  {ItemData.id}  </Text> }
+              {ItemData.like}  {ItemData.id} {likecount}</Text> }
             </View>
         </TouchableOpacity>   
         <View  style={{   height: 66, width: 120}} >
@@ -126,7 +132,7 @@ const Home = ({navigation}) => {
           console.log('posts=====',res.data.data)
       })
       .catch((error) => {
-          console.log(error)
+          //console.log(error)
       }) 
   }
  
@@ -137,11 +143,14 @@ const Home = ({navigation}) => {
  
 
   const renderItem = ({ item }) => { 
+    console.log('renderItem',selectedId);
+    const likeCount = item.id === selectedId ? item.like+1 : item.like;
+    console.log('likeCount',likeCount);
     return (
-      <Item
-        ItemData={item}   
-        keyExtractor={(item) => 'rndItm'+item.id.toString()} 
-      />
+      <Item ItemData={item}
+        onPress={() => setSelectedId(item.id)}
+        likecount={ likeCount.toString() }
+       />
     );
   };
 
@@ -150,7 +159,8 @@ const Home = ({navigation}) => {
         <ScrollView>
         <Header
             style={{ backgroundColor : 'red'}}
-              leftComponent={<Icon color={colors.white} size={30} name='menu' onPress={() => navigation.toggleDrawer()} />}
+              leftComponent={<Icon color={colors.white} size={30} name='menu' 
+              onPress={() => navigation.toggleDrawer()} />}
               centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
               rightComponent={{ icon: 'notifications', color: '#fff' }}
                 /> 
@@ -642,10 +652,11 @@ const Home = ({navigation}) => {
         <View style={{ marginHorizontal :10 , borderRadius: 10, paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
         <FlatList
           data={PostItems} 
-          keyExtractor={(PostItems, index) => 'fltl'+index.toString()} 
+          keyExtractor={(item, index) => item.index+'flt'+index} 
           renderItem={renderItem}
           onEndReached={getPosts}
-          onEndReachedThreshold={.05} 
+          onEndReachedThreshold={.55} 
+          extraData={selectedId}
         />  
         </View>
         </ScrollView>
