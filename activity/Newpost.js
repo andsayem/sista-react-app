@@ -11,6 +11,8 @@ import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Textarea from 'react-native-textarea';
 import RBSheet from "react-native-raw-bottom-sheet";
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
 import api from '../api';
 //import renderIf from './renderIf'
 const Toast = ({ visible, message }) => {
@@ -27,6 +29,8 @@ const Toast = ({ visible, message }) => {
   return null;
 }; 
 function Newpost({navigation}) { 
+  // bs =React.createRef();
+  // fall  = new Animated.value(1) ;
   const [post_caption, setCaption] = useState(false);
   const [category, setCategories] = useState(false);
   const [loading, setLoading] = useState(false);
