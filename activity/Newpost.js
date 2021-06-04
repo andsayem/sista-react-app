@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useState, createRef } from "react";
-import { View, Text , SafeAreaView , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { Component, useEffect, useRef , useState, createRef } from "react";
+import { View, Text , SafeAreaView , SectionList , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , Header } from 'react-native-elements'; 
@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Textarea from 'react-native-textarea';
+import RBSheet from "react-native-raw-bottom-sheet";
 import api from '../api';
 //import renderIf from './renderIf'
 const Toast = ({ visible, message }) => {
@@ -32,9 +33,9 @@ function Newpost({navigation}) {
   const [errortext, setErrortext] = useState(false);
   const [successText, setSuccesstext] = useState(false);   
   const [index, setIndex] = useState(0);
-  const [photo, setPhoto] = useState({uri : ""});
+  const [photo, setPhoto] = useState([]);
   const [getCats, setCats] = useState([]);
-
+  const refRBSheet = useRef();
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => getCategories(false));  
@@ -71,42 +72,28 @@ function Newpost({navigation}) {
       body: JSON.stringify(dataToSend) 
       })
       .then((response) => response.json())
-      .then((responseJson) => {
-        //Hide Loader
-        setLoading(false);
-        console.log('newpost_res',responseJson); 
-        // If server response message same as Data Matched
+      .then((responseJson) => { 
+        setLoading(false); 
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
           setCaption('');
-          setCategories('');
-          // navigation.replace('Login')
-        } else {
-          // setErrortext(responseJson.msg);
+          setCategories(''); 
+        } else { 
         }
       })
-      .catch((error) => {
-        //Hide Loader
-        setLoading(false);
-        console.error(error);
+      .catch((error) => { 
+        setLoading(false); 
       });
-  }; 
-  // const handleTabs = (event) =>{
-  //   setIndex(event.nativeEvent.selectedSegmentIndex);
-  // }
+  };  
   const handleChoosePhoto = () => {
     let options = {
       title: 'Select Image',
       noData: true,
       includeBase64: true
     };
-    launchImageLibrary(options, (response) => {
-      // console.log(response);
+    launchImageLibrary(options, (response) => { 
       if (response) {
-        setPhoto(response);
-        console.log('------response');
-        console.log(response);
-        console.log('response---------');
+        setPhoto(response); 
       }
     });
   };
@@ -117,18 +104,7 @@ function Newpost({navigation}) {
     })
     .catch((error) => {
         console.log(error)
-    })
-
-    // fetch('http://sista.abdulmazidcse.com/api/post_categories', {
-    //   method: 'GET',  
-    //   })
-    //   .then((response) => response.json())
-    //   .then((responseJson) => { 
-    //     setCats(responseJson.data);
-
-    //     console.log('getCatss', getCats);
-    //     console.log('newpost_res',responseJson.data);  
-    //   })
+    }) 
   };
   ChildViewEliment=()=>{
     if(index == 0){
@@ -206,15 +182,15 @@ function Newpost({navigation}) {
           <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
           <Toast visible={successText} message ={successText.message} />
           
+            
               <ListItem>
                 <ListItem.Content > 
                 <Image 
-                  source={{ uri: photo.uri ?  photo.uri : '' }}
-                  style={{  width: '100%', height: photo.uri  ? 300 : 0 }}
+                   source={photo ? {uri: photo.uri } : null}  
+                   style={{  width: '100%', height: photo.uri  ? 300 : 0 }}
                 />
                 </ListItem.Content> 
               </ListItem>  
-           
           <ListItem > 
               <ListItem.Content  > 
                   <ListItem.Content >
@@ -234,7 +210,7 @@ function Newpost({navigation}) {
                   containerStyle={styles.textareaContainer}
                   style={styles.textarea}
                   maxLength={1000}
-                  placeholder={'Type something。。。'}
+                  placeholder={'Type something...'}
                   placeholderTextColor="grey" 
                   returnKeyType="next"
                   multiline={true}
@@ -255,6 +231,38 @@ function Newpost({navigation}) {
                     onChangeItem={item => setCategories(item.value)}  
                     value={setCategories}
               /> 
+
+              <Button title="OPEN BOTTOM SHEET" onPress={() => refRBSheet.current.open()} />
+              <RBSheet
+                ref={refRBSheet}
+                
+                closeOnDragDown={true}
+                closeOnPressMask={false}
+                height={300}
+                openDuration={250}
+                customStyles={{
+                  container: {
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }
+                }}
+
+               
+              >
+                 <SectionList
+                    sections={[
+                      {title: 'Category', data: ['Cat 2', 'Dan v', 'Dominic']},
+                       
+                    ]}
+                    renderItem={({item}) => 
+                    <Text style={styles.item}>{item}</Text>}
+
+                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                    keyExtractor={(item, index) => index}
+                    onChangeItem={item =>  refRBSheet.close()  }  
+                  />
+                {/* <ChildViewEliment /> */}
+              </RBSheet>
               </View>      
          
      
@@ -309,7 +317,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
   },
- 
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
 })
 
 export default Newpost;
