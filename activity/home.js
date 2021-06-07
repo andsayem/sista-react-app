@@ -111,7 +111,7 @@ const Home = ({navigation}) => {
         </ListItem.Content>
       </ListItem>
       <Text key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
-       ghdfgkjh
+       
       </Text>  
       <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData.file ? {uri: ItemData.file } : null}  
       style={{ width: '100%', borderRadius: 10, height: 130 }}   />

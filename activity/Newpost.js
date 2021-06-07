@@ -1,8 +1,8 @@
 import React, { Component, useEffect, useRef , useState, createRef } from "react";
-import { View, Text , SafeAreaView , SectionList , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View , Text , SafeAreaView , SectionList , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , Header } from 'react-native-elements'; 
+import { ScrollView  } from "react-native-gesture-handler"; 
+import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements';   
 import Styles from "../styles";
 import PostNextButton from "../navigation/PostNextButton";
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -13,6 +13,7 @@ import Textarea from 'react-native-textarea';
 import RBSheet from "react-native-raw-bottom-sheet";
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
+import RadioButton from "react-native-animated-radio-button";
 import api from '../api';
 //import renderIf from './renderIf'
 const Toast = ({ visible, message }) => {
@@ -40,9 +41,11 @@ function Newpost({navigation}) {
   const [photo, setPhoto] = useState([]);
   const [getCats, setCats] = useState([]);
   const refRBSheet = useRef();
+  const [checked, setChecked] = React.useState('');
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => getCategories(false));  
+  
   useEffect(()=>{
     setErrortext(false);
     setSuccesstext(false);
@@ -225,7 +228,7 @@ function Newpost({navigation}) {
                 <View > 
                 </View> 
                 <View >
-                <DropDownPicker
+                {/* <DropDownPicker
                   items={getCats.map(item=> ({label:item.cat_name,value:item.id}))}  
                     placeholder="Select category"
                     containerStyle={{height: 50, width:'100%'}}
@@ -234,26 +237,32 @@ function Newpost({navigation}) {
                     dropDownStyle={{backgroundColor: '#fafafa'}}
                     onChangeItem={item => setCategories(item.value)}  
                     value={setCategories}
-              /> 
+              />  */}
 
-              <Button title="OPEN BOTTOM SHEET" onPress={() => refRBSheet.current.open()} />
+              <View>
+                <Text  style={styles.cat}  itemStyle={{ justifyContent: 'flex-start'}}   onPress={() => refRBSheet.current.open()}> Category </Text>
+              </View>
               <RBSheet
                 ref={refRBSheet}
-                
                 closeOnDragDown={true}
                 closeOnPressMask={false}
-                height={300}
+                height={400}
                 openDuration={250}
-                customStyles={{
-                  container: {
-                    justifyContent: "center",
-                    alignItems: "center"
-                  }
-                }}
-
-               
-              >
-                 <SectionList
+                >
+                   <Text style={styles.item}>Category</Text>
+                  { getCats.map((item, i) => ( 
+                    <View>
+                      <RadioButton
+                        value={item.id}
+                        animation={"bounceIn"}
+                        status={ checked === item.id  ? 'checked' : 'unchecked' }
+                        onPress={() => setCategories(item.id)}
+                      /> 
+                      <Text>{ item.cat_name }</Text>
+                    </View>
+                  ))
+                  }   
+                 {/* <SectionList
                     sections={[
                       {title: 'Category', data: ['Cat 2', 'Dan v', 'Dominic']},
                        
@@ -264,7 +273,7 @@ function Newpost({navigation}) {
                     renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
                     keyExtractor={(item, index) => index}
                     onChangeItem={item =>  refRBSheet.close()  }  
-                  />
+                  /> */}
                 {/* <ChildViewEliment /> */}
               </RBSheet>
               </View>      
@@ -335,6 +344,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  cat : {
+    textAlign: 'left', 
+    padding : 15, 
+    }
 })
 
 export default Newpost;
