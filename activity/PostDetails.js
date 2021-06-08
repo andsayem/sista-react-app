@@ -22,7 +22,7 @@ function PostDetails({navigation}) {
            
             <Image
               source={require("../img/images/3.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 130 }}
+              style={{ width: '100%', borderRadius: 10, height: 200 }}
             />
             <ScrollView
               horizontal
@@ -224,13 +224,7 @@ function PostDetails({navigation}) {
               </View>
             </ScrollView> 
           </View>
-          <BottomSheet isOpen>
-            <Text>Report</Text>  
-            <Text>Not Interested</Text>  
-            <Text>Copy Link</Text>  
-            <Text>Share To....</Text>  
-            <Text>Save</Text>   
-          </BottomSheet> 
+         
       </View>
     );
 }

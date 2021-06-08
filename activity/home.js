@@ -113,7 +113,7 @@ const Home = ({navigation}) => {
       <Text key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
        
       </Text>  
-      <Image onPress={() => navigation.navigate('PostDetails') } source={ItemData.file ? {uri: ItemData.file } : null}  
+      <Image onPress={() => navigation.navigate('PostDetails', {id: 69 }) } source={ItemData.file ? {uri: ItemData.file } : null}  
       style={{ width: '100%', borderRadius: 10, height: 130 }}   />
      
       <View key={ItemData.id+'like-comment'} horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
@@ -167,7 +167,7 @@ const Home = ({navigation}) => {
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} /> 
-          <Text style={Styles.box_title} >
+          <Text  onPress={() => navigation.navigate('PostDetails', {id: 69 }) } style={Styles.box_title} >
             Events Alert
           </Text> 
           <ScrollView
