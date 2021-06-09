@@ -148,8 +148,7 @@ function Chating({navigation, route}) {
             </ListItem.Content>
           </ListItem> 
           
-          <View style={styles.textAreaContainer} >
-                
+          <View style={styles.textAreaContainer} >                
                 <Textarea
                   onChangeText={(message) => setMessage(message)} 
                   value={message}

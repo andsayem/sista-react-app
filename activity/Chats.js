@@ -10,7 +10,7 @@ function Chats({navigation}) {
     const [getUsers, setUsers] = useState([]); 
     const [selectedId, setSelectedId] = useState(null);
     const getUser = () =>{
-      api.getData('users')
+      api.getData('conversation_list')
         .then((res)=>{
           setUsers( res.data.data);  
             //console.log('users',res.data.data)
@@ -39,7 +39,7 @@ function Chats({navigation}) {
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
-                <Avatar rounded   onPress={() => navigation.navigate('Chating',{ 
+                <Avatar rounded onPress={() => navigation.navigate('Chating',{ 
                   sender_id: ItemData.id,
                  }) }   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
