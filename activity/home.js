@@ -103,7 +103,7 @@ const Home = ({navigation}) => {
       <ListItem key={ItemData.id+'avt'} style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
         <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
         <ListItem.Content key={ItemData.id}>
-          <ListItem.Title>  {ItemData.userjoin.name}  {ItemData.id}</ListItem.Title>
+          <ListItem.Title>  {ItemData.userjoin.name}</ListItem.Title>
           <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
         </ListItem.Content> 
         <ListItem.Content >
@@ -127,10 +127,10 @@ const Home = ({navigation}) => {
             {ItemData.like ?
               <Text style={{ color : '#a21919'}}  
                >Unlike 
-              {ItemData.like}  {ItemData.id}  </Text>
+              {ItemData.like}</Text>
               : 
               <Text style={{ color : '#a21919'}} >Like
-              {ItemData.like}  {ItemData.id} {likecount}</Text> }
+              {ItemData.like}</Text> }
             </View>
         </TouchableOpacity>   
         <View  style={{   height: 66, width: 120}} >
