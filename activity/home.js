@@ -149,6 +149,7 @@ const Home = ({navigation}) => {
     return (
       <Item ItemData={item}
         onPress={() => setSelectedId(item.id)}
+        keyExtractor = {'itm'+item.id.toString()}
         likecount={ likeCount.toString() }
        />
     );
@@ -652,7 +653,7 @@ const Home = ({navigation}) => {
         <View style={{ marginHorizontal :10 , borderRadius: 10, paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
         <FlatList
           data={PostItems} 
-          keyExtractor={(item, index) => item.index+'flt'+index} 
+          keyExtractor={(PostItems, index) => PostItems.id+'flt'+index.toString()} 
           renderItem={renderItem}
           onEndReached={getPosts}
           onEndReachedThreshold={.55} 
@@ -663,5 +664,5 @@ const Home = ({navigation}) => {
       </SafeAreaView>
   );
 }
-export default Home;
+export default React.memo(Home);
 
