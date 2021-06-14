@@ -6,7 +6,9 @@ import { ListItem, Avatar  } from 'react-native-elements';
 import BottomSheet from 'react-native-simple-bottom-sheet'; 
 import { Icon } from 'react-native-elements'
 import Styles from "../styles";
-function PostDetails({navigation}) {
+function PostDetails({navigation,route}) {
+  const { item } = route.params;
+  const stripedHtml = item.description.replace(/<[^>]+>/g, '');
     return (
       <View  >
          <View

@@ -5,6 +5,7 @@ import Profile from '../activity/profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
 import Home from '../activity/home.js';
+import Posts from '../activity/Posts.js';
 import Newpost from '../activity/Newpost';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from "react-native-elements"; 
@@ -34,6 +35,14 @@ function TabsScreen ({navigation,props}){
   // }, [])
     return ( 
         <Tab.Navigator>
+          <Tab.Screen name="Posts" component={Posts}   
+            options={{
+              headerShown : false,
+              tabBarLabel: 'Posts',
+              tabBarIcon: ({ color, size }) => (
+                  <Icon name='home' />
+                )
+            }}/> 
           <Tab.Screen name="Home" component={MainStackNavigator}   
             options={{
               headerShown : false,
