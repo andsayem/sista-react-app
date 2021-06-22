@@ -35,7 +35,7 @@ function TabsScreen ({navigation,props}){
   // }, [])
     return ( 
         <Tab.Navigator>
-          <Tab.Screen name="Posts" component={Posts}   
+          <Tab.Screen name="Posts" component={MainStackNavigator}   
             options={{
               headerShown : false,
               tabBarLabel: 'Posts',
@@ -43,7 +43,7 @@ function TabsScreen ({navigation,props}){
                   <Icon name='home' />
                 )
             }}/> 
-          <Tab.Screen name="Home" component={MainStackNavigator}   
+          <Tab.Screen name="Home" component={Home}   
             options={{
               headerShown : false,
               tabBarLabel: 'Home',

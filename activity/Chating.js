@@ -10,7 +10,9 @@ import api from '../api';
 import Textarea from 'react-native-textarea';
 import post_api from '../post_api';
 function Chating({navigation, route}) {
-  const { sender_id } = route.params;
+  const { sender_id } = route.params.sender_id;
+  console.log('fffffffffffffffffffffffffffffffffffff =========================',route.params.sender_id)
+
   const [senderId, setSenderId] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
   const [message, setMessage] = useState(false);
@@ -19,6 +21,8 @@ function Chating({navigation, route}) {
   const [errortext, setErrortext] = useState(false);
   const [successText, setSuccesstext] = useState(false);   
   const [index, setIndex] = useState(0);
+  const [conversations, setConversations] = useState(0);
+  
   const Toast = ({ visible, message }) => {
     if (visible) {
       ToastAndroid.showWithGravityAndOffset(
@@ -32,11 +36,23 @@ function Chating({navigation, route}) {
     }
     return null;
   }; 
-  const user = async => { 
-    api.getData('users/'+sender_id)
+
+  const fatchData = async => {
+    api.getData('conversations?receiver_id='+sender_id)
+    .then((res)=>{
+      setPost( res.data.data); 
+      console.log('res.data.data',res.data.data); 
+    })
+    .catch((error) => {
+        console.log(error)
+    }) 
+  }; 
+
+  const convers = async => { 
+    api.getData('conversations/'+sender_id)
       .then((res)=>{
-        setUser( res.data.data);  
-        setSenderId(sender_id); 
+        setConversations( res.data.data);  
+        console.log('conversations',res.data.data)
       })
       .catch((error) => {
           //console.log(error)
@@ -65,7 +81,8 @@ function Chating({navigation, route}) {
           //console.log(error)
       }) 
   }
-  useEffect(() => user(false),[getUser]);  
+  useEffect(() => fatchData(false),[conversations]);  
+  useEffect(() => {convers()}, [conversations]);
   //useEffect(() => errortext(false),[setSuccesstext(false)]);   
     return (
       <ScrollView > 

@@ -81,16 +81,15 @@ class Posts extends Component {
         </View> 
         <Text numberOfLines={1} key={childData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} 
         note onPress={() => 
-            this.props.navigation.navigate('PostDetails')
+            this.props.navigation.navigate('PostDetails', {id: childData.id })
           }
            >{childData.caption}
         </Text> 
-        <Image onPress={() => navigation.navigate('PostDetails', {id: childData.id }) } source={childData.file ? {uri: childData.file } : null}  
+        <Image source={childData.file ? {uri: childData.file } : null}  
         style={{ width: '100%', borderRadius: 10, height: 130 }}   />
         <View> 
         <View style={{flex:30}}>
-          <Image style={{height:90,width:"100%"}} 
-          source={{uri:'https://speechbd.com/public/img/post/large_thumbnail/'+childData.featured_img}}/>
+          
           </View> 
           <TouchableOpacity onPress={() => this.likeSubmitButton(childData)} 
             activeOpacity={0.5} >
@@ -116,9 +115,10 @@ class Posts extends Component {
       </ScrollView>          
     )
   } 
-  handleLoadMore = () => { 
+  handleLoadMore = () => {  
     this.setState({page: this.state.page + 1},()=>{
-      this.fatchData();
+      //this.fatchData();
+
     })    
   } 
   renderFooter = () => { 

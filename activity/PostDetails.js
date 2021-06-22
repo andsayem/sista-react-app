@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
@@ -6,9 +6,26 @@ import { ListItem, Avatar  } from 'react-native-elements';
 import BottomSheet from 'react-native-simple-bottom-sheet'; 
 import { Icon } from 'react-native-elements'
 import Styles from "../styles";
+import api from '../api';
 function PostDetails({navigation,route}) {
-  const { item } = route.params;
-  const stripedHtml = item.description.replace(/<[^>]+>/g, '');
+  const { item } = route.params.id;
+  const [getPost, setPost] = useState(false);
+
+  const fatchData = async => {
+    api.getData('post_datas/'+route.params.id)
+    .then((res)=>{
+      setPost( res.data.data); 
+      console.log('res.data.data',res.data.data); 
+    })
+    .catch((error) => {
+        console.log(error)
+    }) 
+  };  
+  useEffect(() => {
+    fatchData();
+  }, []);
+  //useEffect(() => fatchData(false),[getPost]);
+  //const stripedHtml = item.description.replace(/<[^>]+>/g, '');
     return (
       <View  >
          <View
@@ -22,43 +39,10 @@ function PostDetails({navigation,route}) {
             }}
           >
            
-            <Image
-              source={require("../img/images/3.jpg")}
-              style={{ width: '100%', borderRadius: 10, height: 200 }}
-            />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginRight: -40, marginTop: 10 }}
-            >
-
-              <View
-                style={{
-                  height: 66,
-                  width: 80,
-                }}
-              >
-                <Text style={{ color : '#a21919'}}>  
-
-                 Like  4.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 120,
-                }}
-              >
-                <Text> Comment  3.5k </Text>
-              </View>
-              <View
-                style={{
-                  height: 66,
-                  width: 100,
-                }}
-              >
-                <Text style={{ color : '#1c81b0'}} > Share 7.5k </Text>
-              </View>
-            </ScrollView>
+          <Image source={getPost.file ? {uri: getPost.file } : null}  
+            style={{ width: '100%', borderRadius: 10, height: 200 }}   />
+             
+            
           </View>
           <View
               style={{
@@ -70,13 +54,16 @@ function PostDetails({navigation,route}) {
                 marginRight :20 
               }}
             >
+              <Text style={{ textAlign : 'center' , width : '100%'}} >{ getPost.caption }</Text>
              <ListItem style={{
               backgroundColor: "#FEFEFE",
               width: '100%',
             }}>
+              
               <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
+              
               <ListItem.Content>
-                <ListItem.Title> Chris Jackson </ListItem.Title>
+                <ListItem.Title>{ getPost.userjoin ? getPost.userjoin.name : ''} </ListItem.Title>
                 <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>

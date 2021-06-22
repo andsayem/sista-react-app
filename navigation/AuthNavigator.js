@@ -9,6 +9,7 @@ import PostDetails  from '../activity/PostDetails';
 import Chats from "../activity/Chats";
 import CongratulationResetPassword from '../activity/Congratulation_reset_password';
 import Home from '../activity/home.js'; 
+import Posts from '../activity/Posts.js';
 import Chating from "../activity/Chating";
 import Newpost_text from "../activity/Newpost_text";
 import Journaladd from "../activity/Journaladd";
@@ -25,11 +26,11 @@ const screenOptionStyle = {
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator > 
-      <Stack.Screen name="Welcome" component={Home} options={{ headerShown : false}} />
-      <Stack.Screen name="Chats" component={Chats} options={{ headerShown : true}} /> 
+      <Stack.Screen name="Welcome" component={Posts} options={{ headerShown : false}} /> 
+      <Stack.Screen name="Chats" component={Chats} options={{title:'', headerShown : true}} /> 
       <Stack.Screen name="Newpost_text" component={Newpost_text} options={{ headerShown : true}} /> 
       <Stack.Screen name="Chating" component={Chating} options={{ headerShown : true}} />
-      <Stack.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false , name : 'Add Journal '}} />
+      <Stack.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false, name : 'Add Journal '}} />
       <Stack.Screen name="PostDetails" component={PostDetails} options={{ headerShown : true}} />
       <Stack.Screen name="Login" component={LoginScreen}  options={{ headerShown : false}} />
       <Stack.Screen name="Register" component={RegisterScreen}  options={{ headerShown : false}} />

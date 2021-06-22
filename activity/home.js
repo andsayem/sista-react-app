@@ -106,14 +106,14 @@ const Home = ({navigation}) => {
           <ListItem.Title>  {ItemData.userjoin.name}</ListItem.Title>
           <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
         </ListItem.Content> 
-        <ListItem.Content >
+        <ListItem.Content onPress={()=>{navigation.navigate('PostDetails')}}>
           <Text  style={Styles.following}>+ Following</Text>
         </ListItem.Content>
       </ListItem>
-      <Text key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
-       
+      <Text onPress={() => this.navigation.navigate('PostDetails', {id: 69 }) } key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
+       Post details
       </Text>  
-      <Image onPress={() => navigation.navigate('PostDetails', {id: 69 }) } source={ItemData.file ? {uri: ItemData.file } : null}  
+      <Image  source={ItemData.file ? {uri: ItemData.file } : null}  
       style={{ width: '100%', borderRadius: 10, height: 130 }}   />
      
       <View key={ItemData.id+'like-comment'} horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 

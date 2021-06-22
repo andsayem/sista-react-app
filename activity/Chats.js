@@ -13,7 +13,7 @@ function Chats({navigation}) {
       api.getData('conversation_list')
         .then((res)=>{
           setUsers( res.data.data);  
-            //console.log('users',res.data.data)
+            console.log('users',res.data.data)
         })
         .catch((error) => {
             //console.log(error)
@@ -23,9 +23,9 @@ function Chats({navigation}) {
     const Allusers = ({ ItemData }) => (
       <View style={{ backgroundColor: '#fff' ,padding: 5  }} > 
           <Avatar  onPress={() => navigation.navigate('Chating',{ 
-                  sender_id: ItemData.id,
+                  sender_id: ItemData.sender_id,
                  }) }   rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-          <Text>{ItemData.name}</Text> 
+          <Text>{ItemData.name} {ItemData.sender_id}</Text> 
       </View> 
     );
     const renderAllUsers = ({ item }) => {   
@@ -40,10 +40,10 @@ function Chats({navigation}) {
                 width: '100%',
               }}>
                 <Avatar rounded onPress={() => navigation.navigate('Chating',{ 
-                  sender_id: ItemData.id,
+                  sender_id: ItemData.sender_id,
                  }) }   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
-                  <ListItem.Title>{ItemData.name}</ListItem.Title>
+                  <ListItem.Title>{ItemData.name} {ItemData.sender_id}  {ItemData.receiver_id}  {ItemData.show_id}</ListItem.Title>
                   <ListItem.Subtitle>hi dear, have u got the prom...</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
