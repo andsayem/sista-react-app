@@ -42,15 +42,7 @@ function TabsScreen ({navigation,props}){
               tabBarIcon: ({ color, size }) => (
                   <Icon name='home' />
                 )
-            }}/> 
-          <Tab.Screen name="Home" component={Home}   
-            options={{
-              headerShown : false,
-              tabBarLabel: 'Home',
-              tabBarIcon: ({ color, size }) => (
-                  <Icon name='home' />
-                )
-            }}/> 
+            }}/>  
           <Tab.Screen name="Chats" component={Chats} 
            options={{
             headerShown : true,
