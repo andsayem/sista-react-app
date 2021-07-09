@@ -5,8 +5,6 @@ import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'
 import Styles from "../styles"; 
 import Events from '../components/Events';
 import Categories from '../components/Categories';
-import Post from './Post';
-import { Alert } from 'react-native';
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -19,25 +17,26 @@ class Posts extends Component {
     //console.log('didlmount after')
     this.fatchData();
     //console.log('didlmount before')
-  }  
+  }    
+
   fatchData = () => { 
-    this.setState({isLoading:true})  
+    this.setState({isLoading:true}) 
+    let apiUrl = 'https://jsonplaceholder.typicode.com/posts'; 
     api.getData('post_datas')
     .then(response => response.data.data)
     .then(json => this.setState({items:json}))
     .finally( ()=>this.setState({isLoading: false})) 
   } 
-  renderRow2=({item, index})=>{  
-    const { liked, like, props } = item
+  renderRow=({item, index})=>{  
     return(
-      <ScrollView>
-        <View style={{ backgroundColor: '#fff', height: 310, width: '100%', borderRadius: 15, padding: 10, marginBottom :10  }} > 
-          <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-            <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-                <Avatar rounded size="medium" source={require('../img/images/user_3.jpg')} />
+      <ScrollView key={item.id.toString()}>
+        <View style={{ backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} > 
+          <View  style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
+            <ListItem style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
+                <Avatar rounded  size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content >
-                  <ListItem.Title> {item.userjoin.name} </ListItem.Title>
-                  <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
+                <ListItem.Title > {item.userjoin.name}</ListItem.Title>
+                <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
                 </ListItem.Content> 
                 <ListItem.Content >
                 <Text>+ Following</Text>
@@ -45,29 +44,28 @@ class Posts extends Component {
             </ListItem>             
           </View> 
           <View>
-            <Text numberOfLines={1}   
+            <Text numberOfLines={1} key={item.id+'dsc'} 
               style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} 
-              onPress = {()=> this.props.navigation.navigate('PostDetails', {id: item.id })}
-              >{item.caption}
+              note onPress={() => this.props.navigation.navigate('PostDetails', {id: item.id })}>{item.caption}
             </Text>   
           </View>
           <View> 
-            <Image source={ item.file ? {uri:  item.file } : null} 
+            <Image source={item.file ? {uri: item.file } : null} 
             style={{ width: '100%', borderRadius: 10, height: 130 }} />            
           </View>  
           <View style={{flex:30}}></View> 
           <View>
-            <TouchableOpacity onPress={() => this.props.onPressLike(this.props.index)}    
+            <TouchableOpacity onPress={this.likeSubmitButton.bind(this,item)} 
             activeOpacity={0.5} >
             <View style={{ height: 66,  width: 80, }} 
             >
-            { liked ?
+            {item.like ?
               <Text style={{ color : '#a21919'}}  
-              >Unlike 
-              { like}</Text>
+               >Unlike 
+              {item.like}</Text>
               : 
               <Text style={{ color : '#a21919'}} >Like
-              { like}</Text> }
+              {item.like}</Text> }
             </View>
             </TouchableOpacity>  
           </View>  
@@ -102,7 +100,7 @@ class Posts extends Component {
           {this.state.isLoading ? (
             <View> 
             <ActivityIndicator size="large" color="#0000ff" /> 
-            <Text style={styles.title}>Loading Data..</Text>
+            <Text style={styles.title}>Loading Data...dd</Text>
             </View>
           ) : (
             <View>  
@@ -118,72 +116,33 @@ class Posts extends Component {
     this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
       this.fatchData();
     })
-  } 
-  state = {                                                                                 
-    items: {}                                                                               
-    // Other states                                                                         
-  }  
-  renderRow = ({ item , index }) => { 
-    //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
-    const { liked, like, props } = item
-    return (
-      <Post
-        item= {item} 
-        index={index}
-        liked={liked}
-        like={like}  
-        onPressLike={this.handleLikePost}
-        onPressPostDetails={this.handlePostDetails}
-      />
-    )
-  }
-  handlePostDetails = id =>{ 
-    this.props.navigation.navigate('PostDetails', {id: id });
   }
 
-  handleLikePost = index => {     
-    let post = this.state.items[index] 
-    const { liked, like } = post 
-    const newPost = {
-      ...post,
-      liked: !liked,
-      like: liked ? post.like - 1 : post.like + 1
-    }
-
-    this.setState({
-      items: {
-        ...this.state.items,
-        [index]: newPost
-      }
-    })
-  }
-
-  //////
   render(){
     let {items, isLoading} = this.state;
     return(
-      <SafeAreaView>  
+      <SafeAreaView> 
+        
         <Header
             style={{ backgroundColor : 'red'}}
-            leftComponent={<Icon color={colors.white} size={30} name='menu' 
-            onPress={() => navigation.toggleDrawer()} />}
-            centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
-            rightComponent={{ icon: 'notifications', color: '#fff' }}
-        /> 
-
+              leftComponent={<Icon color={colors.white} size={30} name='menu' 
+              onPress={() => navigation.toggleDrawer()} />}
+              centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
+              rightComponent={{ icon: 'notifications', color: '#fff' }}
+                /> 
+        
         <Events/>  
         <Categories/>
          
-        <FlatList 
-          data={Object.values(this.state.items)}
-          renderItem={this.renderRow}
-          keyExtractor={(item , i) => item.id} 
-          refreshing={isLoading}
-          extraData={this.state}
-          ListFooterComponent={this.renderFooter}         
-          onEndReachedThreshold={0.5}
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          onRefresh={this.fatchData}      
+        <FlatList
+        data = {items}
+        renderItem={this.renderRow}
+        keyExtractor={(i,k)=>k.toString()}
+        refreshing={isLoading}
+        ListFooterComponent={this.renderFooter}         
+        onEndReachedThreshold={0.5}
+        onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+        onRefresh={this.fatchData}     
         /> 
       </SafeAreaView>
     )
