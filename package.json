@@ -37,6 +37,7 @@
     "react-native-image-slider-box": "^1.0.12",
     "react-native-material-design": "^0.3.7",
     "react-native-paper": "^4.9.2",
+    "react-native-radio-buttons-group": "^2.2.4",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^1.13.3",
     "react-native-safe-area-context": "^3.2.0",

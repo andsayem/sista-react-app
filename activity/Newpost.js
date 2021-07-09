@@ -41,7 +41,8 @@ function Newpost({navigation}) {
   const [photo, setPhoto] = useState([]);
   const [getCats, setCats] = useState([]);
   const refRBSheet = useRef();
-  const [checked, setChecked] = React.useState('');
+  const [checked, setChecked] = React.useState(''); 
+  const [value, setValue] = React.useState('first');
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => getCategories(false));  
@@ -240,41 +241,53 @@ function Newpost({navigation}) {
               />  */}
 
               <View>
-                <Text  style={styles.cat}  itemStyle={{ justifyContent: 'flex-start'}}   onPress={() => refRBSheet.current.open()}> Category </Text>
+                <Text  style={styles.cat_title}  itemStyle={{ justifyContent: 'flex-start'}}   onPress={() => refRBSheet.current.open()}> Category  
+                <Icon   style={{padding : 2 , textAlign : 'right' , right : 0 }}  type='font-awesome' name="angle-right" size={20}  />
+                </Text>
               </View>
               <RBSheet
                 ref={refRBSheet}
                 closeOnDragDown={true}
                 closeOnPressMask={false}
                 height={400}
-                openDuration={250}
+                openDuration={150}
                 >
                    <Text style={styles.item}>Category</Text>
+                    <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+                      <RadioButton.Item label="First item" value="first" />
+                      <RadioButton.Item label="Second item" value="second" />
+                    </RadioButton.Group>
+
                   { getCats.map((item, i) => ( 
-                    <View>
-                      <RadioButton
-                        value={item.id}
-                        animation={"bounceIn"}
-                        status={ checked === item.id  ? 'checked' : 'unchecked' }
-                        onPress={() => setCategories(item.id)}
-                      /> 
-                      <Text>{ item.cat_name }</Text>
+                    <View> 
+                      <ListItem >
+                          <ListItem.Content>
+                            <Text> 
+                              <RadioButton
+                                style={styles.radio}
+                                value={item.id} 
+                                status={ checked === item.id  ? 'checked' : 'unchecked' }
+                                onPress={() => setCategories(item.id)} /> 
+                                
+                                { item.cat_name }
+                            </Text>
+                          </ListItem.Content>
+                      </ListItem>
+                      {/* <View style={{ width : 50}}>
+                        <RadioButton
+                          value={item.id}
+                          animation={"bounceIn"}
+                          status={ checked === item.id  ? 'checked' : 'unchecked' }
+                          onPress={() => setCategories(item.id)}
+                        />  
+                      </View>
+                      <View style={{ width : 100}}>
+                        <Text>{ item.cat_name }</Text>
+                      </View>  */}
                     </View>
                   ))
                   }   
-                 {/* <SectionList
-                    sections={[
-                      {title: 'Category', data: ['Cat 2', 'Dan v', 'Dominic']},
-                       
-                    ]}
-                    renderItem={({item}) => 
-                    <Text style={styles.item}>{item}</Text>}
-
-                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-                    keyExtractor={(item, index) => index}
-                    onChangeItem={item =>  refRBSheet.close()  }  
-                  /> */}
-                {/* <ChildViewEliment /> */}
+            
               </RBSheet>
               </View>      
          
@@ -330,24 +343,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
   },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-  cat : {
+ 
+  cat_title : {
     textAlign: 'left', 
-    padding : 15, 
-    }
+    padding : 15,  
+    width : '100%'
+    },
+  radio : {
+    fontSize : 10
+  }
 })
 
 export default Newpost;
