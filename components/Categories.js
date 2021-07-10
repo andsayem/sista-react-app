@@ -33,21 +33,9 @@ const Categories = () => {
     useEffect(() => setSuccesstext(false), [successtext]); 
     useEffect(() => setErrortext(false), [errortext]);
     useEffect(() => getCategories(false),[getCats]); 
-    return (
-        <ScrollView > 
+    return ( 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
-        <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false} 
-            >
-            <ListItem style={{ marginBottom: -10}} > 
-                    <ListItem.Content  >
-                      <Text  style={Styles.box_title} >
-                        Category
-                      </Text>
-                    </ListItem.Content>
-            </ListItem>
-        </ScrollView>
+        
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -94,8 +82,7 @@ const Categories = () => {
             }
             </ListItem>
           </ScrollView>
-        </View>
-         </ScrollView>
+        </View> 
     );
 };
 

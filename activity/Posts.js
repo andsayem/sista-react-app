@@ -16,9 +16,9 @@ class Posts extends Component {
       };  
   }
   componentDidMount() {
-    //console.log('didlmount after')
+    console.log('didlmount after')
     this.fatchData();
-    //console.log('didlmount before')
+    console.log('didlmount before')
   }  
   fatchData = () => { 
     this.setState({isLoading:true})  
@@ -26,76 +26,10 @@ class Posts extends Component {
     .then(response => response.data.data)
     .then(json => this.setState({items:json}))
     .finally( ()=>this.setState({isLoading: false})) 
-  } 
-  renderRow2=({item, index})=>{  
-    const { liked, like, props } = item
-    return(
-      <ScrollView>
-        <View style={{ backgroundColor: '#fff', height: 310, width: '100%', borderRadius: 15, padding: 10, marginBottom :10  }} > 
-          <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-            <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-                <Avatar rounded size="medium" source={require('../img/images/user_3.jpg')} />
-                <ListItem.Content >
-                  <ListItem.Title> {item.userjoin.name} </ListItem.Title>
-                  <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
-                </ListItem.Content> 
-                <ListItem.Content >
-                <Text>+ Following</Text>
-                </ListItem.Content>
-            </ListItem>             
-          </View> 
-          <View>
-            <Text numberOfLines={1}   
-              style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} 
-              onPress = {()=> this.props.navigation.navigate('PostDetails', {id: item.id })}
-              >{item.caption}
-            </Text>   
-          </View>
-          <View> 
-            <Image source={ item.file ? {uri:  item.file } : null} 
-            style={{ width: '100%', borderRadius: 10, height: 130 }} />            
-          </View>  
-          <View style={{flex:30}}></View> 
-          <View>
-            <TouchableOpacity onPress={() => this.props.onPressLike(this.props.index)}    
-            activeOpacity={0.5} >
-            <View style={{ height: 66,  width: 80, }} 
-            >
-            { liked ?
-              <Text style={{ color : '#a21919'}}  
-              >Unlike 
-              { like}</Text>
-              : 
-              <Text style={{ color : '#a21919'}} >Like
-              { like}</Text> }
-            </View>
-            </TouchableOpacity>  
-          </View>  
-          <View  style={{   height: 66, width: 120}} >
-            <Text> Comment <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {item.comment} </Text>
-          </View>
-          <View style={{  height: 66,  width: 100}}  >
-            <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {item.share} </Text>
-          </View>    
-        </View>  
-      </ScrollView>          
-    )
-  } 
+  }   
   handleLoadMore = () => {  
     this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
-  } 
-  likeSubmitButton = (ItemData) => {    
-    console.log('likes======',ItemData)
-
-    api.getData('postlike/'+ ItemData.id)
-    .then((res)=>{
-      alert(res.data.message);
-        //console.log(res.data);  
-    })
-    .catch((error) => {
-        //console.log(error)
-    }) 
-  }; 
+  }  
   renderFooter = () => { 
     return(  
         <View>  
@@ -109,8 +43,7 @@ class Posts extends Component {
               {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}>No more Data...</Text>)} 
             </View>
           )}
-        </View>
-      
+        </View> 
     );
   }
   handleOnRefresh = () => { 
@@ -136,8 +69,8 @@ class Posts extends Component {
         onPressPostDetails={this.handlePostDetails}
       />
     )
-  }
-  handlePostDetails = id =>{ 
+  } 
+  handlePostDetails = (id) => {
     this.props.navigation.navigate('PostDetails', {id: id });
   }
 

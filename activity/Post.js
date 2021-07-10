@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import { StyleSheet, Text, Button, TouchableOpacity, View,Image, ScrollView } from 'react-native'; 
 import { ListItem, Avatar, Icon } from 'react-native-elements';   
+//import moment from "moment";
 class Post extends  React.Component{      
     constructor(props) {
       super(props);  
@@ -14,16 +15,16 @@ class Post extends  React.Component{
     }                                                                                 
   
     render() { 
-      console.log('Post = props',this.props.item);                 
+      //console.log('Post = props',this.props.item);                 
       return (                                                                        
-        <ScrollView>
+        <ScrollView keyExtractor={(item , i) => item.id} >
           <View style={{ backgroundColor: '#fff', height: 310, width: '100%', borderRadius: 15, padding: 10, marginBottom :10  }} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
               <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
                   <Avatar rounded size="medium" source={require('../img/images/user_3.jpg')} />
                   <ListItem.Content >
                     <ListItem.Title> {this.props.item.userjoin.name} </ListItem.Title>
-                    <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
+                    <ListItem.Subtitle>  54 mins ago</ListItem.Subtitle>
                   </ListItem.Content> 
                   <ListItem.Content >
                   <Text>+ Following</Text>
@@ -47,12 +48,10 @@ class Post extends  React.Component{
               <View style={{ height: 66,  width: 80, }} 
               >
               {this.props.liked ?
-                <Text style={{ color : '#a21919'}}  
-                >Unlike 
-                {this.props.like}</Text>
+                <Text style={{ color : '#a21919'}}>Unlike {this.props.like}</Text>
                 : 
-                <Text style={{ color : '#a21919'}} >Like
-                {this.props.like}</Text> }
+                <Text style={{ color : '#a21919'}}>Like {this.props.like ? 0 : ''}</Text> 
+              }
               </View>
               </TouchableOpacity>  
             </View>  
