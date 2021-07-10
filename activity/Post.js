@@ -50,7 +50,8 @@ class Post extends  React.Component{
               {this.props.liked ?
                 <Text style={{ color : '#a21919'}}>Unlike {this.props.like}</Text>
                 : 
-                <Text style={{ color : '#a21919'}}>Like {this.props.like ? 0 : ''}</Text> 
+                <Text style={{ color : '#a21919'}}>Like 
+                {this.props.like  == '0'? '' : this.props.like }   </Text> 
               }
               </View>
               </TouchableOpacity>  
