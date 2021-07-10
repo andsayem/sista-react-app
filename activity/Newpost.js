@@ -250,14 +250,8 @@ function Newpost({navigation}) {
                 closeOnDragDown={true}
                 closeOnPressMask={false}
                 height={400}
-                openDuration={150}
-                >
-                   <Text style={styles.item}>Category</Text>
-                    <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-                      <RadioButton.Item label="First item" value="first" />
-                      <RadioButton.Item label="Second item" value="second" />
-                    </RadioButton.Group>
-
+                openDuration={150} >
+                  <Text style={styles.item}>Category</Text> 
                   { getCats.map((item, i) => ( 
                     <View> 
                       <ListItem >
