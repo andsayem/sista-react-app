@@ -20,8 +20,7 @@ const Toast = ({ visible, message }) => {
   return null;
 };
 
-function RegisterScreen ({navigation,props}){
-  
+function RegisterScreen ({navigation,props}){  
     const [userName, setUserName] = useState(false);
     const [userEmail, setUserEmail] = useState(false);
     const [userAge, setUserAge] = useState(false);
