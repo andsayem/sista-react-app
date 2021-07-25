@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {  StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';  
-import Profile from '../activity/profile';
+import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
+import { Icon } from "react-native-elements"; 
+import Profile from '../activity/Profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
-import Home from '../activity/home.js';
-import Posts from '../activity/Posts.js';
 import Newpost from '../activity/Newpost';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Icon } from "react-native-elements"; 
 import NewListingButton from "../navigation/NewListingButton";
-import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
+import Posts from '../activity/Posts.js';
+import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
+import Home from '../activity/home.js';
+import Login from '../screens/LoginScreen';
 const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +43,7 @@ function TabsScreen ({navigation,props}){
               tabBarIcon: ({ color, size }) => (
                   <Icon name='home' />
                 )
-            }}/>  
+            }}/>   
           <Tab.Screen name="Chats" component={Chats} 
            options={{
             headerShown : true,

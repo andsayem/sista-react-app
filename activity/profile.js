@@ -4,6 +4,7 @@ import { Avatar, ListItem , Icon , Image , Header} from "react-native-elements";
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
+const TOKEN = 'token';
 
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -18,24 +19,36 @@ const Toast = ({ visible, message }) => {
   }
   return null;
 };
-function Profile ({navigation}){ 
+function Profile( { navigation: { navigate } }){ 
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
-  const readData = async () => {
- 
-  }  
+   
   const clearStorage = async () => { 
-    await  AsyncStorage.removeItem('token')
-    navigation.replace('Login')
-    // try {
-    //    AsyncStorage.clear()
-    //   navigation.replace('Login')
-    //   setSuccesstext({ message:'Storage successfully cleared!' }); 
-    // } catch (e) {
-    //   setErrortext({ message: 'Failed to save the data to the storage' });  
-    // }
+    await  AsyncStorage.removeItem(TOKEN)
+    await  AsyncStorage.removeItem(STORAGE_KEY) 
+    try {
+       AsyncStorage.clear()
+       navigate('Login');
+      setSuccesstext({ message:'Storage successfully cleared!' }); 
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage' });  
+    }
   }
+  const readData = async () => {
+    try {
+      const user = await AsyncStorage.getItem(STORAGE_KEY);
+      const token = await AsyncStorage.getItem(TOKEN);
+      let jsonuser = JSON.parse(user)
+      if (token !== null) {
+        setUserData(jsonuser)
+      }else{
+        navigate('Login');
+      }
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage ' });  
+    }
+  } 
   
   useEffect(() => {
     readData(); 

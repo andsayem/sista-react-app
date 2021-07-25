@@ -153,24 +153,13 @@ function LoginScreen( { navigation: { navigate } }) {
       console.log('jsonuser=============================',jsonuser);
       if((token) && (user)) {
         setSuccesstext({ message:'read successfully saved' });  
-        this.navigation.navigate("Tabs", {
-            screen: "TabsScreen",
-        }); 
+        
+        navigate('Tabs');
       }
     } catch (e) {
       setErrortext({ message: 'Failed to save the data to the storage readdata' });  
     }
   } 
-  onLogin = async () => {
-    try {
-        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ }));
-        this.props.navigation.navigate("Home", {
-            screen: "HomeScreen",
-        });
-    } catch (err) {
-        console.log(err);
-    }
-};
   const loginRedirent = async () => {
     if (loginData) {
       if (loginData.status === 1 && loginData.access_token != '') {
