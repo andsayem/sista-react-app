@@ -209,8 +209,7 @@ function LoginScreen( { navigation: { navigate } }) {
                             borderColor: '#efefef',
                             height:50,
                             borderRadius:25, 
-                            margin: 10, 
-                            placeholderTextColor : 'red',
+                            margin: 10,  
                             backgroundColor : emailFocusStyle.backgroundColor ,
                             color : emailFocusStyle.color }}> 
           
@@ -220,8 +219,7 @@ function LoginScreen( { navigation: { navigate } }) {
             onFocus={ () =>onFocusEmail() }
             placeholderStyle={{ color : 'red'}}
             style={{  
-              width :'75%' , 
-              placeholderTextColor :  emailFocusStyle.inputColor, 
+              width :'75%' ,  
               color :  emailFocusStyle.inputColor  }}
               placeholder="tina@gmail.com"
               value={userEmail} 
@@ -246,8 +244,7 @@ function LoginScreen( { navigation: { navigate } }) {
                             borderColor: '#efefef',
                             height:50,
                             borderRadius:25, 
-                            margin: 10, 
-                            placeholderTextColor : 'red',
+                            margin: 10,  
                             backgroundColor : passFocusStyle.backgroundColor ,
                             color : passFocusStyle.color }}> 
           
@@ -255,16 +252,14 @@ function LoginScreen( { navigation: { navigate } }) {
        
             <TextInput 
               style={{  
-                width :'65%' , 
-                placeholderTextColor :  passFocusStyle.inputColor   , 
+                width :'65%' ,  
                 color :  passFocusStyle.inputColor  }}
               onChangeText={(UserPassword) =>
                 setUserPassword(UserPassword)
               }
               onBlur={ () => onBlurPass() }
               onFocus={ () =>onFocusPass() }
-              placeholder="Enter password"
-              placeholderTextColor="#707070"
+              placeholder="Enter password" 
               keyboardType="default"
               ref={passwordInputRef}
               onSubmitEditing={Keyboard.dismiss}

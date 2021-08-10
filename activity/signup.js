@@ -20,23 +20,20 @@ class Signup extends Component {
                 style={styles.lebel} >E-mail address</Text>
               <TextInput
                 style={styles.inputText}
-                placeholder="tina@gmail.com"
-                placeholderTextColor="#707070"
+                placeholder="tina@gmail.com" 
                  />
               <Text
                 style={styles.lebel} >Password</Text>
               <TextInput
                 style={styles.inputText}
-                placeholder="Enter password"
-                placeholderTextColor="#707070"
+                placeholder="Enter password" 
                  />
 
               <Text
                 style={styles.lebel} >Age range</Text>
               <TextInput
                 style={styles.inputText}
-                placeholder="Select you age range"
-                placeholderTextColor="#707070"
+                placeholder="Select you age range" 
                  />
 
 
@@ -44,16 +41,14 @@ class Signup extends Component {
                 style={styles.lebel} >Gender</Text>
               <TextInput
                 style={styles.inputText}
-                placeholder="Gender"
-                placeholderTextColor="#707070"
+                placeholder="Gender" 
                 />
 
               <Text
                 style={styles.lebel} >ZIP code</Text>
               <TextInput
                 style={styles.inputText}
-                placeholder="ZIP code"
-                placeholderTextColor="#707070"
+                placeholder="ZIP code" 
                 />
 
 

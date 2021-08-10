@@ -173,8 +173,7 @@ function Chating({navigation, route}) {
                   containerStyle={styles.textareaContainer}
                   style={styles.textarea}
                   maxLength={1000}
-                  placeholder={'Type something...'}
-                  placeholderTextColor="grey" 
+                  placeholder={'Type something...'} 
                   returnKeyType="next"
                   multiline={true}
                   underlineColorAndroid="transparent"

@@ -16,15 +16,13 @@ function PasswordReset({navigation}) {
           style={Styles.lebel} >Password</Text>
         <TextInput
           style={Styles.inputText}
-          placeholder="Enter password"
-          placeholderTextColor="#707070"
+          placeholder="Enter password" 
            />
         <Text
           style={Styles.lebel} >Confirm password</Text>
         <TextInput
           style={Styles.inputText}
-          placeholder="Enter password"
-          placeholderTextColor="#707070"
+          placeholder="Enter password" 
           />
 
         <TouchableOpacity  onPress={() => navigation.navigate('Congratulation_reset') }  style={Styles.loginBtn}>

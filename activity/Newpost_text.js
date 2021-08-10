@@ -33,8 +33,7 @@ function Newpost_text({navigation}) {
                 <TextInput
                   style={styles.textArea}
                   underlineColorAndroid="transparent"
-                  placeholder="Type something"
-                  placeholderTextColor="grey" 
+                  placeholder="Type something" 
                   multiline={true}
                 />
               </View>      

@@ -137,8 +137,7 @@ function RegisterScreen ({navigation,props}){
               ref={nameInputRef}
               returnKeyType="next" 
               blurOnSubmit={true}
-              placeholder="Sista"
-              placeholderTextColor="#707070" 
+              placeholder="Sista" 
               onSubmitEditing={() =>
                 emailInputRef.current &&
                 emailInputRef.current.focus()
@@ -151,8 +150,7 @@ function RegisterScreen ({navigation,props}){
               ref={emailInputRef}
               returnKeyType="next" 
               blurOnSubmit={false}
-              placeholder="tina@gmail.com"
-              placeholderTextColor="#707070"
+              placeholder="tina@gmail.com" 
               onSubmitEditing={() =>
                 passwordInputRef.current &&
                 passwordInputRef.current.focus()
@@ -162,8 +160,7 @@ function RegisterScreen ({navigation,props}){
               style={Styles.lebel} >Password</Text>
             <TextInput
               style={Styles.inputText}
-              placeholder="Enter password"
-              placeholderTextColor="#707070"
+              placeholder="Enter password" 
               onChangeText={(UserPassword) => setUserPassword(UserPassword)} 
               ref={passwordInputRef}
               returnKeyType="next"
@@ -210,8 +207,7 @@ function RegisterScreen ({navigation,props}){
               style={Styles.lebel} >ZIP code</Text>
             <TextInput
               style={Styles.inputText}
-              placeholder="ZIP code"
-              placeholderTextColor="#707070"
+              placeholder="ZIP code" 
               onChangeText={(userZipcode) => setUserZipcode(userZipcode)} 
               autoCapitalize="sentences"
               ref={zipcodeInputRef}

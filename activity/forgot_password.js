@@ -15,8 +15,7 @@ function ForgotPassword({ navigation}){
         />
         <TextInput
           style={Styles.inputText}
-          placeholder="tina@gmail.com"
-          placeholderTextColor="#707070"
+          placeholder="tina@gmail.com" 
           onChangeText={text => this.setState({email:text})}/>
         <TouchableOpacity onPress={() => navigation.navigate('Check_your_email') }  style={Styles.loginBtn}>
           <Text  style={Styles.loginText}>Log In</Text>

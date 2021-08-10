@@ -29,8 +29,7 @@ function Journaladd({navigation}) {
                   
                   <ListItem.Input style={{
                     textAlign: 'left'
-                  }}  placeholder="Title here"
-                    placeholderTextColor="#707070"></ListItem.Input>
+                  }}  placeholder="Title here" ></ListItem.Input>
                   
               </ListItem.Content>   
             </ListItem>
@@ -40,8 +39,7 @@ function Journaladd({navigation}) {
               <ListItem.Content >   
                   <ListItem.Input style={{
                     textAlign: 'left'
-                  }}  placeholder="Type here"
-                    placeholderTextColor="#707070"></ListItem.Input>
+                  }}  placeholder="Type here" ></ListItem.Input>
                   
               </ListItem.Content>   
             </ListItem>

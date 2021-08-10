@@ -110,14 +110,12 @@ function RegisterScreen ({navigation,props}){
                 passwordInputRef.current.focus()
               }
               blurOnSubmit={false}
-              placeholder="tina@gmail.com"
-              placeholderTextColor="#707070" />
+              placeholder="tina@gmail.com"  />
             <Text
               style={Styles.lebel} >Password</Text>
             <TextInput
               style={Styles.inputText}
-              placeholder="Enter password"
-              placeholderTextColor="#707070"
+              placeholder="Enter password" 
               onChangeText={(UserPassword) =>
                 setUserPassword(UserPassword)
               } 
@@ -134,23 +132,20 @@ function RegisterScreen ({navigation,props}){
               style={Styles.lebel} >Age range</Text>
             <TextInput
               style={Styles.inputText}
-              placeholder="Select you age range"
-              placeholderTextColor="#707070"
+              placeholder="Select you age range" 
               onChangeText={text => this.setState({email:text})}/>
             <Text
               style={Styles.lebel} >Gender</Text>
             <TextInput
               style={Styles.inputText}
-              placeholder="Gender"
-              placeholderTextColor="#707070"
+              placeholder="Gender" 
               onChangeText={text => this.setState({email:text})}/>
 
             <Text
               style={Styles.lebel} >ZIP code</Text>
             <TextInput
               style={Styles.inputText}
-              placeholder="ZIP code"
-              placeholderTextColor="#707070"
+              placeholder="ZIP code" 
               onChangeText={(UserAddress) =>
                 setUserAddress(UserAddress)
               } 

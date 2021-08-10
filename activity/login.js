@@ -23,15 +23,13 @@ class Login extends Component {
           style={Styles.lebel} >E-mail address</Text>
         <TextInput
           style={Styles.inputText}
-          placeholder="tina@gmail.com"
-          placeholderTextColor="#707070"
+          placeholder="tina@gmail.com" 
           onChangeText={text => this.setState({email:text})}/>
         <Text
           style={Styles.lebel} >Password</Text>
         <TextInput
           style={Styles.inputText}
-          placeholder="Enter password"
-          placeholderTextColor="#707070"
+          placeholder="Enter password" 
           onChangeText={text => this.setState({email:text})}/>
         <Text
           style={Styles.lebel_right} >Forgot password?</Text>
