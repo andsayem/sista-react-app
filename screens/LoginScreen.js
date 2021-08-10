@@ -78,7 +78,7 @@ function LoginScreen( { navigation: { navigate } }) {
     }); 
   }
  
-  const handleSubmitPress = () => {
+   handleSubmitPress = () => {
 
     //setErrortext('');
     if (!userEmail) {
@@ -110,10 +110,18 @@ function LoginScreen( { navigation: { navigate } }) {
           },
       })
       .then((res) => { 
-        console.log('responses ================ ',res.data)
+       
         let userData  = res.data ;  
         setLoginData(res.data);
-        saveToken(userData.access_token);   
+        saveToken(userData.access_token);  
+      //  try {     
+      //     console.log('Token---------Save',userData.access_token)
+      //     await AsyncStorage.setItem('token',userData.access_token);
+      //   }
+      //   catch (error) {
+      //     console.log('Token---------Save Don\'n work',error)
+      //        console.log(error)
+      //  } 
         saveData();  
         setUserData(userData)
         setLoading(false);       
@@ -123,12 +131,15 @@ function LoginScreen( { navigation: { navigate } }) {
         setLoading(false);
       }); 
   };
+  
 
   const saveToken = async (token) =>{  
     try {  
+      console.log('Token---------Save',token)
       await AsyncStorage.setItem(TOKEN,token);    
       setSuccesstext({ message:'Token successfully saved ' });       
     } catch (e) { 
+      console.log('Token---------Save Don\'n work',e)
       setErrortext({ message: 'Failed to save the data to the storage loginscreen.js' }); 
     }
   }

@@ -70,6 +70,22 @@ const Home = ({navigation}) => {
     }) 
   }; 
   
+  const readData = async () => {
+    try {
+      const user = await AsyncStorage.getItem(STORAGE_KEY);
+      let jsonuser = JSON.parse(user)
+      const token = await AsyncStorage.getItem(TOKEN);   
+      console.log('jsonuser=============================',jsonuser);
+      if((token) && (user)) {
+        setSuccesstext({ message:'read successfully saved' });  
+        this.navigation.navigate("Tabs", {
+            screen: "TabsScreen",
+        }); 
+      }
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage readdata' });  
+    }
+  } 
    
   const getCategories = async => {
     api.getData('post_categories')
@@ -91,7 +107,7 @@ const Home = ({navigation}) => {
           //console.log(error)
       }) 
   }
- 
+  useEffect(() => readData(false), []); 
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => getCategories(false),[getCats]); 
