@@ -70,7 +70,7 @@ export function DrawerContent(props){
           label="Settings" 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
+          onPress={()=>{props.navigation.navigate('About')}} 
           label="About My Sista's KeepHer " 
         />
          <DrawerItem

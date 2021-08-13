@@ -13,6 +13,7 @@ import Posts from '../activity/Posts.js';
 import Chating from "../activity/Chating";
 import Newpost_text from "../activity/Newpost_text";
 import Journaladd from "../activity/Journaladd";
+import About from "../activity/About";
 import Tabs from '../screens/TabsScreen.js'; 
 const Stack = createStackNavigator(); 
 const screenOptionStyle = {
@@ -36,6 +37,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Register" component={RegisterScreen}  options={{ headerShown : false}} />
       <Stack.Screen name="Forgot_password" component={ForgotPassword}  options={{ headerShown : false}} />
       <Stack.Screen name="Password_Reset" component={PasswordReset}  options={{ headerShown : false}} />
+      <Stack.Screen name="About" component={About}  options={{ headerShown : false}} />
       <Stack.Screen name="Check_your_email" component={CheckYourEmail}  options={{ headerShown : false}} />
       <Stack.Screen name="Congratulation_reset" component={CongratulationResetPassword}  options={{ headerShown : false}} /> 
       <Stack.Screen name="Tabs" component={Tabs}  options={{ headerShown : false}} />
