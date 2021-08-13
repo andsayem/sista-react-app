@@ -12,11 +12,46 @@ import Posts from '../activity/Posts.js';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 import Home from '../activity/home.js';
-import Login from '../screens/LoginScreen';
+// import Login from '../screens/LoginScreen';
 const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
 
-function TabsScreen ({navigation,props}){  
+function TabsScreen ({navigation,props}){ 
+  const readData = async () => {
+    try {
+      const user = await AsyncStorage.getItem(STORAGE_KEY);
+      const token = await AsyncStorage.getItem(TOKEN);
+      let jsonuser = JSON.parse(user)
+      if (token !== null) {
+        setUserData(jsonuser)
+      }else{
+        navigate('Login');
+      }
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage ' });  
+    }
+  } 
+  
+  useEffect(() => {
+    readData(); 
+  },[]) 
+  // const [user, setUser] = useState('');
+  // const readData = async () => {
+  //   try {
+  //     const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
+  //     let jsonuser = JSON.parse(userInfo)
+  //     if (userInfo !== null) {
+  //       setUser(jsonuser)
+  //     }else{
+  //       navigation.replace('Login')
+  //     }
+  //   } catch (e) {
+  //     alert('Failed to fetch the data from storage')
+  //   }
+  // } 
+  // useEffect(() => {
+  //   readData();
+  // }, [])
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Posts" component={MainStackNavigator}   

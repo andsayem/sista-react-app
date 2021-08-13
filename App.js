@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
+import { createStackNavigator } from "@react-navigation/stack"; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerContent } from './navigation/DrawerContent';
@@ -33,7 +34,8 @@ const Drawer = createDrawerNavigator();
     })
   return (
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <DrawerContent {...props}></DrawerContent>}>  
+      <Drawer.Navigator drawerContent={props => <DrawerContent {...props}></DrawerContent>}>
+      <Drawer.Screen name="Home" component={TabsScreen}   />   
       {loggedIn ?  
         <Drawer.Screen name="Tabs" component={TabsScreen} />        
          : 
