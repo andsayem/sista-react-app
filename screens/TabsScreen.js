@@ -16,24 +16,7 @@ import Login from '../screens/LoginScreen';
 const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
 
-function TabsScreen ({navigation,props}){ 
-  // const [user, setUser] = useState('');
-  // const readData = async () => {
-  //   try {
-  //     const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-  //     let jsonuser = JSON.parse(userInfo)
-  //     if (userInfo !== null) {
-  //       setUser(jsonuser)
-  //     }else{
-  //       navigation.replace('Login')
-  //     }
-  //   } catch (e) {
-  //     alert('Failed to fetch the data from storage')
-  //   }
-  // } 
-  // useEffect(() => {
-  //   readData();
-  // }, [])
+function TabsScreen ({navigation,props}){  
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Posts" component={MainStackNavigator}   
