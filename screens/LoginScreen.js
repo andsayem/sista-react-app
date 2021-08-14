@@ -26,7 +26,8 @@ const Toast = ({ visible, message }) => {
   return null;
 };
 
-function LoginScreen( { navigation: { navigate } }) {
+function LoginScreen(props) {
+  /// { navigation: { navigate } }
   const [userEmail, setUserEmail] = useState(false);
   const [userPassword, setUserPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -79,7 +80,7 @@ function LoginScreen( { navigation: { navigate } }) {
   }
  
    handleSubmitPress = () => {
-
+    ///props.navigation.navigate("Home");
     //setErrortext('');
     if (!userEmail) {
       setvisibleToast(true);
@@ -111,19 +112,15 @@ function LoginScreen( { navigation: { navigate } }) {
       })
       .then((res) => { 
        
-        let userData  = res.data ;  
-        setLoginData(res.data);
-        saveToken(userData.access_token);  
-      //  try {     
-      //     console.log('Token---------Save',userData.access_token)
-      //     await AsyncStorage.setItem('token',userData.access_token);
-      //   }
-      //   catch (error) {
-      //     console.log('Token---------Save Don\'n work',error)
-      //        console.log(error)
-      //  } 
-        saveData();  
-        setUserData(userData)
+        let userData  = res.data;  
+        if(userData.status ===1){
+          setLoginData(res.data);
+          saveToken(userData.access_token);         
+          saveData();  
+          setUserData(userData)
+          props.navigation.navigate("Home");
+        }
+        
         setLoading(false);       
       }).catch(function (error) {
         console.log('=========OUT========');
@@ -149,7 +146,7 @@ function LoginScreen( { navigation: { navigate } }) {
       console.log('1232sdxfd',loginData)
       let userData =  JSON.stringify(loginData);    
       await AsyncStorage.setItem(STORAGE_KEY, userData)
-      setSuccesstext({ message:'Data successfully saved ' }); 
+      setSuccesstext({ message:'Data successfully saved' }); 
     } catch (e) {
       console.log('Error', e);
       setErrortext({ message: 'Failed to save the data to the storage' }); 
@@ -163,10 +160,8 @@ function LoginScreen( { navigation: { navigate } }) {
       const token = await AsyncStorage.getItem(TOKEN);   
       console.log('jsonuser=============================',jsonuser);
       if((token) && (user)) {
-        setSuccesstext({ message:'read successfully saved' });  
-        this.navigation.navigate("Tabs", {
-            screen: "TabsScreen",
-        }); 
+        setSuccesstext({ message:'read successfully saved dfg' });  
+        props.navigation.navigate("Home");
       }
     } catch (e) {
       setErrortext({ message: 'Failed to save the data to the storage readdata' });  
@@ -175,13 +170,11 @@ function LoginScreen( { navigation: { navigate } }) {
   onLogin = async () => {
     try {
         await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ }));
-        this.props.navigation.navigate("Home", {
-            screen: "HomeScreen",
-        });
+        props.navigation.navigate("Home");
     } catch (err) {
         console.log(err);
     }
-};
+  }
   const loginRedirent = async () => {
     if (loginData) {
       if (loginData.status === 1 && loginData.access_token != '') {
@@ -195,15 +188,14 @@ function LoginScreen( { navigation: { navigate } }) {
         }
       }
     } 
-  } 
-
-  useEffect(() => {
-    console.log('userData ============',userData);
-    if(userData.status===1){ 
-      setLoading(true);
-      navigate('Tabs'); 
-    } 
-  })
+  }  
+  // useEffect(() => {
+  //   console.log('userData ============',userData);
+  //   if(userData.status===1){ 
+  //     setLoading(true);
+  //     props.navigation.navigate("Home");
+  //   } 
+  // },[])
 
   useEffect(() => {
     readData(); 
@@ -214,7 +206,7 @@ function LoginScreen( { navigation: { navigate } }) {
   useEffect(() => setErrortext(false), [errortext]); 
   
   const handleRegisterPress = () => {
-    navigate('RegisterScreen');
+    props.navigation.navigate("RegisterScreen"); 
   }
   return ( 
       <View style={Styles.container} >

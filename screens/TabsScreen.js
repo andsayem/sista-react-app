@@ -16,42 +16,32 @@ import Home from '../activity/home.js';
 const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
 
+
 function TabsScreen ({navigation,props}){ 
+  const [loggedIn, setLogin] = useState(false);
   const readData = async () => {
-    try {
-      const user = await AsyncStorage.getItem(STORAGE_KEY);
-      const token = await AsyncStorage.getItem(TOKEN);
-      let jsonuser = JSON.parse(user)
-      if (token !== null) {
-        setUserData(jsonuser)
+    try { 
+      const getToken = await AsyncStorage.getItem(TOKEN);   
+      const userInfo = await AsyncStorage.getItem(STORAGE_KEY); 
+      setToken(getToken); 
+      if(getToken){
+        setLogin(true);
       }else{
-        navigate('Login');
+        setLogin(false);
       }
-    } catch (e) {
-      setErrortext({ message: 'Failed to save the data to the storage ' });  
+      
+    } catch (e) { 
+      props.navigation.push('Login');
+      props.navigation.navigate("Login");
+      alert('Failed to fetch the data from storage tabscreen') 
     }
   } 
   
-  useEffect(() => {
-    readData(); 
-  },[]) 
-  // const [user, setUser] = useState('');
-  // const readData = async () => {
-  //   try {
-  //     const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-  //     let jsonuser = JSON.parse(userInfo)
-  //     if (userInfo !== null) {
-  //       setUser(jsonuser)
-  //     }else{
-  //       navigation.replace('Login')
-  //     }
-  //   } catch (e) {
-  //     alert('Failed to fetch the data from storage')
-  //   }
-  // } 
+  console.log('loggedIn app page ',loggedIn);
   // useEffect(() => {
   //   readData();
-  // }, [])
+  // },[])
+
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Posts" component={MainStackNavigator}   
