@@ -3,8 +3,9 @@ import { View, Text,  TouchableHighlight , StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import {  Header } from 'react-native-elements'; 
- 
-function PrivacyPolicy({navigation}) { 
+class PrivacyPolicy extends  React.Component{  
+//function PrivacyPolicy({navigation}) { 
+  render(){
     return ( 
       
         <ScrollView >
@@ -27,7 +28,8 @@ function PrivacyPolicy({navigation}) {
       
         </ScrollView>
       
-    );
+    )
+  }
 }
 var styles = StyleSheet.create({
   container: {
