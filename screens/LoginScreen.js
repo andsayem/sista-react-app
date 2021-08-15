@@ -118,7 +118,7 @@ function LoginScreen(props) {
           saveToken(userData.access_token);         
           saveData();  
           setUserData(userData)
-          props.navigation.navigate("Home");
+          props.navigation.navigate("Tabs");
         }
         
         setLoading(false);       

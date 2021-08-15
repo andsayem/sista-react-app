@@ -15,27 +15,27 @@ import {
   Switch, 
   Paragraph
 } from 'react-native-paper';
-import {
-  shareOnFacebook,
-  shareOnTwitter,
-} from 'react-native-social-share';
+// import {
+//   shareOnFacebook,
+//   shareOnTwitter,
+// } from 'react-native-social-share';
 
 //import Chats from "../activity/Chats";
 import { Icon } from "react-native-elements"; 
 export function DrawerContent(props){
-  facebookShare = () => { 
-    shareOnFacebook({
-        'text':'Global democratized marketplace for art',
-        'link':'https://artboost.com/',
-        'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
-        //or use image
-        'image': 'artboost-icon',
-      },
-      (results) => {
-        console.log(results);
-      }
-    );
-  }
+  // facebookShare = () => { 
+  //   shareOnFacebook({
+  //       'text':'Global democratized marketplace for art',
+  //       'link':'https://artboost.com/',
+  //       'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
+  //       //or use image
+  //       'image': 'artboost-icon',
+  //     },
+  //     (results) => {
+  //       console.log(results);
+  //     }
+  //   );
+  // }
   return (
     <ScrollView style={{ flex : 1 }}>
       <DrawerContentScrollView {...props} >
@@ -92,7 +92,7 @@ export function DrawerContent(props){
           label="About My Sista's KeepHer " 
         />
          <DrawerItem
-          onPress={this.facebookShare}  
+          onPress={()=>{props.navigation.navigate('About')}} 
           label="Share app" 
         />
          <DrawerItem

@@ -73,6 +73,9 @@ class Posts extends Component {
   handlePostDetails = (id) => {
     this.props.navigation.navigate('PostDetails', {id: id });
   }
+  handleToggleDrawer = () => {
+    this.props.navigation.navigate.toggleDrawer();
+  }
 
   handleLikePost = index => {     
     let post = this.state.items[index] 
@@ -99,7 +102,7 @@ class Posts extends Component {
         <Header
             style={{ backgroundColor : 'red'}}
             leftComponent={<Icon color={colors.white} size={30} name='menu' 
-            onPress={() => navigation.toggleDrawer()} />}
+            onPress={() => this.handleToggleDrawer} />}
             centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#fff' }}
         /> 

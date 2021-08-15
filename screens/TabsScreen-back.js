@@ -15,6 +15,8 @@ import Home from '../activity/home.js';
 // import Login from '../screens/LoginScreen';
 const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
+
+
 function TabsScreen ({navigation,props}){ 
   const [loggedIn, setLogin] = useState(false);
   const readData = async () => {
