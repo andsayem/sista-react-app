@@ -5,9 +5,27 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import TabsScreen from "../screens/TabsScreen";
 import Chats from "../activity/Chats";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
+import {
+  shareOnFacebook,
+  shareOnTwitter,
+} from 'react-native-social-share';
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  facebookShare = () => { 
+    shareOnFacebook({
+        'text':'Global democratized marketplace for art',
+        'link':'https://artboost.com/',
+        'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
+        //or use image
+        'image': 'artboost-icon',
+      },
+      (results) => {
+        console.log(results);
+      }
+    );
+  }
   return ( 
     
       <Drawer.Navigator   drawerStyle={{
@@ -23,7 +41,7 @@ const DrawerNavigator = () => {
             <Drawer.Screen name="Product's" component={Chats}   /> 
             <Drawer.Screen name="Settings" component={Chats}   /> 
             <Drawer.Screen name="About My Sista's KeepHer " component={Chats}   /> 
-            <Drawer.Screen name="Share app" component={Chats}   /> 
+            <Drawer.Screen name="Share app"onPress={this.facebookShare}  /> 
             <Drawer.Screen name="Rate Us" component={Chats}   /> 
             <Drawer.Screen name="Support" component={Chats}   /> 
             <Drawer.Screen name="Privacy Policy" component={Chats}   /> 

@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, TouchableHighlight , StyleSheet } from "react-native";
+import { View, Text,  TouchableHighlight , StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , Header } from 'react-native-elements'; 
+import {  Header } from 'react-native-elements'; 
  
-function About({navigation}) {
-   
-
+function PrivacyPolicy({navigation}) { 
     return ( 
       
         <ScrollView >
           <Header
             leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'About My Sista\'s KeepHer', style: { color: '#fff' } }}
+            centerComponent={{ text: 'Privacy and Policy', style: { color: '#fff' } }}
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
-          <View>
-        
-
+          <View> 
             <Text style={{
               padding : 20,
               lineHeight: 30,
@@ -50,4 +46,4 @@ var styles = StyleSheet.create({
   }
 });
 
-export default About;
+export default PrivacyPolicy;
