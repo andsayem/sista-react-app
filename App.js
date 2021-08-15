@@ -16,32 +16,34 @@ const Drawer = createDrawerNavigator();
 
 const AuthContext = React.createContext();
 
-// function Root() {
-  //   return (
-  //     <Drawer.Navigator>
-  //       {loggedIn ?     
-  //       <Drawer.Screen name="Home" component={TabsScreen} /> 
-  //       : 
-  //       <Stack.Screen name="Login" component={Login} />
-  //      } 
-  //     </Drawer.Navigator>
-  //   );
-// }
+function DrawerNavigator() {
+    return (
+      <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}> 
+        <Drawer.Screen name="Tabs" component={TabsScreen} />      
+         <Drawer.Screen name="Login" component={Login} />  
+        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} /> 
+      </Drawer.Navigator>
+    );
+}
  
-function App({ navigation }){
+function App(){
   const [getToken, setToken] = useState(false);
+  const [initialRoute, setInitialRoute] = useState('Login');
   const readData = async () => {
     try { 
       const token = await AsyncStorage.getItem(TOKEN);          
       setToken(token); 
-      if(getToken){
-        navigation.navigate("Home");
+      if(getToken){ 
+        setInitialRoute('Home'); 
       }else{
-        navigation.navigate("Login");
+        props.navigation.navigate("Login");
+        setInitialRoute('Login'); 
       }      
     } catch (e) {  
-      alert('Failed to fetch the data app') 
-      navigation.navigate("Login");
+      alert('Failed to fetch the data app' ) 
+      navigate('Login');
+      setInitialRoute('Login');
+      props.navigation.navigate("Login");
     }
   } 
   useEffect(() => {
@@ -49,8 +51,9 @@ function App({ navigation }){
   },[]) 
   return (
     <NavigationContainer>
-      <StackApp.Navigator initialRouteName="Login">
-        <StackApp.Screen name="Home" component={TabsScreen}  options={{ headerShown : false}}/>
+      <StackApp.Navigator initialRouteName={initialRoute}>
+        <StackApp.Screen name="Home" component={DrawerNavigator}  options={{ headerShown : false}}/>
+        <StackApp.Screen name="Tabs" component={TabsScreen}  options={{ headerShown : false}}/>
         <StackApp.Screen name="Login" component={Login}  options={{ headerShown : false}}/>
         <StackApp.Screen name="RegisterScreen" component={RegisterScreen}  options={{ headerShown : false}}/>       
       </StackApp.Navigator>
