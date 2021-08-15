@@ -9,11 +9,117 @@ const TOKEN = 'token';
 import TabsScreen from "./screens/TabsScreen";
 import Login from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import { useHistory } from "react-router-dom";
+const Stack = createStackNavigator();
+const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator();
-  function App() {
+
+const AuthContext = React.createContext();
+
+// function Root() {
+  //   return (
+  //     <Drawer.Navigator>
+  //       {loggedIn ?     
+  //       <Drawer.Screen name="Home" component={TabsScreen} /> 
+  //       : 
+  //       <Stack.Screen name="Login" component={Login} />
+  //      } 
+  //     </Drawer.Navigator>
+  //   );
+// }
+ 
+function App({ navigation }){
+  const [getToken, setToken] = useState(false);
+  const readData = async () => {
+    try { 
+      const token = await AsyncStorage.getItem(TOKEN);          
+      setToken(token); 
+      if(getToken){
+        navigation.navigate("Home");
+      }else{
+        navigation.navigate("Login");
+      }      
+    } catch (e) {  
+      alert('Failed to fetch the data app') 
+      navigation.navigate("Login");
+    }
+  } 
+  useEffect(() => {
+    readData(); 
+  },[]) 
+  return (
+    <NavigationContainer>
+      <StackApp.Navigator initialRouteName="Login">
+        <StackApp.Screen name="Home" component={TabsScreen}  options={{ headerShown : false}}/>
+        <StackApp.Screen name="Login" component={Login}  options={{ headerShown : false}}/>
+        <StackApp.Screen name="RegisterScreen" component={RegisterScreen}  options={{ headerShown : false}}/>       
+      </StackApp.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function App22(navigation) {
+  const [user, setUser] = useState('');
+    const [token, setToken] = useState(null);
+    const [loggedIn, setLogin] = useState(false); 
+    const history = useHistory();    
+    const readData = async () => {
+      try { 
+        const getToken = await AsyncStorage.getItem(TOKEN);   
+        const userInfo = await AsyncStorage.getItem(STORAGE_KEY); 
+        setToken(getToken); 
+        if(getToken){
+          setLogin(true);
+        }else{
+          setLogin(false);
+        }        
+      } catch (e) { 
+        alert('Failed to fetch the data from storage App.js page') 
+        history.push("/login");
+      }
+    } 
+    
+    // useEffect(() => {
+    //   readData();
+    // })
+
+    useEffect(() => {
+      window.addEventListener('mousemove', () => {});
+    
+      // returned function will be called on component unmount 
+      return () => {
+        window.removeEventListener('mousemove', () => {})
+      }
+    }, [])
+
+    console.log('loggedIn app page ',loggedIn);
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+      {loggedIn ?          
+        <Stack.Screen
+          name="Root"
+          component={Root}
+          options={{ 
+            title: 'Sign in',
+            animationTypeForReplace: loggedIn ? 'pop' : 'push',
+            headerShown: false }}
+        />   
+         : 
+         <Stack.Screen name="Login" component={Login} />
+        }        
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+  function Apps() {
     const [user, setUser] = useState('');
     const [token, setToken] = useState(null);
     const [loggedIn, setLogin] = useState(false); 
+
+    const history = useHistory();
+    
     const readData = async () => {
       try { 
         const getToken = await AsyncStorage.getItem(TOKEN);   
@@ -27,6 +133,7 @@ const Drawer = createDrawerNavigator();
         
       } catch (e) { 
         alert('Failed to fetch the data from storage App.js page') 
+        history.push("/login");
       }
     } 
     useEffect(() => {
@@ -35,9 +142,9 @@ const Drawer = createDrawerNavigator();
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <DrawerContent {...props}></DrawerContent>}>
-      <Drawer.Screen name="Home" component={TabsScreen}   />   
+      {/* <Drawer.Screen name="Home" component={TabsScreen}   />    */}
       {loggedIn ?  
-        <Drawer.Screen name="Tabs" component={TabsScreen} />        
+        <Drawer.Screen name="Home" component={TabsScreen} />        
          : 
          <Drawer.Screen name="Login" component={Login} /> 
         }
