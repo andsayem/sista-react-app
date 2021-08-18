@@ -215,7 +215,7 @@ function RegisterScreen ({navigation,props}){
               onSubmitEditing={Keyboard.dismiss}
               blurOnSubmit={false}/>
  
-            <Text style={Styles.signup}>By continuing, you agree to ours's
+            <Text style={Styles.signup} onPress={() => navigation.navigate('PrivacyPolicy')} >By continuing, you agree to ours's
               Terms  & Privacy policy</Text>               
             <TouchableOpacity onPress={handleSubmitButton}   
               style={Styles.loginBtn}>

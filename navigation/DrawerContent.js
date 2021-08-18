@@ -80,7 +80,7 @@ export function DrawerContent(props){
           label="Quizzes" 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
+          onPress={()=>{props.navigation.navigate('Product')}} 
           label="Product's" 
         />
          <DrawerItem
