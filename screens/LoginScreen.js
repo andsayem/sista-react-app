@@ -51,7 +51,7 @@ function LoginScreen(props) {
 
   const onFocusEmail = () => {
     setEmailInpuStyle({ 
-      backgroundColor:"#FF5D8F",
+      backgroundColor:"#9253C1",
       iconColor : "#fff",
       inputColor : '#ffffff' 
     });  
@@ -66,7 +66,7 @@ function LoginScreen(props) {
 
   const onFocusPass = () => {
     setPassInpuStyle({ 
-      backgroundColor:"#FF5D8F",
+      backgroundColor:"#9253C1",
       iconColor : "#fff",
       inputColor : '#ffffff' 
     });  
@@ -311,7 +311,7 @@ const styles2 = StyleSheet.create({
     borderColor: '#000',
     height:50,
     borderRadius:25,
-    backgroundColor:"#f8f8f8",
+    backgroundColor:"#9253C1", 
     margin: 10,
     color:"black",
     borderColor :'#efefef'
@@ -338,7 +338,7 @@ const styles2 = StyleSheet.create({
         color :'#efefef'
     },
     signup : {
-      color : '#FF5D8F',
+      color : '#9253C1',
       fontWeight :'bold'
     }
     

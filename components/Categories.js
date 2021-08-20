@@ -49,7 +49,7 @@ const Categories = () => {
                 height: 66,
                 width: 66,
                 borderRadius: 50,
-                backgroundColor: "#ff5c83", 
+                backgroundColor: "#9253C1", 
               }}
               > 
               <Icon  

@@ -14,7 +14,7 @@ function NewListingButton({onPress}) {
 
 const styles = StyleSheet.create({
     container : {  
-        backgroundColor : '#FF5D8E' ,
+        backgroundColor : '#9253C1' ,
         borderColor :  colors.white ,
         color : colors.white,
         borderWidth : 10,

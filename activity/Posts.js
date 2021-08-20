@@ -102,10 +102,10 @@ class Posts extends Component {
         <Header
             style={{ backgroundColor : 'red'}}
             leftComponent={<Icon color={colors.white} size={30} name='menu' 
-            onPress={() => this.handleToggleDrawer} />}
-            centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
+            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+            centerComponent={{ text: 'Posts', style: { color: '#fff' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#fff' }}
-        /> 
+        />
 
         <Events/>  
         <Categories/>

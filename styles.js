@@ -73,7 +73,7 @@ module.exports={
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:"#FF5D8E",
+    backgroundColor:"#9253C1",
     borderRadius:25,
     height:50,
     alignItems:"center",
