@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';  
-import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
+//import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
 import { Icon } from "react-native-elements"; 
 import Profile from '../activity/Profile';
 import Chats from "../activity/Chats"; 
@@ -15,7 +15,7 @@ import Home from '../activity/home';
 // import Login from '../screens/LoginScreen';
 const TOKEN = 'token'; 
 const Tab = createBottomTabNavigator();
-function TabsScreen ({navigation,props}){ 
+function TabsScreen (navigation){ 
   const [loggedIn, setLogin] = useState(false);
   const readData = async () => {
     try { 
@@ -29,8 +29,8 @@ function TabsScreen ({navigation,props}){
       }
       
     } catch (e) { 
-      props.navigation.push('Login');
-      props.navigation.navigate("Login");
+      // navigation.push('Login');
+      // navigation.navigate("Login");
       alert('Failed to fetch the data from storage tabscreen') 
     }
   } 
@@ -42,7 +42,7 @@ function TabsScreen ({navigation,props}){
 
     return ( 
         <Tab.Navigator>
-          <Tab.Screen name="Posts" component={MainStackNavigator}   
+          <Tab.Screen name="Posts" component={Posts}   
             options={{
               headerShown : false,
               tabBarLabel: 'Posts',

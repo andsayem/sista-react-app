@@ -208,6 +208,7 @@ function LoginScreen(props) {
   const handleRegisterPress = () => {
     props.navigation.navigate("RegisterScreen"); 
   }
+  //const PasscodeTextInput = React.forwardRef(({autoFocus, onSubmitEditing, onChangeText, value}, ref); 
   return ( 
       <View style={Styles.container} >
         <Loader loading={loading} />
@@ -237,7 +238,8 @@ function LoginScreen(props) {
               color :  emailFocusStyle.inputColor  }}
               placeholder="tina@gmail.com"
               value={userEmail} 
-              onChangeText={(userEmail) => setUserEmail(userEmail) }
+              inputText={(userEmail) => setUserEmail(userEmail) }
+              
               tepe="email"
               keyboardType="email-address"
               ref={emailInputRef}
@@ -282,7 +284,7 @@ function LoginScreen(props) {
               returnKeyType="next" />
             <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}   name="eye"  type='font-awesome' size={20}  />
         </View>
-        <Text title="Forgot Password" onPress={() => navigation.navigate('Forgot_password')}
+        <Text title="Forgot Password" onPress={() => props.navigation.navigate('Forgot_password')}
           style={Styles.lebel_right} >Forgot password?</Text>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} /> 
