@@ -1,4 +1,4 @@
-import React, { Component,useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { View, Text, ScrollView , StyleSheet , ToastAndroid, TouchableOpacity , AppRegistry, FlatList, Alert, Platform } from "react-native"; 
 import { Avatar, ListItem , Icon , Image , Header} from "react-native-elements"; 
 import Styles from "../styles";
@@ -50,9 +50,7 @@ function Profile( { navigation: { navigate } }){
     }
   } 
   
-  useEffect(() => {
-    readData(); 
-  },[]) 
+  useEffect(() => {readData()},[]);
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
     return ( <ScrollView>
