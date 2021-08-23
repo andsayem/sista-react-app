@@ -113,7 +113,7 @@ class Posts extends Component {
         <FlatList 
           data={Object.values(this.state.items)}
           renderItem={this.renderRow}
-          keyExtractor={(item , i) => item.id} 
+          keyExtractor={(item , i) => item.id.toString()} 
           refreshing={isLoading}
           extraData={this.state}
           ListFooterComponent={this.renderFooter}         

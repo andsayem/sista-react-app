@@ -30,8 +30,6 @@ const Categories = () => {
         }
         return null;
     };
-    useEffect(() => setSuccesstext(false), [successtext]); 
-    useEffect(() => setErrortext(false), [errortext]);
     useEffect(() => getCategories(false),[getCats]); 
     return ( 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>

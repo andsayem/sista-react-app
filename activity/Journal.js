@@ -1,11 +1,35 @@
-import React, { Component } from "react";
+import React, { useEffect, useState} from "react";
 import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , Header } from 'react-native-elements'; 
 import BottomSheet from 'react-native-simple-bottom-sheet';  
 import Styles from "../styles";
+import api from '../api'; 
 function Journal({navigation}) {
+    const [successtext, setSuccesstext] = useState(false);
+    const [errortext, setErrortext] = useState(false);
+    const [getJournals, setJournals] = useState([]);
+    const getJournalss = async => {
+        api.getData('journals')
+        .then((res)=>{
+          setJournals( res.data.data);  
+        })
+        .catch((error) => {
+            console.log(error)
+        }) 
+    }; 
+    useEffect(() => getJournalss(false),[getJournals]); 
+    const getData =  (dete) => {
+      var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "December"
+      ];
+      var  d  =  new Date(dete) ;
+      var month =  d.getMonth()  ;
+     
+      var date = d.getDate();
+      return  date + ' '+  monthNames[month ];
+    }
     return ( 
       
         <ScrollView >
@@ -14,47 +38,25 @@ function Journal({navigation}) {
             centerComponent={{ text: 'Journal', style: { color: '#fff' } }}
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
-      
-          <ListItem > 
-              <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content> 
-                  
-                </ListItem.Content>  
+           { getJournals.map((item, i) => ( 
+              
+            <ListItem 
+            style={{
+              padding : 0 ,
+              margin : 0 ,
+            }}
+            > 
+        
                 <ListItem.Content
                 style={{   
                   
                   borderWidth : 1 ,
                   borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
+                  height : 120,
+                  borderColor : '#efefef',    
                   }} 
                   > 
-                    <ListItem.Content style={{  
+                  <ListItem.Content style={{  
                     overflow: 'hidden', 
                     color : '#ffffff' , 
                     textAlign :'justify' ,
@@ -62,187 +64,19 @@ function Journal({navigation}) {
                     height : 100 ,  
                     paddingHorizontal : 10
                     }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
+                    <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
+                     {item.title}
                       </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
+                      <Text>{item.details}</Text>
                       <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
+                      { getData(item.created_at)}
                       </ListItem.Title>
                     </ListItem.Content>  
                 </ListItem.Content>   
-            </ListItem>
-            <ListItem > 
-              <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content> 
-                  
-                </ListItem.Content>  
-                <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content>  
-                </ListItem.Content>   
-            </ListItem>
-            <ListItem > 
-              <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content> 
-                  
-                </ListItem.Content>  
-                <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content>  
-                </ListItem.Content>   
-            </ListItem>
-            <ListItem > 
-              <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content> 
-                  
-                </ListItem.Content>  
-                <ListItem.Content
-                style={{   
-                  
-                  borderWidth : 1 ,
-                  borderRadius : 10  ,
-                  height : 180,
-                  borderColor : '#efefef',   
-                  paddingHorizontal : 10
-                  }} 
-                  > 
-                    <ListItem.Content style={{  
-                    overflow: 'hidden', 
-                    color : '#ffffff' , 
-                    textAlign :'justify' ,
-                    margin : 0 ,
-                    height : 100 ,  
-                    paddingHorizontal : 10
-                    }}>
-                      <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
-                      True Love Is
-                      </ListItem.Title>
-                      <Text>Far far away, behind the word mountains, far from the countries.</Text>
-                      <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                      08 September
-                      </ListItem.Title>
-                    </ListItem.Content>  
-                </ListItem.Content>   
-            </ListItem>
+                
+            </ListItem> 
+                ))
+              }
           <ListItem>
             <TouchableOpacity
               style={Styles.journalBtn}

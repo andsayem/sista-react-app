@@ -8,15 +8,15 @@ import CheckYourEmail  from '../activity/check_your_email';
 import PostDetails  from '../activity/PostDetails';
 import Chats from "../activity/Chats";
 import CongratulationResetPassword from '../activity/Congratulation_reset_password';
-import Home from '../activity/home.js'; 
-import Posts from '../activity/Posts.js';
+import Home from '../activity/home'; 
+import Posts from '../activity/Posts';
 import Chating from "../activity/Chating";
 import Newpost_text from "../activity/Newpost_text";
 import Journaladd from "../activity/Journaladd";
 import About from "../activity/About";
 import Product from "../product/Product";
 import PrivacyPolicy from "../activity/PrivacyPolicy";
-import Tabs from '../screens/TabsScreen.js'; 
+import Tabs from '../screens/TabsScreen'; 
 const Stack = createStackNavigator(); 
 const screenOptionStyle = {
   headerStyle: {
