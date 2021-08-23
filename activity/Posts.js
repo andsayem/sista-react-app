@@ -62,7 +62,7 @@ class Posts extends Component {
     return (
       <Post
         item= {item} 
-        index={index}
+        index={index.toString()}
         liked={liked}
         like={like}  
         onPressLike={this.handleLikePost}

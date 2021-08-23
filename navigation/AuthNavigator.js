@@ -44,7 +44,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy}  options={{ headerShown : false}} />
       <Stack.Screen name="Check_your_email" component={CheckYourEmail}  options={{ headerShown : false}} />
       <Stack.Screen name="Congratulation_reset" component={CongratulationResetPassword}  options={{ headerShown : false}} /> 
-      <Stack.Screen name="Tabs" component={Tabs}  options={{ headerShown : false}} />
+       
     </Stack.Navigator>
   );
 }

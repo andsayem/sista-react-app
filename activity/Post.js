@@ -17,7 +17,7 @@ class Post extends  React.Component{
     render() { 
       //console.log('Post = props',this.props.item);                 
       return (                                                                        
-        <ScrollView keyExtractor={(item , i) => item.id} >
+        <ScrollView key={this.props.item.id} >
           <View style={{ backgroundColor: '#fff', height: 310, width: '100%', borderRadius: 15, padding: 10, marginBottom :10  }} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
               <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>

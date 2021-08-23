@@ -31,6 +31,10 @@ const Categories = () => {
         return null;
     };
     useEffect(() => getCategories(false),[getCats]); 
+    useEffect(() => setSuccesstext(false), [successtext]); 
+    useEffect(() => setErrortext(false), [errortext]);
+    useEffect(() => { 
+      getCategories(false)},[getCats]); 
     return ( 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
         
@@ -39,7 +43,7 @@ const Categories = () => {
           showsHorizontalScrollIndicator={false}
           style={{ marginRight: -30}}
           >
-            <ListItem style={{ padding : 0 , margin : 0}} > 
+            <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
               <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
               <TouchableOpacity              
               style={{ 
@@ -60,7 +64,7 @@ const Categories = () => {
 
             <ListItem >  
             { getCats.map((item, i) => (
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
+            <ListItem.Content key={item.id} data={item} keyExtractor={(item , i) => item.id.toString()}  style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
               <TouchableOpacity              
                 style={{ 
                   justifyContent: "center",
