@@ -9,6 +9,10 @@ const TOKEN = 'token';
 import TabsScreen from "./screens/TabsScreen";
 import Login from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ForgotPassword  from  './activity/forgot_password'; 
+import CheckYourEmail  from './activity/check_your_email';
+import PasswordReset  from  './activity/password_reset';
+import CongratulationResetPassword from './activity/Congratulation_reset_password';
 import { useHistory } from "react-router-dom";
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
@@ -21,7 +25,11 @@ function DrawerNavigator() {
       <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}> 
         <Drawer.Screen name="Tabs" component={TabsScreen} />      
          <Drawer.Screen name="Login" component={Login} />  
-        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} /> 
+        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />  
+        <Drawer.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown : false}}/>       
+        <Drawer.Screen name="CheckYourEmail" component={CheckYourEmail} options={{ headerShown : false}}/>       
+        <Drawer.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
+        <Drawer.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>
       </Drawer.Navigator>
     );
 }
@@ -55,7 +63,11 @@ function App(){
         <StackApp.Screen name="Home" component={DrawerNavigator}  options={{ headerShown : false}}/>
         <StackApp.Screen name="Tabs" component={TabsScreen}  options={{ headerShown : false}}/>
         <StackApp.Screen name="Login" component={Login}  options={{ headerShown : false}}/>
-        <StackApp.Screen name="RegisterScreen" component={RegisterScreen}  options={{ headerShown : false}}/>       
+        <StackApp.Screen name="RegisterScreen" component={RegisterScreen} options={{ headerShown : false}}/>       
+        <StackApp.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown : false}}/>       
+        <StackApp.Screen name="CheckYourEmail" component={CheckYourEmail} options={{ headerShown : false}}/>       
+        <StackApp.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
+        <StackApp.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>       
       </StackApp.Navigator>
     </NavigationContainer>
   );
