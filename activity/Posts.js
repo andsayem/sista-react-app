@@ -15,10 +15,15 @@ class Posts extends Component {
       isLoading: false,
       };  
   }
+  componentWillMount(){
+    console.log('WillMount after')
+    this.fatchData();
+    console.log('WillMount before')
+  }
   componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
-      alert('test');
+     // alert('test');
       // The screen is focused
       // Call any action
     })

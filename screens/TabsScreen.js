@@ -31,7 +31,7 @@ function TabsScreen (navigation){
     } catch (e) { 
       // navigation.push('Login');
       // navigation.navigate("Login");
-      alert('Failed to fetch the data from storage tabscreen') 
+      //alert('Failed to fetch the data from storage tabscreen') 
     }
   } 
   

@@ -13,6 +13,7 @@ import ForgotPassword  from  './activity/forgot_password';
 import CheckYourEmail  from './activity/check_your_email';
 import PasswordReset  from  './activity/password_reset';
 import CongratulationResetPassword from './activity/Congratulation_reset_password';
+import Journaladd from "./activity/Journaladd";
 import { useHistory } from "react-router-dom";
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
@@ -24,12 +25,14 @@ function DrawerNavigator() {
     return (
       <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}> 
         <Drawer.Screen name="Tabs" component={TabsScreen} />      
-         <Drawer.Screen name="Login" component={Login} />  
+        <Drawer.Screen name="Login" component={Login} />  
         <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />  
         <Drawer.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown : false}}/>       
         <Drawer.Screen name="CheckYourEmail" component={CheckYourEmail} options={{ headerShown : false}}/>       
         <Drawer.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
         <Drawer.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>
+        <Drawer.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false}}/>
+         
       </Drawer.Navigator>
     );
 }
@@ -48,7 +51,7 @@ function App(){
         setInitialRoute('Login'); 
       }      
     } catch (e) {  
-      alert('Failed to fetch the data app' ) 
+      //alert('Failed to fetch the data app' ) 
       navigate('Login');
       setInitialRoute('Login');
       props.navigation.navigate("Login");
@@ -68,6 +71,7 @@ function App(){
         <StackApp.Screen name="CheckYourEmail" component={CheckYourEmail} options={{ headerShown : false}}/>       
         <StackApp.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
         <StackApp.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>       
+        <StackApp.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false, name : 'Add Journal '}} />
       </StackApp.Navigator>
     </NavigationContainer>
   );
