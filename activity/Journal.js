@@ -6,7 +6,10 @@ import { ListItem, Avatar , Header } from 'react-native-elements';
 import BottomSheet from 'react-native-simple-bottom-sheet';  
 import Styles from "../styles";
 import api from '../api'; 
-function Journal({navigation}) {
+function Journal(props) {
+
+  
+
     const [successtext, setSuccesstext] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [getJournals, setJournals] = useState([]);
@@ -29,6 +32,11 @@ function Journal({navigation}) {
      
       var date = d.getDate();
       return  date + ' '+  monthNames[month ];
+    }
+
+    const handlePressAddJurnal = () =>{
+      alert('hg');
+      props.navigation.navigate('Journal_add');
     }
     return ( 
       
@@ -80,9 +88,10 @@ function Journal({navigation}) {
           <ListItem>
             <TouchableOpacity
               style={Styles.journalBtn}
-              activeOpacity={0.5} >
+              activeOpacity={0.5}
+              onPress = {handlePressAddJurnal} >
               <Text style={Styles.journalText} 
-               onPress={() => navigation.navigate('Journal_add') }
+               
               >Create a new Journal</Text>
             </TouchableOpacity>  
           </ListItem>

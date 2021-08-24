@@ -16,6 +16,13 @@ class Posts extends Component {
       };  
   }
   componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      alert('test');
+      // The screen is focused
+      // Call any action
+    })
+
     console.log('didlmount after')
     this.fatchData();
     console.log('didlmount before')

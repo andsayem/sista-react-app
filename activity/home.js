@@ -123,7 +123,7 @@ const Home = ({navigation}) => {
           <ListItem.Subtitle> 54 mins ago</ListItem.Subtitle>
         </ListItem.Content> 
         <ListItem.Content onPress={()=>{navigation.navigate('PostDetails')}}>
-          <Text  style={Styles.following}>+ Following</Text>
+          <Text  style={Styles.following}>+ Following Test</Text>
         </ListItem.Content>
       </ListItem>
       <Text onPress={() => this.navigation.navigate('PostDetails', {id: 69 }) } key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >

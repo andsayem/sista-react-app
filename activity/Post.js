@@ -24,7 +24,7 @@ class Post extends  React.Component{
                   <Avatar rounded size="medium" source={require('../img/images/user_3.jpg')} />
                   <ListItem.Content >
                     <ListItem.Title> {this.props.item.userjoin.name} </ListItem.Title>
-                    <ListItem.Subtitle>  54 mins ago</ListItem.Subtitle>
+                    <ListItem.Subtitle>  52 mins ago</ListItem.Subtitle>
                   </ListItem.Content> 
                   <ListItem.Content >
                   <Text>+ Following</Text>
