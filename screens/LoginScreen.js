@@ -184,7 +184,7 @@ function LoginScreen(props) {
         const token = await AsyncStorage.getItem(TOKEN);
         if(token){
           setLoading(false);        
-          navigate('Tabs');
+          props.navigation.navigate('Tabs');
         }
       }
     } 
@@ -208,6 +208,9 @@ function LoginScreen(props) {
   const handleRegisterPress = () => {
     props.navigation.navigate("RegisterScreen"); 
   }
+  const handleForgotPasswordPress = () => {
+    props.navigation.navigate("ForgotPassword"); 
+  }
   //const PasscodeTextInput = React.forwardRef(({autoFocus, onSubmitEditing, onChangeText, value}, ref); 
   return ( 
       <View style={Styles.container} >
@@ -215,7 +218,7 @@ function LoginScreen(props) {
         <Text  style={Styles.title} >Login </Text>
         <Text  style={Styles.sub_title} >To flourish your inner creativity</Text>
         <Image style={Styles.logo} source={require('../img/Screenshot_1.png')} /> 
-        <Text  style={Styles.lebel} >E-mail address {userEmail}</Text> 
+        <Text  style={Styles.lebel} >E-mail address</Text> 
         
           <View   style={{  flexDirection: 'row',
                             justifyContent: 'center',
@@ -229,26 +232,22 @@ function LoginScreen(props) {
                             color : emailFocusStyle.color }}> 
           
             <Icon  color={emailFocusStyle.iconColor} style={{padding : 10 }}  type='font-awesome' name="envelope-o" size={20}  />
-            <TextInput
-            onBlur={ () => onBlurEmail() }
+            <TextInput 
             onFocus={ () =>onFocusEmail() }
             placeholderStyle={{ color : 'red'}}
             style={{  
               width :'75%' ,  
-              color :  emailFocusStyle.inputColor  }}
-              placeholder="tina@gmail.com"
-              value={userEmail} 
-              inputText={(userEmail) => setUserEmail(userEmail) }
-              
-              tepe="email"
-              keyboardType="email-address"
-              ref={emailInputRef}
-              returnKeyType="next"
-              onSubmitEditing={() =>
-                passwordInputRef.current &&
-                passwordInputRef.current.focus()
-              } 
-              blurOnSubmit={false} />  
+              color :  emailFocusStyle.inputColor  }} 
+            onChangeText={(userEmail) => setUserEmail(userEmail) }
+            placeholder="tina@gmail.com"  
+            keyboardType="email-address"
+            ref={emailInputRef}
+            returnKeyType="next"
+            onSubmitEditing={() =>
+              passwordInputRef.current &&
+              passwordInputRef.current.focus()
+            } 
+            blurOnSubmit={false} />  
                
             </View>
         <Text
@@ -264,7 +263,7 @@ function LoginScreen(props) {
                             backgroundColor : passFocusStyle.backgroundColor ,
                             color : passFocusStyle.color }}> 
           
-          <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}    type='font-awesome' name="key" size={20}  />
+          <Icon color={passFocusStyle.iconColor} style={{padding : 10 }} type='font-awesome' name="key" size={20}  />
        
             <TextInput 
               style={{  
@@ -272,8 +271,7 @@ function LoginScreen(props) {
                 color :  passFocusStyle.inputColor  }}
               onChangeText={(UserPassword) =>
                 setUserPassword(UserPassword)
-              }
-              onBlur={ () => onBlurPass() }
+              } 
               onFocus={ () =>onFocusPass() }
               placeholder="Enter password" 
               keyboardType="default"
@@ -284,7 +282,7 @@ function LoginScreen(props) {
               returnKeyType="next" />
             <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}   name="eye"  type='font-awesome' size={20}  />
         </View>
-        <Text title="Forgot Password" onPress={() => props.navigation.navigate('Forgot_password')}
+        <Text title="Forgot Password" onPress={handleForgotPasswordPress}
           style={Styles.lebel_right} >Forgot password?</Text>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} /> 
