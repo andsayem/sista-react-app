@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react"; 
+import React, {Fragment, useEffect, useState } from "react"; 
+import {Flatform} from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack"; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -15,6 +16,7 @@ import PasswordReset  from  './activity/password_reset';
 import CongratulationResetPassword from './activity/Congratulation_reset_password';
 import Journaladd from "./activity/Journaladd";
 import { useHistory } from "react-router-dom";
+import SplashScreen from "react-native-splash-screen";
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -57,9 +59,8 @@ function App(){
       props.navigation.navigate("Login");
     }
   } 
-  useEffect(() => {
-    readData(); 
-  },[]) 
+  useEffect(() => { readData() },[]) 
+  useEffect(() => { SplashScreen.hide() },[]) 
   return (
     <NavigationContainer>
       <StackApp.Navigator initialRouteName={initialRoute}>
@@ -93,7 +94,7 @@ function App22(navigation) {
           setLogin(false);
         }        
       } catch (e) { 
-        alert('Failed to fetch the data from storage App.js page') 
+        //alert('Failed to fetch the data from storage App.js page') 
         history.push("/login");
       }
     } 
