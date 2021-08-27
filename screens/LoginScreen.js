@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, createRef } from "react";
+import React, { useRef, useEffect, useState, createRef } from "react";
 import {
   Image, Text, TextInput, ScrollView , TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
   Keyboard
@@ -79,7 +79,7 @@ function LoginScreen(props) {
     }); 
   }
  
-   handleSubmitPress = () => {
+  handleSubmitPress = () => {
     ///props.navigation.navigate("Home");
     //setErrortext('');
     if (!userEmail) {
@@ -211,6 +211,15 @@ function LoginScreen(props) {
   const handleForgotPasswordPress = () => {
     props.navigation.navigate("ForgotPassword"); 
   }
+  //const mounted = useRef();
+  //useEffect(() => {
+    // if (!mounted.current) {
+    //   console.log('do componentDidMount logic');
+    //   mounted.current = true;
+    // } else {
+    //   console.log('componentDidUpdate logic'); 
+    // }
+  //});
   //const PasscodeTextInput = React.forwardRef(({autoFocus, onSubmitEditing, onChangeText, value}, ref); 
   return ( 
       <View style={Styles.container} >

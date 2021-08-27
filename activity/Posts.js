@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React, { Component, useEffect } from 'react'; 
 import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, StatusBar } from 'react-native';
 import api from '../api';
 import {colors , Icon , Header } from 'react-native-elements'; 
@@ -13,23 +13,12 @@ class Posts extends Component {
       isLoading: false,
       };  
   }
-  componentWillMount(){
-    console.log('WillMount after')
-    this.fatchData();
-    console.log('WillMount before')
-  }
-  componentDidMount() {
-    const { navigation } = this.props;
-    this.focusListener = navigation.addListener('didFocus', () => {
-     // alert('test');
-      // The screen is focused
-      // Call any action
-    })
-
-    console.log('didlmount after')
-    this.fatchData();
-    console.log('didlmount before')
-  }  
+  
+  // componentWillMount(){
+  //   console.log('WillMount after')
+  //   this.fatchData();
+  //   console.log('WillMount before')
+  // } 
   fatchData = () => { 
     this.setState({isLoading:true})  
     api.getData('post_datas')
@@ -41,6 +30,7 @@ class Posts extends Component {
     this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
   }  
   renderFooter = () => { 
+    useEffect(() => this.fatchData(),[]) 
     return(  
         <View>  
           {this.state.isLoading ? (

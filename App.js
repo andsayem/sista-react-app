@@ -69,14 +69,21 @@ function App(){
         setInitialRoute('Login'); 
       }      
     } catch (e) {  
-      //alert('Failed to fetch the data app' ) 
-      navigate('Login');
+      alert('Failed to fetch the data app' ) 
+      //navigate('Login');
       setInitialRoute('Login');
-      props.navigation.navigate("Login");
+      //props.navigation.navigate("Login");
     }
   } 
-  useEffect(() => { readData() },[]) 
-  useEffect(() => { SplashScreen.hide() },[]) 
+
+  //useEffect(() => { readData() },[getToken])  
+  useEffect(() => { SplashScreen.hide() },[getToken]) 
+  useEffect(() => {  
+    return () => { 
+      console.log(initialRoute,'dfgf'); 
+      readData();
+    }
+  }, [getToken]);
   return (
     <NavigationContainer>
       <StackApp.Navigator initialRouteName={initialRoute}>
@@ -128,15 +135,20 @@ function App22(navigation) {
     // })
 
     useEffect(() => {
-      window.addEventListener('mousemove', () => {});
-    
+      window.addEventListener('mousemove', () => {
+        console.log('returned function will be called on component unmount mousemove');
+      });    
+      console.log('returned function will be called on component unmount ');
       // returned function will be called on component unmount 
       return () => {
-        window.removeEventListener('mousemove', () => {})
+        window.removeEventListener('mousemove', () => {
+          console.log('returned function will be called on component mount ');
+        })
       }
+      
     }, [])
 
-    console.log('loggedIn app page ',loggedIn);
+    //console.log('loggedIn app page ',loggedIn);
   return (
     <NavigationContainer>
       <Stack.Navigator>
