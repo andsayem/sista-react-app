@@ -22,7 +22,7 @@
     "axios": "^0.21.1",
     "flag": "^4.4.0",
     "react": "^16.14.0",
-    "react-multi-carousel": "^2.6.3",
+    "react-multi-carousel": "^2.6.5",
     "react-native": "^0.63.4",
     "react-native-anchor-carousel": "^3.1.2",
     "react-native-animated-radio-button": "^2.0.6",
