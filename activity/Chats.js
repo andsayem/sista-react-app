@@ -5,7 +5,7 @@ import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-elements'; 
 import Styles from "../styles"; 
 import api from '../api';
-function Chats({navigation}) {
+function Chats(props) {
     const [getUsers, setUsers] = useState([]); 
     const [selectedId, setSelectedId] = useState(null);
     const getUser = () =>{
@@ -21,7 +21,7 @@ function Chats({navigation}) {
     useEffect(() => getUser(),[getUsers]); 
     const Allusers = ({ ItemData }) => (
       <View style={{ backgroundColor: '#fff' ,padding: 5  }} > 
-          <Avatar  onPress={() => navigation.navigate('Chating',{ 
+          <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
                   sender_id: ItemData.sender_id,
                  }) }   rounded   size="medium" source={require('../img/images/user_1.jpg')} />
           <Text>{ItemData.name} {ItemData.sender_id}</Text> 
@@ -38,7 +38,7 @@ function Chats({navigation}) {
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
-                <Avatar rounded onPress={() => navigation.navigate('Chating',{ 
+                <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
                   sender_id: ItemData.sender_id,
                  }) }   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
@@ -59,7 +59,7 @@ function Chats({navigation}) {
         
         <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
             centerComponent={{ text: 'Chats', style: { color: '#1E1E1E' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
             containerStyle={{   
@@ -84,7 +84,7 @@ function Chats({navigation}) {
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
-                <Avatar rounded   size="medium"  onPress={() => navigation.navigate('Chating') }  source={require('../img/images/massage.png')} />
+                <Avatar rounded   size="medium" source={require('../img/images/massage.png')} />
                 <ListItem.Content>
                   <ListItem.Title> New Message Requests </ListItem.Title>
                   <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>

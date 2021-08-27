@@ -23,6 +23,7 @@ import About from "./activity/About";
 import AppInformation from "./activity/AppInformation";
 import RatingApp from "./activity/RatingApp";
 import Support from "./activity/Support";
+import Chating from "./activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
 const Stack = createStackNavigator();
@@ -104,6 +105,7 @@ function App(){
         <StackApp.Screen name="AppInformation" component={AppInformation} options={{ headerShown : false, name : 'App Information'}} />
         <StackApp.Screen name="RatingApp" component={RatingApp} options={{ headerShown : false, name : 'Rate Us'}} />
         <StackApp.Screen name="Support" component={Support} options={{ headerShown : false, name : 'Support'}} />
+        <StackApp.Screen name="Chating" component={Chating} options={{ headerShown : false, name : 'Chating'}} />
       </StackApp.Navigator>
     </NavigationContainer>
   );
