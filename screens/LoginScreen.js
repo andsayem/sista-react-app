@@ -123,8 +123,8 @@ function LoginScreen(props) {
         
         setLoading(false);       
       }).catch(function (error) {
-        console.log('=========OUT========');
-        console.log(error);
+        // console.log('=========OUT========');
+        // console.log(error);
         setLoading(false);
       }); 
   };
@@ -132,23 +132,23 @@ function LoginScreen(props) {
 
   const saveToken = async (token) =>{  
     try {  
-      console.log('Token---------Save',token)
+      //console.log('Token---------Save',token)
       await AsyncStorage.setItem(TOKEN,token);    
       setSuccesstext({ message:'Token successfully saved ' });       
     } catch (e) { 
-      console.log('Token---------Save Don\'n work',e)
+      //console.log('Token---------Save Don\'n work',e)
       setErrortext({ message: 'Failed to save the data to the storage loginscreen.js' }); 
     }
   }
  
   const saveData = async () => {
     try {
-      console.log('1232sdxfd',loginData)
+      //console.log('1232sdxfd',loginData)
       let userData =  JSON.stringify(loginData);    
       await AsyncStorage.setItem(STORAGE_KEY, userData)
       setSuccesstext({ message:'Data successfully saved' }); 
     } catch (e) {
-      console.log('Error', e);
+      //console.log('Error', e);
       setErrortext({ message: 'Failed to save the data to the storage' }); 
     }
   }
@@ -156,11 +156,11 @@ function LoginScreen(props) {
   const readData = async () => {
     try {
       const user = await AsyncStorage.getItem(STORAGE_KEY);
-      let jsonuser = JSON.parse(user)
+      //let jsonuser = JSON.parse(user)
       const token = await AsyncStorage.getItem(TOKEN);   
-      console.log('jsonuser=============================',jsonuser);
+     // console.log('jsonuser=============================',jsonuser);
       if((token) && (user)) {
-        setSuccesstext({ message:'read successfully saved dfg' });  
+        //setSuccesstext({ message:'read successfully saved' });  
         props.navigation.navigate("Home");
       }
     } catch (e) {
