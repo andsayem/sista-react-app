@@ -10,8 +10,7 @@ const Events = ({ navigation }) => {
     const getEvents = async => {
         api.getData('events')
         .then((res)=>{
-          setCats( res.data.data); 
-          console.log('events=====',res.data.data); 
+          setCats( res.data.data);  
         })
         .catch((error) => {
             console.log(error)

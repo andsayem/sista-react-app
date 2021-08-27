@@ -52,7 +52,7 @@ function Journaladd({navigation}) {
       details: details,    
       title: title,    
     }; 
-    console.log('caption Data',dataToSend);
+    console.log('test by sayem',dataToSend);
     fetch('http://sista.abdulmazidcse.com/api/journals', {
       method: 'POST', 
       headers: { 

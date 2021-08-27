@@ -41,17 +41,17 @@ import api from '../api';
     //         console.log(error)
     //     }) 
     // }; 
-    // useEffect(() => getJournalss(false),[getJournals]); 
-    // const getData =  (dete) => {
-    //   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    //   "Jul", "Aug", "Sep", "Oct", "Nov", "December"
-    //   ];
-    //   var  d  =  new Date(dete) ;
-    //   var month =  d.getMonth()  ;
+    //useEffect(() => getJournalss(false),[getJournals]); 
+      getData =  (dete) => {
+      var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "December"
+      ];
+      var  d  =  new Date(dete) ;
+      var month =  d.getMonth()  ;
      
-    //   var date = d.getDate();
-    //   return  date + ' '+  monthNames[month ];
-    // }
+      var date = d.getDate();
+      return  date + ' '+  monthNames[month ];
+    }
 
     handlePressAddJurnal = () =>{ 
       this.props.navigation.navigate('Journal_add');
@@ -91,7 +91,7 @@ import api from '../api';
                     </ListItem.Title>
                     <Text>{item.details}</Text>
                     <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
-                    {item.created_at}
+                    { this.getData(item.created_at)}
                     </ListItem.Title>
                   </ListItem.Content>  
               </ListItem.Content>    
@@ -135,8 +135,9 @@ import api from '../api';
             onRefresh={this.fatchData}      
           /> 
           
-          <ListItem>
+          <ListItem  style={styles.submitButton}>
             <TouchableOpacity
+           
               style={Styles.journalBtn}
               activeOpacity={0.5}
               onPress = {this.handlePressAddJurnal} >
@@ -150,6 +151,14 @@ import api from '../api';
 }
 
 const styles = StyleSheet.create({
+  submitButton: {
+      position: 'absolute',
+      bottom:65,
+      padding : 0 ,
+      margin : 0 ,
+    
+      left:0,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
