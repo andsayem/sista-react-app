@@ -1,20 +1,16 @@
-import React, { Component, useEffect, useRef , useState, createRef } from "react";
-import { View , Text , SafeAreaView , SectionList , Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useEffect, useRef , useState } from "react";
+import { View , Text , Image, Button , ToastAndroid , TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler"; 
-import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements';   
-import Styles from "../styles";
-import PostNextButton from "../navigation/PostNextButton";
-import DropDownPicker from 'react-native-dropdown-picker';
+import { ListItem, colors , Icon , Header } from 'react-native-elements';   
+import Styles from "../styles"; 
 import Loader from '../components/Loader'; 
 import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Textarea from 'react-native-textarea';
-import RBSheet from "react-native-raw-bottom-sheet";
-import Animated from 'react-native-reanimated';
-import BottomSheet from 'reanimated-bottom-sheet';
-import RadioButton from "react-native-animated-radio-button";
-import api from '../api';
+import RBSheet from "react-native-raw-bottom-sheet";  
+import api from '../api'; 
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
@@ -36,7 +32,7 @@ function Newpost({navigation}) {
   // bs =React.createRef();
   // fall  = new Animated.value(1) ;
   const [post_caption, setCaption] = useState(false);
-  const [category, setCategories] = useState(false);
+  const [category, setCategories] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState(false);
   const [successText, setSuccesstext] = useState(false);   
@@ -97,6 +93,11 @@ function Newpost({navigation}) {
         setLoading(false); 
       });
   };  
+  var radio_props = [
+    {label: 'param1', value: 0 },
+    {label: 'param2', value: 1 }
+  ];
+ 
   const handleChoosePhoto = () => {
     let options = {
       title: 'Select Image',
@@ -112,7 +113,12 @@ function Newpost({navigation}) {
   const getCategories = async => {
     api.getData('post_categories')
     .then((res)=>{  
-        setCats( res.data.data);
+      let data = [] ;
+      for (let index = 0; index < res.data.data.length; index++) {
+         let d  = {label: res.data.data[index].cat_name, value: res.data.data[index].id };
+         data.push(d);
+      }
+        setCats( data);
     })
     .catch((error) => {
         console.log(error)
@@ -185,16 +191,18 @@ function Newpost({navigation}) {
   }
     return (       
         <ScrollView >
-          <Loader loading={loading} />
-          <Header
-            leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'Add', style: { color: '#fff' } }}
-            rightComponent={<PostNextButton onPress={()=> navigation.navigate("Newpost_text")  }/>}
-          /> 
+          <Loader loading={loading} /> 
+           <Header 
+            leftComponent={<Icon color={colors.black} size={30} name='menu' 
+            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+            centerComponent={{ text: 'Add', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
+            />
           <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
-          <Toast visible={successText} message ={successText.message} />
-          
-            
+          <Toast visible={successText} message ={successText.message} /> 
               <ListItem>
                 <ListItem.Content > 
                 <Image 
@@ -205,16 +213,14 @@ function Newpost({navigation}) {
               </ListItem>  
           <ListItem > 
               <ListItem.Content  > 
-                  <ListItem.Content >
-                
+                  <ListItem.Content > 
                     <ListItem.Title style={{ fontWeight : 'bold'}} >
                       Write a caption    
                     </ListItem.Title> 
                   </ListItem.Content>  
               </ListItem.Content>  
           </ListItem>     
-             <View style={styles.textAreaContainer} >
-                
+             <View style={styles.textAreaContainer} > 
                 <Textarea
                   onChangeText={(post_caption) => setCaption(post_caption)} 
                   value={post_caption}
@@ -231,64 +237,76 @@ function Newpost({navigation}) {
                 </View> 
                 <View > 
                 </View> 
-                <View >
-                {/* <DropDownPicker
-                  items={getCats.map(item=> ({label:item.cat_name,value:item.id}))}  
-                    placeholder="Select category"
-                    containerStyle={{height: 50, width:'100%'}}
-                    style={Styles.DropDown} 
-                    itemStyle={{ justifyContent: 'flex-start'}}
-                    dropDownStyle={{backgroundColor: '#fafafa'}}
-                    onChangeItem={item => setCategories(item.value)}  
-                    value={setCategories}
-              />  */}
-
+                <View > 
               <View>
                 <Text  style={styles.cat_title}  itemStyle={{ justifyContent: 'flex-start'}}   onPress={() => refRBSheet.current.open()}> Category  
                 <Icon   style={{padding : 2 , textAlign : 'right' , right : 0 }}  type='font-awesome' name="angle-right" size={20}  />
                 </Text>
               </View>
-              <RBSheet
+              <RBSheet 
                 ref={refRBSheet}
                 closeOnDragDown={true}
-                closeOnPressMask={false}
-                height={400}
-                openDuration={150} >
-                  <Text style={styles.item}>Category</Text> 
-                  { getCats.map((item, i) => ( 
-                    <View> 
-                      <ListItem >
-                          <ListItem.Content>
+                closeOnPressMask={true} 
+                height={250}
+                openDuration={500} >
+                  <Text style={{ textAlign : 'center' , fontWeight : 'bold'}} >Category  </Text> 
+                  <Text onPress={() => refRBSheet.current.close()} style={{ textAlign : 'right' , fontWeight : 'bold'}} >Apply  </Text>
+                 
+                  <View>
+          <RadioForm
+            formHorizontal={false}
+            initial={0}
+            animation={true}
+          >
+            {/* To create radio buttons, loop through your array of options */}
+            {
+            getCats.map((item, i) => (
+            <RadioButton labelHorizontal={true} key={i} >
+              {/*  You can set RadioButtonLabel before RadioButtonInput */}
+              <RadioButtonInput
+                obj={item}
+                index={i}   
+                isSelected={ category === item.value}
+                borderWidth={2}
+                buttonOuterColor ={'#944CD4'}
+                buttonInnerColor={'#B461FE'}
+                onPress={(value) => { setCategories(item.value)}}
+                buttonSize={18}
+                buttonOuterSize={25}
+                buttonStyle={{}}
+                buttonWrapStyle={{marginLeft: 25 , paddingBottom : 20}}
+              />
+              <RadioButtonLabel
+                obj={item}
+                index={i}
+                labelHorizontal={false} 
+                labelStyle={{fontSize: 16, color: '#000000' ,paddingStart :10 , paddingBottom :10}}
+                labelWrapStyle={{}}
+              />
+            </RadioButton>
+          ))
+        }  
+      </RadioForm>
+                    {/* <RadioForm
+                      radio_props={getCats}
+                      label={item.cat_name}
+                      initial={0}
+                      // onPress={(value) => {this.setState({value:value})}}
+                    /> */}
+                  </View>
+                  {/* { getCats.map((item, i) => (   
                             <Text> 
-                              <RadioButton
-                                style={styles.radio}
+                              <RadioButton 
+                              name
                                 value={item.id} 
                                 status={ checked === item.id  ? 'checked' : 'unchecked' }
-                                onPress={() => setCategories(item.id)} /> 
-                                
+                                onPress={() => setCategories(item.id)} />  
                                 { item.cat_name }
                             </Text>
-                          </ListItem.Content>
-                      </ListItem>
-                      {/* <View style={{ width : 50}}>
-                        <RadioButton
-                          value={item.id}
-                          animation={"bounceIn"}
-                          status={ checked === item.id  ? 'checked' : 'unchecked' }
-                          onPress={() => setCategories(item.id)}
-                        />  
-                      </View>
-                      <View style={{ width : 100}}>
-                        <Text>{ item.cat_name }</Text>
-                      </View>  */}
-                    </View>
                   ))
-                  }   
-            
+                  }     */}
               </RBSheet>
               </View>      
-         
-     
             <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={(event) =>  { 
                setIndex(event.nativeEvent.selectedSegmentIndex);  
             }}  />  
@@ -303,10 +321,8 @@ function Newpost({navigation}) {
               <Text style={Styles.journalText}               
               >Submit</Text>
             </TouchableOpacity>  
-          </ListItem>
-          
-        </ScrollView>
-      
+          </ListItem> 
+        </ScrollView> 
     );
 }
 const styles = StyleSheet.create({
@@ -339,8 +355,7 @@ const styles = StyleSheet.create({
     height: 170,
     fontSize: 14,
     color: '#333',
-  },
- 
+  }, 
   cat_title : {
     textAlign: 'left', 
     padding : 15,  
