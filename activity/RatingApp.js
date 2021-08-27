@@ -3,7 +3,7 @@ import { Rating, AirbnbRating } from 'react-native-elements';
 import { View } from "react-native";
 
 
-class Rateus extends Component {
+class RatingApp extends Component {
   ratingCompleted(rating) {
     console.log("Rating is: " + rating)
   }
@@ -47,4 +47,4 @@ class Rateus extends Component {
   }
 }
 
-export default Rateus;
+export default RatingApp;

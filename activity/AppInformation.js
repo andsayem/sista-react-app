@@ -4,14 +4,14 @@ import { View, Text,  SafeAreaView , StyleSheet } from "react-native";
 import {colors , Icon , Header , CheckBox } from 'react-native-elements';
 //function About({navigation}) {
 
-class Settings extends Component {
+class AppInformation extends Component {
   render() {
     return (
       <SafeAreaView> 
             <Header 
                 leftComponent={<Icon color={colors.black} size={30} name='menu' 
                 onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-                centerComponent={{ text: 'Settings', style: { color: '#1E1E1E' , fontSize : 20 } }}
+                centerComponent={{ text: 'App Information', style: { color: '#1E1E1E' , fontSize : 20 } }}
                 rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
                 containerStyle={{   
                   color : '1E1E1E',
@@ -56,4 +56,4 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+export default AppInformation;

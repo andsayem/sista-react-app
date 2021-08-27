@@ -15,92 +15,79 @@ import {
   Switch, 
   Paragraph
 } from 'react-native-paper';
-// import {
-//   shareOnFacebook,
-//   shareOnTwitter,
-// } from 'react-native-social-share';
+import {
+  shareOnFacebook,
+  shareOnTwitter,
+} from 'react-native-social-share';
 
 //import Chats from "../activity/Chats";
 import { Icon } from "react-native-elements"; 
 export function DrawerContent(props){
-  // facebookShare = () => { 
-  //   shareOnFacebook({
-  //       'text':'Global democratized marketplace for art',
-  //       'link':'https://artboost.com/',
-  //       'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
-  //       //or use image
-  //       'image': 'artboost-icon',
-  //     },
-  //     (results) => {
-  //       console.log(results);
-  //     }
-  //   );
-  // }
+  facebookShare = () => { 
+    shareOnFacebook({
+        'text':'Global democratized marketplace for art',
+        'link':'https://artboost.com/',
+        'imagelink':'https://artboost.com/apple-touch-icon-144x144.png',
+        //or use image
+        'image': 'artboost-icon',
+      },
+      (results) => {
+        console.log(results);
+      }
+    );
+  }
   return (
-    <ScrollView style={{ flex : 1 }}>
+    <ScrollView style={{ flex : 1 , backgroundColor : '#5C48BA'  }}>
       <DrawerContentScrollView {...props} >
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
             <View style={{  flexDirection : 'row' , marginTop : 15 }}>
               <Avatar.Image size={50}  source={require('../img/images/user_3.jpg')} > </Avatar.Image>
               <View style={{ marginLeft : 15 , marginTop : 15  , flexDirection : 'column'}}>
-                <Title  style={ styles.title } > AS Sayem  </Title>
-                <Caption style={ styles.caption}>Information </Caption>
+                <Title  style={{ color : '#fff'}}   > AS Sayem  </Title>
+                <Caption   style={{ color : '#fff'}} >Information </Caption>
               </View>
-            </View> 
-            <View  style={styles.row}> 
-              <View>
-                <Paragraph>80</Paragraph>
-                <Caption>Following</Caption>
-              </View>
-              <View> 
-                <Paragraph>100</Paragraph>
-                <Caption>Follower</Caption>
-              </View>
-            </View> 
+            </View>   
           </View>
         </View> 
       </DrawerContentScrollView>
-      <Drawer.Section style={ styles.buttomDrawerSection }> 
+      <Drawer.Section style={{ color : '#fff'}}> 
     
-        <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
-          label="Poetry" 
-        />
-        <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
-          label="Quotes" 
-        />
+        
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
-          label="Short Stories" 
-        />
-         <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
+          style={{ color : '#fff'}} 
+          onPress={()=>{props.navigation.navigate('Quizzes')}} 
           label="Quizzes" 
         />
          <DrawerItem
+          style={{ color : '#fff'}} 
           onPress={()=>{props.navigation.navigate('Product')}} 
           label="Product's" 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
+          style={{ color : '#fff'}} 
+          onPress={()=>{props.navigation.navigate('Settings')}} 
           label="Settings" 
+        />
+         <DrawerItem
+          style={{ color : '#fff'}} 
+          onPress={()=>{props.navigation.navigate('AppInformation')}} 
+          label="App Information" 
         />
          <DrawerItem
           onPress={()=>{props.navigation.navigate('About')}} 
           label="About My Sista's KeepHer " 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('About')}} 
+          onPress={()=>{this.facebookShare()}} 
           label="Share app" 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
+          onPress={()=>{props.navigation.navigate('RatingApp')}} 
           label="Rate Us" 
         />
          <DrawerItem
-          onPress={()=>{props.navigation.navigate('Chats')}} 
+          onPress={()=>{props.navigation.navigate('Support')}} 
           label="Support" 
         />
          <DrawerItem
@@ -151,7 +138,8 @@ const styles = StyleSheet.create({
   buttomDrawerSection : {
     marginBottom : 15 ,
     borderTopColor : '#f4f4f4',
-    borderTopWidth : 1 
+    borderTopWidth : 1 ,
+    color :  '#fff'
   },
   preferecnce : {
     flexDirection : 'row' ,

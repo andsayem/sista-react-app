@@ -1,12 +1,10 @@
 import React, { Component } from 'react'; 
-import { StyleSheet, FlatList, Text, TouchableOpacity, View,Image,SafeAreaView, ScrollView, ActivityIndicator,RefreshControl } from 'react-native';
+import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, StatusBar } from 'react-native';
 import api from '../api';
-import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
-import Styles from "../styles"; 
+import {colors , Icon , Header } from 'react-native-elements'; 
 import Events from '../components/Events';
 import Categories from '../components/Categories';
-import Post from './Post';
-import { Alert } from 'react-native';
+import Post from './Post'; 
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -110,13 +108,16 @@ class Posts extends Component {
   render(){
     let {items, isLoading} = this.state;
     return(
-      <SafeAreaView>  
-        <Header
-            style={{ backgroundColor : 'red'}}
-            leftComponent={<Icon color={colors.white} size={30} name='menu' 
+      <SafeAreaView>   
+        
+        <Header 
+            leftComponent={<Icon color={colors.black} size={30} name='menu' 
             onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'Posts', style: { color: '#fff' , fontSize : 20 } }}
-            rightComponent={{ icon: 'notifications', color: '#fff' }}
+            centerComponent={{ text: 'Posts', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
         />
 
         <Events/>  

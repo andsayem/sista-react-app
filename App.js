@@ -15,6 +15,14 @@ import CheckYourEmail  from './activity/check_your_email';
 import PasswordReset  from  './activity/password_reset';
 import CongratulationResetPassword from './activity/Congratulation_reset_password';
 import Journaladd from "./activity/Journaladd";
+import Quizzes from "./activity/Quizzes";
+import Product from "./product/Product";
+import PrivacyPolicy from "./activity/PrivacyPolicy";
+import Settings from "./activity/Settings";
+import About from "./activity/About";
+import AppInformation from "./activity/AppInformation";
+import RatingApp from "./activity/RatingApp";
+import Support from "./activity/Support";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
 const Stack = createStackNavigator();
@@ -34,6 +42,14 @@ function DrawerNavigator() {
         <Drawer.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
         <Drawer.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>
         <Drawer.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false}}/>
+        <Drawer.Screen name="Quizzes" component={Quizzes} options={{ headerShown : false}}/>
+        <Drawer.Screen name="Product" component={Product} options={{ headerShown : false}}/>
+        <Drawer.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false}}/>
+        <Drawer.Screen name="Settings" component={Settings} options={{ headerShown : false}}/>
+        <Drawer.Screen name="About" component={About} options={{ headerShown : false}}/>
+        <Drawer.Screen name="AppInformation" component={AppInformation} options={{ headerShown : false}}/>
+        <Drawer.Screen name="RatingApp" component={RatingApp} options={{ headerShown : false}}/>
+        <Drawer.Screen name="Support" component={Support} options={{ headerShown : false}}/>
          
       </Drawer.Navigator>
     );
@@ -73,6 +89,14 @@ function App(){
         <StackApp.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
         <StackApp.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>       
         <StackApp.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false, name : 'Add Journal '}} />
+        <StackApp.Screen name="Quizzes" component={Quizzes} options={{ headerShown : false, name : 'Quizzes'}} />
+        <StackApp.Screen name="Product" component={Product} options={{ headerShown : false, name : 'Product'}} />
+        <StackApp.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false, name : 'Privacy Policy'}} />
+        <StackApp.Screen name="Settings" component={Settings} options={{ headerShown : false, name : 'Settings'}} />
+        <StackApp.Screen name="About" component={About} options={{ headerShown : false, name : 'About'}} />
+        <StackApp.Screen name="AppInformation" component={AppInformation} options={{ headerShown : false, name : 'App Information'}} />
+        <StackApp.Screen name="RatingApp" component={RatingApp} options={{ headerShown : false, name : 'Rate Us'}} />
+        <StackApp.Screen name="Support" component={Support} options={{ headerShown : false, name : 'Support'}} />
       </StackApp.Navigator>
     </NavigationContainer>
   );

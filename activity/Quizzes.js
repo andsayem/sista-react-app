@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { View, Text,  SafeAreaView , StyleSheet } from "react-native";
 import {colors , Icon , Header } from 'react-native-elements';
 //function About({navigation}) {
-  class Product extends  React.Component{   
+  class Quizzes extends  React.Component{   
     render(){
       return (   
           <SafeAreaView> 
             <Header 
                 leftComponent={<Icon color={colors.black} size={30} name='menu' 
                 onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-                centerComponent={{ text: 'Products', style: { color: '#1E1E1E' , fontSize : 20 } }}
+                centerComponent={{ text: 'Quizzes', style: { color: '#1E1E1E' , fontSize : 20 } }}
                 rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
                 containerStyle={{   
                   color : '1E1E1E',
@@ -47,4 +47,4 @@ var styles = StyleSheet.create({
   }
 });
 
-export default Product;
+export default Quizzes;
