@@ -49,6 +49,18 @@ function Profile( { navigation: { navigate } }){
       setErrortext({ message: 'Failed to save the data to the storage ' });  
     }
   } 
+
+  // const mounted = useRef();
+  // useEffect(() => {
+  //   if (!mounted.current) {
+  //     console.log('do componentDidMount logic')
+  //     // do componentDidMount logic
+  //     mounted.current = true;
+  //   } else {
+  //     console.log('componentDidUpdate logic');
+  //     // do componentDidUpdate logic
+  //   }
+  // });
   
   useEffect(() => {readData()},[]);
   useEffect(() => setSuccesstext(false), [successtext]); 
