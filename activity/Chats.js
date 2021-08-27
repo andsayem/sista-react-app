@@ -1,10 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, FlatList, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, FlatList } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , Header  , Icon } from 'react-native-elements'; 
-import BottomSheet from 'react-native-simple-bottom-sheet';  
-import Styles from "../styles";
+import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-elements'; 
+import Styles from "../styles"; 
 import api from '../api';
 function Chats({navigation}) {
     const [getUsers, setUsers] = useState([]); 
@@ -57,11 +56,18 @@ function Chats({navigation}) {
 
     return (
       <ScrollView >
+        
         <Header 
-              leftComponent={{ icon: 'menu', color: '#fff' }}
-              centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
-              rightComponent={{ icon: 'notifications', color: '#fff' }}
-            />
+            leftComponent={<Icon color={colors.black} size={30} name='menu' 
+            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+            centerComponent={{ text: 'Chats', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
+        />
+
+       
          <ScrollView  horizontal  
          style={{  backgroundColor: '#fff',  marginLeft : 0 }}  > 
           <FlatList horizontal
