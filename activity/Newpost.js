@@ -243,13 +243,14 @@ function Newpost({navigation}) {
                 <Icon   style={{padding : 2 , textAlign : 'right' , right : 0 }}  type='font-awesome' name="angle-right" size={20}  />
                 </Text>
               </View>
-              <RBSheet
+              <RBSheet 
                 ref={refRBSheet}
                 closeOnDragDown={true}
-                closeOnPressMask={true}
+                closeOnPressMask={true} 
                 height={250}
                 openDuration={500} >
-                  <Text style={{ textAlign : 'center' , fontWeight : 'bold'}} >Category </Text> 
+                  <Text style={{ textAlign : 'center' , fontWeight : 'bold'}} >Category  </Text> 
+                  <Text onPress={() => refRBSheet.current.close()} style={{ textAlign : 'right' , fontWeight : 'bold'}} >Apply  </Text>
                  
                   <View>
           <RadioForm
@@ -278,7 +279,7 @@ function Newpost({navigation}) {
               <RadioButtonLabel
                 obj={item}
                 index={i}
-                labelHorizontal={false}
+                labelHorizontal={false} 
                 labelStyle={{fontSize: 16, color: '#000000' ,paddingStart :10 , paddingBottom :10}}
                 labelWrapStyle={{}}
               />
