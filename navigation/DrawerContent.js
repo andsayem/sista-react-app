@@ -1,9 +1,6 @@
 
 import React from "react";
-
-import { createDrawerNavigator , DrawerItem  , DrawerContentScrollView } from "@react-navigation/drawer"; 
-import TabsScreen from "../screens/TabsScreen";
-import Chats from "../activity/Chats";
+import { DrawerItem  , DrawerContentScrollView } from "@react-navigation/drawer";  
 import { View , ScrollView , StyleSheet } from "react-native";
 import {
   Avatar,
@@ -18,11 +15,10 @@ import {
 import {
   shareOnFacebook,
   shareOnTwitter,
-} from 'react-native-social-share';
-
-//import Chats from "../activity/Chats";
+} from 'react-native-social-share'; 
 import { Icon } from "react-native-elements"; 
 export function DrawerContent(props){
+  
   facebookShare = () => { 
     shareOnFacebook({
         'text':'Global democratized marketplace for art',
@@ -37,66 +33,65 @@ export function DrawerContent(props){
     );
   }
   return (
-    <ScrollView style={{ flex : 1 , backgroundColor : '#5C48BA'  }}>
+    <ScrollView style={{ flex : 1, backgroundColor : '#5C48BA'  }}>
       <DrawerContentScrollView {...props} >
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
             <View style={{  flexDirection : 'row' , marginTop : 15 }}>
               <Avatar.Image size={50}  source={require('../img/images/user_3.jpg')} > </Avatar.Image>
-              <View style={{ marginLeft : 15 , marginTop : 15  , flexDirection : 'column'}}>
-                <Title  style={{ color : '#fff'}}   > AS Sayem  </Title>
-                <Caption   style={{ color : '#fff'}} >Information </Caption>
+              <View style={{ marginLeft : 13 , marginTop : 12  , flexDirection : 'column'}}>
+                <Title  style={{ color : '#fff'}}   > AS Sayem </Title>
+                <Caption style={{ color : '#fff'}} >Information </Caption>
               </View>
             </View>   
           </View>
         </View> 
       </DrawerContentScrollView>
-      <Drawer.Section style={{ color : '#fff'}}> 
-    
-        
+      <Drawer.Section style={{ color : '#fff'}}>   
          <DrawerItem
-          style={{ color : '#fff'}} 
+          color = '#fff' 
           onPress={()=>{props.navigation.navigate('Quizzes')}} 
-          label="Quizzes" 
+          label={() => <Text style={{ color: '#fff' }}>Quizzes</Text> }
         />
          <DrawerItem
           style={{ color : '#fff'}} 
           onPress={()=>{props.navigation.navigate('Product')}} 
-          label="Product's" 
+          label={() => <Text style={{ color: '#fff' }}>Product's</Text> }
         />
          <DrawerItem
           style={{ color : '#fff'}} 
           onPress={()=>{props.navigation.navigate('Settings')}} 
-          label="Settings" 
+          label={() => <Text style={{ color: '#fff' }}>Settings</Text> } 
         />
          <DrawerItem
           style={{ color : '#fff'}} 
           onPress={()=>{props.navigation.navigate('AppInformation')}} 
-          label="App Information" 
+          label={() => <Text style={{ color: '#fff' }}>App Information</Text> } 
         />
          <DrawerItem
           onPress={()=>{props.navigation.navigate('About')}} 
-          label="About My Sista's KeepHer " 
+          label={() => <Text style={{ color: '#fff' }}>About My Sista's KeepHer </Text> } 
+           
         />
          <DrawerItem
-          onPress={()=>{this.facebookShare()}} 
-          label="Share app" 
+          onPress={()=>{facebookShare()}}           
+          label={() => <Text style={{ color: '#fff' }}>Share app</Text> }  
         />
          <DrawerItem
           onPress={()=>{props.navigation.navigate('RatingApp')}} 
-          label="Rate Us" 
+          label={() => <Text style={{ color: '#fff' }}>Rate Us</Text> }  
         />
          <DrawerItem
           onPress={()=>{props.navigation.navigate('Support')}} 
-          label="Support" 
+          label={() => <Text style={{ color: '#fff' }}>Support</Text> }  
         />
          <DrawerItem
           onPress={()=>{props.navigation.navigate('PrivacyPolicy')}} 
-          label="Privacy Policy" 
+          label={() => <Text style={{ color: '#fff' }}>Privacy Policy</Text> }            
         />
          <DrawerItem
           onPress={()=>{props.navigation.navigate('Login')}} 
-          label="Login" 
+          label={() => <Text style={{ color: '#fff' }}>Login</Text> }            
         />
       </Drawer.Section>
     
@@ -149,32 +144,4 @@ const styles = StyleSheet.create({
   }
   
 
-})
-//const Drawer = createDrawerNavigator();
-
-// const DrawerNavigator = () => {
-//   return ( 
-    
-//       <Drawer.Navigator   drawerStyle={{
-//         backgroundColor: '#ff5d8e',
-//         color : '#fff',
-//         width: 240,
-//       }}>  
-//             <Drawer.Screen name="Home" component={TabsScreen}   /> 
-//             <Drawer.Screen name="Poetry" component={Chats}   /> 
-//             <Drawer.Screen name="Quotes" component={Chats}   /> 
-//             <Drawer.Screen name="Short Stories" component={Chats}   /> 
-//             <Drawer.Screen name="Quizzes" component={Chats}   /> 
-//             <Drawer.Screen name="Product's" component={Chats}   /> 
-//             <Drawer.Screen name="Settings" component={Chats}   /> 
-//             <Drawer.Screen name="About My Sista's KeepHer " component={Chats}   /> 
-//             <Drawer.Screen name="Share app" component={Chats}   /> 
-//             <Drawer.Screen name="Rate Us" component={Chats}   /> 
-//             <Drawer.Screen name="Support" component={Chats}   /> 
-//             <Drawer.Screen name="Privacy Policy" component={Chats}   /> 
-//             <Drawer.Screen name="Logout" component={Chats}   />  
-//       </Drawer.Navigator> 
-//   );
-// }
-
-// export default DrawerNavigator;
+}) 
