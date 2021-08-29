@@ -20,7 +20,7 @@ function Chats(props) {
     }
     useEffect(() => getUser(),[getUsers]); 
     const Allusers = ({ ItemData }) => (
-      <View style={{ backgroundColor: '#fff' ,padding: 5  }} > 
+      <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
           <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
                   sender_id: ItemData.sender_id,
                  }) }   rounded   size="medium" source={require('../img/images/user_1.jpg')} />
@@ -33,8 +33,8 @@ function Chats(props) {
       );
     };
     const Convusers = ({ ItemData }) => (
-      <View >
-          <ListItem style={{
+      <View  >
+          <ListItem key={ItemData.id+'cvu'.toString()} style={{
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
@@ -68,19 +68,19 @@ function Chats(props) {
         />
 
        
-         <ScrollView  horizontal  
+         <ScrollView key={'cvu'.toString()} horizontal  
          style={{  backgroundColor: '#fff',  marginLeft : 0 }}  > 
-          <FlatList horizontal
+           <FlatList horizontal
             data={getUsers} 
-            keyExtractor={(item, index) => item.index} 
+            keyExtractor={(item, index) => index} 
             renderItem={renderAllUsers} 
             extraData={selectedId}
-          />  
+          />   
         </ScrollView>
       <View  style={{  backgroundColor: '#fff',  paddingTop : 0, marginTop : 10  }}  >
      
       <View >
-        <ListItem style={{
+        <ListItem key={'nm'.toString()} style={{
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
@@ -93,10 +93,10 @@ function Chats(props) {
         </View> 
         <FlatList 
             data={getUsers} 
-            keyExtractor={(item, index) => item.index} 
+            keyExtractor= {(item , i) => item.sender_id.toString()} 
             renderItem={renderConvUsers} 
             extraData={selectedId}
-          />  
+          />
  
       </View>
     </ScrollView>

@@ -84,7 +84,9 @@ class Posts extends Component {
       ...post,
       liked: !liked,
       like: liked ? post.like - 1 : post.like + 1
-    }
+    }  
+    api.getData('postlike/'+post.id)
+    
 
     this.setState({
       items: {
@@ -110,8 +112,8 @@ class Posts extends Component {
               backgroundColor: '#E4E4E4' }}
         />
 
-        <Events/>  
-        <Categories/>
+        <Events/> 
+        <Categories/>  
          
         <FlatList 
           data={Object.values(this.state.items)}

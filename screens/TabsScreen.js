@@ -60,7 +60,7 @@ function TabsScreen (navigation){
               )
           }}
            />
-          <Tab.Screen name="Newpost" component={Newpost} 
+           <Tab.Screen name="Newpost" component={Newpost} 
            options={({ navigation  })=>({ 
             tabBarButton : () =><NewListingButton onPress={()=> navigation.navigate("Newpost")  }  ></NewListingButton>,
             tabBarIcon: ({ color, size }) => (

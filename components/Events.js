@@ -76,7 +76,7 @@ const Events = ({ navigation }) => {
             marginTop: 1 }}
             >
         { getCats.map((item, i) => ( 
-        <ListItem > 
+        <ListItem key={item.id} keyExtractor={(item , i) => item.id.toString()} > 
             <ListItem.Content 
             style={{ 
                 backgroundColor: "#341BA9",
