@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, ScrollView , StyleSheet , ToastAndroid, TouchableOpacity , AppRegistry, FlatList, Alert, Platform } from "react-native"; 
-import { Avatar, ListItem , Icon , Image , Header} from "react-native-elements"; 
+import { View, Text, ScrollView , StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
+import { Avatar, colors, Icon , Image , Header} from "react-native-elements"; 
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
@@ -19,7 +19,7 @@ const Toast = ({ visible, message }) => {
   }
   return null;
 };
-function Profile( { navigation: { navigate } }){ 
+function Profile( props){ 
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
   const [errortext, setErrortext] = useState(false);
@@ -29,7 +29,7 @@ function Profile( { navigation: { navigate } }){
     await  AsyncStorage.removeItem(STORAGE_KEY) 
     try {
        AsyncStorage.clear()
-       navigate('Login');
+       props.navigation.navigate('Login');
       setSuccesstext({ message:'Storage successfully cleared!' }); 
     } catch (e) {
       setErrortext({ message: 'Failed to save the data to the storage' });  
@@ -43,7 +43,7 @@ function Profile( { navigation: { navigate } }){
       if (token !== null) {
         setUserData(jsonuser)
       }else{
-        navigate('Login');
+        props.navigation.navigate('Login');
       }
     } catch (e) {
       setErrortext({ message: 'Failed to save the data to the storage ' });  
@@ -66,11 +66,15 @@ function Profile( { navigation: { navigate } }){
   useEffect(() => setSuccesstext(false), [successtext]); 
   useEffect(() => setErrortext(false), [errortext]);
     return ( <ScrollView>
-      <Header
-        leftComponent={{ icon: 'menu', color: '#fff' }}
-        centerComponent={{ text: 'Profile', style: { color: '#fff' } }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
-      />
+        <Header 
+            leftComponent={<Icon color={colors.black} size={30} name='menu' 
+            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
+            centerComponent={{ text: 'Profile', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'home', color: '#1E1E1E' }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
+        /> 
       
         <View  style={{  backgroundColor: "#FEFEFE",   padding : 10 }}  > 
         <Toast visible={errortext} message={errortext.message} />

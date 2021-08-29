@@ -2,7 +2,7 @@ import React, { Component} from "react";
 import { View, FlatList, Text, ActivityIndicator, Button , ImageBackground , SafeAreaView ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , Header } from 'react-native-elements'; 
+import { ListItem, colors, Icon, Header } from 'react-native-elements'; 
 import BottomSheet from 'react-native-simple-bottom-sheet';  
 import Styles from "../styles";
 import api from '../api'; 
@@ -117,12 +117,16 @@ import api from '../api';
     render(){
       let {items, isLoading} = this.state;
     return (  
-         <SafeAreaView>   
-          <Header
-            leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'Journal', style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
-          />  
+         <SafeAreaView>  
+           <Header 
+              leftComponent={<Icon color={colors.black} size={30} name='menu' 
+              onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+              centerComponent={{ text: 'Journal', style: { color: '#1E1E1E' , fontSize : 20 } }}
+              rightComponent={{ icon: 'home', color: '#1E1E1E' }}
+              containerStyle={{   
+                color : '1E1E1E',
+                backgroundColor: '#E4E4E4' }}
+          />   
           <FlatList 
             data={Object.values(this.state.items)}
             renderItem={this.renderRow}

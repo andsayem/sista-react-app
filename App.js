@@ -26,6 +26,7 @@ import Support from "./activity/Support";
 import Chating from "./activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
+import PostDetails from './activity/PostDetails';
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -70,7 +71,7 @@ function App(){
         setInitialRoute('Login'); 
       }      
     } catch (e) {  
-      alert('Failed to fetch the data app' ) 
+      //alert('Failed to fetch the data app' ) 
       //navigate('Login');
       setInitialRoute('Login');
       //props.navigation.navigate("Login");
@@ -106,6 +107,7 @@ function App(){
         <StackApp.Screen name="RatingApp" component={RatingApp} options={{ headerShown : false, name : 'Rate Us'}} />
         <StackApp.Screen name="Support" component={Support} options={{ headerShown : false, name : 'Support'}} />
         <StackApp.Screen name="Chating" component={Chating} options={{ headerShown : false, name : 'Chating'}} />
+        <StackApp.Screen name="PostDetails" component={PostDetails} options={{ headerShown : false, name : 'PostDetails'}} />
       </StackApp.Navigator>
     </NavigationContainer>
   );
