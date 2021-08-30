@@ -18,7 +18,7 @@ function Chats(props) {
             //console.log(error)
         }) 
     }
-    useEffect(() => getUser(),[getUsers]); 
+    useEffect(() => {getUser()},[]); 
     const Allusers = ({ ItemData }) => (
       <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
           <Avatar  onPress={() => props.navigation.navigate('Chating',{ 

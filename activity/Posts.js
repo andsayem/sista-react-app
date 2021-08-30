@@ -19,6 +19,24 @@ class Posts extends Component {
   //   this.fatchData();
   //   console.log('WillMount before')
   // } 
+  async getMovies() {
+    try {
+      const response = await api.getData('post_datas');
+      const json = await response;
+      this.setState({ data: json.data.data });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
+  componentDidMount() {
+    console.log('DidMount after')
+    //this.getMovies();
+    //this.fatchData();
+    console.log('DidMount before')
+  }
   fatchData = () => { 
     this.setState({isLoading:true})  
     api.getData('post_datas')
@@ -30,7 +48,7 @@ class Posts extends Component {
     this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
   }  
   renderFooter = () => { 
-    useEffect(() => this.fatchData(),[]) 
+    useEffect(() => { this.fatchData()},[]) 
     return(  
         <View>  
           {this.state.isLoading ? (
@@ -122,7 +140,7 @@ class Posts extends Component {
           refreshing={isLoading}
           extraData={this.state}
           ListFooterComponent={this.renderFooter}         
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.1}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}      
         /> 

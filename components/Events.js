@@ -31,7 +31,7 @@ const Events = ({ navigation }) => {
     };
     useEffect(() => setSuccesstext(false), [successtext]); 
     useEffect(() => setErrortext(false), [errortext]);
-    useEffect(() => getEvents(false),[getCats]); 
+    useEffect(() => {getEvents()},[]); 
     const getData =(data , type )=>{ 
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "December"

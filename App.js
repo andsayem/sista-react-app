@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState } from "react"; 
-import {Flatform} from 'react-native';
+import {Flatform, LogBox} from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack"; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -32,7 +32,7 @@ const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const AuthContext = React.createContext();
-
+LogBox.ignoreAllLogs(); 
 function DrawerNavigator() {
     return (
       <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}> 

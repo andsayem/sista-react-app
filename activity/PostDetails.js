@@ -21,9 +21,7 @@ function PostDetails({navigation,route}) {
         console.log(error)
     }) 
   };  
-  useEffect(() => {
-    fatchData();
-  }, []);
+  useEffect(() => {fatchData()}, []);
   //useEffect(() => fatchData(false),[getPost]);
   //const stripedHtml = item.description.replace(/<[^>]+>/g, '');
     return (

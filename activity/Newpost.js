@@ -44,7 +44,7 @@ function Newpost({navigation}) {
   const [value, setValue] = React.useState('first');
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
-  useEffect(() => getCategories(false));  
+  useEffect(() => {getCategories()},[]);  
   
   useEffect(()=>{
     setErrortext(false);
@@ -269,8 +269,8 @@ function Newpost({navigation}) {
                 isSelected={ category === item.value}
                 borderWidth={2}
                 buttonOuterColor ={'#944CD4'}
-                buttonInnerColor={'#B461FE'}
-                onPress={(value) => { setCategories(item.value)}}
+                buttonInnerColor={'#B461FE'} 
+                onPress = {() => { setCategories(item.value)}}
                 buttonSize={18}
                 buttonOuterSize={25}
                 buttonStyle={{}}

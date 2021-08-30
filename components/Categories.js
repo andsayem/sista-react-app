@@ -16,25 +16,11 @@ const Categories = () => {
         .catch((error) => {
             console.log(error)
         }) 
-    };  
-    const Toast = ({ visible, message }) => {
-        if (visible) {
-          ToastAndroid.showWithGravityAndOffset(
-            message,
-            ToastAndroid.LONG,
-            ToastAndroid.BOTTOM,
-            25,
-            50
-          );
-          return null;
-        }
-        return null;
-    };
+    };   
     useEffect(() => getCategories(false),[getCats]); 
     useEffect(() => setSuccesstext(false), [successtext]); 
     useEffect(() => setErrortext(false), [errortext]);
-    useEffect(() => { 
-      getCategories(false)},[getCats]); 
+    useEffect(() => {getCategories()},[]); 
     return ( 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
         
