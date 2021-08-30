@@ -12,31 +12,7 @@ class Posts extends Component {
       items:[], 
       isLoading: false,
       };  
-  }
-  
-  // componentWillMount(){
-  //   console.log('WillMount after')
-  //   this.fatchData();
-  //   console.log('WillMount before')
-  // } 
-  async getMovies() {
-    try {
-      const response = await api.getData('post_datas');
-      const json = await response;
-      this.setState({ data: json.data.data });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  }
-
-  componentDidMount() {
-    console.log('DidMount after')
-    //this.getMovies();
-    //this.fatchData();
-    console.log('DidMount before')
-  }
+  }  
   fatchData = () => { 
     this.setState({isLoading:true})  
     api.getData('post_datas')

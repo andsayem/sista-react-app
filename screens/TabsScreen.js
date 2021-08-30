@@ -35,7 +35,7 @@ function TabsScreen (navigation){
     }
   } 
   
-  console.log('loggedIn app page ',loggedIn);
+  //console.log('loggedIn app page ',loggedIn);
   // useEffect(() => {
   //   readData();
   // },[])
