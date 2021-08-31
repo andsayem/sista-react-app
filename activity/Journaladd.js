@@ -1,12 +1,14 @@
-import React, { Component, useEffect, useRef , useState, createRef } from "react";
-import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useEffect, useRef , useState } from "react";
+import { SafeAreaView , View, Text, Image, Button , ImageBackground ,TextInput, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , Header } from 'react-native-elements'; 
+//import { ScrollView  } from "react-native-gesture-handler";
+import { ListItem, Avatar , colors , Header } from 'react-native-elements'; 
+import Styles from "../styles";
+import Loader from '../components/Loader'; 
 import BottomSheet from 'react-native-simple-bottom-sheet';  
 import Textarea from 'react-native-textarea';
 import AsyncStorage from '@react-native-community/async-storage';
-import Styles from "../styles";
+
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 //import renderIf from './renderIf'
@@ -38,58 +40,64 @@ function Journaladd({navigation}) {
     setErrortext(false);
     setSuccesstext(false);
   },[handleSubmitButton])
-  const handleSubmitButton = async () => {    
+  const handleSubmitButton = async () => {  
+  
     setErrortext(false);
-    if (!details) { 
-      setErrortext({message : 'Please fill caption'});  
+    if (!title) {   
+      setErrortext({message : 'Please fill Title'});  
       return;
-    }else{
-      setSuccesstext(false);
+    }else if (!details) {  
+      setErrortext({message : 'Please fill Descrition'});  
+      return; 
     }
-    setLoading(true); 
-    var dataToSend = { 
-      user_id: 1, 
-      details: details,    
-      title: title,    
-    }; 
-    console.log('test by sayem',dataToSend);
-    fetch('http://sista.abdulmazidcse.com/api/journals', {
-      method: 'POST', 
-      headers: { 
-       // Authorization :"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MmU5Njg1Ny00ZmQ4LTQ0N2ItYjEyZC05MGRjMzBlMTU2MTYiLCJqdGkiOiI2MDQwOGNlMmQ4MzkzM2MxNWI1N2VlOWM0ZGZmYTJlZmQyZjFlMTliM2YzOGIwMDkxNjRhOTkwNThkNTEyNzlhNGE0MGU0NWUwNDRhNzMzMiIsImlhdCI6IjE2MjIxNDAwNjkuMzYxMTMxIiwibmJmIjoiMTYyMjE0MDA2OS4zNjExMzQiLCJleHAiOiIxNjUzNjc2MDY5LjM1ODUyMCIsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.A0w81TgcNg-dRAWmxM1dxYgGsgjwjuMnv2oRPbXsZfzqUqawH7uJl9P9iWKQSYIx2uO8SUxdTE2Ky9zray-fHFKW_TF0MPllEyeg6uh0GWDEveHjz8UV3e1W8TzCj9OYcSDjG40ORuKNZrPK2WgrPOzjjyr0w-vhmn4tyBL1XEHlW4gRxRYBjdXBay5LBjSHF_k_7cv_DagK4bscjWYTC5sJpjjYOVIKBj1vyQo6z13s6tAK6DPS899bM89E7AqW_JdUuwI95R6UwVnl1OqFvc0j2DArrHl1XLWa0-iRMseM1k4zibQA10-mzBftuJ-ivfH0zxRQAMg_9U4wIlSkFtNpGF3r93pmdvgvhhoShyEwwvsG8UGr_a3hIq23v2xXBID8flW7239AI__Ss8eDOPoq0A-_B3FFDu2TPVnej7cYl1PS29zi6EtXMVVM2o2hSHKCcY2m5OornonklaUZLrJwWShNG2SchxuLqhAVZsZFoHUjqH6R_451Keke2wyZXNkfprb7MIqiogBkkUWUQtyl5O9qducahbnWwY6CkSNNiLo0rxPhxYYsgQ_oUWUYiYZNhm8FUOIFWMaGQOH56dJVrKAZ-UIU-0Bqt6Zi4FuE6uxjGMHFzbRFT_CYlmC3xE3-F8y_WswE0nqqqYkEe1qnLOGG400I5XQ05mtWXik",
-        'Content-Type': 'application/json',
-        Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
-      },
-      body: JSON.stringify(dataToSend) 
-      })
-      .then((response) => response.json())
-      .then((responseJson) => { 
-        setLoading(false); 
-        if (responseJson.success === true) { 
-          setSuccesstext({message:'Journal submit successful'}); 
-          setTitle('');
-          setDetails(''); 
-        } else { 
-        }
-      })
-      .catch((error) => { 
-        setLoading(false); 
-      });
+    else{
+      
+      setSuccesstext(false);
+      setLoading(true);  
+      var dataToSend = { 
+        user_id: 1, 
+        details: details,    
+        title: title,    
+      }; 
+      console.log('test by sayem',dataToSend);
+      fetch('http://sista.abdulmazidcse.com/api/journals', {
+        method: 'POST', 
+        headers: { 
+        // Authorization :"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MmU5Njg1Ny00ZmQ4LTQ0N2ItYjEyZC05MGRjMzBlMTU2MTYiLCJqdGkiOiI2MDQwOGNlMmQ4MzkzM2MxNWI1N2VlOWM0ZGZmYTJlZmQyZjFlMTliM2YzOGIwMDkxNjRhOTkwNThkNTEyNzlhNGE0MGU0NWUwNDRhNzMzMiIsImlhdCI6IjE2MjIxNDAwNjkuMzYxMTMxIiwibmJmIjoiMTYyMjE0MDA2OS4zNjExMzQiLCJleHAiOiIxNjUzNjc2MDY5LjM1ODUyMCIsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.A0w81TgcNg-dRAWmxM1dxYgGsgjwjuMnv2oRPbXsZfzqUqawH7uJl9P9iWKQSYIx2uO8SUxdTE2Ky9zray-fHFKW_TF0MPllEyeg6uh0GWDEveHjz8UV3e1W8TzCj9OYcSDjG40ORuKNZrPK2WgrPOzjjyr0w-vhmn4tyBL1XEHlW4gRxRYBjdXBay5LBjSHF_k_7cv_DagK4bscjWYTC5sJpjjYOVIKBj1vyQo6z13s6tAK6DPS899bM89E7AqW_JdUuwI95R6UwVnl1OqFvc0j2DArrHl1XLWa0-iRMseM1k4zibQA10-mzBftuJ-ivfH0zxRQAMg_9U4wIlSkFtNpGF3r93pmdvgvhhoShyEwwvsG8UGr_a3hIq23v2xXBID8flW7239AI__Ss8eDOPoq0A-_B3FFDu2TPVnej7cYl1PS29zi6EtXMVVM2o2hSHKCcY2m5OornonklaUZLrJwWShNG2SchxuLqhAVZsZFoHUjqH6R_451Keke2wyZXNkfprb7MIqiogBkkUWUQtyl5O9qducahbnWwY6CkSNNiLo0rxPhxYYsgQ_oUWUYiYZNhm8FUOIFWMaGQOH56dJVrKAZ-UIU-0Bqt6Zi4FuE6uxjGMHFzbRFT_CYlmC3xE3-F8y_WswE0nqqqYkEe1qnLOGG400I5XQ05mtWXik",
+          'Content-Type': 'application/json',
+          Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
+        },
+        body: JSON.stringify(dataToSend) 
+        })
+        .then((response) => response.json())
+        .then((responseJson) => { 
+          setLoading(false); 
+          if (responseJson.success === true) { 
+            setSuccesstext({message:'Journal submit successful'}); 
+            setTitle('');
+            setDetails(''); 
+          } else { 
+          }
+        })
+        .catch((error) => { 
+          setLoading(false); 
+        });
+    }
   }; 
 
     return ( 
       
-        <ScrollView >
+        <SafeAreaView >
+           <Loader loading={loading} /> 
           <Header 
             leftComponent={{ icon: 'menu', color: '#fff' }}
             centerComponent={{ text: 'Writing Prompts', style: { color: '#fff' } }} 
-          />
-      
+          /> 
+          <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
+          <Toast visible={successText} message ={successText.message} />   
           <ListItem > 
               <ListItem.Content 
-                style={{
-                  width: 10
-                }}
+                
               >  
                     <ListItem.Subtitle>Title : </ListItem.Subtitle> 
               </ListItem.Content>  
@@ -138,7 +146,7 @@ function Journaladd({navigation}) {
              
           </ListItem>
           
-        </ScrollView>
+        </SafeAreaView>
       
     );
 }

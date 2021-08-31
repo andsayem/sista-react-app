@@ -5,33 +5,37 @@ import  Styles   from "../styles";
 
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
-const STORAGE_KEY = 'save_user';
+const STORAGE_KEY = 'save_user'; 
+const TOKEN = 'token';
 
-function WelcomeScreen ({ navigation }) {
+function WelcomeScreen (props) {
   const [user, setUser] = useState('');
+  const [getToken, setToken] = useState(false);
   const [loading, setLoading] = useState('');
-  // const handleSubmitPress = () => {
-  //   setLoading(true); 
-  //   console.log('welcomePadeaa@1',user);
-  //   if(!user){  
-  //     navigation.replace('Login')
-  //   } else{
-  //     console.log('welcomePadeaa@12',user);
-  //     navigation.replace('Tabs')
-  //   }   
-  // }  
+  const handleSubmitPress = () => {
+    console.log('test');
+    //props.navigation.navigate("ForgotPassword"); 
+    props.navigation.navigate('Login');
+  }  
    
   const readData = async () => {
     try {
-      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-      let jsonuser = JSON.parse(userInfo)
-      if (userInfo !== null) {
-        setUser(jsonuser)
+      const token = await AsyncStorage.getItem(TOKEN);
+      setToken(token); 
+      if(getToken){ 
+        props.navigation.navigate("Tabs");
       }else{
-        navigation.replace('Login')
-      }
+        props.navigation.navigate("AppTutorial");
+        //setInitialRoute('AppTutorial'); 
+      }    
+      // let jsonuser = JSON.parse(userInfo)
+      // if (userInfo !== null) {
+      //   props.navigation.navigate("Tabs");
+      // }else{
+      //  // navigation.replace('Login')
+      // }
     } catch (e) {
-      alert('Failed to fetch the data from storage')
+      //alert('Failed to fetch the data from storage')
     }
   } 
   useEffect(() => {
@@ -90,7 +94,7 @@ function WelcomeScreen ({ navigation }) {
         <Text style={ Styles.subtitle}>Boost your day with the
           power of poetry</Text>
         <Text style={ Styles.sub_subtitle}>Boost your day with the power of poetry</Text>
-        <Text style={ Styles.lodin_button}  title="Get started" onPress={handleSubmitPress}> Get started </Text>
+        <Text style={ Styles.lodin_button} onPress={handleSubmitPress} title="Get started" > Get started </Text>
 
       </View>
     );

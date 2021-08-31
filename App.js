@@ -27,6 +27,7 @@ import Chating from "./activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
 import PostDetails from './activity/PostDetails';
+import AppTutorial from './screens/WelcomeScreen';
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -37,6 +38,7 @@ function DrawerNavigator() {
     return (
       <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}> 
         <Drawer.Screen name="Tabs" component={TabsScreen} />      
+        <Drawer.Screen name="AppTutorial" component={AppTutorial} />  
         <Drawer.Screen name="Login" component={Login} />  
         <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />  
         <Drawer.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown : false}}/>       
@@ -59,7 +61,7 @@ function DrawerNavigator() {
  
 function App(){
   const [getToken, setToken] = useState(false);
-  const [initialRoute, setInitialRoute] = useState('Login');
+  const [initialRoute, setInitialRoute] = useState('AppTutorial');
   const readData = async () => {
     try { 
       const token = await AsyncStorage.getItem(TOKEN);          
@@ -67,13 +69,13 @@ function App(){
       if(getToken){ 
         setInitialRoute('Home'); 
       }else{
-        props.navigation.navigate("Login");
-        setInitialRoute('Login'); 
+        props.navigation.navigate("AppTutorial");
+        setInitialRoute('AppTutorial'); 
       }      
     } catch (e) {  
       //alert('Failed to fetch the data app' ) 
       //navigate('Login');
-      setInitialRoute('Login');
+      setInitialRoute('AppTutorial');
       //props.navigation.navigate("Login");
     }
   } 
@@ -91,6 +93,7 @@ function App(){
       <StackApp.Navigator initialRouteName={initialRoute}>
         <StackApp.Screen name="Home" component={DrawerNavigator}  options={{ headerShown : false}}/>
         <StackApp.Screen name="Tabs" component={TabsScreen}  options={{ headerShown : false}}/>
+        <StackApp.Screen name="AppTutorial" component={AppTutorial}  options={{ headerShown : false}}/>
         <StackApp.Screen name="Login" component={Login}  options={{ headerShown : false}}/>
         <StackApp.Screen name="RegisterScreen" component={RegisterScreen} options={{ headerShown : false}}/>       
         <StackApp.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown : false}}/>       
@@ -130,7 +133,7 @@ function App22(navigation) {
         }        
       } catch (e) { 
         //alert('Failed to fetch the data from storage App.js page') 
-        history.push("/login");
+        history.push("/AppTutorial");
       }
     } 
     
@@ -166,7 +169,7 @@ function App22(navigation) {
             headerShown: false }}
         />   
          : 
-         <Stack.Screen name="Login" component={Login} />
+         <Stack.Screen name="AppTutorial" component={AppTutorial} />
         }        
       </Stack.Navigator>
     </NavigationContainer>
@@ -193,7 +196,7 @@ function App22(navigation) {
         
       } catch (e) { 
         alert('Failed to fetch the data from storage App.js page') 
-        history.push("/login");
+        history.push("/AppTutorial");
       }
     } 
     useEffect(() => {
@@ -206,7 +209,7 @@ function App22(navigation) {
       {loggedIn ?  
         <Drawer.Screen name="Home" component={TabsScreen} />        
          : 
-         <Drawer.Screen name="Login" component={Login} /> 
+         <Drawer.Screen name="AppTutorial" component={AppTutorial} /> 
         }
       <Drawer.Screen name="RegisterScreen" component={RegisterScreen} /> 
       </Drawer.Navigator>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
-class Tutorial extends Component {
+class AppTutorial extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,4 +23,4 @@ class Tutorial extends Component {
   }
 }
 
-export default Tutorial;
+export default AppTutorial;
