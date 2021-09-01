@@ -98,9 +98,8 @@ function LoginScreen(props) {
       setErrortext(false)
     } else {
       setLoading(false);
-    }
- 
-     axios.post('https://sista.abdulmazidcse.com/api/auth/login',
+    } 
+     axios.post('https://sista.bdmobilepoint.com/api/auth/login',
      {
       email: userEmail ,
       password: userPassword 
@@ -111,7 +110,7 @@ function LoginScreen(props) {
           },
       })
       .then((res) => { 
-       
+       console.log('dfgdfgdf fhgfh',res);
         let userData  = res.data;  
         if(userData.status ===1){
           setLoginData(res.data);
@@ -124,7 +123,7 @@ function LoginScreen(props) {
         setLoading(false);       
       }).catch(function (error) {
         // console.log('=========OUT========');
-        // console.log(error);
+         console.log(error);
         setLoading(false);
       }); 
   };

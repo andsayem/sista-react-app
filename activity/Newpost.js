@@ -72,7 +72,7 @@ function Newpost({navigation}) {
       font_size: 12,
       files_base: ["data:"+photo.type+";base64,"+ photo.base64 ]
     }; 
-    fetch('http://sista.abdulmazidcse.com/api/post_datas', {
+    fetch('http://sista.bdmobilepoint.com/api/post_datas', {
       method: 'POST', 
       headers: {  
         'Content-Type': 'application/json',
