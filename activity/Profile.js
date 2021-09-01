@@ -32,7 +32,7 @@ function Profile( props){
        props.navigation.navigate('Login');
       setSuccesstext({ message:'Storage successfully cleared!' }); 
     } catch (e) {
-      setErrortext({ message: 'Failed to save the data to the storage' });  
+      //setErrortext({ message: 'Failed to save the data to the storage' });  
     }
   }
   const readData = async () => {
@@ -46,7 +46,7 @@ function Profile( props){
         props.navigation.navigate('Login');
       }
     } catch (e) {
-      setErrortext({ message: 'Failed to save the data to the storage ' });  
+      //setErrortext({ message: 'Failed to save the data to the storage ' });  
     }
   } 
 
