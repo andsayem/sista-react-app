@@ -1,48 +1,17 @@
-import React, { useEffect, useState} from "react";
+import React, {Component , useEffect, useState} from "react";
 import { View, Text, Image } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import  Styles   from "../styles";
-
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
 const STORAGE_KEY = 'save_user'; 
 const TOKEN = 'token';
-
-function WelcomeScreen (props) {
-  const [user, setUser] = useState('');
-  const [getToken, setToken] = useState(false);
-  const [loading, setLoading] = useState('');
-  const handleSubmitPress = () => {
-    console.log('test');
-    //props.navigation.navigate("ForgotPassword"); 
-    props.navigation.navigate('Login');
-  }  
-   
-  const readData = async () => {
-    try {
-      const token = await AsyncStorage.getItem(TOKEN);
-      setToken(token); 
-      if(getToken){ 
-        props.navigation.navigate("Tabs");
-      }else{
-        props.navigation.navigate("AppTutorial");
-        //setInitialRoute('AppTutorial'); 
-      }    
-      // let jsonuser = JSON.parse(userInfo)
-      // if (userInfo !== null) {
-      //   props.navigation.navigate("Tabs");
-      // }else{
-      //  // navigation.replace('Login')
-      // }
-    } catch (e) {
-      //alert('Failed to fetch the data from storage')
-    }
-  } 
-  useEffect(() => {
-    readData();
-  }, [])
-
-    var state = {
+class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      items:[], 
+      isLoading: false,
       images: [
         require('../img/Screenshot_6.png'),
         require('../img/Screenshot_7.png'),
@@ -51,10 +20,37 @@ function WelcomeScreen (props) {
       width : 400,
       desc: ['Hello', 'My' ,'te'],
       currentIndex:0
-    };
+      };  
+  }   
+   handleSubmitPress = async () => {  
+  
+    try {
+      
+      if(this.getToken()){ 
+        this.props.navigation.navigate("Tabs");
+      }else{
+        this.props.navigation.navigate("Login"); 
+      }     
+    } catch (e) {
+      this.props.navigation.navigate("Login"); 
+    }
+  }  
+   
+   readData = async () => {
+    try {
+       user = await AsyncStorage.getItem(STORAGE_KEY); 
+       token = await AsyncStorage.getItem(TOKEN);    
+       this.setToken(token);
+      if((token) && (user)) {  
+        this.props.navigation.navigate("Tabs");
+      }
+    } catch (e) {
+      setErrortext({ message: 'Failed to save the data to the storage readdata' });  
+    }
+  } 
+  render(){
     return (
       <View style={Styles.container_tutorial} >
-        <Loader loading={loading} />
         <Text style={Styles.itemContainer} >
           <Image
             style={Styles.icone}
@@ -62,9 +58,9 @@ function WelcomeScreen (props) {
           />
         My Sista's KeepHer</Text>
         <SliderBox style={ Styles.itemContainerSlider }
-                   parentWidth={state.width}
+                   parentWidth={this.state.width}
                    sliderBoxHeight={20}
-                   images={state.images}
+                   images={this.state.images}
                    dotColor="#FFEE58"
                    inactiveDotColor="#90A4AE"
                    paginationBoxVerticalPadding={20}
@@ -90,14 +86,15 @@ function WelcomeScreen (props) {
                      backgroundColor: "rgba(128, 128, 128, 0.92)"
                    }}
 
-                   imageLoadingColor="#2196F3"   title={state.desc} />
+                   imageLoadingColor="#2196F3"   title={this.state.desc} />
         <Text style={ Styles.subtitle}>Boost your day with the
           power of poetry</Text>
         <Text style={ Styles.sub_subtitle}>Boost your day with the power of poetry</Text>
-        <Text style={ Styles.lodin_button} onPress={handleSubmitPress} title="Get started" > Get started </Text>
+        <Text style={ Styles.lodin_button} onPress={this.handleSubmitPress} title="Get started" > Get started </Text>
 
       </View>
     );
+ }
 }
 
 export default WelcomeScreen;

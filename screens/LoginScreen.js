@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState, createRef } from "react";
+import React, {useEffect, useState, createRef } from "react";
 import {
-  Image, Text, TextInput, ScrollView , TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
+  Image, Text, TextInput , TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
   Keyboard
 } from "react-native";
 import {Icon } from 'react-native-elements'; 
@@ -79,13 +79,10 @@ function LoginScreen(props) {
     }); 
   }
  
-  handleSubmitPress = () => {
-    ///props.navigation.navigate("Home");
-    //setErrortext('');
+  handleSubmitPress = () => { 
     if (!userEmail) {
       setvisibleToast(true);
-      setErrortext({ message: 'Please fill Email' });
-      //alert('Please fill Email');
+      setErrortext({ message: 'Please fill Email' }); 
       return;
     }
     if (!userPassword) {
@@ -118,24 +115,19 @@ function LoginScreen(props) {
           saveData();  
           setUserData(userData)
           props.navigation.navigate("Tabs");
-        }
-        
+        } 
         setLoading(false);       
-      }).catch(function (error) {
-        // console.log('=========OUT========');
-         console.log(error);
+      }).catch(function (error) {  
         setLoading(false);
       }); 
   };
   
 
   const saveToken = async (token) =>{  
-    try {  
-      //console.log('Token---------Save',token)
+    try {   
       await AsyncStorage.setItem(TOKEN,token);    
       setSuccesstext({ message:'Token successfully saved ' });       
-    } catch (e) { 
-      //console.log('Token---------Save Don\'n work',e)
+    } catch (e) {  
       setErrortext({ message: 'Failed to save the data to the storage loginscreen.js' }); 
     }
   }
@@ -154,12 +146,9 @@ function LoginScreen(props) {
 
   const readData = async () => {
     try {
-      const user = await AsyncStorage.getItem(STORAGE_KEY);
-      //let jsonuser = JSON.parse(user)
-      const token = await AsyncStorage.getItem(TOKEN);   
-     // console.log('jsonuser=============================',jsonuser);
-      if((token) && (user)) {
-        //setSuccesstext({ message:'read successfully saved' });  
+      const user = await AsyncStorage.getItem(STORAGE_KEY); 
+      const token = await AsyncStorage.getItem(TOKEN);    
+      if((token) && (user)) {  
         props.navigation.navigate("Home");
       }
     } catch (e) {
@@ -174,27 +163,7 @@ function LoginScreen(props) {
         console.log(err);
     }
   }
-  const loginRedirent = async () => {
-    if (loginData) {
-      if (loginData.status === 1 && loginData.access_token != '') {
-        setSuccesstext({ message:loginData.message });  
-        if (!loginData) return 
-        saveData(userData); 
-        const token = await AsyncStorage.getItem(TOKEN);
-        if(token){
-          setLoading(false);        
-          props.navigation.navigate('Tabs');
-        }
-      }
-    } 
-  }  
-  // useEffect(() => {
-  //   console.log('userData ============',userData);
-  //   if(userData.status===1){ 
-  //     setLoading(true);
-  //     props.navigation.navigate("Home");
-  //   } 
-  // },[])
+ 
 
   useEffect(() => {
     readData(); 
@@ -210,16 +179,7 @@ function LoginScreen(props) {
   const handleForgotPasswordPress = () => {
     props.navigation.navigate("ForgotPassword"); 
   }
-  //const mounted = useRef();
-  //useEffect(() => {
-    // if (!mounted.current) {
-    //   console.log('do componentDidMount logic');
-    //   mounted.current = true;
-    // } else {
-    //   console.log('componentDidUpdate logic'); 
-    // }
-  //});
-  //const PasscodeTextInput = React.forwardRef(({autoFocus, onSubmitEditing, onChangeText, value}, ref); 
+  
   return ( 
       <View style={Styles.container} >
         <Loader loading={loading} />

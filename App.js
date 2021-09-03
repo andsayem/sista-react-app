@@ -67,10 +67,10 @@ function App(){
       const token = await AsyncStorage.getItem(TOKEN);          
       setToken(token); 
       if(getToken){ 
-        setInitialRoute('Home'); 
+        setInitialRoute('Tabs'); 
       }else{
         props.navigation.navigate("AppTutorial");
-        setInitialRoute('AppTutorial'); 
+        setInitialRoute('Login'); 
       }      
     } catch (e) {  
       //alert('Failed to fetch the data app' ) 
