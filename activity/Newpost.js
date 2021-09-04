@@ -1,5 +1,5 @@
 import React, { useEffect, useRef , useState } from "react";
-import { View , Text , Image, Button , ToastAndroid , TouchableOpacity, StyleSheet } from "react-native";
+import { View , Text , ImageBackground , CheckBox , Image, Button , ToastAndroid , TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler"; 
 import { ListItem, colors , Icon , Header } from 'react-native-elements';   
@@ -32,7 +32,7 @@ function Newpost({navigation}) {
   // bs =React.createRef();
   // fall  = new Animated.value(1) ;
   const [post_caption, setCaption] = useState(false);
-  const [category, setCategories] = useState(1);
+  const [category, setCategories] = useState(1); 
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState(false);
   const [successText, setSuccesstext] = useState(false);   
@@ -41,6 +41,7 @@ function Newpost({navigation}) {
   const [getCats, setCats] = useState([]);
   const refRBSheet = useRef();
   const [checked, setChecked] = React.useState(''); 
+  const [isSelected, setSelection] = useState(true);
   const [value, setValue] = React.useState('first');
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
@@ -64,13 +65,13 @@ function Newpost({navigation}) {
     setLoading(true); 
     var dataToSend = { 
       user_id: 1,
-      post_type: 1,
+      post_type:  index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3 ,
       caption: post_caption,
       cat_id: category,
       background_id : 1,
       font_style: 'small',
       font_size: 12,
-      files_base: ["data:"+photo.type+";base64,"+ photo.base64 ]
+      files_base: index == 0  || 1 ? ["data:"+photo.type+";base64,"+ photo.base64 ] : null
     }; 
     fetch('http://sista.bdmobilepoint.com/api/post_datas', {
       method: 'POST', 
@@ -82,6 +83,7 @@ function Newpost({navigation}) {
       })
       .then((response) => response.json())
       .then((responseJson) => { 
+        console.log(responseJson);
         setLoading(false); 
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
@@ -157,13 +159,13 @@ function Newpost({navigation}) {
         <ListItem >
           
           <ListItem.Content>
-            <Image   source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
+            <Image  source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
           </ListItem.Content> 
           <ListItem.Content>
-            <Image   source={require("../img/images/3.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
+            <Image  source={require("../img/images/3.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
           </ListItem.Content> 
           <ListItem.Content>
-            <Image   source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
+            <Image  source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
           </ListItem.Content> 
         </ListItem>
     </View> 
@@ -171,17 +173,25 @@ function Newpost({navigation}) {
     }else {
       return(
         <View> 
+            
         <ListItem >
           <ListItem.Content>
-            <Image   source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
-          </ListItem.Content> 
+          <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
+          <CheckBox 
+                    value={isSelected}
+                    onValueChange={setSelection}  
+                  />
+            </ImageBackground>
          
+            {/* <Image   source={require("../img/text/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  />  */}
+          </ListItem.Content> 
+{/*          
           <ListItem.Content>
             <Image   source={require("../img/images/3.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
           </ListItem.Content> 
           <ListItem.Content>
             <Image   source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
-          </ListItem.Content> 
+          </ListItem.Content>  */}
         </ListItem>
     </View>
       ) 
@@ -217,9 +227,29 @@ function Newpost({navigation}) {
                     </ListItem.Title> 
                   </ListItem.Content>  
               </ListItem.Content>  
+             
           </ListItem>     
              <View style={styles.textAreaContainer} > 
-                <Textarea
+             {index == 2  ?
+              <View   style={{ width: '100%',  }}  > 
+               <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
+               <Textarea
+                  onChangeText={(post_caption) => setCaption(post_caption)} 
+                  value={post_caption}
+                  blurOnSubmit={true}
+                  containerStyle={styles.textareaContainerBg}
+                  backgroundColor="rgba(0,0,0,0)"
+                  maxLength={1000}
+                  placeholder={'Type something...'}  
+                  returnKeyType="next"
+                  multiline={true}
+                  underlineColorAndroid="transparent"
+                  underlineColorAndroid={'transparent'}
+                />
+               </ImageBackground> 
+               </View>
+               : 
+               <Textarea
                   onChangeText={(post_caption) => setCaption(post_caption)} 
                   value={post_caption}
                   blurOnSubmit={true}
@@ -232,6 +262,8 @@ function Newpost({navigation}) {
                   underlineColorAndroid="transparent"
                   underlineColorAndroid={'transparent'}
                 />
+             }
+                
                 </View> 
                 <View > 
                 </View> 
@@ -293,7 +325,14 @@ function Newpost({navigation}) {
                setIndex(event.nativeEvent.selectedSegmentIndex);  
             }}  />  
             {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}
+          { index == 0 ||  index == 1?  
+           <View> 
             <Button title="Choose Photo" onPress={handleChoosePhoto} />
+           </View>
+           :
+           <View></View>
+          }
+            
             { ChildViewEliment() } 
             <ListItem>
             <TouchableOpacity
@@ -308,6 +347,19 @@ function Newpost({navigation}) {
     );
 }
 const styles = StyleSheet.create({
+  container_bg: {
+    flex: 1,
+  },
+  image_bg: {
+    flex: 1,
+   // width : '30%'
+    justifyContent: "center"
+  },
+  text_bg: {
+    color: "black", 
+    fontWeight: "bold",
+    textAlign: "center", 
+  },
   textAreaContainer: {
     borderColor:  '#efefef',
     borderWidth: 1,  
@@ -332,11 +384,19 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: '#F5FCFF',
   },
+  textareaContainerBg: {
+    height: 180,
+    padding: 5,
+    justifyContent : 'center',
+    textAlign : 'center', 
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
   textarea: {
     textAlignVertical: 'top',  // hack android
     height: 170,
     fontSize: 14,
     color: '#333',
+    backgroundColor: 'rgba(0,0,0,0)'
   }, 
   cat_title : {
     textAlign: 'left', 
