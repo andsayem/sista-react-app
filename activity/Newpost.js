@@ -38,6 +38,7 @@ function Newpost({navigation}) {
   const [successText, setSuccesstext] = useState(false);   
   const [index, setIndex] = useState(0);
   const [photo, setPhoto] = useState([]);
+  const [video, setVideo] = useState([]);
   const [getCats, setCats] = useState([]);
   const refRBSheet = useRef();
   const [checked, setChecked] = React.useState(''); 
@@ -61,7 +62,7 @@ function Newpost({navigation}) {
       return;
     }else{
       setSuccesstext(false);
-    
+    console.log( video.uri );
     setLoading(true); 
     var dataToSend = { 
       user_id: 1,
@@ -71,8 +72,12 @@ function Newpost({navigation}) {
       background_id : 1,
       font_style: 'small',
       font_size: 12,
-      files_base: index == 0  || 1 ? ["data:"+photo.type+";base64,"+ photo.base64 ] : null
+      videoFile : index == 0  ? {  name: "name.mp4", uri: video.uri, type: 'video/mp4' } : null ,
+      files_base: index == 0  ? ["data:"+photo.type+";base64,"+ photo.base64 ] : null
     }; 
+
+ 
+
     fetch('http://sista.bdmobilepoint.com/api/post_datas', {
       method: 'POST', 
       headers: {  
@@ -83,7 +88,6 @@ function Newpost({navigation}) {
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        console.log(responseJson);
         setLoading(false); 
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
@@ -99,17 +103,40 @@ function Newpost({navigation}) {
   };  
   
   const handleChoosePhoto = () => {
+
     let options = {
       title: 'Select Image',
       noData: true,
       includeBase64: true
     };
     launchImageLibrary(options, (response) => { 
+      console.log(response);
       if (response) {
         setPhoto(response); 
       }
     });
   };
+ const selectVideo = () => { 
+  let options = {
+    title: 'Select Image',
+    noData: true,
+    mediaType: 'video',
+    includeBase64: true
+  };
+  launchImageLibrary(options, (response) => {  
+    //console.log(response);
+    //setPhoto(response); 
+    setVideo(response);  
+    // if (response) {
+    //   setPhoto(response); 
+    // }
+  });
+
+    // launchImageLibrary({ mediaType: 'video', includeBase64: true , noData: true}, (response) => { 
+    //   setPhoto(response);  
+    // })
+
+}
   const getCategories = async => {
     api.getData('post_categories')
     .then((res)=>{  
@@ -332,7 +359,7 @@ function Newpost({navigation}) {
            :
            <View></View>
           }
-            
+            <TouchableOpacity onPress={ selectVideo } ><Text>Video</Text></TouchableOpacity>
             { ChildViewEliment() } 
             <ListItem>
             <TouchableOpacity
