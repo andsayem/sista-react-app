@@ -81,14 +81,14 @@ function Newpost({navigation}) {
     fetch('http://sista.bdmobilepoint.com/api/post_datas', {
       method: 'POST', 
       headers: {  
-        'Content-Type': 'application/json',
+        'Content-Type':'application/json',
         Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
       },
       body: JSON.stringify(dataToSend) 
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        setLoading(false); 
+        setLoading(false);  
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
           setCaption('');
@@ -103,7 +103,6 @@ function Newpost({navigation}) {
   };  
   
   const handleChoosePhoto = () => {
-
     let options = {
       title: 'Select Image',
       noData: true,
@@ -151,7 +150,7 @@ function Newpost({navigation}) {
         console.log(error)
     }) 
   };
-  ChildViewEliment=()=>{
+  const ChildViewEliment=()=>{
     if(index == 0){
       return(
         <View> 
@@ -353,13 +352,19 @@ function Newpost({navigation}) {
             }}  />  
             {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}
           { index == 0 ||  index == 1?  
+             index == 0 ? 
            <View> 
             <Button title="Choose Photo" onPress={handleChoosePhoto} />
            </View>
            :
+           <View> 
+            <TouchableOpacity onPress={ selectVideo } >
+            <Button title="Choose Video" onPress={selectVideo} /></TouchableOpacity>
+           </View>
+           :
            <View></View>
-          }
-            <TouchableOpacity onPress={ selectVideo } ><Text>Video</Text></TouchableOpacity>
+          } 
+            
             { ChildViewEliment() } 
             <ListItem>
             <TouchableOpacity
