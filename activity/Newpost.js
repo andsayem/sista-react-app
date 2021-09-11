@@ -7,6 +7,8 @@ import Styles from "../styles";
 import Loader from '../components/Loader'; 
 import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
+import Video from 'react-native-video';
 import Textarea from 'react-native-textarea';
 import RBSheet from "react-native-raw-bottom-sheet";  
 import api from '../api'; 
@@ -44,14 +46,86 @@ function Newpost({navigation}) {
   const [checked, setChecked] = React.useState(''); 
   const [isSelected, setSelection] = useState(true);
   const [value, setValue] = React.useState('first');
+  const [getToken, setToken] = useState(false);
   useEffect(() => setSuccesstext(false), [successText]);  
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => {getCategories()},[]);  
-  
+  const readData = async () => {
+    try { 
+      const token = await AsyncStorage.getItem(TOKEN);          
+      setToken(token);       
+    } catch (e) {   
+
+    }
+  } 
+  useEffect(() => { readData() },[])  
   useEffect(()=>{
     setErrortext(false);
     setSuccesstext(false);
   },[handleSubmitButton])
+  const handleSubmitButton2 = async () => {    
+    setErrortext(false);
+    if (!post_caption) { 
+      setErrortext({message : 'Please fill caption'});  
+      return;
+    }else if(!category){
+      setErrortext({message : 'Please fill category'});  
+      return;
+    }else{
+      setSuccesstext(false); 
+      setLoading(true); 
+      let formData = new FormData();
+      if (video) {
+        console.log('photos=====',video);
+        formData.append("files_base", {
+          name: "name.mp4",
+            uri: video.uri,
+            type: 'video/mp4'
+        });
+      }
+      if (photo) {
+        //console.log('photos=====',photo.fileName);
+        formData.append("image", photo.base64);
+        //  formData.append("files_base", ["data:"+photo.type+";base64,"+ photo.base64 ]);
+      }
+      formData.append("user_id", 1);
+      formData.append("caption", post_caption);
+      formData.append("cat_id", category);
+      formData.append("background_id", 1);
+      formData.append("font_style", 'small');
+      formData.append("font_size", 12);
+      formData.append("post_type", index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3); 
+    fetch('http://sista.bdmobilepoint.com/api/post_datas', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+          "access-token" :"Bearer "+getToken,
+          Authorization :"Bearer "+getToken
+      },  
+      body: formData
+      })
+      .then((response) => response.json())
+      .then((responseJson) => { 
+        setLoading(false);  
+        console.log('formData ============',formData) 
+        console.log('dataToSend============', responseJson)
+        if (responseJson.success === true) { 
+          setSuccesstext({message:'Post Submit Successful'}); 
+          setCaption(''); 
+          setPhoto('');
+          setCategories(''); 
+        } else { 
+        }
+      })
+      .catch((error) => { 
+        console.log('formData ============',formData) 
+        console.log('error ============',error) 
+        console.log('getToken ============',getToken) 
+        setLoading(false); 
+      });
+    }
+  };  
   const handleSubmitButton = async () => {    
     setErrortext(false);
     if (!post_caption) { 
@@ -62,7 +136,7 @@ function Newpost({navigation}) {
       return;
     }else{
       setSuccesstext(false);
-    console.log( video.uri );
+    //console.log( video.uri );
     setLoading(true); 
     var dataToSend = { 
       user_id: 1,
@@ -71,16 +145,20 @@ function Newpost({navigation}) {
       cat_id: category,
       background_id : 1,
       font_style: 'small',
-      font_size: 12,
-      videoFile : index == 0  ? {  name: "name.mp4", uri: video.uri, type: 'video/mp4' } : null ,
-      files_base: index == 0  ? ["data:"+photo.type+";base64,"+ photo.base64 ] : null
-    }; 
-
- 
-
+      font_size: 12, 
+      files_base: index == 0 ||  index == 1? 
+          index == 0 ? 
+          ["data:"+photo.type+";base64,"+ photo.base64 ]
+          : ["data:"+video.type+";base64,"+ video.base64 ]
+          : null        
+    };  
     fetch('http://sista.bdmobilepoint.com/api/post_datas', {
       method: 'POST', 
       headers: {  
+        'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+          "access-token" :"Bearer "+getToken,
+          Authorization :"Bearer "+getToken,
         'Content-Type':'application/json',
         Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
       },
@@ -89,20 +167,35 @@ function Newpost({navigation}) {
       .then((response) => response.json())
       .then((responseJson) => { 
         setLoading(false);  
+        //console.log('video',video)
+        console.log('responseJson============',responseJson)
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
-          setCaption('');
-          setCategories(''); 
+          //setCaption('');
+          //setPhoto('');
+          //setCategories(''); 
         } else { 
         }
       })
       .catch((error) => { 
+        console.log('dfgdfgdfgfd',error);
         setLoading(false); 
       });
     }
   };  
-  
   const handleChoosePhoto = () => {
+    ImagePicker.launchImageLibrary({
+          mediaType: 'photo',
+          includeBase64: true,
+          maxHeight: 200,
+          maxWidth: 200,
+      },
+      (response) => {
+          console.log(response);
+          setPhoto(response); 
+      });
+  }
+  const handleChoosePhoto2 = () => {
     let options = {
       title: 'Select Image',
       noData: true,
@@ -115,27 +208,33 @@ function Newpost({navigation}) {
       }
     });
   };
- const selectVideo = () => { 
-  let options = {
-    title: 'Select Image',
-    noData: true,
-    mediaType: 'video',
-    includeBase64: true
-  };
-  launchImageLibrary(options, (response) => {  
-    //console.log(response);
-    //setPhoto(response); 
-    setVideo(response);  
-    // if (response) {
-    //   setPhoto(response); 
-    // }
-  });
+  const selectVideo = () => {  
+    ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
+      console.log('launchImageLibrary',response);
+      setVideo(response);
+  })
+    // let options = {
+    //   title: 'Select Image',
+    //   noData: true,
+    //   mediaType: 'video',
+    //   includeBase64: true
+    // };
 
-    // launchImageLibrary({ mediaType: 'video', includeBase64: true , noData: true}, (response) => { 
-    //   setPhoto(response);  
-    // })
+    // launchImageLibrary(options, (response) => {  
+    //   //console.log(response);
+    //   //setPhoto(response); 
+    //   setVideo(response);  
+    //   if (response) {
+    //     setVideo(response); 
+    //   }
+    // });
 
-}
+      // launchImageLibrary({ mediaType: 'video', includeBase64: true , noData: true}, (response) => { 
+      //   setVideo(response);  
+      //   console.log('launchImageLibrary',response)
+      // })
+
+  }
   const getCategories = async => {
     api.getData('post_categories')
     .then((res)=>{  
@@ -238,11 +337,19 @@ function Newpost({navigation}) {
           <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
           <Toast visible={successText} message ={successText.message} /> 
               <ListItem>
-                <ListItem.Content > 
-                <Image 
+                <ListItem.Content >
+                  { photo ? <Image 
                    source={photo ? {uri: photo.uri } : null}  
                    style={{  width: '100%', height: photo.uri  ? 300 : 0 }}
-                />
+                /> :''}
+                 {/* <Video 
+                  source={{uri: 'https://youtu.be/oEFEGcsjk1A'}}   // Can be a URL or a local file.
+                  ref={(ref) => {
+                    this.player = ref
+                  }}                                      // Store reference
+                  onBuffer={this.onBuffer}                // Callback when remote video is buffering
+                  onError={this.videoError}               // Callback when video cannot be loaded
+                  style={styles.backgroundVideo} />  */}
                 </ListItem.Content> 
               </ListItem>  
           <ListItem > 
@@ -437,7 +544,14 @@ const styles = StyleSheet.create({
     },
   radio : {
     fontSize : 10
-  }
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 })
 
 export default Newpost;
