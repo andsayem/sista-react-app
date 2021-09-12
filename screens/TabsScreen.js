@@ -7,6 +7,7 @@ import Profile from '../activity/Profile';
 import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal"; 
 import Newpost from '../activity/Newpost';
+import NewFeedScreen from '../activity/NewFeedScreen';
 import NewListingButton from "../navigation/NewListingButton";
 import Posts from '../activity/Posts';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -67,7 +68,7 @@ function TabsScreen (navigation){
                 <Icon name='add' />
               )
           })}
-           /> 
+           />  
           <Tab.Screen name="Journal" component={Journal} 
            options={{
             headerShown : true,

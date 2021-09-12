@@ -1,5 +1,5 @@
 import React, { useEffect, useRef , useState } from "react";
-import { View , Text , ImageBackground , CheckBox , Image, Button , ToastAndroid , TouchableOpacity, StyleSheet } from "react-native";
+import {Platform, View , Text , ImageBackground , CheckBox , Image, Button , ToastAndroid , TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler"; 
 import { ListItem, colors , Icon , Header } from 'react-native-elements';   
@@ -12,8 +12,10 @@ import Video from 'react-native-video';
 import Textarea from 'react-native-textarea';
 import RBSheet from "react-native-raw-bottom-sheet";  
 import api from '../api'; 
+import axios from 'axios';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
+import FormData from 'form-data'; 
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 //import renderIf from './renderIf'
@@ -76,40 +78,57 @@ function Newpost({navigation}) {
       setLoading(true); 
       let formData = new FormData();
       if (video) {
-        console.log('photos=====',video);
-        formData.append("files_base", {
-          name: "name.mp4",
-            uri: video.uri,
-            type: 'video/mp4'
-        });
+        console.log('video=====',video);
+        // formData.append('files_base', {
+        //   name: video.fileName,
+        //   uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
+        //   type: 'video/mov',
+        // });
+        // formData.append("files_base", {
+        //   name: "name.mp4",
+        //     uri: video.uri,
+        //     type: 'video/mp4'
+        // });
       }
-      if (photo) {
-        //console.log('photos=====',photo.fileName);
-        formData.append("image", photo.base64);
-        //  formData.append("files_base", ["data:"+photo.type+";base64,"+ photo.base64 ]);
-      }
+      
       formData.append("user_id", 1);
       formData.append("caption", post_caption);
       formData.append("cat_id", category);
       formData.append("background_id", 1);
       formData.append("font_style", 'small');
       formData.append("font_size", 12);
-      formData.append("post_type", index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3); 
-    fetch('http://sista.bdmobilepoint.com/api/post_datas', {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
+      formData.append("post_type", index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3);   
+      if (photo) {
+        //console.log('photos=====',photo.fileName);
+        //formData.append("files_base", 'photo.base64');
+        formData.append("files_base", "data:"+photo.type+";base64,"+ photo.base64 );
+      }  
+      console.log('formData',formData);
+      
+      axios.post('https://sista.bdmobilepoint.com/api/post_datas', formData,
+         {
+          headers: { 
+            'Accept': 'application/json',  
+            'Content-Type': 'multipart/form-data', 
+            Authorization :"Bearer "+getToken,
+        }
+      })  
+      fetch('https://sista.bdmobilepoint.com/api/post_datas',{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',  
           'Content-Type': 'multipart/form-data',
-          "access-token" :"Bearer "+getToken,
-          Authorization :"Bearer "+getToken
-      },  
-      body: formData
+          Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN), 
+        },
+        body: formData
       })
-      .then((response) => response.json())
-      .then((responseJson) => { 
+      .then((response) => {
+        console.log('ddres',response.json());
+        //console.log('formData ==',formData) 
+      }).then((responseJson) => { 
         setLoading(false);  
-        console.log('formData ============',formData) 
-        console.log('dataToSend============', responseJson)
+        //console.log('formData ============',formData) 
+        console.log('dataToSend ======', responseJson)
         if (responseJson.success === true) { 
           setSuccesstext({message:'Post Submit Successful'}); 
           setCaption(''); 
@@ -118,10 +137,8 @@ function Newpost({navigation}) {
         } else { 
         }
       })
-      .catch((error) => { 
-        console.log('formData ============',formData) 
-        console.log('error ============',error) 
-        console.log('getToken ============',getToken) 
+      .catch((error) => {  
+        console.log('error ============',error)  
         setLoading(false); 
       });
     }
@@ -152,13 +169,11 @@ function Newpost({navigation}) {
           : ["data:"+video.type+";base64,"+ video.base64 ]
           : null        
     };  
+    console.log('dataToSend--==',dataToSend);
     fetch('http://sista.bdmobilepoint.com/api/post_datas', {
       method: 'POST', 
       headers: {  
-        'Accept': 'application/json',
-          'Content-Type': 'multipart/form-data',
-          "access-token" :"Bearer "+getToken,
-          Authorization :"Bearer "+getToken,
+        'Accept': 'application/json',  
         'Content-Type':'application/json',
         Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
       },
@@ -166,26 +181,22 @@ function Newpost({navigation}) {
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        setLoading(false);  
-        //console.log('video',video)
+        setLoading(false);   
         console.log('responseJson============',responseJson)
         if (responseJson.success === true) { 
-          setSuccesstext({message:'Post Submit Successful'}); 
-          //setCaption('');
-          //setPhoto('');
-          //setCategories(''); 
+          setSuccesstext({message:'Post Submit Successful'});  
         } else { 
         }
       })
       .catch((error) => { 
-        console.log('dfgdfgdfgfd',error);
+        console.log('error===',error);
         setLoading(false); 
       });
     }
   };  
   const handleChoosePhoto = () => {
     ImagePicker.launchImageLibrary({
-          mediaType: 'photo',
+          mediaType: 'photo', 
           includeBase64: true,
           maxHeight: 200,
           maxWidth: 200,
@@ -452,7 +463,7 @@ function Newpost({navigation}) {
       </RadioForm>     
     </View>
                  
-  </RBSheet>
+        </RBSheet>
               </View>      
             <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={(event) =>  { 
                setIndex(event.nativeEvent.selectedSegmentIndex);  
@@ -465,7 +476,7 @@ function Newpost({navigation}) {
            </View>
            :
            <View> 
-            <TouchableOpacity onPress={ selectVideo } >
+            <TouchableOpacity>
             <Button title="Choose Video" onPress={selectVideo} /></TouchableOpacity>
            </View>
            :

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'; 
 import { StyleSheet,  ImageBackground ,Text, Button, TouchableOpacity, View,Image, ScrollView } from 'react-native'; 
 import { ListItem, Avatar, Icon } from 'react-native-elements';   
+
+import moment from 'moment'
 const image = { uri: "https://reactjs.org/logo-og.png" };
 class Post extends  React.Component{      
     constructor(props) {
@@ -8,10 +10,15 @@ class Post extends  React.Component{
     }                          
     shouldComponentUpdate(nextProps, nextState) {                                     
       const { liked, like } = nextProps                                          
-      const { liked: oldLiked, like: oldLikeCount } = this.props                 
-  
+      const { liked: oldLiked, like: oldLikeCount } = this.props 
       // If "liked" or "likeCount" is different, then update                          
       return liked !== oldLiked || like !== oldLikeCount                         
+    } 
+    shouldComponentUpdate(nextProps, nextState) {                                     
+      const { followed, follow } = nextProps                                          
+      const { followed: oldFollowed } = this.props 
+      // If "liked" or "likeCount" is different, then update                          
+      return followed !== oldFollowed                          
     }                                                                                 
   
     render() { 
@@ -23,11 +30,18 @@ class Post extends  React.Component{
               <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
                   <Avatar rounded size="medium" source={require('../img/images/user_3.jpg')} />
                   <ListItem.Content >
-                    <ListItem.Title> {this.props.item.userjoin.name} </ListItem.Title>
-                    <ListItem.Subtitle>  52 mins ago</ListItem.Subtitle>
+                    <ListItem.Title> {this.props.item.userjoin.name} </ListItem.Title> 
+                    <ListItem.Subtitle>  {moment(this.props.item.created_at).fromNow() }</ListItem.Subtitle>
                   </ListItem.Content> 
                   <ListItem.Content >
-                  <Text>+ Following</Text>
+                  <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}    
+                  activeOpacity={0.5} >  
+                  {this.props.followed ?
+                    <Text style={{ color : '#a21919'}}>-Unfollowing</Text>
+                    : 
+                    <Text style={{ color : '#a21919'}}>+Following </Text> 
+                  } 
+                  </TouchableOpacity>   
                   </ListItem.Content>
               </ListItem>             
             </View> 
