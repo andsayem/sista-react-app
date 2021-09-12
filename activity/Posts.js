@@ -90,13 +90,14 @@ class Posts extends Component {
   }
   handleFollowPost = index => {     
     let post = this.state.items[index] 
-    const { followed, follow } = post 
+    console.log('follow',post);
+    const { followings, follow } = post 
     const newPost = {
       ...post,
-      followed: !followed,
-      follow: followed ? post.follow - 1 : post.follow + 1
-    }  
-    api.getData('postlike/'+post.id)
+      followings: !followings,
+      follow: followings ? post.follow - 1 : post.follow + 1
+    }   
+    //api.getData('postlike/'+post.id)
     this.setState({
       items: {
         ...this.state.items,
@@ -117,11 +118,9 @@ class Posts extends Component {
             containerStyle={{   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
-        />
-
+        /> 
         <Events/> 
-        <Categories/>  
-         
+        <Categories/>   
         <FlatList 
           data={Object.values(this.state.items)}
           renderItem={this.renderRow}

@@ -11,15 +11,12 @@ class Post extends  React.Component{
     shouldComponentUpdate(nextProps, nextState) {                                     
       const { liked, like } = nextProps                                          
       const { liked: oldLiked, like: oldLikeCount } = this.props 
+
+      const { followings, follow } = nextProps;                                          
+      const { followings: oldFollowed, follow: oldFollowCount} = this.props;
       // If "liked" or "likeCount" is different, then update                          
-      return liked !== oldLiked || like !== oldLikeCount                         
-    } 
-    shouldComponentUpdate(nextProps, nextState) {                                     
-      const { followed, follow } = nextProps                                          
-      const { followed: oldFollowed } = this.props 
-      // If "liked" or "likeCount" is different, then update                          
-      return followed !== oldFollowed                          
-    }                                                                                 
+      return liked !== oldLiked || like !== oldLikeCount || followings !== oldFollowed || follow !== oldFollowCount                       
+    }                                                                                
   
     render() { 
       //console.log('Post = props',this.props.item);                 
@@ -36,7 +33,8 @@ class Post extends  React.Component{
                   <ListItem.Content >
                   <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}    
                   activeOpacity={0.5} >  
-                  {this.props.followed ?
+                  <Text>{this.props.follow }</Text>
+                  {this.props.followings ?
                     <Text style={{ color : '#a21919'}}>-Unfollowing</Text>
                     : 
                     <Text style={{ color : '#a21919'}}>+Following </Text> 
