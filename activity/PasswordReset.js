@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, Text, ToastAndroid ,TextInput, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, ToastAndroid , TextInput, TouchableOpacity, View } from "react-native";
 import Styles from "../styles";
 import Loader from '../components/Loader';
 import axios from 'axios';
@@ -42,20 +42,28 @@ function PasswordReset(props) {
     } else if (!confirmpassword) {
       setErrortext({ message: 'Please fill Confirm Password' });
       return;
-    } else {
+    } else if (confirmpassword != password ) {
+      setErrortext({ message: 'The password and confirmation password do not match.' });
+      return;
+    }else {
       setSuccesstext(false); 
-      const article = { email: email , otp_code : otpcode };
+      const article = { 
+        email: email , 
+        password : password  ,
+        confirmpassword : confirmpassword  ,
+      };
       const headers = { 
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.bdmobilepoint.com/api/varify-password-otp', article,{headers})
+      axios.post('http://sista.bdmobilepoint.com/api/password-reset', article,{headers})
       .then((response) => {
         setLoading(false); 
         if(response.data.success){
           setSuccesstext({message: response.data.message });
           if(response.data.data == 1){
-            props.navigation.navigate('PasswordReset') 
+            props.navigation.navigate('CongratulationResetPassword')
+           // props.navigation.navigate('PasswordReset') 
           } 
          // props.navigation.navigate("CheckYourEmail");  
         }else{
@@ -75,6 +83,10 @@ function PasswordReset(props) {
   }
   return (
     <View style={Styles.container}>
+      <Loader loading={loading} />
+      <Toast style={Styles.errorTextStyle} 
+      visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)} />
+      <Toast visible={successText} message={successText.message} />
       <Text
         style={Styles.title} >Password reset</Text>
       <Text
@@ -86,21 +98,68 @@ function PasswordReset(props) {
       <Text
         style={Styles.lebel} >Password</Text>
       <TextInput
+      value={password}
+         maxLength={16}
         style={Styles.inputText}
+        onChangeText={(password) => setPassword(password)}
         placeholder="Enter password" 
           />
       <Text
         style={Styles.lebel} >Confirm password</Text>
       <TextInput
+      value={confirmpassword}
+        maxLength={16}
+        onChangeText={(confirmpassword) => setConfirmpassword(confirmpassword)}
         style={Styles.inputText}
         placeholder="Enter password" 
         />
 
-      <TouchableOpacity onPress={handleCongratulationResetPress } style={Styles.loginBtn}>
+      <TouchableOpacity onPress={handleSubmitButton } style={Styles.loginBtn}>
         <Text style={Styles.loginText}>Reset password</Text>
       </TouchableOpacity>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  textAreaContainer: {
+    borderColor: '#efefef',
+    borderWidth: 1,
+  },
+  textArea: {
+    height: 150,
+
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+  },
+  container: {
+    flex: 1,
+    padding: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textareaContainer: {
+    height: 180,
+    padding: 5,
+    backgroundColor: '#F5FCFF',
+  },
+  textarea: {
+    textAlignVertical: 'top',  // hack android
+    height: 170,
+    fontSize: 14,
+    color: '#333',
+  },
+
+  cat_title: {
+    textAlign: 'left',
+    padding: 15,
+    width: '100%'
+  },
+  radio: {
+    fontSize: 10
+  }
+})
 
 export default PasswordReset;
