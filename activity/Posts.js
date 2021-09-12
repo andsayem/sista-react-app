@@ -60,6 +60,7 @@ class Posts extends Component {
         liked={liked}
         like={like}  
         onPressLike={this.handleLikePost}
+        onPressFollow={this.handleFollowPost}
         onPressPostDetails={this.handlePostDetails}
       />
     )
@@ -80,8 +81,6 @@ class Posts extends Component {
       like: liked ? post.like - 1 : post.like + 1
     }  
     api.getData('postlike/'+post.id)
-    
-
     this.setState({
       items: {
         ...this.state.items,
@@ -89,8 +88,22 @@ class Posts extends Component {
       }
     })
   }
-
-  //////
+  handleFollowPost = index => {     
+    let post = this.state.items[index] 
+    const { followed, follow } = post 
+    const newPost = {
+      ...post,
+      followed: !followed,
+      follow: followed ? post.follow - 1 : post.follow + 1
+    }  
+    api.getData('postlike/'+post.id)
+    this.setState({
+      items: {
+        ...this.state.items,
+        [index]: newPost
+      }
+    })
+  } 
   render(){
     let {items, isLoading} = this.state;
     return(

@@ -11,7 +11,7 @@ const Categories = () => {
     const getCategories = async => {
         api.getData('post_categories')
         .then((res)=>{
-          console.log('post_categories=====',res)
+          ///console.log('post_categories=====',res)
           setCats( res.data.data);  
         })
         .catch((error) => {

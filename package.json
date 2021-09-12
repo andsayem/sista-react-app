@@ -21,6 +21,7 @@
     "apisauce": "^2.1.1",
     "axios": "^0.21.4",
     "flag": "^4.4.0",
+    "moment": "^2.29.1",
     "react": "^16.14.0",
     "react-multi-carousel": "^2.6.5",
     "react-native": "^0.63.4",
@@ -51,8 +52,10 @@
     "react-native-textarea": "^1.0.4",
     "react-native-touchable-scale": "^2.1.2",
     "react-native-vector-icons": "^8.1.0",
+    "react-native-video": "^5.1.1",
     "react-responsive-carousel": "^3.2.20",
     "react-router-dom": "^5.2.0",
+    "react-time-ago": "^7.1.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "render-if": "^0.1.1",
     "tsutils": "^3.20.0"
