@@ -33,9 +33,9 @@ class Post extends  React.Component{
                   <ListItem.Content >
                   <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}    
                   activeOpacity={0.5} >  
-                  <Text>{this.props.follow }</Text>
-                  {this.props.followings ?
-                    <Text style={{ color : '#a21919'}}>-Unfollowing</Text>
+                  <Text>{this.props.item.follow }</Text>
+                  {this.props.item.followings ?
+                    <Text style={{ color : '#a21919'}}> </Text>
                     : 
                     <Text style={{ color : '#a21919'}}>+Following </Text> 
                   } 

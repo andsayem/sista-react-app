@@ -90,20 +90,32 @@ class Posts extends Component {
   }
   handleFollowPost = index => {     
     let post = this.state.items[index] 
-    console.log('follow',post);
-    const { followings, follow } = post 
-    const newPost = {
-      ...post,
-      followings: !followings,
-      follow: followings ? post.follow - 1 : post.follow + 1
-    }   
-    //api.getData('postlike/'+post.id)
-    this.setState({
-      items: {
-        ...this.state.items,
-        [index]: newPost
-      }
+   console.log('follow',post.user_id);
+    //const { followings, follow } = post 
+    //const newPost = {
+    //   ...post,
+    //   followings: !followings,
+    //   follow: followings ? post.follow - 1 : post.follow + 1
+    // }   
+    api.getData('following/'+post.user_id).then((res)=>{
+      console.log('test');
+      this.fatchData();
+      //console.log(res);
+      // this.state.items.filter(item => {
+      //     if(item.user_id == post.user_id){
+      //       item.followings =  1 ; 
+      //       console.log(post.user_id) 
+      //     }
+      // })
+      //this.state.items.filter(item)
+
     })
+    // this.setState({
+    //   items: {
+    //     ...this.state.items,
+    //     [index]: newPost
+    //   }
+    // })
   } 
   render(){
     let {items, isLoading} = this.state;
