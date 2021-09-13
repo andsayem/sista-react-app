@@ -62,9 +62,13 @@ class Posts extends Component {
         onPressLike={this.handleLikePost}
         onPressFollow={this.handleFollowPost}
         onPressPostDetails={this.handlePostDetails}
+        onPressUserProfile={this.handleUserProfile}
       />
     )
   } 
+  handleUserProfile = (id) => {
+    this.props.navigation.navigate('UserProfile', {id: id });
+  }
   handlePostDetails = (id) => {
     this.props.navigation.navigate('PostDetails', {id: id });
   }

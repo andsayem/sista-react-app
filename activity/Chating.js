@@ -11,7 +11,7 @@ import Textarea from 'react-native-textarea';
 import post_api from '../post_api';
 function Chating({navigation, route}) {
   const { sender_id } = route.params.sender_id;
-  console.log('fffffffffffffffffffffffffffffffffffff =========================',route.params.sender_id)
+  //console.log('fffffffffffffffffffffffffffffffffffff =========================',route.params.sender_id)
 
   const [senderId, setSenderId] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
@@ -78,93 +78,52 @@ function Chating({navigation, route}) {
         setSenderId(sender_id); 
       })
       .catch((error) => {
-          //console.log(error)
+          console.log(error)
       }) 
+  }
+  const handleKeyDown = (e) => { 
+      if(e.nativeEvent.key == "Enter"){
+          dismissKeyboard();
+      }
   }
   useEffect(() => fatchData(false),[conversations]);  
   useEffect(() => {convers()}, [conversations]);
   //useEffect(() => errortext(false),[setSuccesstext(false)]);   
     return (
-      <ScrollView > 
-        
-        <View  style={{  paddingTop : 0  ,   backgroundColor: "#efefef",  }}  > 
-            <View >
-              <ListItem style={{
-                      backgroundColor: "#efefef",
-                      width: '100%',
-                    }}>
-                      <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-                      <ListItem.Content>
-                        <ListItem.Title> {getUser.name} </ListItem.Title>
-                        <ListItem.Subtitle>Active</ListItem.Subtitle>
-                      </ListItem.Content>
-                    </ListItem>
-              </View>     
+      <ScrollView >         
+        <View style={{paddingTop :35, backgroundColor: "#efefef",  }}  > 
+          <View >
+            <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
+              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
+              <ListItem.Content>
+                <ListItem.Title> {getUser.name} </ListItem.Title>
+                <ListItem.Subtitle>Active</ListItem.Subtitle>
+              </ListItem.Content>
+            </ListItem>
+          </View>     
         </View> 
+
           <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
             <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
             <ListItem.Content stayl={{ }}>
-              <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> Hii whats going on budy  </Text>  
-              
+              <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> 
+                Hii whats going on budy  
+              </Text>             
             </ListItem.Content>
-          </ListItem> 
-          <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
-            <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
-            <ListItem.Content stayl={{ }}>
-              <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>   
-            </ListItem.Content>
-          </ListItem> 
+          </ListItem>  
+
           <ListItem style={{ width: '100%',   flex: 1 }}> 
             <ListItem.Content stayl={{}}> 
-            <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
-              <View style={{flex: 1}}>
-                <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>
-              </View>
-            </View> 
-            </ListItem.Content>
-            
-          <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
-          </ListItem> 
-          <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
-            <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
-            <ListItem.Content stayl={{ }}>
-              <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>   
-            </ListItem.Content>
-          </ListItem> 
-          <ListItem style={{ width: '100%',   flex: 1 }}> 
-            <ListItem.Content stayl={{}}> 
-            <View style={{flex: 1 ,flexDirection: 'row'}}> 
-              <View style={{flex: 1}}>
-                <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>
-              </View>
-            </View> 
-            </ListItem.Content> 
-          <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
-          </ListItem> 
-          <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
-            <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
-            <ListItem.Content stayl={{ }}>
-              <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>   
-            </ListItem.Content>
-          </ListItem> 
-          <ListItem style={{ width: '100%',   flex: 1 }}> 
-            <ListItem.Content stayl={{}}> 
-            <View style={{flex: 1 ,flexDirection: 'row'}}> 
-              <View style={{flex: 1}}>
-                <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>
-              </View>
-            </View> 
-            </ListItem.Content> 
-          <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
-          </ListItem> 
-          
-          <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
-            <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
-            <ListItem.Content stayl={{ }}>
-              <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>   
-            </ListItem.Content>
-          </ListItem> 
-          
+              <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
+                <View style={{flex: 1}}>
+                  <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
+                    A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>
+                </View>
+              </View> 
+            </ListItem.Content>            
+            <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
+          </ListItem>  
+
           <View style={styles.textAreaContainer} >                
                 <Textarea
                   onChangeText={(message) => setMessage(message)} 
@@ -174,10 +133,11 @@ function Chating({navigation, route}) {
                   style={styles.textarea}
                   maxLength={1000}
                   placeholder={'Type something...'} 
-                  returnKeyType="next"
+                  returnKeyType="done"
                   multiline={true}
                   underlineColorAndroid="transparent"
                   underlineColorAndroid={'transparent'}
+                  onKeyPress={handleKeyDown}
                 />
                 </View>
               <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
@@ -197,7 +157,8 @@ function Chating({navigation, route}) {
 const styles = StyleSheet.create({
   textAreaContainer: {
     borderColor:  '#efefef',
-    borderWidth: 1,  
+    borderWidth: 1,       
+    alignItems:'center',
   },
   textArea: {
     height: 150, 

@@ -25,9 +25,9 @@ class Post extends  React.Component{
           <View style={{ backgroundColor: '#fff', height: 280, width: '100%', borderRadius: 15, padding: 10, marginBottom :10  }} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
               <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-                  <Avatar rounded size="medium" source={require('../img/images/user_3.jpg')} />
+                  <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium" source={require('../img/images/user_3.jpg')} />
                   <ListItem.Content >
-                    <ListItem.Title> {this.props.item.userjoin.name} </ListItem.Title> 
+                    <ListItem.Title onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}> {this.props.item.userjoin.name} </ListItem.Title> 
                     <ListItem.Subtitle>  {moment(this.props.item.created_at).fromNow() }</ListItem.Subtitle>
                   </ListItem.Content> 
                   <ListItem.Content >
