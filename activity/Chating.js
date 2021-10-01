@@ -1,10 +1,9 @@
 import React, { useEffect, Component ,  useRef , useState } from "react";
 import { View, FlatList,  ActivityIndicator ,Text, SafeAreaView ,Image, Button , ToastAndroid ,TextInput , TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar  } from 'react-native-elements'; 
+import { ScrollView  } from "react-native-gesture-handler"; 
+import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-elements'; 
 import BottomSheet from 'react-native-simple-bottom-sheet'; 
-import { Icon } from 'react-native-elements'
 import Styles from "../styles";
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -55,15 +54,20 @@ const TOKEN = 'token';
   componentDidMount() {
     this.fatchData();
   }
-  componentwillmount(){
+  async componentwillmount(){
+   
     this.fatchData();
   }
-  fatchData = () => { 
+  fatchData  =  async () => { 
     this.setState({isLoading:true})  
     api.getData('user_conversations')
     .then(response => response.data.data)
     .then(json => this.setState({items:json}))
-    .finally( ()=>this.setState({isLoading: false})) 
+    .finally( ()=>this.setState({isLoading: false})) ;
+
+    const user = await AsyncStorage.getItem(STORAGE_KEY);
+    console.log('Test data ', await AsyncStorage.getItem(STORAGE_KEY)) ;
+    this.state.user = user ;
   } 
   handleOnRefresh = () => { 
     this.setState({page:1, data:[]})
@@ -71,17 +75,7 @@ const TOKEN = 'token';
       this.fatchData();
     })
   } 
-  // fatchData = async => {
-  //   api.getData('conversations')
-  //   .then((res)=>{
-  //     console.log()
-  //     setConversations( res.data.data); 
-  //    // console.log('res.data.data',res.data.data); 
-  //   })
-  //   .catch((error) => {
-  //       console.log(error)
-  //   }) 
-  // }; 
+
   readData = async () => {
     try {  
        token = await AsyncStorage.getItem(TOKEN);          
@@ -91,33 +85,8 @@ const TOKEN = 'token';
 
     }
   } 
-  //useEffect(() => { readData() },[])  
-  // const convers = async => { 
-  //   api.getData('conversations/'+sender_id)
-  //     .then((res)=>{
-  //       setConversations( res.data.data);  
-  //       console.log('conversations',res.data.data)
-  //     })
-  //     .catch((error) => {
-  //         //console.log(error)
-  //     }) 
-  // }
-  // const componentDidMount  = async () => {    
-  //   this.fatchData();
-  // }
-  // const componentwillmount  = async () => {    
-  //   this.fatchData();
-  // }
+ 
   handleSubmitButton = async () => {    
-    console.log('------------------------' );
-    // setErrortext(false);
-    // if (!this.state.message) { 
-    //   //setErrortext({message : 'Please fill caption'});  
-    //   return;
-    // }else{
-    //   setLoading(true);
-    //   setSuccesstext(false);
-    // }
     let formData = new FormData();
     console.log(this.state.token); 
     formData.append("receiver_id", 6);
@@ -133,14 +102,7 @@ const TOKEN = 'token';
  setMessage('');
  fatchData();
  setSuccesstext({message:'Test Submit Successful'});  
-    // post_api.postData('users/'+sender_id,dataToSend)
-    //   .then((res)=>{
-    //     setUser( res.data.data);  
-    //     setSenderId(sender_id); 
-    //   })
-    //   .catch((error) => {
-    //       console.log(error)
-    //   }) 
+
   }
   handleKeyDown = (e) => { 
       if(e.nativeEvent.key == "Enter"){
@@ -152,11 +114,12 @@ const TOKEN = 'token';
     const { liked, like, props } = item
     return (
       <View  >  
+          
         <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
             <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
             <ListItem.Content stayl={{ }}>
               <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> 
-              {item.message}
+              {item.message}  {item.sender_id}
               </Text>             
             </ListItem.Content>
           </ListItem>  
@@ -166,7 +129,7 @@ const TOKEN = 'token';
               <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
                 <View style={{flex: 1}}>
                   <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
-                  {item.message} </Text>
+                  {item.message}  = { this.state.user} </Text>
                 </View>
               </View> 
             </ListItem.Content>            
@@ -198,6 +161,15 @@ const TOKEN = 'token';
     let {items, isLoading} = this.state;
   return (
       <ScrollView > 
+         {/* <Header 
+            leftComponent={<Icon color={colors.black} size={30} name='menu' 
+            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
+            centerComponent={{ text: 'Chats', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
+        /> */}
           {/* <Loader loading={loading} />    */}
          {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => this.Toast.setRef(ref)}/>
           <Toast visible={successText} message ={successText.message} />  */}
