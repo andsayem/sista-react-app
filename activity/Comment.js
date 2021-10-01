@@ -29,14 +29,15 @@ class Comment extends Component {
   } 
   render(){
     let {items, isLoading} = this.state;
-    console.log('Post = props',this.props.item);
+    //console.log('Post = props',this.props.item);
+    //console.log('Post = childs',this.props.item.childs);
     return( 
        <View style={styles.parents}>
             <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%' }}>
               <Avatar rounded size="medium" source={require('../img/images/user_2.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> Chris </ListItem.Title>
-                <ListItem.Subtitle> Chairman</ListItem.Subtitle>
+                <ListItem.Subtitle> {this.props.item.comm_test} </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
             <ScrollView
@@ -56,7 +57,7 @@ class Comment extends Component {
                   <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
                   <ListItem.Content>
                     <ListItem.Title> Chris Jackson </ListItem.Title>
-                    <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
+                    <ListItem.Subtitle>{this.props.item.childs.comm_test}</ListItem.Subtitle>
                   </ListItem.Content>
                 </ListItem>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   parents:{
     backgroundColor: '#fff' , 
     borderRadius: 10,
-    padding: 5,
+    padding: 1,
     marginBottom :2,
     marginLeft : 20 ,
     marginRight :20 
@@ -87,10 +88,11 @@ const styles = StyleSheet.create({
   child:{
     backgroundColor: '#fff' , 
     borderRadius: 10,
-    padding: 5,
+    padding: 1,
     marginBottom :2,
     marginLeft : 50 ,
     marginRight :20 
+
   },
   textAreaContainer: {
     borderColor:  '#efefef',

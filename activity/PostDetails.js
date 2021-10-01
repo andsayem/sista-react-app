@@ -102,7 +102,7 @@ class PostDetails extends Component {
     }
   }
   renderRow = ({ item , index }) => { 
-    console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    console.log('itemitemitemitemitemitemitemitemitemitem',item); 
     const { liked, like, props } = item
     return ( 
       <Comment
@@ -153,6 +153,7 @@ class PostDetails extends Component {
   } 
   render(){
     let {items, isLoading} = this.state;
+    console.log('commmmeee======',this.state.items);
     return(
       <SafeAreaView> 
       <View>
@@ -190,6 +191,8 @@ class PostDetails extends Component {
             >Submit </Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.paddingFooter} >  
+        </View>
       </View>       
       </SafeAreaView>
     )
@@ -202,32 +205,17 @@ const styles = StyleSheet.create({
     height: 200,
     width: '100%',
     borderRadius: 15,
-    padding: 10,
+    padding: 1,
     marginBottom :10
-  },
-  parent:{
-    backgroundColor: '#fff' , 
-    borderRadius: 10,
-    padding: 5,
-    marginBottom :2,
-    marginLeft : 20 ,
-    marginRight :20 
-  },
-  child:{
-    backgroundColor: '#fff' , 
-    borderRadius: 10,
-    padding: 5,
-    marginBottom :2,
-    marginLeft : 50 ,
-    marginRight :20 
-  },
+  }, 
   footer:{ 
       backgroundColor: '#fff' , 
       borderRadius: 10,
-      padding: 5,
+      padding: 1,
       marginBottom :2,
       marginLeft : 20 ,
-      marginRight :20  
+      marginRight : 20,
+      bottom : 40 
   },
   textAreaContainer: {
     borderColor:  '#efefef',
@@ -242,6 +230,9 @@ const styles = StyleSheet.create({
     right: 10,  
     left:50,
     top:50,
+  },
+  paddingFooter:{
+    paddingBottom:90
   }
 })
 export default PostDetails;
