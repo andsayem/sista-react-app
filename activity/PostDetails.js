@@ -1,61 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, StyleSheet,ToastAndroid } from "react-native";
-//import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import React, { Component, useEffect } from 'react'; 
+import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, Image,TextInput,TouchableOpacity } from 'react-native';
+import api from '../api';
+import {colors , Icon , Header } from 'react-native-elements';  
+import Comment from './Comment'; 
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar  } from 'react-native-elements'; 
-import BottomSheet from 'react-native-simple-bottom-sheet'; 
-import { Icon } from 'react-native-elements'
-import Styles from "../styles";
-import Textarea from 'react-native-textarea';
-import api from '../api';
-import AsyncStorage from '@react-native-community/async-storage';
-import FormData from 'form-data'; 
-const STORAGE_KEY = 'save_user';
-const TOKEN = 'token'; 
-
-const Toast = ({ visible, message }) => {
-  if (visible) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50
-    );
-    return null;
-  }
-  return null;
-}; 
-function PostDetails({navigation,route}) {
-  const { item } = route.params.id;
-  const [getPost, setPost] = useState(false); 
-  const [post_id, setPost_id] = useState(false);
-  const [post_comment, setComment] = useState(false); 
-  const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState(false);
-  const [successText, setSuccesstext] = useState(false); 
-  const fatchData = async => {
-    api.getData('post_datas/'+route.params.id)
-    .then((res)=>{
-      setPost( res.data.data); 
-      console.log('res.data.data',res.data.data); 
+class PostDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      items:[], 
+      isLoading: false,
+      };  
+  }  
+  fatchData = () => { 
+    //console.log('this-props====',this.props.id);
+    this.setState({isLoading:true})  
+    api.getData('all_comments?parent_id=0')
+    .then(response => response.data.data)
+    .then(json => this.setState({items:json}))
+    .finally( ()=>this.setState({isLoading: false})) 
+  }   
+  handleLoadMore = () => {  
+    this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
+  }  
+  
+  handleOnRefresh = () => { 
+    this.setState({page:1, data:[]})
+    this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
+      this.fatchData();
     })
-    .catch((error) => {
-        console.log(error)
-    }) 
-  };  
-  useEffect(() => {fatchData()}, []);
-  useEffect(() => setSuccesstext(false), [successText]);  
-  useEffect(() => setErrortext(false), [errortext]);
-  const handleSubmitButton = async () => {  
-    
+  }  
+  handleLoadMore = () => {  
+    this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
+  }  
+  renderFooter = () => { 
+    useEffect(() => { this.fatchData()},[]) 
+    return(  
+        <View>  
+          {this.state.isLoading ? (
+            <View> 
+            <ActivityIndicator size="large" color="#0000ff" /> 
+            <Text style={styles.title}>Loading Data..</Text>
+            </View>
+          ) : (
+            <View>  
+              {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}>No more Data...</Text>)} 
+            </View>
+          )}
+        </View> 
+    );
+  }
+  handleOnRefresh = () => { 
+    this.setState({page:1, data:[]})
+    this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
+      this.fatchData();
+    })
+  } 
+  state = {                                                                         
+    items: {}                                                                                
+  }  
+
+  handleSubmitButton = () => {   
     setErrortext(false);
     if (!post_comment) { 
       setErrortext({message : 'Please fill caption'});  
       return;
     }else{
-      setSuccesstext(false);
-    //console.log( video.uri );
+      setSuccesstext(false); 
     setLoading(true); 
     var dataToSend = {  
       post_id: route.params.id,
@@ -69,7 +81,7 @@ function PostDetails({navigation,route}) {
       headers: {  
         'Accept': 'application/json',  
         'Content-Type':'application/json',
-        Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
+        Authorization :"Bearer "+ AsyncStorage.getItem(TOKEN)
       },
       body: JSON.stringify(dataToSend) 
       })
@@ -88,229 +100,135 @@ function PostDetails({navigation,route}) {
         setLoading(false); 
       });
     }
-  }; 
-  //useEffect(() => fatchData(false),[getPost]);
-  //const stripedHtml = item.description.replace(/<[^>]+>/g, '');
-    return (
-      <ScrollView>
-      <View  >
-         <View
-            style={{
-              backgroundColor: '#fff' ,
-              height: 200,
-              width: '100%',
-              borderRadius: 15,
-              padding: 10,
-              marginBottom :10
-            }}
-          >
-           
-          <Image source={getPost.file ? {uri: getPost.file } : null}  
-            style={{ width: '100%', borderRadius: 10, height: 200 }}   />
-          <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
-          <Toast visible={successText} message ={successText.message} /> 
-            
-          </View>
-          <View
-              style={{
-                backgroundColor: '#fff' , 
-                borderRadius: 10,
-                padding: 5,
-                marginBottom :2,
-                marginLeft : 20 ,
-                marginRight :20 
-              }}
-            >
-              <Text style={{ textAlign : 'center' , width : '100%'}} >{ getPost.caption }</Text>
-             <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',
-            }}>
-              
-              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-              
-              <ListItem.Content>
-                <ListItem.Title>{ getPost.userjoin ? getPost.userjoin.name : ''} </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{  marginTop: -10 , marginLeft : 80 }}
-            >
-            <View
-                style={{
-                  width: 80, 
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like </Text>
-              </View>
-              <View
-                style={{ 
-                  width: 120,
-                }}
-              >
-                <Text> Reply</Text>
-              </View>
-            </ScrollView> 
-          </View>
+  }
+  renderRow = ({ item , index }) => { 
+    console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    const { liked, like, props } = item
+    return ( 
+      <Comment
+        item= {item} 
+        index={index.toString()}
+        liked={liked}
+        like={like}  
+        onPressLike={this.handleLikePost}
+        onPressFollow={this.handleFollowPost}
+        onPressPostDetails={this.handlePostDetails}
+        onPressUserProfile={this.handleUserProfile}
+      />
+    )
+  } 
+  handleUserProfile = (id) => {
+    this.props.navigation.navigate('UserProfile', {id: id });
+  }
+  handlePostDetails = (id) => {
+    this.props.navigation.navigate('PostDetails', {id: id });
+  }
+  handleToggleDrawer = () => {
+    this.props.navigation.navigate.toggleDrawer();
+  }
 
-          <View
-              style={{
-                backgroundColor: '#fff' , 
-                borderRadius: 10,
-                padding: 5,
-                marginBottom :2,
-                marginLeft : 20 ,
-                marginRight :20 
-              }}
-            >
-                  <ListItem style={{
-                    backgroundColor: "#FEFEFE",
-                    width: '100%',
-                  }}>
-                    <Avatar rounded   size="medium" source={require('../img/images/user_2.jpg')} />
-                    <ListItem.Content>
-                      <ListItem.Title> Chris   </ListItem.Title>
-                      <ListItem.Subtitle>  Chairman</ListItem.Subtitle>
-                    </ListItem.Content>
-                  </ListItem>
-                  <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={{  marginTop: -10 , marginLeft : 80 }}
-                  >
-                  <View
-                      style={{
-                        width: 80, 
-                      }}
-                    >
-                      <Text style={{ color : '#a21919'}}> Like </Text>
-                    </View>
-                    <View
-                      style={{ 
-                        width: 120,
-                      }}
-                    >
-                      <Text> Reply</Text>
-                    </View>
-                  </ScrollView> 
-                  <View
-                    style={{
-                      backgroundColor: '#fff' , 
-                      borderRadius: 10,
-                      padding: 5,
-                      marginBottom :2,
-                      marginLeft : 50 ,
-                      marginRight :20 
-                    }}
-                  >
-                  <ListItem style={{
-                    backgroundColor: "#FEFEFE",
-                    width: '100%',
-                  }}>
-                    <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
-                    <ListItem.Content>
-                      <ListItem.Title> Chris Jackson </ListItem.Title>
-                      <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-                    </ListItem.Content>
-                  </ListItem>
-                  <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={{  marginTop: -10 , marginLeft : 80 }}
-                  >
-                  <View
-                      style={{
-                        width: 80, 
-                      }}
-                    >
-                      <Text style={{ color : '#a21919'}}> Like </Text>
-                    </View>
-                    <View
-                      style={{ 
-                        width: 120,
-                      }}
-                    >
-                      <Text> Reply</Text>
-                    </View>
-                    <View style={styles.textAreaContainer} >
-                      <TextInput
-                        style={styles.textArea}
-                        underlineColorAndroid="transparent"
-                        placeholder="Type something" 
-                        multiline={true}
-                      />
-                    </View> 
-                  </ScrollView> 
-                </View>
-          </View>
-     
-          <View
-              style={{
-                backgroundColor: '#fff' , 
-                borderRadius: 10,
-                padding: 5,
-                marginBottom :2,
-                marginLeft : 20 ,
-                marginRight :20 
-              }}
-            >
-             <ListItem style={{
-              backgroundColor: "#FEFEFE",
-              width: '100%',
-            }}>
-              <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> Chris Jackson dfg </ListItem.Title>
-                <ListItem.Subtitle>Vice Chairman</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{  marginTop: -10 , marginLeft : 80 }}
-            >
-            <View
-                style={{
-                  width: 80, 
-                }}
-              >
-                <Text style={{ color : '#a21919'}}> Like </Text>
-              </View>
-              <View
-                style={{ 
-                  width: 120,
-                }}
-              >
-                <Text> Reply</Text>
-              </View>
-            </ScrollView> 
-            <View style={styles.textAreaContainer} > 
-              <TextInput
-                onChangeText={(post_comment) => setComment(post_comment)} 
-                value={post_comment}
-                style={styles.textArea}
-                underlineColorAndroid="transparent"
-                placeholder="Type something" 
-                multiline={true}
-              />
-            </View> 
-            <TouchableOpacity
-             onPress={handleSubmitButton} 
-              style={Styles.submit}
-              activeOpacity={0.5} >
-              <Text             
-              >Submit</Text>
-            </TouchableOpacity>
-          </View>
-      </View>
-      </ScrollView>
-    );
+  handleLikePost = index => {     
+    let post = this.state.items[index] 
+    const { liked, like } = post 
+    const newPost = {
+      ...post,
+      liked: !liked,
+      like: liked ? post.like - 1 : post.like + 1
+    }  
+    api.getData('postlike/'+post.id)
+    this.setState({
+      items: {
+        ...this.state.items,
+        [index]: newPost
+      }
+    })
+  }
+  handleFollowPost = index => {     
+    let post = this.state.items[index] 
+    console.log('follow',post.user_id); 
+    api.getData('following/'+post.user_id).then((res)=>{
+      console.log('test');
+      this.fatchData(); 
+    }) 
+  } 
+  render(){
+    let {items, isLoading} = this.state;
+    return(
+      <SafeAreaView> 
+      <View>
+         <View style={styles.header}> 
+          <Image source={require('../img/images/user_1.jpg')}  
+            style={{ width: '100%', borderRadius: 10, height: 200 }}   />  
+        </View> 
+        
+        <FlatList 
+          data={Object.values(this.state.items)}
+          renderItem={this.renderRow}
+          keyExtractor={(item , i) => item.id.toString()} 
+          refreshing={isLoading}
+          extraData={this.state}
+          ListFooterComponent={this.renderFooter}         
+          onEndReachedThreshold={0.1}
+          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+          onRefresh={this.fatchData}       
+        /> 
+
+        <View style={styles.footer} > 
+          <View style={styles.textAreaContainer} > 
+            <TextInput 
+              style={styles.textArea}
+              underlineColorAndroid="transparent"
+              placeholder="Type something" 
+              multiline={true}
+            />
+          </View> 
+          <TouchableOpacity
+            onPress={this.handleSubmitButton} 
+            style={styles.submit}
+            activeOpacity={0.5} >
+            <Text             
+            >Submit </Text>
+          </TouchableOpacity>
+        </View>
+      </View>       
+      </SafeAreaView>
+    )
+    }
+  
 }
-
 const styles = StyleSheet.create({
+  header:{
+    backgroundColor: '#fff' ,
+    height: 200,
+    width: '100%',
+    borderRadius: 15,
+    padding: 10,
+    marginBottom :10
+  },
+  parent:{
+    backgroundColor: '#fff' , 
+    borderRadius: 10,
+    padding: 5,
+    marginBottom :2,
+    marginLeft : 20 ,
+    marginRight :20 
+  },
+  child:{
+    backgroundColor: '#fff' , 
+    borderRadius: 10,
+    padding: 5,
+    marginBottom :2,
+    marginLeft : 50 ,
+    marginRight :20 
+  },
+  footer:{ 
+      backgroundColor: '#fff' , 
+      borderRadius: 10,
+      padding: 5,
+      marginBottom :2,
+      marginLeft : 20 ,
+      marginRight :20  
+  },
   textAreaContainer: {
     borderColor:  '#efefef',
     borderWidth: 1,  
