@@ -81,24 +81,17 @@ class PostDetails extends Component {
     .finally( ()=>this.setState({isLoading: false})) 
   }
   renderFooter = () => { 
-    useEffect(() => { this.fatchData()},[]) 
+    //useEffect(() => { this.fatchData()},[]) 
     return(  
       <View>  
-        {this.state.isLoading ? (
-          <View> 
-          <ActivityIndicator size="large" color="#0000ff" /> 
-          <Text style={styles.title}>Loading Data..</Text>
-          </View>
-        ) : (
-          <View>  
-            {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}>No more Data...</Text>)} 
-          </View>
-        )}
+        <SafeAreaView>  
+        
+        </SafeAreaView> 
       </View> 
     );
   }  
   validation = () => {
-    this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
+    //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
   }
   handleSubmitButton = async() => { 
     console.warn('storatw',this.props.route.params.id); 
@@ -201,13 +194,12 @@ class PostDetails extends Component {
 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return(
-      <SafeAreaView style={styles.container}> 
-      <View style={styles.body}>
+      <SafeAreaView style={styles.container}>  
         {this.state.post_items ?
          <View style={styles.header}> 
           <Image source={this.state.post_items.file ? {uri: this.state.post_items.file } : null} 
                   style={{ width: '100%', borderRadius: 10, height: 130 }} />   
-          <Text>{this.state.post_items.caption}</Text>
+          <Text style={styles.caption}>{this.state.post_items.caption}</Text>
         </View> 
         : '' }
         <Toast visible={this.state.errortext} message={this.state.errortext}/>
@@ -218,13 +210,12 @@ class PostDetails extends Component {
           data={Object.values(this.state.items)}
           renderItem={this.renderRow}
           refreshing={isLoading}
-          extraData={this.state}
+          extraData={this.state.items}
           ListFooterComponent={this.renderFooter}         
           onEndReachedThreshold={0.1}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}       
-        />:  <View>Empty</View>}
-        <SafeAreaView>  
+        />:  <View>Empty</View>}  
         <View style={styles.footer} > 
           <View style={styles.textAreaContainer} > 
             <TextInput 
@@ -243,9 +234,7 @@ class PostDetails extends Component {
             <Text             
             >Submit </Text>
           </TouchableOpacity>
-        </View> 
-        </SafeAreaView>
-      </View>       
+        </View>      
       </SafeAreaView>
     )
     }
@@ -253,32 +242,27 @@ class PostDetails extends Component {
 }
 const styles = StyleSheet.create({
   container:{
-    padding:2,
-    margin:3, 
-  },
-  body:{
-    marginTop:50,
-    marginBottom:50
-  },
+    marginTop:20,
+    flex: 1,
+    padding:2, 
+  }, 
   header:{
     backgroundColor: '#fff' ,
+    top:20,
     height: 200,
     width: '100%',
     borderRadius: 15,
     padding: 1,
     marginBottom :10
   }, 
+  caption:{
+    textAlign: 'center', 
+    fontSize: 18,
+  },
   footer:{ 
       backgroundColor: '#fff' , 
-      borderRadius: 10,
-      padding: 1, 
-      marginLeft : 20 ,
-      marginRight : 20,
-      bottom : 40,
-      margin: 40,
-      width:160,
-      marginLeft: 80,
-      backgroundColor:'#00BCD4',
+      borderRadius: 10,   
+      padding:5
   },
   textAreaContainer: {
     borderColor:  '#efefef', 
@@ -286,7 +270,9 @@ const styles = StyleSheet.create({
   textArea: {
     height: 50,     
   },
-  submit:{  
+  submit:{   
+    alignItems:'flex-end', 
+    backgroundColor:'#efefef', 
   }
 })
 export default PostDetails;
