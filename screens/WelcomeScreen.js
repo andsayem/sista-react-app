@@ -1,5 +1,5 @@
 import React, {Component , useEffect, useState} from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image , ScrollView ,SafeAreaView} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import  Styles   from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -50,13 +50,13 @@ class WelcomeScreen extends Component {
   } 
   render(){
     return (
-      <View style={Styles.container_tutorial} >
+      <ScrollView style={Styles.container_tutorial} >
         <Text style={Styles.itemContainer} >
           <Image
             style={Styles.icone}
             source={require('../img/Screenshot_9.png')}
           />
-        My Sista's KeepHer</Text>
+        My Sista's KeepHer </Text>
         <SliderBox style={ Styles.itemContainerSlider }
                    parentWidth={this.state.width}
                    sliderBoxHeight={20}
@@ -90,9 +90,8 @@ class WelcomeScreen extends Component {
         <Text style={ Styles.subtitle}>Boost your day with the
           power of poetry</Text>
         <Text style={ Styles.sub_subtitle}>Boost your day with the power of poetry</Text>
-        <Text style={ Styles.lodin_button} onPress={this.handleSubmitPress} title="Get started" > Get started </Text>
-
-      </View>
+        <Text style={ Styles.lodin_button} onPress={this.handleSubmitPress} title="Get started" > Get started </Text> 
+      </ScrollView>
     );
  }
 }
