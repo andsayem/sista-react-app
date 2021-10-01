@@ -5,6 +5,7 @@ import {colors , Icon , Header } from 'react-native-elements';
 import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post'; 
+import Comment from './PostDetails'; 
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -67,9 +68,14 @@ class Posts extends Component {
     )
   } 
   handleUserProfile = (id) => {
-    this.props.navigation.navigate('UserProfile', {id: id });
+    <PostDetails
+    id = {id}
+    item = {item}
+    />
+    //this.props.navigation.navigate('UserProfile', {id: id });
   }
   handlePostDetails = (id) => {
+
     this.props.navigation.navigate('PostDetails', {id: id });
   }
   handleToggleDrawer = () => {

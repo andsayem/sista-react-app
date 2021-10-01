@@ -55,7 +55,7 @@ class Post extends  React.Component{
             <View>
                <Text numberOfLines={1}   
                 style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} 
-                note onPress={() => this.props.onPressPostDetails(this.props.item.id)}>{this.props.item.caption}
+                note onPress={() => this.props.onPressPostDetails(this.props.item)}>{this.props.item.caption}
               </Text> 
                  <View> 
                   <Image source={this.props.item.file ? {uri: this.props.item.file } : null} 
