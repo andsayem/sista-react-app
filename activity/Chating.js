@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
-import { View, Text, Image, Button , ToastAndroid ,TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useEffect, Component ,  useRef , useState } from "react";
+import { View, FlatList,  ActivityIndicator ,Text, SafeAreaView ,Image, Button , ToastAndroid ,TextInput , TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar  } from 'react-native-elements'; 
@@ -7,23 +7,39 @@ import BottomSheet from 'react-native-simple-bottom-sheet';
 import { Icon } from 'react-native-elements'
 import Styles from "../styles";
 import api from '../api';
+import AsyncStorage from '@react-native-community/async-storage';
 import Textarea from 'react-native-textarea';
 import post_api from '../post_api';
-function Chating({navigation, route}) {
-  const { sender_id } = route.params.sender_id;
-  //console.log('fffffffffffffffffffffffffffffffffffff =========================',route.params.sender_id)
+import axios from 'axios';
+import Loader from '../components/Loader'; 
+const STORAGE_KEY = 'save_user';
 
-  const [senderId, setSenderId] = useState(null);
-  const [receiverId, setReceiverId] = useState(null);
-  const [message, setMessage] = useState(false);
-  const [getUser, setUser] = useState([]);  
-  const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState(false);
-  const [successText, setSuccesstext] = useState(false);   
-  const [index, setIndex] = useState(0);
-  const [conversations, setConversations] = useState(0);
+const TOKEN = 'token'; 
+// function Chating({navigation, route}) {
+ 
+//   const [getToken, setToken] = useState(false);
+//   const [senderId, setSenderId] = useState(null);
+//   const [receiverId, setReceiverId] = useState(null);
+//   const [message, setMessage] = useState(false);
+//   const [conversations, setConversations] = useState([]);
+//   const [getUser, setUser] = useState([]);  
+//   const [loading, setLoading] = useState(false);
+//   const [errortext, setErrortext] = useState(false);
+//   const [successText, setSuccesstext] = useState(false);   
+//   const [index, setIndex] = useState(0);
+ // const [conversations, setConversations] = useState(0);
   
-  const Toast = ({ visible, message }) => {
+ class Chating extends Component {
+  constructor(props) {
+    super(props);
+ 
+    this.state = { 
+      items:[], 
+      sender_id : this.props.route.params.sender_id,
+      isLoading: false,
+      };  
+    }
+    Toast = ({ visible, message }) => {
     if (visible) {
       ToastAndroid.showWithGravityAndOffset(
         message,
@@ -36,78 +52,111 @@ function Chating({navigation, route}) {
     }
     return null;
   }; 
-
-  const fatchData = async => {
-    api.getData('conversations?receiver_id='+sender_id)
-    .then((res)=>{
-      setPost( res.data.data); 
-      console.log('res.data.data',res.data.data); 
+  componentDidMount() {
+    this.fatchData();
+  }
+  componentwillmount(){
+    this.fatchData();
+  }
+  fatchData = () => { 
+    this.setState({isLoading:true})  
+    api.getData('user_conversations')
+    .then(response => response.data.data)
+    .then(json => this.setState({items:json}))
+    .finally( ()=>this.setState({isLoading: false})) 
+  } 
+  handleOnRefresh = () => { 
+    this.setState({page:1, data:[]})
+    this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
+      this.fatchData();
     })
-    .catch((error) => {
-        console.log(error)
-    }) 
-  }; 
+  } 
+  // fatchData = async => {
+  //   api.getData('conversations')
+  //   .then((res)=>{
+  //     console.log()
+  //     setConversations( res.data.data); 
+  //    // console.log('res.data.data',res.data.data); 
+  //   })
+  //   .catch((error) => {
+  //       console.log(error)
+  //   }) 
+  // }; 
+  readData = async () => {
+    try {  
+       token = await AsyncStorage.getItem(TOKEN);          
+     // setToken(token); 
+      this.setState({token:token})        
+    } catch (e) {   
 
-  const convers = async => { 
-    api.getData('conversations/'+sender_id)
-      .then((res)=>{
-        setConversations( res.data.data);  
-        console.log('conversations',res.data.data)
-      })
-      .catch((error) => {
-          //console.log(error)
-      }) 
-  }
-  const handleSubmitButton = () => {    
-    setErrortext(false);
-    if (!message) { 
-      setErrortext({message : 'Please fill caption'});  
-      return;
-    }else{
-      setSuccesstext(false);
     }
-    setLoading(true); 
-    var dataToSend = { 
-      receiverId: 1,
-      senderId: senderId,
-      caption: message
-    }; 
-    post_api.postData('users/'+sender_id,dataToSend)
-      .then((res)=>{
-        setUser( res.data.data);  
-        setSenderId(sender_id); 
-      })
-      .catch((error) => {
-          console.log(error)
-      }) 
+  } 
+  //useEffect(() => { readData() },[])  
+  // const convers = async => { 
+  //   api.getData('conversations/'+sender_id)
+  //     .then((res)=>{
+  //       setConversations( res.data.data);  
+  //       console.log('conversations',res.data.data)
+  //     })
+  //     .catch((error) => {
+  //         //console.log(error)
+  //     }) 
+  // }
+  // const componentDidMount  = async () => {    
+  //   this.fatchData();
+  // }
+  // const componentwillmount  = async () => {    
+  //   this.fatchData();
+  // }
+  handleSubmitButton = async () => {    
+    console.log('------------------------' );
+    // setErrortext(false);
+    // if (!this.state.message) { 
+    //   //setErrortext({message : 'Please fill caption'});  
+    //   return;
+    // }else{
+    //   setLoading(true);
+    //   setSuccesstext(false);
+    // }
+    let formData = new FormData();
+    console.log(this.state.token); 
+    formData.append("receiver_id", 6);
+    formData.append("message", this.state.message); 
+    axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
+    {
+     headers: { 
+       'Accept': 'application/json',  
+       'Content-Type': 'multipart/form-data', 
+       Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
+   }
+ })  
+ setMessage('');
+ fatchData();
+ setSuccesstext({message:'Test Submit Successful'});  
+    // post_api.postData('users/'+sender_id,dataToSend)
+    //   .then((res)=>{
+    //     setUser( res.data.data);  
+    //     setSenderId(sender_id); 
+    //   })
+    //   .catch((error) => {
+    //       console.log(error)
+    //   }) 
   }
-  const handleKeyDown = (e) => { 
+  handleKeyDown = (e) => { 
       if(e.nativeEvent.key == "Enter"){
           dismissKeyboard();
       }
   }
-  useEffect(() => fatchData(false),[conversations]);  
-  useEffect(() => {convers()}, [conversations]);
-  //useEffect(() => errortext(false),[setSuccesstext(false)]);   
+  renderRow = ({ item , index }) => { 
+    //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    const { liked, like, props } = item
     return (
-      <ScrollView >         
-        <View style={{paddingTop :35, backgroundColor: "#efefef",  }}  > 
-          <View >
-            <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
-              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-              <ListItem.Content>
-                <ListItem.Title> {getUser.name} </ListItem.Title>
-                <ListItem.Subtitle>Active</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-          </View>     
-        </View> 
-
-          <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
+      <View  >  
+        <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
             <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
             <ListItem.Content stayl={{ }}>
               <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> 
-                Hii whats going on budy  
+              {item.message}
               </Text>             
             </ListItem.Content>
           </ListItem>  
@@ -117,17 +166,71 @@ function Chating({navigation, route}) {
               <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
                 <View style={{flex: 1}}>
                   <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
-                    A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  A wonderful Society has taken  possession of my entire soul,  like these sweet mornings of from bottom of my heart  </Text>
+                  {item.message} </Text>
                 </View>
               </View> 
             </ListItem.Content>            
             <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
-          </ListItem>  
+          </ListItem>   
+        </View> 
+    )
+  } 
+  renderFooter = () => { 
+    return(  
+        <View>  
+          {this.state.isLoading ? (
+            <View> 
+            <ActivityIndicator size="large" color="#0000ff" /> 
+            <Text style={styles.title}>Loading Data..</Text>
+            </View>
+          ) : (
+            <View>  
+              {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}></Text>)} 
+            </View>
+          )}
+        </View> 
+    );
+  }
+  //useEffect(() => fatchData(false),[conversations]);  
+  //useEffect(() => {fatchData()}, [conversations]);
+  //useEffect(() => errortext(false),[setSuccesstext(false)]);   
+  render(){  
+    let {items, isLoading} = this.state;
+  return (
+      <ScrollView > 
+          {/* <Loader loading={loading} />    */}
+         {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => this.Toast.setRef(ref)}/>
+          <Toast visible={successText} message ={successText.message} />  */}
+        <View style={{paddingTop :35, backgroundColor: "#efefef",  }}  > 
+          <View >
+            <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
+              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
+              <ListItem.Content>
+                <ListItem.Title> User</ListItem.Title>
+                <ListItem.Subtitle>Active</ListItem.Subtitle>
+              </ListItem.Content>
+            </ListItem>
+          </View>     
+        </View> 
+
+        <FlatList 
+        style={{ padding : 2, margin : 0}}
+            data={Object.values(this.state.items)}
+            renderItem={this.renderRow}
+            keyExtractor={(item , i) => item.id.toString()} 
+            refreshing={isLoading}
+            extraData={this.state}
+            ListFooterComponent={this.renderFooter}         
+            onEndReachedThreshold={0.5}
+            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+            onRefresh={this.fatchData}      
+          /> 
+          
 
           <View style={styles.textAreaContainer} >                
                 <Textarea
-                  onChangeText={(message) => setMessage(message)} 
-                  value={message}
+                  onChangeText={(msg) => this.setState({message:msg})}   
+                  value={this.state.message}
                   blurOnSubmit={true}
                   containerStyle={styles.textareaContainer}
                   style={styles.textarea}
@@ -137,13 +240,13 @@ function Chating({navigation, route}) {
                   multiline={true}
                   underlineColorAndroid="transparent"
                   underlineColorAndroid={'transparent'}
-                  onKeyPress={handleKeyDown}
+                  onKeyPress={this.handleKeyDown}
                 />
                 </View>
-              <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
-              <Toast visible={successText} message ={successText.message} />
+              {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
+              <Toast visible={successText} message ={successText.message} /> */}
               <TouchableOpacity
-             onPress={handleSubmitButton} 
+             onPress={this.handleSubmitButton} 
               style={Styles.journalBtn}
               activeOpacity={0.5} >
               <Text style={Styles.journalText}               
@@ -152,6 +255,7 @@ function Chating({navigation, route}) {
       </ScrollView>
       
     );
+  };
 }
 
 const styles = StyleSheet.create({
@@ -201,4 +305,5 @@ const styles = StyleSheet.create({
     height: 44,
   },
 })
+ 
 export default Chating;
