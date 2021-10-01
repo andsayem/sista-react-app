@@ -14,7 +14,7 @@ class Comment extends Component {
       };  
   }  
   renderRow = ({ item , index }) => { 
-    //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    console.log('itemitemitemitemitemitemitemitemitemitem',item); 
     const { liked, like, props } = item
     return (
       <Comment
@@ -32,46 +32,48 @@ class Comment extends Component {
     //console.log('Post = props',this.props.item);
     //console.log('Post = childs',this.props.item.childs);
     return( 
-       <View style={styles.parents}>
+      <View>
+      {this.props.item ?
+       <View style={styles.parents}> 
             <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%' }}>
               <Avatar rounded size="medium" source={require('../img/images/user_2.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> Chris </ListItem.Title>
                 <ListItem.Subtitle> {this.props.item.comm_test} </ListItem.Subtitle>
               </ListItem.Content>
-            </ListItem>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{  marginTop: -10 , marginLeft : 80 }}
-            >
+            </ListItem> 
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{  marginTop: -10 , marginLeft : 80 }}>
               <View style={{ width: 80}} >
                 <Text style={{ color : '#a21919'}}> Like </Text>
               </View>
               <View  style={{  width: 120}}>
                 <Text> Reply</Text>
               </View>
+            </ScrollView> 
+            {this.props.item.reply ?
+            <View style={styles.child}>
+              <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
+                <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
+                <ListItem.Content>
+                  <ListItem.Title> Chris Jackson </ListItem.Title>
+                  <ListItem.Subtitle>{this.props.item.reply.comm_test}</ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}
+                style={{  marginTop: -10 , marginLeft : 80 }}
+                >
+                <View style={{ width: 80}}>
+                  <Text style={{ color : '#a21919'}}> Like </Text>
+                </View>
+                <View style={{ width: 120}}>
+                  <Text> Reply</Text>
+                </View>
               </ScrollView> 
-              <View style={styles.child}>
-                <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-                  <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
-                  <ListItem.Content>
-                    <ListItem.Title> Chris Jackson </ListItem.Title>
-                    <ListItem.Subtitle>{this.props.item.childs.comm_test}</ListItem.Subtitle>
-                  </ListItem.Content>
-                </ListItem>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}
-                  style={{  marginTop: -10 , marginLeft : 80 }}
-                  >
-                  <View style={{ width: 80}}>
-                    <Text style={{ color : '#a21919'}}> Like </Text>
-                  </View>
-                  <View style={{ width: 120}}>
-                    <Text> Reply</Text>
-                  </View>
-                </ScrollView> 
-              </View>
-          </View> 
+            </View>
+            : ''}
+        </View> 
+        : <View>Data not found</View> }
+        </View>
     )
     }
   

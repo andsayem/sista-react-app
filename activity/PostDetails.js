@@ -1,120 +1,163 @@
 import React, { Component, useEffect } from 'react'; 
-import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, Image,TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, Image,TextInput,TouchableOpacity,ToastAndroid } from 'react-native';
 import api from '../api';
 import {colors , Icon , Header } from 'react-native-elements';  
 import Comment from './Comment'; 
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar  } from 'react-native-elements'; 
+import AsyncStorage from '@react-native-community/async-storage';
+import FormData from 'form-data'; 
+const STORAGE_KEY = 'save_user';
+const TOKEN = 'token'; 
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+}; 
+
 class PostDetails extends Component {
   constructor(props) {
     super(props);
+    this.fatchData = this.fatchData.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
     this.state = { 
       items:[], 
+      post_items:[], 
       isLoading: false,
+      errortext:'',
+      successtext:'',
+      post_comment:'',
+      loading:false,
+      token:'',
+      parent_id:0,
+      isOnline: null
       };  
   }  
+  componentDidMount() {    
+    this.fatchData(); 
+    // ChatAPI.subscribeToFriendStatus(      
+    //   this.props.friend.id,      
+    //   this.handleStatusChange    
+    // );  
+  }  
+  componentWillUnmount() {   
+    this.fatchData(); 
+    // ChatAPI.unsubscribeFromFriendStatus(      
+    //   this.props.friend.id,      
+    //   this.handleStatusChange    
+    // );  
+  }  
+  handleStatusChange(status) {    
+    this.setState({      
+      isOnline: status.isOnline    
+    });  
+  }
+  _retrieveData = async () => {  
+    try { const value = await AsyncStorage.getItem('TOKEN');    
+    if (value !== null) {  
+      this.setState({token:value});    
+      console.log(value);    
+    }  
+  } catch (error) {    
+    // Error retrieving data  
+  }};
   fatchData = () => { 
-    //console.log('this-props====',this.props.id);
+    console.log('this-props====',this.props.route.params.id);
+    // https://sista.bdmobilepoint.com/api/singelpost/319
     this.setState({isLoading:true})  
-    api.getData('all_comments?parent_id=0')
-    .then(response => response.data.data)
-    .then(json => this.setState({items:json}))
+    api.getData('singelpost/'+this.props.route.params.id)
+    .then(response => { 
+      this.setState({post_items:response.data.data})
+      this.setState({items:response.data.data.all_comments})
+    }) 
     .finally( ()=>this.setState({isLoading: false})) 
-  }   
-  handleLoadMore = () => {  
-    this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
-  }  
-  
-  handleOnRefresh = () => { 
-    this.setState({page:1, data:[]})
-    this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
-      this.fatchData();
-    })
-  }  
-  handleLoadMore = () => {  
-    this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
-  }  
+  }
   renderFooter = () => { 
     useEffect(() => { this.fatchData()},[]) 
     return(  
-        <View>  
-          {this.state.isLoading ? (
-            <View> 
-            <ActivityIndicator size="large" color="#0000ff" /> 
-            <Text style={styles.title}>Loading Data..</Text>
-            </View>
-          ) : (
-            <View>  
-              {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}>No more Data...</Text>)} 
-            </View>
-          )}
-        </View> 
+      <View>  
+        {this.state.isLoading ? (
+          <View> 
+          <ActivityIndicator size="large" color="#0000ff" /> 
+          <Text style={styles.title}>Loading Data..</Text>
+          </View>
+        ) : (
+          <View>  
+            {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}>No more Data...</Text>)} 
+          </View>
+        )}
+      </View> 
     );
-  }
-  handleOnRefresh = () => { 
-    this.setState({page:1, data:[]})
-    this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
-      this.fatchData();
-    })
-  } 
-  state = {                                                                         
-    items: {}                                                                                
   }  
-
-  handleSubmitButton = () => {   
-    setErrortext(false);
-    if (!post_comment) { 
-      setErrortext({message : 'Please fill caption'});  
+  validation = () => {
+    this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
+  }
+  handleSubmitButton = async() => { 
+    console.warn('storatw',this.props.route.params.id); 
+    console.warn('state  =====',this.state);  
+    if (!this.state.post_comment) { 
+      this.setState({errortext:'Please fill caption'}); 
       return;
     }else{
-      setSuccesstext(false); 
-    setLoading(true); 
-    var dataToSend = {  
-      post_id: route.params.id,
-      parent_id: 0,
+      this.setState({errortext:''});
+      this.setState({successtext:''}); 
+      this.setState({loading:true});  
+      var dataToSend = {  
+      post_id: this.props.route.params.id,//route.params.id,
+      parent_id: this.state.parent_id,
       user_id:2,
-      comm_test: post_comment,       
+      comm_test: this.state.post_comment,       
     };  
     console.log('dataToSend--==',dataToSend);
+    console.log('Token--==', this.state.token);
     fetch('http://sista.bdmobilepoint.com/api/all_comments', {
       method: 'POST', 
       headers: {  
         'Accept': 'application/json',  
         'Content-Type':'application/json',
-        Authorization :"Bearer "+ AsyncStorage.getItem(TOKEN)
+        Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
       },
       body: JSON.stringify(dataToSend) 
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        setLoading(false);   
+        this.setState({loading:false});  
         console.log('responseJson============',responseJson)
         if (responseJson.success === true) { 
-          setComment('');
-          setSuccesstext({message:'Post Submit Successful'});  
+          this.setState({post_comment:''})
+          this.setState({successtext:'Post Submit Successful'});  
         } else { 
         }
       })
       .catch((error) => { 
         console.log('error===',error);
-        setLoading(false); 
+        this.setState({loading:false});
       });
     }
   }
-  renderRow = ({ item , index }) => { 
-    console.log('itemitemitemitemitemitemitemitemitemitem',item); 
+  renderRow = ({ item , index }) => {  
     const { liked, like, props } = item
     return ( 
-      <Comment
-        item= {item} 
-        index={index.toString()}
-        liked={liked}
-        like={like}  
-        onPressLike={this.handleLikePost}
-        onPressFollow={this.handleFollowPost}
-        onPressPostDetails={this.handlePostDetails}
-        onPressUserProfile={this.handleUserProfile}
-      />
+      <View>
+        <Comment
+          item= {item} 
+          index={index.toString()}
+          liked={liked}
+          like={like}  
+          onPressLike={this.handleLikePost}
+          onPressFollow={this.handleFollowPost}
+          onPressPostDetails={this.handlePostDetails}
+          onPressUserProfile={this.handleUserProfile}
+        /> 
+      </View>
     )
   } 
   handleUserProfile = (id) => {
@@ -153,30 +196,40 @@ class PostDetails extends Component {
   } 
   render(){
     let {items, isLoading} = this.state;
-    console.log('commmmeee======',this.state.items);
+    //console.log('commmmeee======',this.state.items); 
+    console.log('commmmeee======',this.state.post_items.caption);
+
+    //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return(
-      <SafeAreaView> 
-      <View>
+      <SafeAreaView style={styles.container}> 
+      <View style={styles.body}>
+        {this.state.post_items ?
          <View style={styles.header}> 
-          <Image source={require('../img/images/user_1.jpg')}  
-            style={{ width: '100%', borderRadius: 10, height: 200 }}   />  
+          <Image source={this.state.post_items.file ? {uri: this.state.post_items.file } : null} 
+                  style={{ width: '100%', borderRadius: 10, height: 130 }} />   
+          <Text>{this.state.post_items.caption}</Text>
         </View> 
-        
-        <FlatList 
+        : '' }
+        <Toast visible={this.state.errortext} message={this.state.errortext}/>
+        <Toast visible={this.state.successtext} message ={this.state.successtext} />   
+
+        { this.state.items ?      
+         <FlatList 
           data={Object.values(this.state.items)}
           renderItem={this.renderRow}
-          keyExtractor={(item , i) => item.id.toString()} 
           refreshing={isLoading}
           extraData={this.state}
           ListFooterComponent={this.renderFooter}         
           onEndReachedThreshold={0.1}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}       
-        /> 
-
+        />:  <View>Empty</View>}
+        <SafeAreaView>  
         <View style={styles.footer} > 
           <View style={styles.textAreaContainer} > 
             <TextInput 
+              onChangeText = {(test) => {this.setState({post_comment:test})}}
+              onBlur = {() => this.validation()}
               style={styles.textArea}
               underlineColorAndroid="transparent"
               placeholder="Type something" 
@@ -190,9 +243,8 @@ class PostDetails extends Component {
             <Text             
             >Submit </Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.paddingFooter} >  
-        </View>
+        </View> 
+        </SafeAreaView>
       </View>       
       </SafeAreaView>
     )
@@ -200,6 +252,14 @@ class PostDetails extends Component {
   
 }
 const styles = StyleSheet.create({
+  container:{
+    padding:2,
+    margin:3, 
+  },
+  body:{
+    marginTop:50,
+    marginBottom:50
+  },
   header:{
     backgroundColor: '#fff' ,
     height: 200,
@@ -211,28 +271,22 @@ const styles = StyleSheet.create({
   footer:{ 
       backgroundColor: '#fff' , 
       borderRadius: 10,
-      padding: 1,
-      marginBottom :2,
+      padding: 1, 
       marginLeft : 20 ,
       marginRight : 20,
-      bottom : 40 
+      bottom : 40,
+      margin: 40,
+      width:160,
+      marginLeft: 80,
+      backgroundColor:'#00BCD4',
   },
   textAreaContainer: {
-    borderColor:  '#efefef',
-    borderWidth: 1,  
+    borderColor:  '#efefef', 
   },
   textArea: {
     height: 50,     
   },
-  submit:{
-    position: 'absolute',
-    bottom: 10,                                                    
-    right: 10,  
-    left:50,
-    top:50,
-  },
-  paddingFooter:{
-    paddingBottom:90
+  submit:{  
   }
 })
 export default PostDetails;
