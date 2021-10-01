@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 1,
     marginBottom :2,
-    marginLeft : 20 ,
-    marginRight :20 
+    marginLeft : 5 ,
+    marginRight :5 
   },
   child:{
     backgroundColor: '#fff' , 
