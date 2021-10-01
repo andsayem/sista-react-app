@@ -1,6 +1,6 @@
 import React, {useEffect, useState, createRef } from "react";
 import {
-  Image, Text, TextInput , TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
+  Image, Text, ScrollView , TextInput , TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
   Keyboard
 } from "react-native";
 import {Icon } from 'react-native-elements'; 
@@ -181,6 +181,7 @@ function LoginScreen(props) {
   }
   
   return ( 
+    <ScrollView> 
       <View style={Styles.container} >
         <Loader loading={loading} />
         <Text  style={Styles.title} >Login </Text>
@@ -266,6 +267,7 @@ function LoginScreen(props) {
         </TouchableOpacity> 
 
       </View>
+   </ScrollView>
   );
 }
 
