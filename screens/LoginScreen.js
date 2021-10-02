@@ -106,16 +106,17 @@ function LoginScreen(props) {
               "Content-Type": "application/json", 
           },
       })
-      .then((res) => { 
-       console.log('dfgdfgdf fhgfh',res);
+      .then((res) => {  
         let userData  = res.data;  
         if(userData.status ===1){
           setLoginData(res.data);
           saveToken(userData.access_token);         
-          saveData();  
+          saveData(userData.user);  
           setUserData(userData)
+          console.log('=========================',userData);
           props.navigation.navigate("Tabs");
         } 
+       // props.navigation.navigate("Tabs");
         setLoading(false);       
       }).catch(function (error) {  
         setLoading(false);
@@ -132,7 +133,7 @@ function LoginScreen(props) {
     }
   }
  
-  const saveData = async () => {
+  const saveData = async (loginData) => {
     try {
       //console.log('1232sdxfd',loginData)
       let userData =  JSON.stringify(loginData);    

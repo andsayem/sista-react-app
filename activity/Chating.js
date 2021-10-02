@@ -34,6 +34,7 @@ const TOKEN = 'token';
  
     this.state = { 
       items:[], 
+      user: [],
       sender_id : this.props.route.params.sender_id,
       isLoading: false,
       };  
@@ -66,8 +67,9 @@ const TOKEN = 'token';
     .finally( ()=>this.setState({isLoading: false})) ;
 
     const user = await AsyncStorage.getItem(STORAGE_KEY);
-    console.log('Test data ', await AsyncStorage.getItem(STORAGE_KEY)) ;
-    this.state.user = user ;
+    console.log('Test data ', JSON.parse( user)) ;
+    // this.state.user = user ;
+    this.setState({user: JSON.parse(user)});
   } 
   handleOnRefresh = () => { 
     this.setState({page:1, data:[]})
@@ -114,27 +116,30 @@ const TOKEN = 'token';
     const { liked, like, props } = item
     return (
       <View  >  
-          
+      {this.state.user.id != item.sender_id ?   
+      <View>
         <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
             <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
             <ListItem.Content stayl={{ }}>
               <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> 
-              {item.message}  {item.sender_id}
+              {item.message}  
               </Text>             
             </ListItem.Content>
           </ListItem>  
-
-          <ListItem style={{ width: '100%',   flex: 1 }}> 
-            <ListItem.Content stayl={{}}> 
-              <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
-                <View style={{flex: 1}}>
-                  <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
-                  {item.message}  = { this.state.user} </Text>
-                </View>
-              </View> 
-            </ListItem.Content>            
-            <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
-          </ListItem>   
+         
+            
+          </View>
+          : <ListItem style={{ width: '100%',   flex: 1 }}> 
+          <ListItem.Content stayl={{}}> 
+            <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
+              <View style={{flex: 1}}>
+                <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
+                {item.message}  </Text>
+              </View>
+            </View> 
+          </ListItem.Content>            
+          <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
+        </ListItem>  }
         </View> 
     )
   } 
