@@ -27,7 +27,19 @@ const TOKEN = 'token';
 //   const [successText, setSuccesstext] = useState(false);   
 //   const [index, setIndex] = useState(0);
  // const [conversations, setConversations] = useState(0);
-  
+ const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+}; 
  class Chating extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +49,8 @@ const TOKEN = 'token';
       user: [],
       sender_id : this.props.route.params.sender_id,
       isLoading: false,
+      errortext:'',
+      successtext:'',
       };  
     }
     Toast = ({ visible, message }) => {
@@ -61,7 +75,7 @@ const TOKEN = 'token';
   }
   fatchData  =  async () => { 
     this.setState({isLoading:true})  
-    api.getData('user_conversations')
+    api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)
     .then(response => response.data.data)
     .then(json => this.setState({items:json}))
     .finally( ()=>this.setState({isLoading: false})) ;
@@ -90,8 +104,8 @@ const TOKEN = 'token';
  
   handleSubmitButton = async () => {    
     let formData = new FormData();
-    console.log(this.state.token); 
-    formData.append("receiver_id", 6);
+    console.log(this.state.message); 
+    formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.message); 
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
     {
@@ -100,11 +114,13 @@ const TOKEN = 'token';
        'Content-Type': 'multipart/form-data', 
        Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
    }
- })  
- setMessage('');
- fatchData();
- setSuccesstext({message:'Test Submit Successful'});  
-
+ })   
+    this.setState({message : ''})
+    this.setState({successtext:'Submit Successful'});  
+    api.getData('user_conversations')
+    .then(response => response.data.data)
+    .then(json => this.setState({items:json}))
+    .finally( ()=>this.setState({isLoading: false})) ; 
   }
   handleKeyDown = (e) => { 
       if(e.nativeEvent.key == "Enter"){
@@ -165,7 +181,10 @@ const TOKEN = 'token';
   render(){  
     let {items, isLoading} = this.state;
   return (
-      <ScrollView > 
+   <ScrollView>
+      <SafeAreaView > 
+        <Toast visible={this.state.errortext} message={this.state.errortext}/>
+        <Toast visible={this.state.successtext} message ={this.state.successtext} />   
          {/* <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
             onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
@@ -204,14 +223,13 @@ const TOKEN = 'token';
           /> 
           
 
-          <View style={styles.textAreaContainer} >                
-                <Textarea
-                  onChangeText={(msg) => this.setState({message:msg})}   
-                  value={this.state.message}
-                  blurOnSubmit={true}
-                  containerStyle={styles.textareaContainer}
-                  style={styles.textarea}
-                  maxLength={1000}
+          <View   >     
+       
+
+                <TextInput
+                  onChangeText={(msg) => this.setState({message:msg})}    
+                  blurOnSubmit={true} 
+                  maxLength={200}
                   placeholder={'Type something...'} 
                   returnKeyType="done"
                   multiline={true}
@@ -223,12 +241,11 @@ const TOKEN = 'token';
               {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
               <Toast visible={successText} message ={successText.message} /> */}
               <TouchableOpacity
-             onPress={this.handleSubmitButton} 
-              style={Styles.journalBtn}
+               onPress={this.handleSubmitButton}  
               activeOpacity={0.5} >
-              <Text style={Styles.journalText}               
-              >Submit</Text>
-            </TouchableOpacity>
+              <Text  >Submit</Text>
+            </TouchableOpacity> 
+      </SafeAreaView>
       </ScrollView>
       
     );

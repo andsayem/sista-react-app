@@ -24,7 +24,7 @@ function Chats(props) {
           <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
                   sender_id: ItemData.sender_id,
                  }) }   rounded   size="medium" source={require('../img/images/user_1.jpg')} />
-          <Text>{ItemData.name} {ItemData.sender_id}</Text> 
+          <Text>{ItemData.name}</Text> 
       </View> 
     );
     const renderAllUsers = ({ item }) => {   
@@ -39,10 +39,10 @@ function Chats(props) {
                 width: '100%',
               }}>
                 <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
-                  sender_id: ItemData.sender_id,
+                  receiver_id: ItemData.receiver_id,
                  }) }   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
-                  <ListItem.Title>{ItemData.name} {ItemData.sender_id}  {ItemData.receiver_id}  {ItemData.show_id}</ListItem.Title>
+                  <ListItem.Title>{ItemData.name}  </ListItem.Title>
                   <ListItem.Subtitle>hi dear, have u got the prom...</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
