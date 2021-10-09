@@ -52,7 +52,7 @@ class Comment extends Component {
             </ScrollView> 
             {this.props.item.reply ?
             <View style={styles.child}>
-              <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
+              {/* <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
                 <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
                   <ListItem.Title> Chris Jackson </ListItem.Title>
@@ -68,7 +68,7 @@ class Comment extends Component {
                 <View style={{ width: 120}}>
                   <Text> Reply</Text>
                 </View>
-              </ScrollView> 
+              </ScrollView>  */}
             </View>
             : ''}
         </View> 

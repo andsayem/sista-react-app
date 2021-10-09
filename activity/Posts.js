@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from 'react'; 
-import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, StatusBar } from 'react-native';
+import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
 import api from '../api';
-import {colors , Icon , Header } from 'react-native-elements'; 
+import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements';  
 import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post'; 
@@ -9,14 +9,18 @@ import Comment from './PostDetails';
 class Posts extends Component {
   constructor(props) {
     super(props);
+    this.handlePostCates = this.handlePostCates.bind(this);
+    this.fatchData = this.fatchData.bind(this);
     this.state = { 
       items:[], 
       isLoading: false,
+      cat_id:'',
+      cat_active:'',
       };  
   }  
-  fatchData = () => { 
-    this.setState({isLoading:true})  
-    api.getData('post_datas')
+  fatchData = async () => { 
+    this.setState({isLoading:true})    
+    api.getData('post_datas?cat_id='+this.state.cat_id)
     .then(response => response.data.data)
     .then(json => this.setState({items:json}))
     .finally( ()=>this.setState({isLoading: false})) 
@@ -27,17 +31,11 @@ class Posts extends Component {
   renderFooter = () => { 
     useEffect(() => { this.fatchData()},[]) 
     return(  
-        <View>  
-          {this.state.isLoading ? (
+        <View>   
             <View> 
             <ActivityIndicator size="large" color="#0000ff" /> 
             <Text style={styles.title}>Loading Data..</Text>
-            </View>
-          ) : (
-            <View>  
-              {this.state.refreshing ? ( <Text style={styles.title}>Please wait a moment</Text> ) : ( <Text style={styles.title}>No more Data...</Text>)} 
-            </View>
-          )}
+            </View> 
         </View> 
     );
   }
@@ -46,11 +44,7 @@ class Posts extends Component {
     this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
       this.fatchData();
     })
-  } 
-  state = {                                                                                 
-    items: {}                                                                               
-    // Other states                                                                         
-  }  
+  }   
   renderRow = ({ item , index }) => { 
     //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
     const { liked, like, props } = item
@@ -80,6 +74,16 @@ class Posts extends Component {
   } 
   handleUserProfile = (id) => { 
     this.props.navigation.navigate('Profile', {id: id });
+  }
+  handlePostCateWise = (id) => { 
+    this.setState({cat_id: id}, function () {
+      this.fatchData();
+    }); 
+  }
+  handlePostCates = () => {
+    this.setState({cat_id:''}, function () {
+      this.fatchData();
+    });  
   }
   handleToggleDrawer = () => {
     this.props.navigation.navigate.toggleDrawer();
@@ -130,11 +134,18 @@ class Posts extends Component {
     //   }
     // })
   } 
+  componentDidMount() {   
+    this.fatchData(); 
+  }
+  componentWillUnmount() {   
+    this.handlePostCates(); 
+    this.fatchData();
+    console.log('componentWillUnmount')    
+  }
   render(){
     let {items, isLoading} = this.state;
     return(
-      <SafeAreaView>   
-        
+      <SafeAreaView>    
         <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
             onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
@@ -145,11 +156,33 @@ class Posts extends Component {
               backgroundColor: '#E4E4E4' }}
         /> 
         <Events/> 
-        <Categories/>   
+        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
+        
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginRight: -30}}
+          >
+            <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
+              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity onPress={this.handlePostCates}          
+              style={{ justifyContent: "center", height: 66, width: 66, borderRadius: 50, backgroundColor: "#9253C1", 
+              }}
+              > 
+              <Icon  
+                color='#FFFFFF' 
+                name='book' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : '100%'}} >All</Text>
+              </ListItem.Content>
+            </ListItem>
+        <Categories bgcolor={'#9253C1'} handlePostCate={this.handlePostCateWise} active="datat"/>   
+        </ScrollView>
+        </View>
         <FlatList 
           data={Object.values(this.state.items)}
           renderItem={this.renderRow}
-          keyExtractor={(item , i) => item.id.toString()} 
+          keyExtractor={(item, i) => item.id.toString()} 
           refreshing={isLoading}
           extraData={this.state}
           ListFooterComponent={this.renderFooter}         

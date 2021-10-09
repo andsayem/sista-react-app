@@ -44,6 +44,8 @@ function LoginScreen(props) {
     backgroundColor:"#f8f8f8", 
     iconColor : '#BABDC3'
   });
+  const [getEye, setEye] = useState('eye');
+  const [passtype, setPassType] = useState(true);
   const onChangeText = userUser => setUser(userUser)
 
   const emailInputRef = createRef();
@@ -180,6 +182,22 @@ function LoginScreen(props) {
   const handleForgotPasswordPress = () => {
     props.navigation.navigate("ForgotPassword"); 
   }
+  const _changeIcon = ()=>{  
+    //let passtpe = passtype();
+    if(passtype==true){
+      setPassType(false); 
+    }else{
+      setPassType(true); 
+    }
+    //let eyeicon = getEye();
+    if(getEye=='eye'){
+      setEye('eye-slash'); 
+    }else{
+      setEye('eye'); 
+    }
+     
+     
+  }
   
   return ( 
     <ScrollView> 
@@ -201,7 +219,7 @@ function LoginScreen(props) {
                             backgroundColor : emailFocusStyle.backgroundColor ,
                             color : emailFocusStyle.color }}> 
           
-            <Icon  color={emailFocusStyle.iconColor} style={{padding : 10 }}  type='font-awesome' name="envelope-o" size={20}  />
+            <Icon color={emailFocusStyle.iconColor} style={{padding : 10 }}  type='font-awesome' name="envelope-o" size={20}  />
             <TextInput 
             onFocus={ () =>onFocusEmail() }
             placeholderStyle={{ color : 'red'}}
@@ -222,16 +240,15 @@ function LoginScreen(props) {
             </View>
         <Text
           style={Styles.lebel} >Password</Text>
-        <View style={{  flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center', 
-                            borderWidth: 1,
-                            borderColor: '#efefef',
-                            height:50,
-                            borderRadius:25, 
-                            margin: 10,  
-                            backgroundColor : passFocusStyle.backgroundColor ,
-                            color : passFocusStyle.color }}> 
+        <View style={{flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center', 
+            borderWidth: 1,
+            borderColor: '#efefef',
+            height:50,
+            borderRadius:25, 
+            margin: 10, backgroundColor : passFocusStyle.backgroundColor ,
+            color : passFocusStyle.color}}> 
           
           <Icon color={passFocusStyle.iconColor} style={{padding : 10 }} type='font-awesome' name="key" size={20}  />
        
@@ -248,9 +265,9 @@ function LoginScreen(props) {
               ref={passwordInputRef}
               onSubmitEditing={Keyboard.dismiss}
               blurOnSubmit={false}
-              secureTextEntry={true}
+              secureTextEntry={passtype}
               returnKeyType="next" />
-            <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}   name="eye"  type='font-awesome' size={20}  />
+            <Icon color={passFocusStyle.iconColor} style={{padding : 10 }}  onPress={()=>{_changeIcon()}} name={getEye}  type='font-awesome' size={20}  />
         </View>
         <Text title="Forgot Password" onPress={handleForgotPasswordPress}
           style={Styles.lebel_right} >Forgot password?</Text>
@@ -273,7 +290,10 @@ function LoginScreen(props) {
 }
 
 export default LoginScreen;
-const styles2 = StyleSheet.create({
+const styles2 = StyleSheet.create({ 
+  loginPassword:{
+    
+  },
   SectionStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -286,31 +306,30 @@ const styles2 = StyleSheet.create({
     margin: 10,
     color:"black",
     borderColor :'#efefef'
-},
+  },  
   inputStyle:{
     width :'75%'
   },
   inputStylePass:{
     width :'65%'
   }, 
-   searchSection: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    leftIcon: {
-        padding: 10,
-        color :'#efefef'
-    },
-    rightIcon: {
-        padding: 10,
-        color :'#efefef'
-    },
-    signup : {
-      color : '#9253C1',
-      fontWeight :'bold'
-    }
-    
-})
+  searchSection: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#fff',
+  },
+  leftIcon: {
+      padding: 10,
+      color :'#efefef'
+  },
+  rightIcon: {
+      padding: 10,
+      color :'#efefef'
+  },
+  signup : {
+    color : '#9253C1',
+    fontWeight :'bold'
+  } 
+});

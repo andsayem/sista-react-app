@@ -46,10 +46,10 @@ class Post extends  React.Component{
            
             {this.props.item.post_type == 3 ?
             
-             <View   style={{ width: '100%', borderRadius: 10, height: 130 }}  > 
+            <View   style={{ width: '100%', borderRadius: 10, height: 130 }}  >  
             <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
-              <Text style={styles.text_bg}>{this.props.item.caption}  </Text>
-            </ImageBackground>
+              <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
+            </ImageBackground> 
             </View>
             :
             <View>
@@ -58,8 +58,11 @@ class Post extends  React.Component{
                 note onPress={() => this.props.onPressPostDetails(this.props.item.id)}>{this.props.item.caption}
               </Text> 
                  <View> 
-                  <Image source={this.props.item.file ? {uri: this.props.item.file } : null} 
-                  style={{ width: '100%', borderRadius: 10, height: 130 }} />            
+                 <TouchableOpacity onPress={() => this.props.onPressPostDetails(this.props.item.id)}>
+                  <Image   
+                  source={this.props.item.file ? {uri: this.props.item.file } : null} 
+                  style={{ width: '100%', borderRadius: 10, height: 130 }} />   
+                  </TouchableOpacity>         
                 </View> 
             </View> 
             }  

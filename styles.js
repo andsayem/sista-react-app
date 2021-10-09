@@ -210,4 +210,18 @@ module.exports={
     color : 'white',
     fontWeight: 'bold'
   },
+
+  loginPassword:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center', 
+    borderWidth: 1,
+    borderColor: '#efefef',
+    height:50,
+    borderRadius:25, 
+    margin: 10
+  },
+  loginEmail:{
+
+  }
 }
