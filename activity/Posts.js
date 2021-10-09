@@ -67,16 +67,19 @@ class Posts extends Component {
       />
     )
   } 
-  handleUserProfile = (id) => {
-    <PostDetails
-    id = {id}
-    item = {item}
-    />
-    //this.props.navigation.navigate('UserProfile', {id: id });
-  }
+  // handleUserProfile = (id) => {
+  //   <PostDetails
+  //   id = {id}
+  //   item = {item}
+  //   />
+  //   //this.props.navigation.navigate('UserProfile', {id: id });
+  // }
   handlePostDetails = (id) => {
 
     this.props.navigation.navigate('PostDetails', {id: id });
+  } 
+  handleUserProfile = (id) => { 
+    this.props.navigation.navigate('Profile', {id: id });
   }
   handleToggleDrawer = () => {
     this.props.navigation.navigate.toggleDrawer();
