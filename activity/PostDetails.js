@@ -70,7 +70,7 @@ class PostDetails extends Component {
     // Error retrieving data  
   }};
   fatchData = () => { 
-    console.log('this-props====',this.props.route.params.id);
+    //console.log('this-props====',this.props.route.params.id);
     // https://sista.bdmobilepoint.com/api/singelpost/319
     this.setState({isLoading:true})  
     api.getData('singelpost/'+this.props.route.params.id)
@@ -125,8 +125,10 @@ class PostDetails extends Component {
         this.setState({loading:false});  
         console.log('responseJson============',responseJson)
         if (responseJson.success === true) { 
-          this.setState({post_comment:''})
-          this.setState({successtext:'Post Submit Successful'});  
+          this.setState({post_comment:''}) 
+          this.setState({successtext:'Post Submit Successful'},function () {
+            this.fatchData();
+          });  
         } else { 
         }
       })
@@ -221,6 +223,7 @@ class PostDetails extends Component {
             <TextInput 
               onChangeText = {(test) => {this.setState({post_comment:test})}}
               onBlur = {() => this.validation()}
+              value={this.state.post_comment}
               style={styles.textArea}
               underlineColorAndroid="transparent"
               placeholder="Type something" 
