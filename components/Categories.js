@@ -4,13 +4,14 @@ import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles";   
 import api from '../api'; 
-const Categories = () => {
+const Categories = (props) => {
     const [successtext, setSuccesstext] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [getCats, setCats] = useState([]);
     const getCategories = async => {
         api.getData('post_categories')
         .then((res)=>{
+          //console.log('propspropspropsprops===',props);
           ///console.log('post_categories=====',res)
           setCats( res.data.data);  
         })
@@ -21,38 +22,12 @@ const Categories = () => {
     useEffect(() => getCategories(false),[getCats]); 
     useEffect(() => setSuccesstext(false), [successtext]); 
     useEffect(() => setErrortext(false), [errortext]);
-    useEffect(() => {getCategories()},[]); 
-    return ( 
-        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
-        
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{ marginRight: -30}}
-          >
-            <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
-              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
-              <TouchableOpacity              
-              style={{ 
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#9253C1", 
-              }}
-              > 
-              <Icon  
-                color='#FFFFFF' 
-                name='book' />  
-            </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >All</Text>
-              </ListItem.Content>
-            </ListItem>
-
+    useEffect(() => {getCategories()},[]);  
+    return (   
             <ListItem >  
             { getCats.map((item, i) => (
             <ListItem.Content key={item.id} data={item} keyExtractor={(item , i) => item.id.toString()}  style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
-              <TouchableOpacity              
+              <TouchableOpacity onPress={() => props.handlePostCate(item.id)}
                 style={{ 
                   justifyContent: "center",
                   height: 66,
@@ -61,17 +36,15 @@ const Categories = () => {
                   backgroundColor: "#EEEEEE", 
                 }}
               > 
-              <Icon  
-                color='#000000' 
-                name={item.cat_image} />  
+              <Icon color='#000000' name={item.cat_image} />  
             </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >{item.cat_name}</Text>
-              </ListItem.Content>
+            <Text style={{ textAlign: 'center', width:'100%'}} >
+              {item.cat_name}</Text>
+            </ListItem.Content>
             ))
             }
             </ListItem>
-          </ScrollView>
-        </View> 
+           
     );
 };
 
