@@ -84,7 +84,7 @@ function RegisterScreen ({navigation,props}){
       }
       formBody = formBody.join('&');
 
-      fetch('http://sista.abdulmazidcse.com/api/users', {
+      fetch('http://sista.bdmobilepoint.com/api/users', {
         method: 'POST',
         body: formBody,
         headers: {
