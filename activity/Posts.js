@@ -74,8 +74,7 @@ class Posts extends Component {
     />
     //this.props.navigation.navigate('UserProfile', {id: id });
   }
-  handlePostDetails = (id) => {
-
+  handlePostDetails = (id) => { 
     this.props.navigation.navigate('PostDetails', {id: id });
   }
   handleToggleDrawer = () => {
