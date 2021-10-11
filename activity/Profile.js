@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component  } from "react";
 import { View, Text, ScrollView , SafeAreaView ,StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
 import { Avatar, colors, Icon , Image , Header} from "react-native-elements"; 
 import Styles from "../styles";
@@ -24,13 +24,12 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.fatchData = this.fatchData.bind(this);
-    
+    this.handleStatusChange = this.handleStatusChange.bind(this);
     this.state = { 
       userData:[], 
       post_items:[], 
       isLoading: false, 
-      successtext:'',
-      post_comment:'',
+      successtext:'', 
       loading:false,
       token:'',
       parent_id:0,
@@ -44,6 +43,11 @@ class Profile extends Component {
   componentWillUnmount() {   
     this.fatchData();   
   }  
+  handleStatusChange(status) {    
+    this.setState({      
+      isOnline: status.isOnline    
+    });  
+  }
   fatchData = () => {   
     this.setState({isLoading:true})  
     api.getData('user_profile/'+this.props.route.params.id)
@@ -69,6 +73,7 @@ class Profile extends Component {
   }  
  
   render(){
+    let {items, isLoading} = this.state;
     return ( <SafeAreaView>
         <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
