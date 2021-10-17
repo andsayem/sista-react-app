@@ -33,15 +33,23 @@ class Profile extends Component {
       loading:false,
       token:'',
       parent_id:0,
-      isOnline: null
+      isOnline: null,
+      user_id: null,
       };  
   } 
 
-  componentDidMount() {    
-    this.fatchData();   
+  async componentDidMount() {    
+    this.setState({user_id:this.props.route.params.id},function () {
+      this.fatchData();  
+    }) 
+    this.fatchData();  
+    console.log('componentDidMount',this.props.route.params.id) 
   }  
-  componentWillUnmount() {   
-    this.fatchData();   
+  async componentWillUnmount() {   
+    this.setState({user_id:this.props.route.params.id},function () {
+      this.fatchData();  
+    }) 
+    console.log('componentDidMount',this.props.route.params.id) 
   }  
   handleStatusChange(status) {    
     this.setState({      
@@ -61,6 +69,20 @@ class Profile extends Component {
   onPressPostDetails(id){
     this.props.navigation.navigate('PostDetails', {id: id });
   }
+  handleStatusChange(status) {    
+    this.setState({      
+      isOnline: status.isOnline    
+    });  
+  }
+  _retrieveData = async () => {  
+    try { const value = await AsyncStorage.getItem('TOKEN');    
+    if (value !== null) {  
+      this.setState({token:value});    
+      console.log(value);    
+    }  
+  } catch (error) {    
+    // Error retrieving data  
+  }};
   renderFooter = () => { 
     //useEffect(() => { this.fatchData()},[]) 
     return(  
