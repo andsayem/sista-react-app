@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {Fragment, useEffect, useState } from "react"; 
 import { DrawerItem  , DrawerContentScrollView } from "@react-navigation/drawer";  
 import { View , ScrollView , StyleSheet } from "react-native";
 import {
@@ -17,9 +17,13 @@ import {
   shareOnTwitter,
 } from 'react-native-social-share'; 
 import { Icon } from "react-native-elements"; 
+import AsyncStorage from '@react-native-community/async-storage';
+const STORAGE_KEY = 'save_user'; 
+const TOKEN = 'token';
 export function DrawerContent(props){
-  
-  facebookShare = () => { 
+  const [getToken, setToken] = useState(false); 
+  const [getUserdata, setUserdata] = useState({}); 
+  const facebookShare = () => { 
     shareOnFacebook({
         'text':'Global democratized marketplace for art',
         'link':'https://artboost.com/',
@@ -31,7 +35,29 @@ export function DrawerContent(props){
         console.log(results);
       }
     );
+  } 
+  const clearAsyncStorage = async() => {
+    AsyncStorage.clear(); 
+    props.navigation.navigate("Login");
+  }  
+  const asyncStorageData = async () => {
+    try { 
+      const token = await AsyncStorage.getItem(TOKEN); 
+      const userData = await AsyncStorage.getItem(STORAGE_KEY); 
+      setToken(token);
+      setUserdata(userData);  
+      if(!token){  
+        props.navigation.navigate("Login");; 
+      }      
+    } catch (e) {    
+      props.navigation.navigate("Login");
+    }
   }
+  useEffect(() => {  
+    return () => {  
+      asyncStorageData();
+    }
+  });
   return (
     <ScrollView style={{ flex : 1, backgroundColor : '#5C48BA'  }}>
       <DrawerContentScrollView {...props} >
@@ -40,7 +66,7 @@ export function DrawerContent(props){
             <View style={{  flexDirection : 'row' , marginTop : 15 }}>
               <Avatar.Image size={50}  source={require('../img/images/user_3.jpg')} > </Avatar.Image>
               <View style={{ marginLeft : 13 , marginTop : 12  , flexDirection : 'column'}}>
-                <Title  style={{ color : '#fff'}}   > AS Sayem </Title>
+                <Title  style={{ color : '#fff'}} > {getUserdata.name} AS Sayem </Title>
                 <Caption style={{ color : '#fff'}} >Information </Caption>
               </View>
             </View>   
@@ -89,10 +115,19 @@ export function DrawerContent(props){
           onPress={()=>{props.navigation.navigate('PrivacyPolicy')}} 
           label={() => <Text style={{ color: '#fff' }}>Privacy Policy</Text> }            
         />
-         <DrawerItem
+        { getToken ? 
+
+        <DrawerItem
+        onPress={()=> {clearAsyncStorage() }} 
+        label={() => <Text style={{ color: '#fff' }}>Logout</Text> }            
+        />
+        :
+        <DrawerItem
           onPress={()=>{props.navigation.navigate('Login')}} 
           label={() => <Text style={{ color: '#fff' }}>Login</Text> }            
         />
+        }
+        
       </Drawer.Section>
     
     </ScrollView>

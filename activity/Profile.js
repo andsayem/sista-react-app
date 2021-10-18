@@ -6,19 +6,7 @@ import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
-const Toast = ({ visible, message }) => {
-  if (visible) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50
-    );
-    return null;
-  }
-  return null;
-};
+ 
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -36,15 +24,26 @@ class Profile extends Component {
       user_id: null,
       };  
   } 
-
+  asyncStorageData = async () => {
+    try { 
+      const token = await AsyncStorage.getItem(TOKEN); 
+      if(!token){  
+        this.props.navigation.navigate("Login");; 
+      }      
+    } catch (e) {    
+      this.props.navigation.navigate("Login");
+    }
+  } 
   async componentDidMount() {    
+    this.asyncStorageData();
     this.setState({user_id:this.props.route.params.id},function () {
       this.fatchData();  
     }) 
     this.fatchData();  
     console.log('componentDidMount',this.props.route.params.id) 
   }  
-  async componentWillUnmount() {   
+  async componentWillUnmount() { 
+    this.asyncStorageData();  
     this.setState({user_id:this.props.route.params.id},function () {
       this.fatchData();  
     }) 
@@ -55,9 +54,7 @@ class Profile extends Component {
       isOnline: status.isOnline    
     });  
   }
-  fatchData = async() => {  
-    
-    
+  fatchData = async() => {   
     this.setState({isLoading:true})  
     api.getData('user_profile/'+ await AsyncStorage.getItem(STORAGE_KEY).id)
     .then(response => {  
@@ -100,7 +97,7 @@ class Profile extends Component {
     return ( <SafeAreaView>
         <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
+            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
             centerComponent={{ text: 'Profile', style: { color: '#1E1E1E' , fontSize : 20 } }}
             rightComponent={{ icon: 'home', color: '#1E1E1E' }}
             containerStyle={{   

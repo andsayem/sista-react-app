@@ -32,8 +32,7 @@ import UserProfile from './activity/UserProfile';
 import AppTutorial from './screens/WelcomeScreen';
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
-const Drawer = createDrawerNavigator();
-
+const Drawer = createDrawerNavigator(); 
 const AuthContext = React.createContext();
 LogBox.ignoreAllLogs(); 
 function DrawerNavigator() {
@@ -64,6 +63,13 @@ function DrawerNavigator() {
 function App(){
   const [getToken, setToken] = useState(false);
   const [initialRoute, setInitialRoute] = useState('AppTutorial');
+
+  // const resetAction = StackActions.reset({
+  //   index: 0,
+  //   actions: [NavigationActions.navigate({ routeName: 'Login' })],
+  // });
+  // props.navigation.dispatch(resetAction)
+
   const readData = async () => {
     try { 
       const token = await AsyncStorage.getItem(TOKEN);          

@@ -31,11 +31,8 @@ class Posts extends Component {
   renderFooter = () => { 
     useEffect(() => { this.fatchData()},[]) 
     return(  
-        <View>   
-            <View> 
-            <ActivityIndicator size="large" color="#0000ff" /> 
-            <Text style={styles.title}>Loading Data..</Text>
-            </View> 
+        <View>     
+            <Text style={styles.title}>Loading Data..</Text> 
         </View> 
     );
   }
