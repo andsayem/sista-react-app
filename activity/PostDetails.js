@@ -235,7 +235,7 @@ class PostDetails extends Component {
             style={styles.submit}
             activeOpacity={0.5} >
             <Text             
-            >Submit </Text>
+            >Submit</Text>
           </TouchableOpacity>
         </View>      
       </SafeAreaView>

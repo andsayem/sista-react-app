@@ -13,6 +13,9 @@ class Comment extends Component {
       isLoading: false,
       };  
   }  
+  handleLikeComment = (id) => {
+    alert(id)
+  } 
   renderRow = ({ item , index }) => { 
     console.log('itemitemitemitemitemitemitemitemitemitem',item); 
     const { liked, like, props } = item
