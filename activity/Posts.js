@@ -72,7 +72,8 @@ class Posts extends Component {
     this.props.navigation.navigate('PostDetails', {id: id });
   } 
   handleUserProfile = (id) => { 
-    this.props.navigation.navigate('Profile', {id: id });
+    
+    this.props.navigation.navigate('UserProfile', {id: id });
   }
   handlePostCateWise = (id) => { 
     this.setState({cat_id: id}, function () {
