@@ -1,12 +1,11 @@
 import React, { Component  } from "react";
-import { View, Text, ScrollView , SafeAreaView ,StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
+import { View, Text, ScrollView , FlatList , SafeAreaView ,StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
 import { Avatar, colors, Icon , Image , Header} from "react-native-elements"; 
 import Styles from "../styles";
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
-
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -43,14 +42,16 @@ class Profile extends Component {
   componentWillUnmount() {   
     this.fatchData();   
   }  
-  handleStatusChange(status) {    
+    handleStatusChange(status) {    
     this.setState({      
       isOnline: status.isOnline    
     });  
   }
-  fatchData = () => {   
+  fatchData = async() => {  
+    
+    
     this.setState({isLoading:true})  
-    api.getData('user_profile/'+this.props.route.params.id)
+    api.getData('user_profile/'+ await AsyncStorage.getItem(STORAGE_KEY).id)
     .then(response => {  
       console.log('========');
       console.log(response.data.data.photos);
@@ -88,6 +89,7 @@ class Profile extends Component {
         <View  style={{  backgroundColor: "#FEFEFE",   padding : 10 }}  > 
         {/* <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} /> */}
+        
         <ScrollView
           horizontal 
           style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
@@ -194,7 +196,7 @@ class Profile extends Component {
                 style={{ height: 65, width: 150 , marginTop :15 ,  borderRadius: 10 }}
               />
               </View>
-              
+            
             </ScrollView>
         </View>
       </SafeAreaView>
