@@ -27,7 +27,10 @@ class Post extends  React.Component{
               <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
                   <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium" source={require('../img/images/user_3.jpg')} />
                   <ListItem.Content >
-                    <ListItem.Title onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}> {this.props.item.userjoin.name} </ListItem.Title> 
+                    <ListItem.Title>                     
+                    <Text onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}>
+                    {this.props.item.userjoin.name}
+                      </Text></ListItem.Title> 
                     <ListItem.Subtitle>  {moment(this.props.item.created_at).fromNow() }</ListItem.Subtitle>
                   </ListItem.Content> 
                   <ListItem.Content >
