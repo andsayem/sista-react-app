@@ -6,8 +6,21 @@ import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
- 
-class Profile extends Component {
+
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
+class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.fatchData = this.fatchData.bind(this);
@@ -20,34 +33,15 @@ class Profile extends Component {
       loading:false,
       token:'',
       parent_id:0,
-      isOnline: null,
-      user_id: null,
+      isOnline: null
       };  
   } 
-  asyncStorageData = async () => {
-    try { 
-      const token = await AsyncStorage.getItem(TOKEN); 
-      if(!token){  
-        this.props.navigation.navigate("Login");; 
-      }      
-    } catch (e) {    
-      this.props.navigation.navigate("Login");
-    }
-  } 
-  async componentDidMount() {    
-    this.asyncStorageData();
-    this.setState({user_id:this.props.route.params.id},function () {
-      this.fatchData();  
-    }) 
-    this.fatchData();  
-    console.log('componentDidMount',this.props.route.params.id) 
+
+  componentDidMount() {    
+    this.fatchData();   
   }  
-  async componentWillUnmount() { 
-    this.asyncStorageData();  
-    this.setState({user_id:this.props.route.params.id},function () {
-      this.fatchData();  
-    }) 
-    console.log('componentDidMount',this.props.route.params.id) 
+  componentWillUnmount() {   
+    this.fatchData();   
   }  
     handleStatusChange(status) {    
     this.setState({      
@@ -55,8 +49,10 @@ class Profile extends Component {
     });  
   }
   fatchData = async() => {   
+    const userData = await AsyncStorage.getItem(STORAGE_KEY); 
+    let user_data = JSON.parse(userData) 
     this.setState({isLoading:true})  
-    api.getData('user_profile/'+ await AsyncStorage.getItem(STORAGE_KEY).id)
+    api.getData('user_profile/'+ user_data.id)
     .then(response => {  
       console.log('========');
       console.log(response.data.data.photos);
@@ -67,20 +63,6 @@ class Profile extends Component {
   onPressPostDetails(id){
     this.props.navigation.navigate('PostDetails', {id: id });
   }
-  handleStatusChange(status) {    
-    this.setState({      
-      isOnline: status.isOnline    
-    });  
-  }
-  _retrieveData = async () => {  
-    try { const value = await AsyncStorage.getItem('TOKEN');    
-    if (value !== null) {  
-      this.setState({token:value});    
-      console.log(value);    
-    }  
-  } catch (error) {    
-    // Error retrieving data  
-  }};
   renderFooter = () => { 
     //useEffect(() => { this.fatchData()},[]) 
     return(  
@@ -97,9 +79,9 @@ class Profile extends Component {
     return ( <SafeAreaView>
         <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'Profile', style: { color: '#1E1E1E' , fontSize : 20 } }}
-            rightComponent={{ icon: 'home', color: '#1E1E1E' }}
+            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
+            centerComponent={{ text: 'My Profile', style: { color: '#1E1E1E' , fontSize : 20 } }}
+             
             containerStyle={{   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
@@ -113,26 +95,11 @@ class Profile extends Component {
           horizontal 
           style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
         >
-        <View style={{ width : 110}} >
-          <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
-          <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>{ this.state.userData.name}</Text> 
-              {/* <TouchableOpacity
-              style={Styles.loginBtn}
-              activeOpacity={0.5}>
-              <Text  >Logout</Text>
-            </TouchableOpacity>
-              <Text ></Text> */}
-        </View>   
-        <View style={{ width : 110}} > 
-        
-          <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17 , borderColor : 'red'}}>Message</Text> 
-        </View> 
-        <View style={{ width : 110}} > 
-              <Text   style={{    justifyContent:"center",  backgroundColor : '#FF5D8E'  }}>Follow </Text> 
-            </View>  
-
-        </ScrollView>
-        
+          <View style={{ width : 110}} >
+            <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
+            <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>{ this.state.userData.name}</Text>  
+          </View>   
+        </ScrollView> 
         <Text>
            { this.state.userData.description }
         </Text>  
@@ -255,4 +222,4 @@ class Profile extends Component {
      },
     
     });
-export default Profile;
+export default UserProfile;

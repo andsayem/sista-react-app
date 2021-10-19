@@ -37,10 +37,10 @@ class Post extends  React.Component{
                   <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}    
                   activeOpacity={0.5} >  
                   <Text>{this.props.item.follow }</Text>
-                  {this.props.item.followings ?
-                    <Text style={{ color : '#a21919'}}> </Text>
+                  {this.props.item.followings == 1?
+                    <Text style={{ color : '#a21919'}}>Following </Text>
                     : 
-                    <Text style={{ color : '#a21919'}}>+Following </Text> 
+                    <Text style={{ color : '#a21919'}}>+Follow </Text> 
                   } 
                   </TouchableOpacity>   
                   </ListItem.Content>
@@ -81,11 +81,12 @@ class Post extends  React.Component{
                 {this.props.like  == '0'? '' : this.props.like }   </Text> 
               }
               </View>
+              
               </TouchableOpacity>  
             </View>  
-            {/* <View  style={{   height: 66, width: 120}} >
+            <View  style={{   height: 66, width: 120}} >
               <Text> Comment <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {this.props.comment} </Text>
-            </View> */}
+            </View>
             {/* <View style={{  height: 66,  width: 100}}  >
               <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {this.props.share} </Text>
             </View>     */}
