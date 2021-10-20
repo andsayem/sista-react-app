@@ -94,14 +94,14 @@ class PostDetails extends Component {
   validation = () => {
     //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
   }
-  handleSubmitButton = async() => { 
-    this.setState({sending:true});
+  handleSubmitButton = async() => {  
     //console.warn('storatw',this.props.route.params.id); 
     //console.warn('state  =====',this.state);  
     if (!this.state.post_comment) { 
       this.setState({errortext:'Please fill caption'}); 
       return;
     }else{
+      this.setState({sending:true});
       this.setState({errortext:''});
       this.setState({successtext:''}); 
       this.setState({loading:true});  
@@ -194,8 +194,7 @@ class PostDetails extends Component {
   render(){
     let {items, isLoading} = this.state;
     //console.log('commmmeee======',this.state.items); 
-    console.log('commmmeee======',this.state.post_items.caption);
-
+    //console.log('commmmeee======',this.state.post_items.caption); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return(
       <SafeAreaView style={styles.container}>  
@@ -222,7 +221,7 @@ class PostDetails extends Component {
           <ScrollView horizontal showsHorizontalScrollIndicator={false} >
             <View style={styles.textAreaContainer}>
             <TextInput 
-              onChangeText = {(test) => {this.setState({post_comment:test})}}
+              onChangeText = {(test) => {this.setState({post_comment:test},this.setState({errortext:false}))}}
               onBlur = {() => this.validation()}
               value={this.state.post_comment} 
               underlineColorAndroid="transparent"

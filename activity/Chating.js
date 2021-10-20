@@ -33,7 +33,7 @@ const TOKEN = 'token';
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
       message,
-      ToastAndroid.LONG,
+      ToastAndroid.SHORT,
       ToastAndroid.TOP,
       25,
       50
@@ -56,20 +56,7 @@ const TOKEN = 'token';
       send_message:'',
       sending:false
       };  
-    }
-    Toast = ({ visible, message }) => {
-    if (visible) {
-      ToastAndroid.showWithGravityAndOffset(
-        message,
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        25,
-        50
-      );
-      return null;
-    }
-    return null;
-  }; 
+    } 
   componentDidMount =  async () =>{
     const user = await AsyncStorage.getItem(STORAGE_KEY);
     this.setState({user: JSON.parse(user)});
@@ -104,10 +91,13 @@ const TOKEN = 'token';
     }
   } 
  
-  handleSubmitButton = async () => {    
-    let formData = new FormData();
-    this.setState({sending:true});
-    console.log(this.state.send_message); 
+  handleSubmitButton = async () => {   
+    if (!this.state.send_message) { 
+      this.setState({errortext:'Please fill field'}); 
+      return;
+    }else{
+      let formData = new FormData(); 
+    this.setState({sending:true}); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.send_message); 
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
@@ -126,6 +116,7 @@ const TOKEN = 'token';
       }) 
     }) 
     .finally( ()=>this.setState({isLoading: false})) ; 
+  }
   }
   handleKeyDown = (e) => { 
       if(e.nativeEvent.key == "Enter"){
@@ -147,8 +138,6 @@ const TOKEN = 'token';
               </Text>             
             </ListItem.Content>
           </ListItem>  
-         
-            
           </View>
           : <ListItem style={{ width: '100%',   flex: 1 }}> 
           <ListItem.Content stayl={{}}> 
@@ -199,10 +188,7 @@ const TOKEN = 'token';
             containerStyle={{   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
-        /> */}
-          {/* <Loader loading={loading} />    */}
-         {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => this.Toast.setRef(ref)}/>
-          <Toast visible={successText} message ={successText.message} />  */}
+        /> */} 
         <View style={{paddingTop :35, backgroundColor: "#efefef",  }}  > 
           <View >
             <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
@@ -231,7 +217,7 @@ const TOKEN = 'token';
             <View style={styles.textAreaContainer} >
             <TextInput  
               style={styles.textInput}
-              onChangeText = {(test) => {this.setState({send_message:test})}} 
+              onChangeText = {(test) => this.setState({send_message:test},this.setState({errortext:false}))} 
               value={this.state.send_message}    
               blurOnSubmit={true}  
               onBlur = {() => this.validation()} 
