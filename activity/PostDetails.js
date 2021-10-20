@@ -218,25 +218,27 @@ class PostDetails extends Component {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}       
         />:  <View>Empty</View>}  
-        <View style={styles.footer} > 
-          <View style={styles.textAreaContainer} > 
+        <View style={styles.footer} >  
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+            <View style={styles.textAreaContainer}>
             <TextInput 
               onChangeText = {(test) => {this.setState({post_comment:test})}}
               onBlur = {() => this.validation()}
-              value={this.state.post_comment}
-              style={styles.textArea}
+              value={this.state.post_comment} 
               underlineColorAndroid="transparent"
               placeholder="Type something" 
               multiline={true}
             />
-          </View> 
-          <TouchableOpacity
-            onPress={this.handleSubmitButton} 
-            style={styles.submit}
-            activeOpacity={0.5} >
-            <Text             
-            >Submit</Text>
-          </TouchableOpacity>
+            </View>
+            <View style={{ width: 40}}>
+            <TouchableOpacity 
+                onPress={this.handleSubmitButton} 
+                style={styles.submit}
+                activeOpacity={0.5} >
+                <Icon style={styles.iconstype}  size={35} name='send' ></Icon>
+              </TouchableOpacity> 
+            </View>
+          </ScrollView> 
         </View>      
       </SafeAreaView>
     )
@@ -269,13 +271,14 @@ const styles = StyleSheet.create({
   },
   textAreaContainer: {
     borderColor:  '#efefef', 
+    width: 330
   },
   textArea: {
     height: 50,     
   },
-  submit:{   
-    alignItems:'flex-end', 
-    backgroundColor:'#efefef', 
-  }
+  submit:{     
+    marginTop:2, 
+    paddingTop:0,
+  }, 
 })
 export default PostDetails;

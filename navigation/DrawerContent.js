@@ -66,8 +66,8 @@ export function DrawerContent(props){
             <View style={{  flexDirection : 'row' , marginTop : 15 }}>
               <Avatar.Image size={50}  source={require('../img/images/user_3.jpg')} > </Avatar.Image>
               <View style={{ marginLeft : 13 , marginTop : 12  , flexDirection : 'column'}}>
-                <Title  style={{ color : '#fff'}} > { getUserdata.name } </Title>
-                <Caption style={{ color : '#fff'}} >{ getUserdata.email }</Caption>
+                <Title  style={{ color : '#fff'}} > { getUserdata ? getUserdata.name : '' } </Title>
+                <Caption style={{ color : '#fff'}} >{ getUserdata ? getUserdata.email : '' }</Caption>
               </View>
             </View>   
           </View>
@@ -116,7 +116,6 @@ export function DrawerContent(props){
           label={() => <Text style={{ color: '#fff' }}>Privacy Policy</Text> }            
         />
         { getToken ? 
-
         <DrawerItem
         onPress={()=> {clearAsyncStorage() }} 
         label={() => <Text style={{ color: '#fff' }}>Logout</Text> }            

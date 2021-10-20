@@ -174,14 +174,16 @@ const TOKEN = 'token';
         </View> 
     );
   }
+  validation = () => {
+    //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
+  }
   //useEffect(() => fatchData(false),[conversations]);  
   //useEffect(() => {fatchData()}, [conversations]);
   //useEffect(() => errortext(false),[setSuccesstext(false)]);   
   render(){  
     let {items, isLoading} = this.state;
-  return (
-   <ScrollView>
-      <SafeAreaView > 
+  return ( 
+      <SafeAreaView style={styles.container}> 
         <Toast visible={this.state.errortext} message={this.state.errortext}/>
         <Toast visible={this.state.successtext} message ={this.state.successtext} />   
          {/* <Header 
@@ -207,9 +209,8 @@ const TOKEN = 'token';
             </ListItem>
           </View>     
         </View> 
-
-        <FlatList 
-        style={{ padding : 2, margin : 0}}
+        { this.state.items ?   
+        <FlatList  
             data={Object.values(this.state.items)}
             renderItem={this.renderRow}
             keyExtractor={(item , i) => item.id.toString()} 
@@ -219,71 +220,46 @@ const TOKEN = 'token';
             onEndReachedThreshold={0.5}
             onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
             onRefresh={this.fatchData}      
-          /> 
-       
-      </SafeAreaView>
-      <View style={{flex: 1}}>
-          <TouchableOpacity style={styles.floatingActionButton}>
-              <View style={styles.textAreaContainers} >    
-                <TextInput
-                  onChangeText = {(test) => {this.setState({send_message:test})}} 
-                  value={this.state.send_message}    
-                  blurOnSubmit={true} 
-                  maxLength={200}
-                  style={styles.textArea}
-                  placeholder={'Type something...'} 
-                  returnKeyType="done"
-                  multiline={true}
-                  underlineColorAndroid="transparent" 
-                  onKeyPress={this.handleKeyDown}
-                />
-                </View> 
-              {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
-              <Toast visible={successText} message ={successText.message} /> */}
-            
-              <Text   onPress={this.handleSubmitButton} 
-              style={styles.submit}
-              activeOpacity={0.5}             
-              >Submit</Text> 
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-      
+            />:  <View>Empty</View>}  
+        <View style={styles.footer} >  
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+            <View style={styles.textAreaContainer}>
+            <TextInput 
+              onChangeText = {(test) => {this.setState({send_message:test})}} 
+              value={this.state.send_message}    
+              blurOnSubmit={true}  
+              onBlur = {() => this.validation()} 
+              underlineColorAndroid="transparent"
+              placeholder="Type something" 
+              multiline={true}
+            />
+            </View>
+            <View style={{ width: 40}}>
+            <TouchableOpacity 
+                onPress={this.handleSubmitButton} 
+                style={styles.submit}
+                activeOpacity={0.5} >
+                <Icon size={35} name='send' ></Icon>
+              </TouchableOpacity> 
+            </View>
+          </ScrollView> 
+        </View> 
+        </SafeAreaView>  
     );
   };
 }
 
-const styles = StyleSheet.create({
-  textAreaContainer: {
-    borderColor:  '#efefef',
-    borderWidth: 1,       
-    alignItems:'center',
-  },
-  textArea: {
-    height: 150, 
-    
-  } ,
-  floatingActionButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 10,
-    left: 10,
-    right: 10,
-    color:'white',
-    borderRadius: 10,
-  },
+const styles = StyleSheet.create({   
   input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
   },
-  container: {
+  container:{
+    marginTop:20,
     flex: 1,
-    padding: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    padding:2, 
+  }, 
   textareaContainer: {
     height: 180,
     padding: 5,
@@ -309,16 +285,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
-  textAreaContainers: {
+  footer:{ 
+    backgroundColor: '#fff' , 
+    borderRadius: 10,   
+    padding:5
+  },
+  textAreaContainer: {
     borderColor:  '#efefef', 
+    width: 330
   },
   textArea: {
-    height: 40,     
+    height: 50,     
   },
-  submit:{   
-    alignItems:'flex-end', 
-    backgroundColor:'#efefef', 
-  }
+  submit:{     
+    marginTop:2, 
+    paddingTop:0,
+  }, 
 })
  
 export default Chating;
