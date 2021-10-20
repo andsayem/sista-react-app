@@ -41,9 +41,15 @@ function Chats(props) {
                 <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.receiver_id,
                  }) }   size="medium" source={require('../img/images/user_3.jpg')} />
-                <ListItem.Content>
-                  <ListItem.Title>{ItemData.name}  </ListItem.Title>
-                  <ListItem.Subtitle>hi dear, have u got the prom...</ListItem.Subtitle>
+                <ListItem.Content >
+                  <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.receiver_id,
+                 }) }  onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.receiver_id,
+                 }) } >{ItemData.name}  </ListItem.Title>
+                  <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.receiver_id,
+                 }) } >hi dear, have u got the prom...</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
         </View>  

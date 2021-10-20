@@ -51,6 +51,7 @@ const TOKEN = 'token';
       isLoading: false,
       errortext:'',
       successtext:'',
+      send_message:'',
       };  
     }
     Toast = ({ visible, message }) => {
@@ -66,24 +67,22 @@ const TOKEN = 'token';
     }
     return null;
   }; 
-  componentDidMount() {
+  componentDidMount =  async () =>{
+    const user = await AsyncStorage.getItem(STORAGE_KEY);
+    this.setState({user: JSON.parse(user)});
     this.fatchData();
   }
-  async componentwillmount(){
-   
+  async componentwillmount(){ 
     this.fatchData();
   }
   fatchData  =  async () => { 
     this.setState({isLoading:true})  
     api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)
-    .then(response => response.data.data)
-    .then(json => this.setState({items:json}))
+    .then((response) => { 
+      this.setState({items:response.data.data}) 
+    })
     .finally( ()=>this.setState({isLoading: false})) ;
-
-    const user = await AsyncStorage.getItem(STORAGE_KEY);
-    console.log('Test data ', JSON.parse( user)) ;
-    // this.state.user = user ;
-    this.setState({user: JSON.parse(user)});
+  
   } 
   handleOnRefresh = () => { 
     this.setState({page:1, data:[]})
@@ -104,22 +103,23 @@ const TOKEN = 'token';
  
   handleSubmitButton = async () => {    
     let formData = new FormData();
-    console.log(this.state.message); 
+    console.log(this.state.send_message); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
-    formData.append("message", this.state.message); 
+    formData.append("message", this.state.send_message); 
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
     {
-     headers: { 
-       'Accept': 'application/json',  
-       'Content-Type': 'multipart/form-data', 
-       Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
-   }
- })   
-    this.setState({message : ''})
-    this.setState({successtext:'Submit Successful'});  
+      headers: { 
+        'Accept': 'application/json',  
+        'Content-Type': 'multipart/form-data', 
+        Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
+      }
+    })  
     api.getData('user_conversations')
-    .then(response => response.data.data)
-    .then(json => this.setState({items:json}))
+    .then((response) => {
+      this.setState({send_message : ''},function () {
+        this.fatchData();
+      }) 
+    }) 
     .finally( ()=>this.setState({isLoading: false})) ; 
   }
   handleKeyDown = (e) => { 
@@ -163,8 +163,7 @@ const TOKEN = 'token';
     return(  
         <View>  
           {this.state.isLoading ? (
-            <View> 
-            <ActivityIndicator size="large" color="#0000ff" /> 
+            <View>  
             <Text style={styles.title}>Loading Data..</Text>
             </View>
           ) : (
@@ -221,31 +220,33 @@ const TOKEN = 'token';
             onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
             onRefresh={this.fatchData}      
           /> 
-          
-
-          <View   >     
        
-
+      </SafeAreaView>
+      <View style={{flex: 1}}>
+          <TouchableOpacity style={styles.floatingActionButton}>
+              <View style={styles.textAreaContainers} >    
                 <TextInput
-                  onChangeText={(msg) => this.setState({message:msg})}    
+                  onChangeText = {(test) => {this.setState({send_message:test})}} 
+                  value={this.state.send_message}    
                   blurOnSubmit={true} 
                   maxLength={200}
+                  style={styles.textArea}
                   placeholder={'Type something...'} 
                   returnKeyType="done"
                   multiline={true}
-                  underlineColorAndroid="transparent"
-                  underlineColorAndroid={'transparent'}
+                  underlineColorAndroid="transparent" 
                   onKeyPress={this.handleKeyDown}
                 />
-                </View>
+                </View> 
               {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)}/>
               <Toast visible={successText} message ={successText.message} /> */}
-              <TouchableOpacity
-               onPress={this.handleSubmitButton}  
-              activeOpacity={0.5} >
-              <Text  >Submit</Text>
-            </TouchableOpacity> 
-      </SafeAreaView>
+            
+              <Text   onPress={this.handleSubmitButton} 
+              style={styles.submit}
+              activeOpacity={0.5}             
+              >Submit</Text> 
+          </TouchableOpacity>
+        </View>
       </ScrollView>
       
     );
@@ -262,6 +263,16 @@ const styles = StyleSheet.create({
     height: 150, 
     
   } ,
+  floatingActionButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    right: 10,
+    color:'white',
+    borderRadius: 10,
+  },
   input: {
     height: 40,
     margin: 12,
@@ -298,6 +309,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  textAreaContainers: {
+    borderColor:  '#efefef', 
+  },
+  textArea: {
+    height: 40,     
+  },
+  submit:{   
+    alignItems:'flex-end', 
+    backgroundColor:'#efefef', 
+  }
 })
  
 export default Chating;
