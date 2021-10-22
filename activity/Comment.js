@@ -1,5 +1,5 @@
 import React, { useEffect, Component } from "react";
-import { View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity} from "react-native";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar  } from 'react-native-elements';     
 const STORAGE_KEY = 'save_user';
@@ -12,28 +12,11 @@ class Comment extends Component {
       items:[], 
       isLoading: false,
       };  
-  }  
-  handleLikeComment = (id) => {
-    alert(id)
-  } 
-  renderRow = ({ item , index }) => { 
-    console.log('itemitemitemitemitemitemitemitemitemitem',item); 
-    const { liked, like, props } = item
-    return (
-      <Comment
-        item= {item} 
-        index={index.toString()}
-        liked={liked}
-        like={like}  
-        onPressLike={this.handleLikeComment} 
-        onPressCommentReply={this.handleCommentReply} 
-      />
-    )
-  } 
+  }   
   render(){
     //let {items, isLoading} = this.state;
     console.log('Post = props',this.props.item);
-    //console.log('Post = childs',this.props.item.reply);
+    //console.log('Post = childs',JSON.stringify(this.props.item.reply));
     return( 
       <View>
       {this.props.item ?
@@ -47,36 +30,46 @@ class Comment extends Component {
             </ListItem> 
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{  marginTop: -10 , marginLeft : 80 }}>
               <View style={{ width: 80}} >
+                <TouchableOpacity onPress={() => this.props.onPressCommentLike(this.props.item.id)}    
+                  activeOpacity={0.5} >     
                 <Text style={{ color : '#a21919'}}> Like </Text>
+                </TouchableOpacity>
               </View>
               <View  style={{  width: 120}}>
+                <TouchableOpacity onPress={() => this.props.onPressCommentReply(this.props.item.id, 'Reply')}    
+                  activeOpacity={0.5} >  
                 <Text> Reply</Text>
+                </TouchableOpacity>
               </View>
             </ScrollView> 
-            { this.props.item.reply ?
-             this.props.item.reply ?
-
+            { this.props.item.reply.map((reply, i) => (  
+           
             <View style={styles.child}>
                 <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
                 <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
-                  <ListItem.Title> {this.props.item.reply} </ListItem.Title>
-                  <ListItem.Subtitle>{this.props.item.reply.comm_test}</ListItem.Subtitle>
+                  <ListItem.Title> Name </ListItem.Title>
+                  <ListItem.Subtitle> {reply.comm_test} </ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}
                 style={{  marginTop: -10 , marginLeft : 80 }}
                 >
                 <View style={{ width: 80}}>
-                  <Text style={{ color : '#a21919'}}> Like </Text>
+                <TouchableOpacity onPress={() => this.props.onPressCommentLike(reply.parent_id)}    
+                  activeOpacity={0.5} >     
+                <Text style={{ color : '#a21919'}}> Like </Text>
+                </TouchableOpacity> 
                 </View>
                 <View style={{ width: 120}}>
-                  <Text> Reply</Text>
+                <TouchableOpacity onPress={() => this.props.onPressCommentReply(reply.parent_id,'Reply')}    
+                  activeOpacity={0.5} >  
+                <Text> Reply</Text>
+                </TouchableOpacity>
                 </View>
               </ScrollView>  
-            </View>
-            : ''
-            : ''}
+            </View>  
+            ))}
         </View> 
         : <View>Data not found</View> }
         </View>

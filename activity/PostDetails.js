@@ -38,6 +38,7 @@ class PostDetails extends Component {
       loading:false,
       token:'',
       parent_id:0,
+      reply_to_name:'',
       isOnline: null,
       sending:false
       };  
@@ -94,9 +95,7 @@ class PostDetails extends Component {
   validation = () => {
     //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
   }
-  handleSubmitButton = async() => {  
-    //console.warn('storatw',this.props.route.params.id); 
-    //console.warn('state  =====',this.state);  
+  handleSubmitButton = async() => {   
     if (!this.state.post_comment) { 
       this.setState({errortext:'Please fill caption'}); 
       return;
@@ -107,11 +106,10 @@ class PostDetails extends Component {
       this.setState({loading:true});  
       var dataToSend = {  
       post_id: this.props.route.params.id,//route.params.id,
-      parent_id: this.state.parent_id, 
+      parent_id: this.state.parent_id,
+      user_id:2,
       comm_test: this.state.post_comment,       
-    };  
-    console.log('dataToSend--==',dataToSend);
-    console.log('Token--==', this.state.token);
+    };   
     fetch('http://sista.bdmobilepoint.com/api/all_comments', {
       method: 'POST', 
       headers: {  
@@ -125,6 +123,8 @@ class PostDetails extends Component {
       .then((responseJson) => { 
         this.setState({loading:false});  
         this.setState({sending:false});
+        this.setState({parent_id:0});
+        this.setState({reply_to_name:''});
         if (responseJson.success === true) { 
           this.setState({post_comment:''}) 
           this.setState({successtext:'Post Submit Successful'},function () {
@@ -139,6 +139,14 @@ class PostDetails extends Component {
       });
     }
   }
+
+  handleLikeComment = (id) => {
+    api.getData('commentlike/'+id)
+  } 
+  handleCommentReply = (id,name) => {
+    this.setState({parent_id:id}); 
+    this.setState({reply_to_name:name}); 
+  } 
   renderRow = ({ item , index }) => {  
     const { liked, like, props } = item
     return ( 
@@ -152,6 +160,8 @@ class PostDetails extends Component {
           onPressFollow={this.handleFollowPost}
           onPressPostDetails={this.handlePostDetails}
           onPressUserProfile={this.handleUserProfile}
+          onPressCommentLike={this.handleLikeComment} 
+          onPressCommentReply={this.handleCommentReply} 
         /> 
       </View>
     )
@@ -190,6 +200,10 @@ class PostDetails extends Component {
       this.fatchData(); 
     }) 
   } 
+  handleCancelButton = () => {
+    this.setState({parent_id:0}); 
+    this.setState({reply_to_name:''}); 
+  }
   render(){
     let {items, isLoading} = this.state;
     //console.log('commmmeee======',this.state.items); 
@@ -216,11 +230,20 @@ class PostDetails extends Component {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}       
         />:  <View>Empty</View>}  
+        <View>
+              { this.state.reply_to_name ? 
+              
+              <Text>{this.state.reply_to_name} <Text onPress={this.handleCancelButton} >Cancel</Text> </Text>
+              
+              :  <View></View>}
+            </View>
         <View style={styles.footer} >  
           <ScrollView horizontal showsHorizontalScrollIndicator={false} >
             <View style={styles.textAreaContainer}>
+            
             <TextInput 
-              onChangeText = {(test) => {this.setState({post_comment:test},this.setState({errortext:false}))}}
+              onChangeText = {(test) => {this.setState({post_comment:test},
+                this.setState({errortext:false,reply_to_name:''}))}}
               onBlur = {() => this.validation()}
               value={this.state.post_comment} 
               underlineColorAndroid="transparent"
