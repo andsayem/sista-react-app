@@ -38,7 +38,8 @@ class PostDetails extends Component {
       loading:false,
       token:'',
       parent_id:0,
-      isOnline: null
+      isOnline: null,
+      sending:false
       };  
   }  
   componentDidMount() {    
@@ -93,13 +94,14 @@ class PostDetails extends Component {
   validation = () => {
     //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
   }
-  handleSubmitButton = async() => { 
-    console.warn('storatw',this.props.route.params.id); 
-    console.warn('state  =====',this.state);  
+  handleSubmitButton = async() => {  
+    //console.warn('storatw',this.props.route.params.id); 
+    //console.warn('state  =====',this.state);  
     if (!this.state.post_comment) { 
       this.setState({errortext:'Please fill caption'}); 
       return;
     }else{
+      this.setState({sending:true});
       this.setState({errortext:''});
       this.setState({successtext:''}); 
       this.setState({loading:true});  
@@ -123,7 +125,7 @@ class PostDetails extends Component {
       .then((response) => response.json())
       .then((responseJson) => { 
         this.setState({loading:false});  
-        console.log('responseJson============',responseJson)
+        this.setState({sending:false});
         if (responseJson.success === true) { 
           this.setState({post_comment:''}) 
           this.setState({successtext:'Post Submit Successful'},function () {
@@ -192,8 +194,7 @@ class PostDetails extends Component {
   render(){
     let {items, isLoading} = this.state;
     //console.log('commmmeee======',this.state.items); 
-    console.log('commmmeee======',this.state.post_items.caption);
-
+    //console.log('commmmeee======',this.state.post_items.caption); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return(
       <SafeAreaView style={styles.container}>  
@@ -204,9 +205,7 @@ class PostDetails extends Component {
           <Text style={styles.caption}>{this.state.post_items.caption}</Text>
         </View> 
         : '' }
-        <Toast visible={this.state.errortext} message={this.state.errortext}/>
-        <Toast visible={this.state.successtext} message ={this.state.successtext} />   
-
+        <Toast visible={this.state.errortext} message={this.state.errortext}/> 
         { this.state.items ?      
          <FlatList 
           data={Object.values(this.state.items)}
@@ -222,7 +221,7 @@ class PostDetails extends Component {
           <ScrollView horizontal showsHorizontalScrollIndicator={false} >
             <View style={styles.textAreaContainer}>
             <TextInput 
-              onChangeText = {(test) => {this.setState({post_comment:test})}}
+              onChangeText = {(test) => {this.setState({post_comment:test},this.setState({errortext:false}))}}
               onBlur = {() => this.validation()}
               value={this.state.post_comment} 
               underlineColorAndroid="transparent"
@@ -235,7 +234,10 @@ class PostDetails extends Component {
                 onPress={this.handleSubmitButton} 
                 style={styles.submit}
                 activeOpacity={0.5} >
-                <Icon style={styles.iconstype}  size={35} name='send' ></Icon>
+                {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" />:  
+                <Icon size={35}  name='sc-telegram'  type='evilicon'  color='#0000ff'></Icon> 
+                }  
+
               </TouchableOpacity> 
             </View>
           </ScrollView> 

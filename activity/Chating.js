@@ -11,6 +11,8 @@ import Textarea from 'react-native-textarea';
 import post_api from '../post_api';
 import axios from 'axios';
 import Loader from '../components/Loader'; 
+import AutoPlaceholderLoading from 'react-native-auto-placeholder-loading';
+
 const STORAGE_KEY = 'save_user';
 
 const TOKEN = 'token'; 
@@ -31,7 +33,7 @@ const TOKEN = 'token';
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
       message,
-      ToastAndroid.LONG,
+      ToastAndroid.SHORT,
       ToastAndroid.TOP,
       25,
       50
@@ -52,21 +54,9 @@ const TOKEN = 'token';
       errortext:'',
       successtext:'',
       send_message:'',
+      sending:false
       };  
-    }
-    Toast = ({ visible, message }) => {
-    if (visible) {
-      ToastAndroid.showWithGravityAndOffset(
-        message,
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        25,
-        50
-      );
-      return null;
-    }
-    return null;
-  }; 
+    } 
   componentDidMount =  async () =>{
     const user = await AsyncStorage.getItem(STORAGE_KEY);
     this.setState({user: JSON.parse(user)});
@@ -101,9 +91,13 @@ const TOKEN = 'token';
     }
   } 
  
-  handleSubmitButton = async () => {    
-    let formData = new FormData();
-    console.log(this.state.send_message); 
+  handleSubmitButton = async () => {   
+    if (!this.state.send_message) { 
+      this.setState({errortext:'Please fill field'}); 
+      return;
+    }else{
+      let formData = new FormData(); 
+    this.setState({sending:true}); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.send_message); 
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
@@ -116,11 +110,13 @@ const TOKEN = 'token';
     })  
     api.getData('user_conversations')
     .then((response) => {
+      this.setState({sending:false})
       this.setState({send_message : ''},function () {
         this.fatchData();
       }) 
     }) 
     .finally( ()=>this.setState({isLoading: false})) ; 
+  }
   }
   handleKeyDown = (e) => { 
       if(e.nativeEvent.key == "Enter"){
@@ -142,8 +138,6 @@ const TOKEN = 'token';
               </Text>             
             </ListItem.Content>
           </ListItem>  
-         
-            
           </View>
           : <ListItem style={{ width: '100%',   flex: 1 }}> 
           <ListItem.Content stayl={{}}> 
@@ -194,10 +188,7 @@ const TOKEN = 'token';
             containerStyle={{   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
-        /> */}
-          {/* <Loader loading={loading} />    */}
-         {/* <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => this.Toast.setRef(ref)}/>
-          <Toast visible={successText} message ={successText.message} />  */}
+        /> */} 
         <View style={{paddingTop :35, backgroundColor: "#efefef",  }}  > 
           <View >
             <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
@@ -220,26 +211,29 @@ const TOKEN = 'token';
             onEndReachedThreshold={0.5}
             onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
             onRefresh={this.fatchData}      
-            />:  <View>Empty</View>}  
-        <View style={styles.footer} >  
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-            <View style={styles.textAreaContainer}>
-            <TextInput 
-              onChangeText = {(test) => {this.setState({send_message:test})}} 
+            />:  <View>Empty</View>}   
+        <View style={styles.footer}>  
+          <ScrollView horizontal style={styles.scrollView}>
+            <View style={styles.textAreaContainer} >
+            <TextInput  
+              style={styles.textInput}
+              onChangeText = {(test) => this.setState({send_message:test},this.setState({errortext:false}))} 
               value={this.state.send_message}    
               blurOnSubmit={true}  
               onBlur = {() => this.validation()} 
               underlineColorAndroid="transparent"
-              placeholder="Type something" 
+              placeholder="Type something  " 
               multiline={true}
             />
-            </View>
-            <View style={{ width: 40}}>
+            </View> 
+            <View style={styles.submitArea}>
             <TouchableOpacity 
                 onPress={this.handleSubmitButton} 
                 style={styles.submit}
                 activeOpacity={0.5} >
-                <Icon size={35} name='send' ></Icon>
+                {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" />: 
+                <Icon size={35}  name='sc-telegram'  type='evilicon'  color='#0000ff'></Icon> 
+                }
               </TouchableOpacity> 
             </View>
           </ScrollView> 
@@ -247,48 +241,36 @@ const TOKEN = 'token';
         </SafeAreaView>  
     );
   };
-}
-
-const styles = StyleSheet.create({   
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+} 
+const styles = StyleSheet.create({    
+  title: {
+    textAlign: 'center',
+    marginVertical: 10,
+    fontSize: 18,
+    fontWeight: "bold"
   },
   container:{
     marginTop:20,
     flex: 1,
     padding:2, 
   }, 
-  textareaContainer: {
-    height: 180,
-    padding: 5,
-    backgroundColor: '#F5FCFF',
-  },
-  textarea: {
-    textAlignVertical: 'top',  // hack android
-    height: 170,
-    fontSize: 14,
-    color: '#333',
-  },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
+  header:{
+    backgroundColor: '#fff' ,
+    top:20,
+    height: 200,
+    width: '100%',
+    borderRadius: 15,
+    padding: 1,
+    marginBottom :10
+  }, 
+  caption:{
+    textAlign: 'center', 
     fontSize: 18,
-    height: 44,
   },
   footer:{ 
-    backgroundColor: '#fff' , 
-    borderRadius: 10,   
-    padding:5
+      backgroundColor: '#fff' , 
+      borderRadius: 10,   
+      padding:5
   },
   textAreaContainer: {
     borderColor:  '#efefef', 
@@ -301,6 +283,6 @@ const styles = StyleSheet.create({
     marginTop:2, 
     paddingTop:0,
   }, 
-})
+}) 
  
 export default Chating;
