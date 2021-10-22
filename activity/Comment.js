@@ -31,9 +31,9 @@ class Comment extends Component {
     )
   } 
   render(){
-    let {items, isLoading} = this.state;
-    //console.log('Post = props',this.props.item);
-    //console.log('Post = childs',this.props.item.childs);
+    //let {items, isLoading} = this.state;
+    console.log('Post = props',this.props.item);
+    //console.log('Post = childs',this.props.item.reply);
     return( 
       <View>
       {this.props.item ?
@@ -41,7 +41,7 @@ class Comment extends Component {
             <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%' }}>
               <Avatar rounded size="medium" source={require('../img/images/user_2.jpg')} />
               <ListItem.Content>
-                <ListItem.Title> Chris </ListItem.Title>
+                <ListItem.Title> { this.props.item.userjoin.name} </ListItem.Title>
                 <ListItem.Subtitle> {this.props.item.comm_test} </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem> 
@@ -53,12 +53,14 @@ class Comment extends Component {
                 <Text> Reply</Text>
               </View>
             </ScrollView> 
-            {this.props.item.reply ?
+            { this.props.item.reply ?
+             this.props.item.reply ?
+
             <View style={styles.child}>
-              {/* <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
+                <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
                 <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
                 <ListItem.Content>
-                  <ListItem.Title> Chris Jackson </ListItem.Title>
+                  <ListItem.Title> {this.props.item.reply} </ListItem.Title>
                   <ListItem.Subtitle>{this.props.item.reply.comm_test}</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
@@ -71,8 +73,9 @@ class Comment extends Component {
                 <View style={{ width: 120}}>
                   <Text> Reply</Text>
                 </View>
-              </ScrollView>  */}
+              </ScrollView>  
             </View>
+            : ''
             : ''}
         </View> 
         : <View>Data not found</View> }

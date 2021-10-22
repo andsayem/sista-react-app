@@ -107,8 +107,7 @@ class PostDetails extends Component {
       this.setState({loading:true});  
       var dataToSend = {  
       post_id: this.props.route.params.id,//route.params.id,
-      parent_id: this.state.parent_id,
-      user_id:2,
+      parent_id: this.state.parent_id, 
       comm_test: this.state.post_comment,       
     };  
     console.log('dataToSend--==',dataToSend);

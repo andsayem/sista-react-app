@@ -54,7 +54,7 @@ const TOKEN = 'token';
       errortext:'',
       successtext:'',
       send_message:'',
-      sending:false
+      sending:false,
       };  
     } 
   componentDidMount =  async () =>{
@@ -65,9 +65,9 @@ const TOKEN = 'token';
   async componentwillmount(){ 
     this.fatchData();
   }
-  fatchData  =  async () => { 
+  fatchData  =  async () => {  
     this.setState({isLoading:true})  
-    api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)
+    api.getData('user_conversations?receiver_id='+this.props.route.params.sender_id)
     .then((response) => { 
       this.setState({items:response.data.data}) 
     })
@@ -98,8 +98,9 @@ const TOKEN = 'token';
     }else{
       let formData = new FormData(); 
     this.setState({sending:true}); 
-    formData.append("receiver_id", this.props.route.params.receiver_id);
+    formData.append("receiver_id", this.props.route.params.sender_id);
     formData.append("message", this.state.send_message); 
+    console.log('formDataformDataformData',formData);
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
     {
       headers: { 
