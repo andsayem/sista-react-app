@@ -238,8 +238,8 @@ class PostDetails extends Component {
               :  <View></View>}
             </View>
         <View style={styles.footer} >  
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-            <View style={styles.textAreaContainer}>
+          <ScrollView style= {{ width : '100%' , flexDirection:'column'}} horizontal showsHorizontalScrollIndicator={false} >
+            
             
             <TextInput 
               onChangeText = {(test) => {this.setState({post_comment:test},
@@ -249,9 +249,11 @@ class PostDetails extends Component {
               underlineColorAndroid="transparent"
               placeholder="Type something" 
               multiline={true}
+              style={{ backgroundColor: '#efefef',
+              width:'100%',
+              alignSelf:'center'}}
             />
-            </View>
-            <View style={{ width: 40}}>
+            
             <TouchableOpacity 
                 onPress={this.handleSubmitButton} 
                 style={styles.submit}
@@ -261,7 +263,7 @@ class PostDetails extends Component {
                 }  
 
               </TouchableOpacity> 
-            </View>
+            
           </ScrollView> 
         </View>      
       </SafeAreaView>
@@ -274,6 +276,7 @@ const styles = StyleSheet.create({
     marginTop:20,
     flex: 1,
     padding:2, 
+    width :'100%'
   }, 
   header:{
     backgroundColor: '#fff' ,
@@ -291,18 +294,22 @@ const styles = StyleSheet.create({
   footer:{ 
       backgroundColor: '#fff' , 
       borderRadius: 10,   
-      padding:5
+      padding:5,
+      width :'100%'
   },
   textAreaContainer: {
     borderColor:  '#efefef', 
-    width: 330
+    backgroundColor : 'blue',
+   // width: '90%'
   },
   textArea: {
     height: 50,     
   },
-  submit:{     
-    marginTop:2, 
-    paddingTop:0,
+  submit:{      
+    paddingTop:5,
+    position : 'absolute', 
+    right : 0 ,
+    backgroundColor : '#efefef'
   }, 
 })
 export default PostDetails;

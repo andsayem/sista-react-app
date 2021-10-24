@@ -67,7 +67,7 @@ const TOKEN = 'token';
   }
   fatchData  =  async () => {  
     this.setState({isLoading:true})  
-    api.getData('user_conversations?receiver_id='+this.props.route.params.sender_id)
+    api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)
     .then((response) => { 
       this.setState({items:response.data.data}) 
     })
@@ -98,7 +98,7 @@ const TOKEN = 'token';
     }else{
       let formData = new FormData(); 
     this.setState({sending:true}); 
-    formData.append("receiver_id", this.props.route.params.sender_id);
+    formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.send_message); 
     console.log('formDataformDataformData',formData);
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
@@ -135,7 +135,7 @@ const TOKEN = 'token';
             <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
             <ListItem.Content stayl={{ }}>
               <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> 
-              {item.message}  
+              {item.message}   
               </Text>             
             </ListItem.Content>
           </ListItem>  
@@ -196,7 +196,7 @@ const TOKEN = 'token';
               <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> User</ListItem.Title>
-                <ListItem.Subtitle>Active</ListItem.Subtitle>
+                <ListItem.Subtitle>Active </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
           </View>     

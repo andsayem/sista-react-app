@@ -1,12 +1,12 @@
 import React, { Component  } from "react";
-import { View, Text, ScrollView , FlatList , SafeAreaView ,StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
+import { View, Button ,Text, ScrollView , FlatList , SafeAreaView ,StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
 import { Avatar, colors, Icon , Image , Header} from "react-native-elements"; 
 import Styles from "../styles";
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
-
+import * as ImagePicker from 'react-native-image-picker';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -47,6 +47,46 @@ class UserProfile extends Component {
     this.setState({      
       isOnline: status.isOnline    
     });  
+  }
+  handleChoosePhoto = async() => {
+    ImagePicker.launchImageLibrary({
+          mediaType: 'photo', 
+          includeBase64: true,
+          maxHeight: 200,
+          maxWidth: 200,
+      },
+      (response) => {
+        this.save(response);
+      });  
+        
+  }
+  save =  async(response) =>{
+    var dataToSend = {  
+      files_base: "data:"+response.type+";base64,"+ response.base64    
+    };  
+    console.log('dataToSend--==',dataToSend);
+    fetch('http://sista.bdmobilepoint.com/api/change-profile-image', {
+      method: 'POST', 
+      headers: {  
+        'Accept': 'application/json',  
+        'Content-Type':'application/json',
+        Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
+      },
+      body: JSON.stringify(dataToSend) 
+      })
+      .then((response) => response.json())
+      .then((responseJson) => { 
+        setLoading(false);   
+        console.log('responseJson============',responseJson)
+        if (responseJson.success === true) { 
+          setSuccesstext({message:'Post Submit Successful'});  
+        } else { 
+        }
+      })
+      .catch((error) => { 
+        console.log('error===',error);
+        setLoading(false); 
+      }); 
   }
   fatchData = async() => {   
     const userData = await AsyncStorage.getItem(STORAGE_KEY); 
@@ -98,7 +138,10 @@ class UserProfile extends Component {
           <View style={{ width : 110}} >
             <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
             <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>{ this.state.userData.name}</Text>  
-          </View>   
+          </View>  
+          <View> 
+            <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+           </View> 
         </ScrollView> 
         <Text>
            { this.state.userData.description }

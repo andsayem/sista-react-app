@@ -49,7 +49,7 @@ function Chats(props) {
                  }) } >{ItemData.name}  </ListItem.Title>
                   <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.receiver_id,
-                 }) } >hi dear, have u got the prom...</ListItem.Subtitle>
+                 }) } >hi dear, have u got the prom... {ItemData.receiver_id}</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
         </View>  

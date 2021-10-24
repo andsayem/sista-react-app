@@ -104,7 +104,7 @@ class UserProfile extends Component {
               <Text ></Text> */}
         </View>   
         <View style={{ width : 110}}  > 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Chating',{sender_id: this.state.userData.id,
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Chating',{receiver_id: this.state.userData.id,
                  }) }>
           <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17 , borderColor : 'red'}}>Message</Text>  
           </TouchableOpacity>

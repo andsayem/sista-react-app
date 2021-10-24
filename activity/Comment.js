@@ -22,7 +22,8 @@ class Comment extends Component {
       {this.props.item ?
        <View style={styles.parents}> 
             <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%' }}>
-              <Avatar rounded size="medium" source={require('../img/images/user_2.jpg')} />
+              
+              <Avatar rounded size="medium"   source={this.props.item.userjoin ? {uri: this.props.item.userjoin.pro_image } : null}  />
               <ListItem.Content>
                 <ListItem.Title> { this.props.item.userjoin.name} </ListItem.Title>
                 <ListItem.Subtitle> {this.props.item.comm_test} </ListItem.Subtitle>
@@ -46,10 +47,11 @@ class Comment extends Component {
            
             <View style={styles.child}>
                 <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-                <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
+                <Avatar rounded size="small"   source={reply.userjoin ? {uri: reply.userjoin.pro_image } : null}  />
+                {/* <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} /> */}
                 <ListItem.Content>
-                  <ListItem.Title> Name </ListItem.Title>
-                  <ListItem.Subtitle> {reply.comm_test} </ListItem.Subtitle>
+                  <ListItem.Title> {reply.userjoin.name} </ListItem.Title>
+                  <ListItem.Subtitle> {reply.comm_test}  </ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}
@@ -64,7 +66,7 @@ class Comment extends Component {
                 <View style={{ width: 120}}>
                 <TouchableOpacity onPress={() => this.props.onPressCommentReply(reply.parent_id,'Reply')}    
                   activeOpacity={0.5} >  
-                <Text> Reply</Text>
+                
                 </TouchableOpacity>
                 </View>
               </ScrollView>  
