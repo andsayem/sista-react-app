@@ -124,32 +124,27 @@ const TOKEN = 'token';
           dismissKeyboard();
       }
   }
-  renderRow = ({ item , index }) => { 
-    //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
-    const { liked, like, props } = item
+  renderRow = ({ item , index }) => {   
     return (
       <View  >  
       {this.state.user.id != item.sender_id ?   
       <View>
-        <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}>
-            <Avatar rounded size="small" source={require('../img/images/user_3.jpg')} />
-            <ListItem.Content stayl={{ }}>
+        <ListItem style={{ backgroundColor: "#FEFEFE",  width: '100%' }}> 
+            <Avatar rounded size="small" source={item.receiver.pro_image ? {uri:item.sender.pro_image}: ''} /> 
+            <ListItem.Content  >
               <Text style={{ backgroundColor : '#E4E4E4' ,  borderRadius: 7, padding :5 , textAlign : 'left' }}> 
-              {item.message}   
+              {item.message}    
               </Text>             
             </ListItem.Content>
           </ListItem>  
           </View>
-          : <ListItem style={{ width: '100%',   flex: 1 }}> 
-          <ListItem.Content stayl={{}}> 
-            <View style={{flex: 1,   backgroundColor: "#FEFEFE"  ,flexDirection: 'row'}}> 
-              <View style={{flex: 1}}>
-                <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
-                {item.message}  </Text>
-              </View>
-            </View> 
-          </ListItem.Content>            
-          <Avatar rounded size="small" source={require('../img/images/user_1.jpg')} />
+          : <ListItem  > 
+          <ListItem.Content>   
+                
+          </ListItem.Content> 
+          <Text style={{  textAlign: 'right' , alignItems : 'flex-end' ,backgroundColor : '#FF5D8F' ,  color : '#fff' ,  borderRadius: 7, padding :5  }}>
+                {item.message}  </Text>            
+          <Avatar rounded size="small" source={item.sender.pro_image ? {uri:item.sender.pro_image}: ''} />
         </ListItem>  }
         </View> 
     )
@@ -195,7 +190,7 @@ const TOKEN = 'token';
             <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
               <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
               <ListItem.Content>
-                <ListItem.Title> User</ListItem.Title>
+                <ListItem.Title> {this.state.user.name}</ListItem.Title>
                 <ListItem.Subtitle>Active </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>

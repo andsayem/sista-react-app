@@ -8,7 +8,7 @@ import api from '../api';
 function Chats(props) {
     const [getUsers, setUsers] = useState([]); 
     const [selectedId, setSelectedId] = useState(null);
-    const getUser = () =>{
+    const getUser = () =>{ 
       api.getData('conversation_list')
         .then((res)=>{
           setUsers( res.data.data);  
@@ -16,14 +16,15 @@ function Chats(props) {
         })
         .catch((error) => {
             //console.log(error)
+            //pro_image
         }) 
     }
     useEffect(() => {getUser()},[]); 
     const Allusers = ({ ItemData }) => (
       <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
           <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
-                  sender_id: ItemData.sender_id,
-                 }) }   rounded   size="medium" source={require('../img/images/user_1.jpg')} />
+                  receiver_id: ItemData.show_id,
+                 }) }   rounded   size="medium" source={ItemData.pro_image ? {uri:'https://sista.bdmobilepoint.com/storage/app/public/posts/'+ItemData.pro_image}: ''}/>
           <Text>{ItemData.name}</Text> 
       </View> 
     );
@@ -39,17 +40,17 @@ function Chats(props) {
                 width: '100%',
               }}>
                 <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.receiver_id,
-                 }) }   size="medium" source={require('../img/images/user_3.jpg')} />
+                  receiver_id: ItemData.show_id,
+                 }) }   size="medium" source={ItemData.pro_image ? {uri:'https://sista.bdmobilepoint.com/storage/app/public/posts/'+ItemData.pro_image}: ''} />
                 <ListItem.Content >
                   <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.receiver_id,
+                  receiver_id: ItemData.show_id,
                  }) }  onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.receiver_id,
+                  receiver_id: ItemData.show_id,
                  }) } >{ItemData.name}  </ListItem.Title>
                   <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.receiver_id,
-                 }) } >hi dear, have u got the prom... {ItemData.receiver_id}</ListItem.Subtitle>
+                  receiver_id: ItemData.show_id,
+                 }) } >hi dear, have u got the prom... </ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
         </View>  
