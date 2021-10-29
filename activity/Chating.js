@@ -2,17 +2,11 @@ import React, { useEffect, Component ,  useRef , useState } from "react";
 import { View, FlatList,  ActivityIndicator ,Text, SafeAreaView ,Image, Button , ToastAndroid ,TextInput , TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler"; 
-import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-elements'; 
-import BottomSheet from 'react-native-simple-bottom-sheet'; 
-import Styles from "../styles";
+import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-elements';  
 import api from '../api';
-import AsyncStorage from '@react-native-community/async-storage';
-import Textarea from 'react-native-textarea';
-import post_api from '../post_api';
-import axios from 'axios';
-import Loader from '../components/Loader'; 
-import AutoPlaceholderLoading from 'react-native-auto-placeholder-loading';
-
+import AsyncStorage from '@react-native-community/async-storage'; 
+import axios from 'axios'; 
+ 
 const STORAGE_KEY = 'save_user';
 
 const TOKEN = 'token'; 
@@ -55,16 +49,47 @@ const TOKEN = 'token';
       successtext:'',
       send_message:'',
       sending:false,
-      };  
+      };   
     } 
   componentDidMount =  async () =>{
     const user = await AsyncStorage.getItem(STORAGE_KEY);
     this.setState({user: JSON.parse(user)});
-    this.fatchData();
+    this.fatchData(); 
   }
-  async componentwillmount(){ 
+  async componentwillmount(){   
     this.fatchData();
+    //this.socketioClient();
   }
+
+  // socketioClient = async () => {
+  //   if (!window.location) {
+  //     // App is running in simulator
+  //     window.navigator.userAgent = 'ReactNative';
+  // }
+  
+  // This must be below your `window.navigator` hack above
+  // const io = require('socket.io-client/socket.io');
+  // const sockets = io('http://chat.feathersjs.com', {
+  //   transports: ['websocket'] // you need to explicitly tell it to use websockets
+  // });
+  
+  // sockets.on('connect', () => {
+  //   console.log('connected!');
+  // });
+  
+  //   const socket = SocketIOClient("https://sista.bdmobilepoint.com/api/user_conversations?receiver_id="+this.props.route.params.receiver_id, {
+  //       jsonp: true,
+  //     });
+  //     socket.on("connect", () => {
+  //       console.log("connected");
+  //       socket.emit("hello", "world");
+  //     });
+      
+  //     socket.on("connect_error", (err) => {
+  //       console.log(err instanceof Error);
+  //       console.log(err.message); 
+  //     }); 
+  // }
   fatchData  =  async () => {  
     this.setState({isLoading:true})  
     api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)
@@ -99,8 +124,7 @@ const TOKEN = 'token';
       let formData = new FormData(); 
     this.setState({sending:true}); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
-    formData.append("message", this.state.send_message); 
-    console.log('formDataformDataformData',formData);
+    formData.append("message", this.state.send_message);  
     axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
     {
       headers: { 
