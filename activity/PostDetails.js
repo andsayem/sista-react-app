@@ -1,5 +1,5 @@
 import React, { Component, useEffect , useRef } from 'react';
-import { StyleSheet, FlatList, Text, View, SafeAreaView, ActivityIndicator, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import { StyleSheet, Dimensions, FlatList, Text, View, SafeAreaView, ActivityIndicator, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import api from '../api';
 import { colors, Icon, Header } from 'react-native-elements';
 import Comment from './Comment';
@@ -273,11 +273,6 @@ class PostDetails extends Component {
                 </View>
                 </RBSheet>
               </View> 
-                </View>
-                <View style={{ width: '15%' }}>
-                  <Text style={{ alignSelf: 'flex-end' }}>
-                    <IconEnt name="dots-three-vertical" size={30} color="#FF5D8F" />
-                  </Text>
                 </View>
               </View>  
           : ''
