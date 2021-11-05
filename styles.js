@@ -246,5 +246,13 @@ module.exports={
     justifyContent: "center",
     alignItems: "center",
     textAlign : 'center', 
+  },
+  selectSheet : {
+    width : '100%',
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign : 'center', 
+    backgroundColor : '#F8F8F8',
+    marginHorizontal :30 ,
   }
 }
