@@ -1,11 +1,15 @@
-import React, { Component, useEffect, useState, createRef } from "react";
+//import React, { Component, useEffect, useState, createRef } from "react";
+import React, { useEffect, useRef , useState , createRef } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, 
-        TextInput, TouchableOpacity, View, Keyboard, ToastAndroid } from "react-native";
+        TextInput, TouchableOpacity, SectionList , View, Keyboard, ToastAndroid } from "react-native";
 import Styles from "../styles";
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import { ListItem, colors , Icon , Header } from 'react-native-elements';   
 import Loader from '../components/Loader'; 
- 
+import api from '../api'; 
+import axios from 'axios';
+import RBSheet from "react-native-raw-bottom-sheet"; 
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -23,14 +27,15 @@ const Toast = ({ visible, message }) => {
 function RegisterScreen ({navigation,props}){  
     const [userName, setUserName] = useState(false);
     const [userEmail, setUserEmail] = useState(false);
-    const [userAge, setUserAge] = useState(false);
-    const [userGender, setUserGender] = useState(false);
+    const [userAge, setUserAge] = useState('9-12');
+    const [userGender, setUserGender] = useState('Male');
     const [userZipcode, setUserZipcode] = useState(false);
     const [userPassword, setUserPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [successText, setSuccesstext] = useState(false);  
-
+    const refRBSheetAge = useRef();
+    const refRBSheet = useRef();
     const nameInputRef = createRef();
     const emailInputRef = createRef();
     const ageInputRef = createRef();
@@ -40,6 +45,14 @@ function RegisterScreen ({navigation,props}){
     useEffect(()=>{
       setErrortext(false);
     })
+    const ageDataSet = (value)=>{
+      setUserAge(value);
+      refRBSheetAge.current.close();
+    }
+    const genderDataSet = (value)=>{
+      setUserGender(value);
+      refRBSheet.current.close();
+    }
     const handleSubmitButton = () => {   
 
       setErrortext(false);
@@ -170,7 +183,107 @@ function RegisterScreen ({navigation,props}){
                 ageInputRef.current
               }
             />
-            <Text style={Styles.lebel} >Age range</Text>
+          <Text style={Styles.lebel} >Age range</Text>
+          <View style={{width:'100%'}}>
+            <View style={[Styles.selectSheet,Styles.inputText]}> 
+              <Text style={{ color : '#929292'}}  onPress={() => refRBSheetAge.current.open()}>  
+                  
+                  { userAge ? userAge+' years old' : 'Select your age range'}
+              {/* <Icon   style={{padding : 2 , textAlign : 'right' , right : 0 }}  type='font-awesome' name="angle-right" size={20}  /> */}
+              </Text>
+            </View> 
+             <RBSheet 
+                 customStyles={{
+                  container: {  
+                    paddingTop : 10, 
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20 
+                  },
+                  wrapper: {
+                   // backgroundColor: "transparent"
+                  },
+                  draggableIcon: {
+                    backgroundColor: "#000"
+                  }
+                }}
+                ref={refRBSheetAge}
+                closeOnDragDown={true}
+                closeOnPressMask={true} 
+                height={310}
+                openDuration={500} >
+                <Text style={{ textAlign : 'center', color : '#000000', fontWeight : 'bold'}} onPress={() => refRBSheetAge.current.close()} > 
+                <Icon   style={{ color : 'black' , fontSize : 10 , paddingEnd :30}} type='font-awesome' name="arrow-left" size={20}  />
+                Select your age range 
+                </Text> 
+                {/* <Text  style={{ textAlign : 'right' , fontWeight : 'bold'}} >Apply  </Text> */}
+                <View style={Styles.footer_item_view}>
+                  <SectionList
+                        style={{
+                          alignContent: 'center', 
+                        }}
+                        sections={[
+                          { data: ['9-12', '13-16', '17-21' , '22-25']}, 
+                        ]}
+                        renderItem={({item}) => <Text onPress={()=>{ ageDataSet(item)}} 
+                        style={[Styles.footer_item, (item==  userAge )?Styles.footer_item_active:'']}
+                        >{item} years old</Text>}
+                        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                        keyExtractor={(item, index) => index}
+                      />
+                  </View>
+              </RBSheet> 
+          </View>
+
+          <Text style={Styles.lebel} >Gender</Text>
+          <View style={{width:'100%'}}>
+            <View style={[Styles.selectSheet,Styles.inputText]}> 
+              <Text   onPress={() => refRBSheet.current.open()}  style={{ color : '#929292'}} >  
+                 { userGender ? userGender : 'Select your gender'}
+              {/* <Icon   style={{padding : 2 , textAlign : 'right' , right : 0 }}  type='font-awesome' name="angle-right" size={20}  /> */}
+              </Text>
+            </View> 
+             <RBSheet 
+                 customStyles={{
+                  container: {  
+                    paddingTop : 10, 
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20 
+                  },
+                  wrapper: {
+                   // backgroundColor: "transparent"
+                  },
+                  draggableIcon: {
+                    backgroundColor: "#000"
+                  }
+                }}
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={true} 
+                height={260}
+                openDuration={500} >
+                <Text style={{ textAlign : 'center', color : '#000000', fontWeight : 'bold'}} onPress={() => refRBSheet.current.close()} > 
+                <Icon   style={{ color : 'black' , fontSize : 10 , paddingEnd :30}} type='font-awesome' name="arrow-left" size={20}  />
+                Select your gender </Text> 
+                {/* <Text  style={{ textAlign : 'right' , fontWeight : 'bold'}} >Apply  </Text> */}
+                <View style={Styles.footer_item_view}>
+                  <SectionList
+                        style={{
+                          alignContent: 'center', 
+                        }}
+                        sections={[
+                          { data: ['Male', 'Female', 'Other']}, 
+                        ]}
+                        renderItem={({item}) => <Text 
+                        onPress={()=>{ genderDataSet(item)}}  
+                        style={[Styles.footer_item, (item== userGender )?Styles.footer_item_active:'']}
+                        >{item}</Text>}
+                        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                        keyExtractor={(item, index) => index}
+                      />
+                  </View>
+              </RBSheet> 
+          </View>
+            {/* <Text style={Styles.lebel} >Age range</Text>
             <DropDownPicker
                 items={[
                       {label: '0-17', value: '0-17'},
@@ -186,8 +299,8 @@ function RegisterScreen ({navigation,props}){
                   dropDownStyle={{backgroundColor: '#fafafa'}}
                   onChangeItem={item => setUserAge(item.value)} 
                   returnKeyType="next"
-            /> 
-            <Text  style={Styles.lebel} >Gender</Text>
+            />  */}
+            {/* <Text  style={Styles.lebel} >Gender</Text>
             <DropDownPicker
                 items={[
                     {label: 'Male', value: 'Male'},
@@ -202,7 +315,7 @@ function RegisterScreen ({navigation,props}){
                 dropDownStyle={{backgroundColor: '#fafafa'}} 
                 onChangeItem={item => setUserGender(item.value)} 
                 returnKeyType="next"
-            /> 
+            />  */}
             <Text
               style={Styles.lebel} >ZIP code</Text>
             <TextInput
@@ -286,4 +399,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 30,
   },
+
 });

@@ -223,5 +223,36 @@ module.exports={
   },
   loginEmail:{
 
+  },
+  footer_item :{
+   // marginLeft :30,
+    marginTop :8,
+    marginHorizontal :20 ,
+    padding : 10,     
+    backgroundColor : '#F5EBFE', 
+    textAlign : 'center',
+    borderRadius : 50,
+    borderWidth :1 , 
+    borderColor : '#DCB4FF',
+    color : '#ABABAB'
+  },
+  footer_item_active :{ 
+     backgroundColor : '#944CD4',
+     color : '#fff'
+   },
+  footer_item_view :{
+    flexDirection: 'row',
+    width : '100%',
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign : 'center', 
+  },
+  selectSheet : {
+    width : '100%',
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign : 'center', 
+    backgroundColor : '#F8F8F8',
+    marginHorizontal :30 ,
   }
 }
