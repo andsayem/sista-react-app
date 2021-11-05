@@ -238,8 +238,7 @@ class PostDetails extends Component {
                 <Text style={{ alignSelf: 'flex-end' }}>
                   <IconEnt name="dots-three-vertical" size={30} color="#FF5D8F" />
                 </Text>
-              </View>
- 
+              </View> 
             </View>
           </View>
           : ''}
