@@ -1,7 +1,9 @@
 import React, { useEffect, Component } from "react";
 import { View, Text, StyleSheet,TouchableOpacity} from "react-native";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar  } from 'react-native-elements';     
+import { ListItem, Avatar,Icon } from 'react-native-elements';   
+import IconFnt from 'react-native-vector-icons/FontAwesome';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
  
@@ -33,14 +35,19 @@ class Comment extends Component {
               <View style={{ width: 80}} >
                 <TouchableOpacity onPress={() => this.props.onPressCommentLike(this.props.item.id)}    
                   activeOpacity={0.5} >     
-                <Text style={{ color : '#a21919'}}> Like </Text>
+                <Text style={{ color : '#535353'}}>  <IconAnt name="like1" size={25} color="#5C6BC0" /> Like </Text>
                 </TouchableOpacity>
               </View>
               <View  style={{  width: 120}}>
                 <TouchableOpacity onPress={() => this.props.onPressCommentReply(this.props.item.id, 'Reply')}    
                   activeOpacity={0.5} >  
-                <Text> Reply</Text>
+                <Text style={{color:'#535353'}}> <IconFnt name="comment-o" size={25} color="#535353" /> Reply</Text>
                 </TouchableOpacity>
+              </View>
+              <View  style={{  width: 90}}>
+              <Text style={{ alignSelf: 'flex-end' }}>
+                  54m
+              </Text>
               </View>
             </ScrollView> 
             { this.props.item.reply.map((reply, i) => (  
@@ -60,14 +67,19 @@ class Comment extends Component {
                 <View style={{ width: 80}}>
                 <TouchableOpacity onPress={() => this.props.onPressCommentLike(reply.parent_id)}    
                   activeOpacity={0.5} >     
-                <Text style={{ color : '#a21919'}}> Like </Text>
+                <Text style={{ color : '#535353'}}> <IconAnt name="like2" size={25} color="#535353" /> Like </Text>
                 </TouchableOpacity> 
                 </View>
                 <View style={{ width: 120}}>
                 <TouchableOpacity onPress={() => this.props.onPressCommentReply(reply.parent_id,'Reply')}    
                   activeOpacity={0.5} >  
-                
+                <Text style={{color:'#535353'}}> <IconFnt name="comment-o" size={25} color="#535353" /> Reply</Text>
                 </TouchableOpacity>
+                </View>
+                <View  style={{  width: 40}}>
+                <Text style={{ alignSelf: 'flex-end' }}>
+                    1h
+                </Text>
                 </View>
               </ScrollView>  
             </View>  
