@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/segmented-control": "^2.2.2",
@@ -52,6 +53,7 @@
     "react-native-social-share": "^1.6.5",
     "react-native-splash-screen": "^3.2.0",
     "react-native-super-grid": "^4.1.3",
+    "react-native-svg": "^12.1.1",
     "react-native-textarea": "^1.0.4",
     "react-native-touchable-scale": "^2.1.2",
     "react-native-vector-icons": "^8.1.0",
