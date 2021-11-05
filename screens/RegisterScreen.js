@@ -1,11 +1,15 @@
-import React, { Component, useEffect, useState, createRef } from "react";
+//import React, { Component, useEffect, useState, createRef } from "react";
+import React, { useEffect, useRef , useState , createRef } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, 
-        TextInput, TouchableOpacity, View, Keyboard, ToastAndroid } from "react-native";
+        TextInput, TouchableOpacity, SectionList , View, Keyboard, ToastAndroid } from "react-native";
 import Styles from "../styles";
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import { ListItem, colors , Icon , Header } from 'react-native-elements';   
 import Loader from '../components/Loader'; 
- 
+import api from '../api'; 
+import axios from 'axios';
+import RBSheet from "react-native-raw-bottom-sheet"; 
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -30,7 +34,7 @@ function RegisterScreen ({navigation,props}){
     const [loading, setLoading] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [successText, setSuccesstext] = useState(false);  
-
+    const refRBSheet = useRef();
     const nameInputRef = createRef();
     const emailInputRef = createRef();
     const ageInputRef = createRef();
@@ -170,6 +174,54 @@ function RegisterScreen ({navigation,props}){
                 ageInputRef.current
               }
             />
+          <View >
+            <View>
+              <Text  onPress={() => refRBSheet.current.open()}> Age range  
+              <Icon   style={{padding : 2 , textAlign : 'right' , right : 0 }}  type='font-awesome' name="angle-right" size={20}  />
+              </Text>
+            </View>
+
+             <RBSheet 
+                 customStyles={{
+                  container: {  
+                    paddingTop : 10, 
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20 
+                  },
+                  wrapper: {
+                   // backgroundColor: "transparent"
+                  },
+                  draggableIcon: {
+                    backgroundColor: "#000"
+                  }
+                }}
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={true} 
+                height={310}
+                openDuration={500} >
+                <Text style={{ textAlign : 'center' , fontWeight : 'bold'}} onPress={() => refRBSheet.current.close()} > 
+                <Icon   style={{ color : 'black' , fontSize : 12 , paddingEnd :30}} type='font-awesome' name="arrow-left" size={20}  />
+                Select your age range </Text> 
+                {/* <Text  style={{ textAlign : 'right' , fontWeight : 'bold'}} >Apply  </Text> */}
+                <View style={Styles.footer_item_view}>
+                  <SectionList
+                        style={{
+                          alignContent: 'center', 
+                        }}
+                        sections={[
+                          { data: ['9-12', '13-16', '17-21' , '22-25']}, 
+                        ]}
+                        renderItem={({item}) => <Text  
+                        style={[Styles.footer_item, (item== '9-12')?Styles.footer_item_active:'']}
+                        >{item} years old</Text>}
+                        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+                        keyExtractor={(item, index) => index}
+                      />
+                  </View>
+              </RBSheet>
+          
+          </View>
             <Text style={Styles.lebel} >Age range</Text>
             <DropDownPicker
                 items={[
@@ -286,4 +338,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 30,
   },
+
 });
