@@ -1,4 +1,5 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
+import { Dimensions } from 'react-native';
 import { StyleSheet, FlatList, Text, View, SafeAreaView, ActivityIndicator, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import api from '../api';
 import { colors, Icon, Header } from 'react-native-elements';
@@ -11,8 +12,10 @@ import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconOct from 'react-native-vector-icons/Octicons';
 import IconFea from 'react-native-vector-icons/Feather';
 import IconEnt from 'react-native-vector-icons/Entypo';
+import AutoHeightImage from 'react-native-auto-height-image';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
+const win = Dimensions.get('window').width;
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -156,7 +159,7 @@ class PostDetails extends Component {
   renderRow = ({ item, index }) => {
     const { liked, like, props } = item
     return (
-      <View>
+      <View >
         <Comment
           item={item}
           index={index.toString()}
@@ -216,44 +219,56 @@ class PostDetails extends Component {
     //console.log('commmmeee======',this.state.post_items.caption); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return (
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         {this.state.post_items ?
           <View style={styles.header}>
-            <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
-              style={{ width: '100%', borderRadius: 10, height: 130 }} />
+            <View style={{ borderRadius: 10 }}>
+              <AutoHeightImage
+                width={win}
+                source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
+              />
+            </View>
+
+            {/* <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
+              style={{ width: '100%', borderRadius: 10, height: 130 }} /> */}
             <Text style={styles.caption}>{this.state.post_items.caption}</Text>
             <View>
-              <View style={{flexDirection: "row" }}>
-                <Text style={{ flex: 1, marginStart:20}}>
-                  <Text ><IconAnt  name="hearto" size={30} color="#FF5D8F" /> </Text>
-                  <Text >4.5k</Text> 
-                </Text>
-                <Text style={{ flex: 2,marginStart:20, flexDirection:"column"}}> 
-                  <Text ><IconOct  name="comment" size={30} color="#FF5D8F" /> </Text>
-                  <Text >916</Text>
-                </Text>
-                <Text style={{ flex:1,marginStart:20, left:-70}}>
+              <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
+                <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>
+                  <Text ><IconAnt name="hearto" size={30} color="#FF5D8F" /> </Text>
+                  <Text style={{ paddingLeft: 5 }}>4.5k</Text>
+                </View>
+                <View style={{ flexDirection: "row", width: '25%' }}>
+                  <Text ><IconOct name="comment" size={30} color="#FF5D8F" /> </Text>
+                  <Text style={{ paddingLeft: 5 }}>916</Text>
+                </View>
+                <View style={{ flexDirection: "row", width: '25%' }}>
                   <IconFea name="share" size={30} color="#FF5D8F" />
-                </Text>
-                <Text style={{ alignSelf: 'flex-end' }}>
-                  <IconEnt name="dots-three-vertical" size={30} color="#FF5D8F" />
-                </Text>
-              </View> 
+                </View>
+                <View style={{ width: '15%' }}>
+                  <Text style={{ alignSelf: 'flex-end' }}>
+                    <IconEnt name="dots-three-vertical" size={30} color="#FF5D8F" />
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
-          : ''}
+          : ''
+        }
         <Toast visible={this.state.errortext} message={this.state.errortext} />
-        {this.state.items ?
-          <FlatList
-            data={Object.values(this.state.items)}
-            renderItem={this.renderRow}
-            refreshing={isLoading}
-            extraData={this.state.items}
-            ListFooterComponent={this.renderFooter}
-            onEndReachedThreshold={0.1}
-            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-            onRefresh={this.fatchData}
-          /> : <View>Empty</View>}
+        {
+          this.state.items ?
+            <FlatList style={{ paddingTop: 30 }}
+              data={Object.values(this.state.items)}
+              renderItem={this.renderRow}
+              refreshing={isLoading}
+              extraData={this.state.items}
+              ListFooterComponent={this.renderFooter}
+              onEndReachedThreshold={0.1}
+              onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+              onRefresh={this.fatchData}
+            /> : <View>Empty</View>
+        }
         <View>
           {this.state.reply_to_name ?
 
@@ -261,37 +276,39 @@ class PostDetails extends Component {
 
             : <View></View>}
         </View>
-        <View style={styles.footer} >
-          <ScrollView style={{ width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
-            <TextInput
-              onChangeText={(test) => {
-                this.setState({ post_comment: test },
-                  this.setState({ errortext: false, reply_to_name: '' }))
-              }}
-              onBlur={() => this.validation()}
-              value={this.state.post_comment}
-              underlineColorAndroid="transparent"
-              placeholder="Type something...."
-              multiline={true}
-              placeholderTextColor={'white'}
-              style={{
-                backgroundColor: '#944CD4',
-                width: '100%',
-                alignSelf: 'center'
-              }}
-            />
+        <View style={styles.main_footer} >
+          <View style={styles.footer} >
+            <View style={{ width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
+              <TextInput
+                onChangeText={(test) => {
+                  this.setState({ post_comment: test },
+                    this.setState({ errortext: false, reply_to_name: '' }))
+                }}
+                onBlur={() => this.validation()}
+                value={this.state.post_comment}
+                underlineColorAndroid="transparent"
+                placeholder="Type Here...."
+                multiline={true}
+                placeholderTextColor={'white'}
+                style={{
+                  backgroundColor: '#944CD4',
+                  width: '100%',
+                  alignSelf: 'center'
+                }}
+              />
 
-            <TouchableOpacity
-              onPress={this.handleSubmitButton}
-              style={styles.submit}
-              activeOpacity={0.5} >
-              {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" /> :
-                <Icon size={35} name='sc-telegram' type='evilicon' color='#B461FE' />
-              }
-            </TouchableOpacity>
-          </ScrollView>
+              <TouchableOpacity
+                onPress={this.handleSubmitButton}
+                style={styles.submit}
+                activeOpacity={0.5} >
+                {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" /> :
+                  <Icon size={35} name='sc-telegram' type='evilicon' color='#B461FE' />
+                }
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </SafeAreaView>
+      </ScrollView >
     )
   }
 
@@ -306,7 +323,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
     top: 20,
-    height: 200,
+    height: win,
     width: '100%',
     borderRadius: 15,
     padding: 1,
@@ -316,11 +333,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
+  main_footer: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center"
+  },
   footer: {
+
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 5,
-    width: '100%'
+    width: '90%'
   },
   textAreaContainer: {
     borderColor: '#944CD4',
