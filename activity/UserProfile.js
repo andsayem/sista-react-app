@@ -110,7 +110,7 @@ class UserProfile extends Component {
           </TouchableOpacity>
         </View> 
         <View style={{ width : 110}} > 
-              <Text   style={{    justifyContent:"center",  backgroundColor : '#FF5D8E'  }}>Follow </Text> 
+              <Text   style={{    justifyContent:"center",  backgroundColor : '#944CD4'  }}>Follow </Text> 
             </View>  
 
         </ScrollView>

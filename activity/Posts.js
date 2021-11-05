@@ -163,7 +163,7 @@ class Posts extends Component {
             <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
               <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
               <TouchableOpacity onPress={this.handlePostCates}          
-              style={{ justifyContent: "center", height: 66, width: 66, borderRadius: 50, backgroundColor: "#9253C1", 
+              style={{ justifyContent: "center", height: 66, width: 66, borderRadius: 50, backgroundColor: "#944CD4", 
               }}
               > 
               <Icon  
@@ -173,7 +173,7 @@ class Posts extends Component {
             <Text style={{ textAlign : 'center' , width : '100%'}} >All</Text>
               </ListItem.Content>
             </ListItem>
-        <Categories bgcolor={'#9253C1'} handlePostCate={this.handlePostCateWise} active="datat"/>   
+        <Categories bgcolor={'#944CD4'} handlePostCate={this.handlePostCateWise} active="datat"/>   
         </ScrollView>
         </View>
         <FlatList 

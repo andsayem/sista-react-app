@@ -56,7 +56,7 @@ class Categories extends  React.Component{
                 height: 66,
                 width: 66,
                 borderRadius: 50,
-                backgroundColor: "#9253C1", 
+                backgroundColor: "#944CD4", 
               }}
               > 
               <Icon color='#FFFFFF'  name='book' />  

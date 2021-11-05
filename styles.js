@@ -135,7 +135,7 @@ module.exports={
   lodin_button: {
     width:"40%",
     fontSize: 17 ,
-    backgroundColor:"#FF5D8E",
+    backgroundColor:"#944CD4",
     borderRadius:25,
     height:50,
     textAlign : "center",
@@ -195,7 +195,7 @@ module.exports={
   },
   journalBtn:{
     width:"100%",
-    backgroundColor:"#FF5D8E",
+    backgroundColor:"#944CD4",
     borderRadius:25,
     height:50,
     alignItems:"center",

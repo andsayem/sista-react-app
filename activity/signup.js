@@ -10,8 +10,9 @@ class Signup extends Component {
               <Text
                 style={styles.title} >Sign up</Text>
               <Text
-                style={styles.sub_title} >Create an account so your reading our
-                poetry and other services.</Text>
+                style={styles.sub_title} >Create your account to inspire or be
+                inspired by all levels of artists
+                (Poets, Song writers, Painters and more).</Text>
               <Image
                 style={styles.logo}
                 source={require('../img/Screenshot_1.png')}

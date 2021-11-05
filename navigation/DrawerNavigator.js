@@ -29,7 +29,7 @@ const DrawerNavigator = () => {
   return ( 
     
       <Drawer.Navigator   drawerStyle={{
-        backgroundColor: '#ff5d8e',
+        backgroundColor: '#944CD4',
         color : '#fff',
         width: 240,
       }}>  

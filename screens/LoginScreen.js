@@ -53,7 +53,7 @@ function LoginScreen(props) {
 
   const onFocusEmail = () => {
     setEmailInpuStyle({ 
-      backgroundColor:"#9253C1",
+      backgroundColor:"#944CD4",
       iconColor : "#fff",
       inputColor : '#ffffff' 
     });  
@@ -68,7 +68,7 @@ function LoginScreen(props) {
 
   const onFocusPass = () => {
     setPassInpuStyle({ 
-      backgroundColor:"#9253C1",
+      backgroundColor:"#944CD4",
       iconColor : "#fff",
       inputColor : '#ffffff' 
     });  
@@ -204,7 +204,8 @@ function LoginScreen(props) {
       <View style={Styles.container} >
         <Loader loading={loading} />
         <Text  style={Styles.title} >Login </Text>
-        <Text  style={Styles.sub_title} >To flourish your inner creativity</Text>
+        <Text  style={Styles.sub_title} >Get in touch with your inner artist and
+a community of other creatives  </Text>
         <Image style={Styles.logo} source={require('../img/Screenshot_1.png')} /> 
         <Text  style={Styles.lebel} >E-mail address</Text> 
         
@@ -227,7 +228,7 @@ function LoginScreen(props) {
               width :'75%' ,  
               color :  emailFocusStyle.inputColor  }} 
             onChangeText={(userEmail) => setUserEmail(userEmail) }
-            placeholder="tina@gmail.com"  
+            placeholder="Enter your email id"  
             keyboardType="email-address"
             ref={emailInputRef}
             returnKeyType="next"
@@ -281,7 +282,7 @@ function LoginScreen(props) {
           style={Styles.loginBtn}
           activeOpacity={0.5}
           onPress={handleSubmitPress}>
-          <Text style={Styles.loginText} >LOGIN</Text>
+          <Text style={Styles.loginText} >Log In</Text>
         </TouchableOpacity> 
 
       </View>
@@ -302,7 +303,7 @@ const styles2 = StyleSheet.create({
     borderColor: '#000',
     height:50,
     borderRadius:25,
-    backgroundColor:"#9253C1", 
+    backgroundColor:"#944CD4", 
     margin: 10,
     color:"black",
     borderColor :'#efefef'
@@ -329,7 +330,7 @@ const styles2 = StyleSheet.create({
       color :'#efefef'
   },
   signup : {
-    color : '#9253C1',
+    color : '#944CD4',
     fontWeight :'bold'
   } 
 });

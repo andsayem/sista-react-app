@@ -122,8 +122,8 @@ function RegisterScreen ({navigation,props}){
             <Text
               style={Styles.title} >Sign up</Text>
             <Text
-              style={Styles.sub_title} >Create an account so your reading our
-              poetry and other services.</Text>
+              style={Styles.sub_title} >Create your account to inspire or be inspired by{"\n"}all levels of artists
+(Poets, Song writers, Painters and more) </Text>
             <Image
               style={Styles.logo}
               source={require('../img/Screenshot_1.png')}
@@ -150,7 +150,7 @@ function RegisterScreen ({navigation,props}){
               ref={emailInputRef}
               returnKeyType="next" 
               blurOnSubmit={false}
-              placeholder="tina@gmail.com" 
+              placeholder="Enter your email id" 
               onSubmitEditing={() =>
                 passwordInputRef.current &&
                 passwordInputRef.current.focus()

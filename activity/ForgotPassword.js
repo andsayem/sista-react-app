@@ -127,7 +127,7 @@ function ForgotPassword(props) {
 
       <TextInput value={email}
       style={Styles.inputText}
-      placeholder="tina@gmail.com" 
+      placeholder="Enter your email id" 
         maxLength={50}
         onChangeText={(email) => setEmail(email)} />
 
