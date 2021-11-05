@@ -3,13 +3,10 @@ import React, { useEffect, useRef , useState , createRef } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, 
         TextInput, TouchableOpacity, SectionList , View, Keyboard, ToastAndroid } from "react-native";
 import Styles from "../styles";
-import DropDownPicker from 'react-native-dropdown-picker';
-import { ListItem, colors , Icon , Header } from 'react-native-elements';   
-import Loader from '../components/Loader'; 
-import api from '../api'; 
-import axios from 'axios';
+import { Icon } from 'react-native-elements';   
+import Loader from '../components/Loader';  
 import RBSheet from "react-native-raw-bottom-sheet"; 
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+ 
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(

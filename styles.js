@@ -236,6 +236,20 @@ module.exports={
     borderColor : '#DCB4FF',
     color : '#ABABAB'
   },
+  share_item :{
+    paddingBottom : 30,
+    color : '#000000' ,
+    marginLeft : 30
+  },
+  footer_item_shear :{
+   // marginLeft :30,
+    marginTop :8,
+    marginHorizontal :20 ,
+    padding : 10,     
+    backgroundColor : '#F5EBFE', 
+    textAlign : 'center', 
+    color : '#000000'
+  },
   footer_item_active :{ 
      backgroundColor : '#944CD4',
      color : '#fff'
