@@ -35,6 +35,7 @@ return null;
 function Newpost({navigation}) { 
 // bs =React.createRef();
 // fall  = new Animated.value(1) ;
+
 const [post_caption, setCaption] = useState(false);
 const [category, setCategories] = useState(1); 
 const [loading, setLoading] = useState(false);
