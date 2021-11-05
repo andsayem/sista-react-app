@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect , useRef } from 'react';
 import { StyleSheet, FlatList, Text, View, SafeAreaView, ActivityIndicator, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import api from '../api';
 import { colors, Icon, Header } from 'react-native-elements';
@@ -11,6 +11,10 @@ import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconOct from 'react-native-vector-icons/Octicons';
 import IconFea from 'react-native-vector-icons/Feather';
 import IconEnt from 'react-native-vector-icons/Entypo';
+import IconMat from 'react-native-vector-icons/MaterialIcons';
+import IconIonic from 'react-native-vector-icons/Ionicons';
+import Styles from "../styles";
+import RBSheet from "react-native-raw-bottom-sheet"; 
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 const Toast = ({ visible, message }) => {
@@ -236,8 +240,29 @@ class PostDetails extends Component {
                   <IconFea name="share" size={30} color="#FF5D8F" />
                 </Text>
                 <Text style={{ alignSelf: 'flex-end' }}>
-                  <IconEnt name="dots-three-vertical" size={30} color="#FF5D8F" />
+                  <IconEnt  onPress={() => this.RBSheet.open()}  name="dots-three-vertical" size={30} color="#FF5D8F" />
                 </Text>
+                <RBSheet
+                  ref={ref => {
+                    this.RBSheet = ref;
+                  }}
+                  height={300}
+                  openDuration={250}
+                  customStyles={{
+                    container: {
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }
+                  }}
+                > 
+                <View style={{width : '100%'}}>
+                  <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
+                  <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconMat  name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
+                  <Text style={Styles.share_item}> <IconIonic  name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
+                  <Text style={Styles.share_item}> <IconAnt  name="sharealt" size={16} color="#000000" /> Share To....</Text>
+                  <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
+                </View>
+                </RBSheet>
               </View> 
             </View>
           </View>
