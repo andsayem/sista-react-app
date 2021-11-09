@@ -236,11 +236,11 @@ class PostDetails extends Component {
               <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
                 <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>
                   <Text ><IconAnt name="hearto" size={30} color="#FF5D8F" /> </Text>
-                  <Text style={{ paddingLeft: 5 }}>4.5k</Text>
+                  <Text style={{ paddingLeft: 10 }}>4.5k</Text>
                 </View>
                 <View style={{ flexDirection: "row", width: '25%' }}>
                   <Text ><IconOct name="comment" size={30} color="#FF5D8F" /> </Text>
-                  <Text style={{ paddingLeft: 5 }}>916</Text>
+                  <Text style={{ paddingLeft: 12 }}>916</Text>
                 </View>
                 <View style={{ flexDirection: "row", width: '25%' }}>
                   <IconFea name="share" size={30} color="#FF5D8F" />
