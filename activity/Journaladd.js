@@ -76,6 +76,7 @@ function Journaladd({navigation}) {
             setSuccesstext({message:'Journal submit successful'}); 
             setTitle('');
             setDetails(''); 
+            navigation.navigate('Journal');
           } else { 
           }
         })
