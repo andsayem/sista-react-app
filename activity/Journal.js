@@ -20,6 +20,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
         numLines : 3 ,
         numColumns : 2 ,
         isLoading: false,
+        gridView: true, btnText: 'Show List' 
         };  
       }
       componentDidMount() {
@@ -35,6 +36,16 @@ import RBSheet from "react-native-raw-bottom-sheet";
         .then(json => this.setState({items:json}))
         .finally( ()=>this.setState({isLoading: false})) 
       } 
+      changeView = () => {
+        this.setState({ gridView: !this.state.gridView }, () => {
+          if (this.state.gridView) {
+            this.setState({ btnText: 'Show List' });
+          }
+          else {
+            this.setState({ btnText: 'Show Grid' });
+          }
+        });
+      }
     // const [successtext, setSuccesstext] = useState(false);
     // const [errortext, setErrortext] = useState(false);
     // const [getJournals, setJournals] = useState([]);
@@ -62,8 +73,10 @@ import RBSheet from "react-native-raw-bottom-sheet";
     handlePressAddJurnal = () =>{ 
       this.props.navigation.navigate('Journal_add');
     }
-    numColumnsChange = () =>{
-      this.state.numColumns = 1;
+    journalSettings = () =>{
+      //this.state.numColumns = 1; 
+      //JournalSettings
+      this.props.navigation.navigate("JournalSettings");
     }
     handleOnRefresh = () => { 
       this.setState({page:1, data:[]})
@@ -166,25 +179,26 @@ import RBSheet from "react-native-raw-bottom-sheet";
                   }}
                 > 
                 <View style={{width : '100%'}}> 
-                  <Text onPress ={ ( ) => this.numColumnsChange() }  style={Styles.share_item}>Grid View</Text>
-                  <Text style={Styles.share_item}>Settings  { this.state.numColumns}</Text>
+                  <Text onPress={this.changeView}  style={Styles.share_item}>{this.state.btnText}</Text>
+                  <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text>
                    
                 </View>
                 </RBSheet> 
           <FlatList 
+           keyExtractor={(item) => item.id}
             style={{
               backgroundColor : '#ffffff'
             }}
             data={Object.values(this.state.items)}
-            renderItem={this.renderRow}
-            keyExtractor={(item , i) => item.id.toString()} 
+            renderItem={this.renderRow} 
+            key={(this.state.gridView) ? 1 : 0}
+            numColumns={this.state.gridView ? 2 : 1}
             refreshing={isLoading}
             extraData={this.state}
             ListFooterComponent={this.renderFooter}         
             onEndReachedThreshold={0.5}
             onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-            onRefresh={this.fatchData}    
-            numColumns={this.state.numColumns}  
+            onRefresh={this.fatchData}     
           /> 
           
           <ListItem  style={styles.submitButton}>

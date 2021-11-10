@@ -15,6 +15,7 @@ import CheckYourEmail  from './activity/CheckYourEmail';
 import PasswordReset  from  './activity/PasswordReset';
 import CongratulationResetPassword from './activity/Congratulation_reset_password';
 import Journaladd from "./activity/Journaladd";
+import JournalSettings from "./activity/JournalSettings";
 import Quizzes from "./activity/Quizzes";
 import Product from "./product/Product";
 import PrivacyPolicy from "./activity/PrivacyPolicy";
@@ -47,6 +48,7 @@ function DrawerNavigator() {
         <Drawer.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
         <Drawer.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>
         <Drawer.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false}}/>
+        <Drawer.Screen name="JournalSettings" component={JournalSettings} options={{ headerShown : false}}/>
         <Drawer.Screen name="Quizzes" component={Quizzes} options={{ headerShown : false}}/>
         <Drawer.Screen name="Product" component={Product} options={{ headerShown : false}}/>
         <Drawer.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false}}/>
@@ -109,6 +111,7 @@ function App(){
         <StackApp.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown : false}}/>       
         <StackApp.Screen name="CongratulationResetPassword" component={CongratulationResetPassword} options={{ headerShown : false}}/>       
         <StackApp.Screen name="Journal_add" component={Journaladd} options={{ headerShown : false, name : 'Add Journal '}} />
+        <StackApp.Screen name="JournalSettings" component={JournalSettings} options={{ headerShown : false, name : 'Add Journal '}} />
         <StackApp.Screen name="Quizzes" component={Quizzes} options={{ headerShown : false, name : 'Quizzes'}} />
         <StackApp.Screen name="Product" component={Product} options={{ headerShown : false, name : 'Product'}} />
         <StackApp.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false, name : 'Privacy Policy'}} />
