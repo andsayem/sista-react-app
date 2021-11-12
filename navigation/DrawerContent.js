@@ -39,6 +39,7 @@ export function DrawerContent(props){
   const clearAsyncStorage = async() => {
     AsyncStorage.clear(); 
     props.navigation.navigate("Login");
+    
   }  
   const asyncStorageData = async () => {
     try { 
@@ -59,7 +60,7 @@ export function DrawerContent(props){
     }
   });
   return (
-    <ScrollView style={{ flex : 1, backgroundColor : '#5C48BA'  }}>
+    <ScrollView style={{ flex : 1, backgroundColor : '#AD76D6'  }}>
       <DrawerContentScrollView {...props} >
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>

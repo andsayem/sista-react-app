@@ -1,12 +1,12 @@
 import React, { Component, useEffect } from 'react'; 
-import { StyleSheet, FlatList, Text, View,SafeAreaView, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, FlatList, Text, View,SafeAreaView, TouchableOpacity, ScrollView, StatusBar
+} from 'react-native';
 import api from '../api';
-import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements';  
+import { ListItem, colors , Icon , Header } from 'react-native-elements';  
 import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post'; 
-import Comment from './PostDetails'; 
-import IconIonic from 'react-native-vector-icons/Ionicons';
+import StatusBarCoolr from '../components/StatusBarCoolr';
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +19,11 @@ class Posts extends Component {
       cat_active:'',
       };  
   }  
+  componentDidMount(){    
+    // StatusBar.setBarStyle('light-content',true);
+    // StatusBar.setBackgroundColor("red");
+    this.fatchData(); 
+  }
   fatchData = async () => { 
     this.setState({isLoading:true})    
     api.getData('post_datas?cat_id='+this.state.cat_id)
@@ -59,13 +64,6 @@ class Posts extends Component {
       />
     )
   } 
-  // handleUserProfile = (id) => {
-  //   <PostDetails
-  //   id = {id}
-  //   item = {item}
-  //   />
-  //   //this.props.navigation.navigate('UserProfile', {id: id });
-  // }
   handlePostDetails = (id) => {
     this.props.navigation.navigate('PostDetails', {id: id });
   } 
@@ -86,7 +84,6 @@ class Posts extends Component {
   handleToggleDrawer = () => {
     this.props.navigation.navigate.toggleDrawer();
   }
-
   handleLikePost = index => {     
     let post = this.state.items[index] 
     const { liked, like } = post 
@@ -105,36 +102,13 @@ class Posts extends Component {
   }
   handleFollowPost = index => {     
     let post = this.state.items[index] 
-   console.log('follow',post.user_id);
-    //const { followings, follow } = post 
-    //const newPost = {
-    //   ...post,
-    //   followings: !followings,
-    //   follow: followings ? post.follow - 1 : post.follow + 1
-    // }   
     api.getData('following/'+post.user_id).then((res)=>{
       console.log('test');
-      this.fatchData();
-      //console.log(res);
-      // this.state.items.filter(item => {
-      //     if(item.user_id == post.user_id){
-      //       item.followings =  1 ; 
-      //       console.log(post.user_id) 
-      //     }
-      // })
-      //this.state.items.filter(item)
-
+      this.fatchData(); 
     })
-    // this.setState({
-    //   items: {
-    //     ...this.state.items,
-    //     [index]: newPost
-    //   }
-    // })
+    
   } 
-  componentDidMount() {   
-    this.fatchData(); 
-  }
+  
   componentWillUnmount() {   
     this.handlePostCates(); 
     this.fatchData();
@@ -143,7 +117,7 @@ class Posts extends Component {
   render(){
     let {items, isLoading} = this.state;
     return(
-      <SafeAreaView>    
+      <SafeAreaView>     
         <Header 
             leftComponent={
             <View> 

@@ -41,7 +41,7 @@ function DrawerNavigator() {
       <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}> 
         <Drawer.Screen name="Tabs" component={TabsScreen} />      
         <Drawer.Screen name="AppTutorial" component={AppTutorial} />  
-        <Drawer.Screen name="Login" component={Login} />  
+        {/* <Drawer.Screen name="Login" component={Login} />   */}
         <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />  
         <Drawer.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown : false}}/>       
         <Drawer.Screen name="CheckYourEmail" component={CheckYourEmail} options={{ headerShown : false}}/>       
