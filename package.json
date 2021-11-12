@@ -66,6 +66,7 @@
     "render-if": "^0.1.1",
     "socket.io": "^4.3.1",
     "socket.io-client": "^4.3.2",
+    "toggle-switch-react-native": "^3.3.0",
     "tsutils": "^3.20.0"
   },
   "devDependencies": {

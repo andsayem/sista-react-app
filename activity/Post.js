@@ -1,13 +1,19 @@
-import React, { Component } from 'react'; 
-import { StyleSheet,  ImageBackground ,Text, Button, TouchableOpacity, View,Image, ScrollView } from 'react-native'; 
+import React, { Component , useRef } from 'react'; 
+import { StyleSheet,  ImageBackground ,Text, Button, TouchableOpacity, View,Image, ScrollView , SectionList} from 'react-native'; 
 import { ListItem, Avatar, Icon } from 'react-native-elements';   
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconOct from 'react-native-vector-icons/Octicons';
 import IconFea from 'react-native-vector-icons/Feather';
 import IconEnt from 'react-native-vector-icons/Entypo';
-import moment from 'moment'
+import IconMat from 'react-native-vector-icons/MaterialIcons';
+import IconIonic from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
+import Styles from "../styles";
+import RBSheet from "react-native-raw-bottom-sheet"; 
 const image = { uri: "https://reactjs.org/logo-og.png" };
-class Post extends  React.Component{      
+ 
+class Post extends  React.Component{   
+  
     constructor(props) {
       super(props);  
     }                          
@@ -88,18 +94,43 @@ class Post extends  React.Component{
                   <Text style={{ paddingLeft: 10,color:"#929292" }}>{ this.props.like } </Text>
                 </View> 
                 
-                <View style={{ flexDirection: "row", width: '25%' }}>
-                  <Text ><IconOct name="comment" size={25} color="#B461FE" /> </Text>
-                  <Text style={{ paddingLeft: 12,color:"#929292" }}>{this.props.item.comment }</Text>
-                </View>
-                <View style={{ flexDirection: "row", width: '25%' }}>
-                  <IconFea name="share" size={25} color="#B461FE" />
-                </View>
-                <View style={{ width: '15%' }}>
-                  <Text style={{ alignSelf: 'flex-end' }}>
-                    <IconEnt name="dots-three-vertical" size={20} color="#B461FE" />
+                    <View style={{ flexDirection: "row", width: '25%' }}>
+                      <Text ><IconOct name="comment" size={25} color="#B461FE" /> </Text>
+                      <Text style={{ paddingLeft: 12,color:"#929292" }}>{this.props.item.comment }</Text>
+                    </View>
+                    <View style={{ flexDirection: "row", width: '25%' }}>
+                      <IconFea name="share" size={25} color="#B461FE" />
+                    </View>
+                    <View style={{ width: '15%' }}>
+                      <Text onPress={() => this.RBSheet.open()}  style={{ alignSelf: 'flex-end' }}>
+                        {/* <IconEnt name="dots-three-vertical" size={20} color="#B461FE" /> */}
+                        <Text   style={{ alignSelf: 'flex-end' }}>
+                      <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" />
+                    </Text> 
+                    
                   </Text>
                 </View>
+                <RBSheet
+                      ref={ref => {
+                        this.RBSheet = ref;
+                      }}
+                      height={300}
+                      openDuration={250}
+                      customStyles={{
+                        container: {
+                          justifyContent: "center",
+                          alignItems: "center"
+                        }
+                      }}
+                    > 
+                    <View style={{width : '100%'}}>
+                      <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
+                      <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconMat  name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
+                      <Text style={Styles.share_item}> <IconIonic  name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
+                      <Text style={Styles.share_item}> <IconAnt  name="sharealt" size={16} color="#000000" /> Share To....</Text>
+                      <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
+                    </View>
+                    </RBSheet>
               </View>
             <View> 
             </View>  
