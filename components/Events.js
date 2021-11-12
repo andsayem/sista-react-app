@@ -65,7 +65,19 @@ const Events = ({ navigation }) => {
     <Toast visible={successtext} message={successtext.message} /> 
         {/* <Text  onPress={() => navigation.navigate('PostDetails', {id: 69 }) } style={Styles.box_title} >
         Events Alert
-        </Text>  */}
+        </Text>  */} 
+        <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
+              <ListItem bottomDivider>  
+                  <ListItem.Content >
+                    <ListItem.Title>                     
+                    <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Events </Text>
+                    </ListItem.Title>                     
+                  </ListItem.Content>   
+                  <View> 
+                  <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353',alignSelf: 'flex-end' }}>See All </Text>
+                  </View>   
+              </ListItem>    
+            </View> 
         <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -75,6 +87,7 @@ const Events = ({ navigation }) => {
             marginRight : 5,
             marginTop: 1 }}
             >
+                
         { getCats.map((item, i) => ( 
         <ListItem key={item.id} keyExtractor={(item , i) => item.id.toString()} > 
             <ListItem.Content 

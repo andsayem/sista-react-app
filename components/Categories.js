@@ -38,7 +38,7 @@ const Categories = (props) => {
               > 
               <Icon color='#000000' name={item.cat_image} />  
             </TouchableOpacity> 
-            <Text style={{ textAlign: 'center', width:'100%'}} >
+            <Text style={{ textAlign: 'center', width:'100%', color:'#535353'}} >
               {item.cat_name}</Text>
             </ListItem.Content>
             ))

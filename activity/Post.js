@@ -61,8 +61,8 @@ class Post extends  React.Component{
             </View> 
             :
             <View>
-               <Text numberOfLines={1}   
-                style={{  fontFamily: "RobotoRegular", fontSize: 12, paddingBottom :5 ,  color: "#0D0E10",  }} 
+               <Text numberOfLines={2} ellipsizeMode='tail'   
+                style={{  fontFamily: "RobotoRegular", fontSize: 15, paddingBottom :9 ,  color: "#0D0E10",  }} 
                 note onPress={() => this.props.onPressPostDetails(this.props.item.id)}>{this.props.item.caption}
               </Text> 
                  <View> 
