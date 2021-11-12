@@ -144,9 +144,16 @@ class Posts extends Component {
     return(
       <SafeAreaView>    
         <Header 
-            leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'Posts', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            leftComponent={
+            <View> 
+              <Icon color={colors.black} size={30} name='menu' 
+            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> 
+            </View> }
+            centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
             rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
             containerStyle={{   
               color : '1E1E1E',

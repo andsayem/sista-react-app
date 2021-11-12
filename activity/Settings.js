@@ -22,7 +22,8 @@ class Settings extends Component {
             <Header 
                 leftComponent={<IconIonic  name="arrow-back" color={colors.black} size={30} 
                 onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } /> }
-                centerComponent={{ text: 'Settings', style: { color: '#1E1E1E' , fontSize : 20  , textAlign : 'left' } }}
+                centerComponent={{ text: 'Settings', style: { color: '#1E1E1E' , fontSize : 20  , textAlign : 'left'  } }}
+               
                 containerStyle={{   
                   color : '1E1E1E',
                   backgroundColor: '#E4E4E4' }}
