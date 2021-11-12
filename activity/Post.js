@@ -102,12 +102,15 @@ class Post extends  React.Component{
                       <IconFea name="share" size={25} color="#B461FE" />
                     </View>
                     <View style={{ width: '15%' }}>
-                      <Text style={{ alignSelf: 'flex-end' }}>
+                      <Text onPress={() => this.RBSheet.open()}  style={{ alignSelf: 'flex-end' }}>
                         {/* <IconEnt name="dots-three-vertical" size={20} color="#B461FE" /> */}
-                        <Text onPress={() => this.RBSheet.open()}   style={{ alignSelf: 'flex-end' }}>
+                        <Text   style={{ alignSelf: 'flex-end' }}>
                       <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" />
                     </Text> 
-                    <RBSheet
+                    
+                  </Text>
+                </View>
+                <RBSheet
                       ref={ref => {
                         this.RBSheet = ref;
                       }}
@@ -128,8 +131,6 @@ class Post extends  React.Component{
                       <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
                     </View>
                     </RBSheet>
-                  </Text>
-                </View>
               </View>
             <View> 
             </View>  
