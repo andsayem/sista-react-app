@@ -6,6 +6,7 @@ import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post'; 
 import Comment from './PostDetails'; 
+import IconIonic from 'react-native-vector-icons/Ionicons';
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -160,8 +161,9 @@ class Posts extends Component {
               backgroundColor: '#E4E4E4' }}
         /> 
         <Events/> 
-        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
-        
+        <ScrollView>
+        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>   
+        <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -175,12 +177,12 @@ class Posts extends Component {
               > 
               <Icon  
                 color='#FFFFFF' 
-                name='book' />  
+                name='border-all' />  
             </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >All</Text>
+            <Text style={{ textAlign : 'center' , width : '100%',color:'#535353'}} >All</Text>
               </ListItem.Content>
             </ListItem>
-        <Categories bgcolor={'#944CD4'} handlePostCate={this.handlePostCateWise} active="datat"/>   
+            <Categories bgcolor={'#944CD4'} handlePostCate={this.handlePostCateWise} active="datat"/>   
         </ScrollView>
         </View>
         <FlatList 
@@ -194,6 +196,7 @@ class Posts extends Component {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}      
         /> 
+        </ScrollView>
       </SafeAreaView>
     )
     }
