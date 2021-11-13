@@ -259,7 +259,7 @@ const ChildViewEliment=()=>{
 if(index == 0){
 return(
 <View>
-   <ListItem >
+   {/* <ListItem >
       <ListItem.Content>
          <Image   source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
       </ListItem.Content>
@@ -269,8 +269,8 @@ return(
       <ListItem.Content>
          <Image   source={require("../img/images/3.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
       </ListItem.Content>
-   </ListItem>
-   <ListItem >
+   </ListItem> */}
+   {/* <ListItem >
       <ListItem.Content>
          <Image   source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
       </ListItem.Content>
@@ -280,13 +280,13 @@ return(
       <ListItem.Content>
          <Image   source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
       </ListItem.Content>
-   </ListItem>
+   </ListItem> */}
 </View>
 ) 
 } else if(index == 1){
 return(
 <View>
-   <ListItem >
+   {/* <ListItem >
       <ListItem.Content>
          <Image  source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
       </ListItem.Content>
@@ -296,20 +296,55 @@ return(
       <ListItem.Content>
          <Image  source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
       </ListItem.Content>
-   </ListItem>
+   </ListItem> */}
 </View>
 ) 
 }else {
 return(
-<View>
+<View style={{ width : '100%'}}>
    <ListItem >
-      <ListItem.Content>
-         <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
-            <CheckBox 
-               value={isSelected}
-               onValueChange={setSelection}  
-               />
+      <ListItem.Content style={{ width : '100%' , flexDirection : 'row'}}>
+        
+         <ImageBackground 
+            source={require("../img/text/1.jpg")} 
+            style={ styles.backgroundImage }
+            >
+            <Text
+               style={styles.checkbox}>
+                 <CheckBox 
+                  style={{ padding :50  }}
+                  value={isSelected}
+                  onValueChange={setSelection}  
+                  />
+            </Text>
          </ImageBackground>
+
+         {/* <ImageBackground 
+            source={require("../img/text/1.jpg")} 
+            style={ styles.backgroundImage }
+            >
+            <Text
+               style={styles.checkbox}>
+                 <CheckBox 
+                  style={{ padding :50  }}
+                  value={ false }
+                  onValueChange={setSelection}  
+                  />
+            </Text>
+         </ImageBackground>
+         <ImageBackground 
+            source={require("../img/text/1.jpg")} 
+            style={ styles.backgroundImage }
+            >
+            <Text
+               style={styles.checkbox}>
+                 <CheckBox 
+                  style={{ padding :50  }}
+                  value={ false }
+                  onValueChange={setSelection}  
+                  />
+            </Text>
+         </ImageBackground> */}
          {/* <Image   source={require("../img/text/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  />  */}
       </ListItem.Content>
       {/*          
@@ -496,10 +531,33 @@ flex: 1,
 // width : '30%'
 justifyContent: "center"
 },
+backgroundImage : {
+   height: 100,
+   width: 100,
+   position: 'relative', 
+   top: 0,
+   left: 0 ,
+   marginRight :5
+},
+checked_bg_image : {
+   flex: 1,
+   width : '30%',
+   justifyContent: "center"
+},
+checkbox : {
+   fontWeight: 'bold',
+   color: 'white',
+   position: 'absolute',
+   marginVertical : 32,
+   marginHorizontal : 32,
+   borderRadius : 15,
+   paddingEnd :  5 
+   
+},
 text_bg: {
-color: "black", 
-fontWeight: "bold",
-textAlign: "center", 
+   color: "black", 
+   fontWeight: "bold",
+   textAlign: "center", 
 },
 textAreaContainer: {
 borderColor:  '#efefef',

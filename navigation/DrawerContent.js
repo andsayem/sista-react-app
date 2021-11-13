@@ -12,6 +12,7 @@ import {
   Switch, 
   Paragraph
 } from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   shareOnFacebook,
   shareOnTwitter,
@@ -60,7 +61,8 @@ export function DrawerContent(props){
     }
   });
   return (
-    <ScrollView style={{ flex : 1, backgroundColor : '#AD76D6'  }}>
+    <ScrollView style={{ flex : 1,   }}>
+     <LinearGradient colors={['#AD76D6', '#985BC6', '#000000']} >
       <DrawerContentScrollView {...props} >
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
@@ -129,7 +131,7 @@ export function DrawerContent(props){
         }
         
       </Drawer.Section>
-    
+     </LinearGradient>
     </ScrollView>
   )
 }
