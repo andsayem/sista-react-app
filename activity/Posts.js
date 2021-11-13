@@ -111,14 +111,15 @@ class Posts extends Component {
     console.log('componentWillUnmount')    
   }
   render(){
-    let {items, isLoading} = this.state;
+    let {isLoading} = this.state;
+    let props = this.props; 
     return(
       <SafeAreaView>     
         <Header 
             leftComponent={
             <View> 
               <Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> 
+            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> 
             </View> }
             centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}

@@ -7,7 +7,7 @@ import { Icon } from 'react-native-elements';
 import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
-import RegisterScreen from '../screens/RegisterScreen';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
@@ -50,6 +50,8 @@ function LoginScreen(props) {
 
   const emailInputRef = createRef();
   const passwordInputRef = createRef();
+
+  const history = useHistory();
 
   const onFocusEmail = () => {
     setEmailInpuStyle({
@@ -119,11 +121,12 @@ function LoginScreen(props) {
           saveData(userData.user);
           setUserData(userData)
           console.log('=========================', userData);
-          props.navigation.navigate("Tabs");
+          props.navigation.navigate("Home");
+          
         } else {
           setErrortext({ message: 'Your User or password wrong!' });
         }
-        // props.navigation.navigate("Tabs");
+        // props.navigation.navigate("Home");
         setLoading(false);
       }).catch(function (error) {
         setLoading(false);

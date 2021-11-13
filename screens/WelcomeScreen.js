@@ -39,7 +39,7 @@ class WelcomeScreen extends Component {
    readData = async () => {
     try {
        user = await AsyncStorage.getItem(STORAGE_KEY); 
-       token = await AsyncStorage.getItem(TOKEN);    
+       const token = await AsyncStorage.getItem(TOKEN);    
        this.setToken(token);
       if((token) && (user)) {  
         this.props.navigation.navigate("Tabs");
