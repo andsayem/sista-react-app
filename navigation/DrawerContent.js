@@ -61,8 +61,9 @@ export function DrawerContent(props){
     }
   });
   return (
-    <ScrollView style={{ flex : 1,   }}>
-     <LinearGradient colors={['#AD76D6', '#985BC6', '#000000']} >
+    
+     <LinearGradient style={{flex : 1}} colors={['#AD76D6', '#985BC6', '#424241']} >
+       <ScrollView style={{ flex : 1,   }}>
       <DrawerContentScrollView {...props} >
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
@@ -131,8 +132,9 @@ export function DrawerContent(props){
         }
         
       </Drawer.Section>
-     </LinearGradient>
     </ScrollView>
+    
+    </LinearGradient>
   )
 }
 const styles = StyleSheet.create({
