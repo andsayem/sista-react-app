@@ -30,7 +30,8 @@ import SplashScreen from "react-native-splash-screen";
 import PostDetails from './activity/PostDetails';
 import Profile from "./activity/Profile";
 import UserProfile from './activity/UserProfile';
-import AppTutorial from './screens/WelcomeScreen';
+import AppTutorial from './screens/WelcomeScreen'; 
+import ProductDetail from "./product/ProductDetail";
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator(); 
@@ -51,6 +52,7 @@ function DrawerNavigator() {
         <Drawer.Screen name="JournalSettings" component={JournalSettings} options={{ headerShown : false}}/>
         <Drawer.Screen name="Quizzes" component={Quizzes} options={{ headerShown : false}}/>
         <Drawer.Screen name="Product" component={Product} options={{ headerShown : false}}/>
+        <Drawer.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown : false}}/>
         <Drawer.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false}}/>
         <Drawer.Screen name="Settings" component={Settings} options={{ headerShown : false}}/>
         <Drawer.Screen name="About" component={About} options={{ headerShown : false}}/>
@@ -114,6 +116,7 @@ function App(){
         <StackApp.Screen name="JournalSettings" component={JournalSettings} options={{ headerShown : false, name : 'Add Journal '}} />
         <StackApp.Screen name="Quizzes" component={Quizzes} options={{ headerShown : false, name : 'Quizzes'}} />
         <StackApp.Screen name="Product" component={Product} options={{ headerShown : false, name : 'Product'}} />
+        <StackApp.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown : false, name : 'Product Detail'}} />
         <StackApp.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false, name : 'Privacy Policy'}} />
         <StackApp.Screen name="Settings" component={Settings} options={{ headerShown : false, name : 'Settings'}} />
         <StackApp.Screen name="About" component={About} options={{ headerShown : false, name : 'About'}} />

@@ -50,8 +50,8 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 
       return (
           <TouchableOpacity 
-           style={{ paddingRight : 15}}
-              onPress={() => { navigation.navigate("DestinationDetail") }}
+          onPress={() => {  this.props.navigation.navigate("ProductDetail") }}
+           style={{ paddingRight : 15}} 
           >
               <Image
                   source={item.img}
