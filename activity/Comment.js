@@ -33,16 +33,16 @@ class Comment extends Component {
                 </ListItem.Content>
               </ListItem>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: -10, marginLeft: 80 }}>
-                <View style={{ width: 80 }} >
+                <View style={{ width: 70 }} >
                   <TouchableOpacity onPress={() => this.props.onPressCommentLike(this.props.item.id)}
                     activeOpacity={0.5} >
-                    <Text style={{ color: '#535353' }}>  <IconAnt name="like1" size={25} color="#5C6BC0" /> Like </Text>
+                    <Text style={{ color: '#535353' }}>  <IconAnt name="like1" size={20} color="#5C6BC0" /> Like </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ width: 120 }}>
                   <TouchableOpacity onPress={() => this.props.onPressCommentReply(this.props.item.id, 'Reply')}
                     activeOpacity={0.5} >
-                    <Text style={{ color: '#535353' }}> <IconFnt name="comment-o" size={25} color="#535353" /> Reply</Text>
+                    <Text style={{ color: '#535353' }}> <IconFnt name="comment-o" size={20} color="#535353" /> Reply</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ width: 70 }}>
@@ -65,16 +65,16 @@ class Comment extends Component {
                   <ScrollView horizontal showsHorizontalScrollIndicator={false}
                     style={{ marginTop: -10, marginLeft: 80 }}
                   >
-                    <View style={{ width: 80 }}>
+                    <View style={{ width: 70 }}>
                       <TouchableOpacity onPress={() => this.props.onPressCommentLike(reply.parent_id)}
                         activeOpacity={0.5} >
-                        <Text style={{ color: '#535353' }}> <IconAnt name="like2" size={25} color="#535353" /> Like </Text>
+                        <Text style={{ color: '#535353' }}> <IconAnt name="like2" size={20} color="#535353" /> Like </Text>
                       </TouchableOpacity>
                     </View>
-                    <View style={{ width: 110 }}>
+                    <View style={{ width: 105 }}>
                       <TouchableOpacity onPress={() => this.props.onPressCommentReply(reply.parent_id, 'Reply')}
                         activeOpacity={0.5} >
-                        <Text style={{ color: '#535353' }}> <IconFnt name="comment-o" size={25} color="#535353" /> Reply</Text>
+                        <Text style={{ color: '#535353' }}> <IconFnt name="comment-o" size={20} color="#535353" /> Reply</Text>
                       </TouchableOpacity>
                     </View>
                     <View style={{ width: 20 }}>

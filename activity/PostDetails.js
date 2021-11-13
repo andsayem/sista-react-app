@@ -221,8 +221,9 @@ class PostDetails extends Component {
     //console.log('commmmeee======',this.state.items); 
     //console.log('commmmeee======',this.state.post_items.caption); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
-    return (
-      <ScrollView style={styles.container}>
+    return ( 
+      <View style={styles.container}>
+      <ScrollView >
         {this.state.post_items ?
           <View style={styles.header}>
             <View style={{ borderRadius: 10 }}>
@@ -230,26 +231,26 @@ class PostDetails extends Component {
                 width={win}
                 source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
               />
+
+              <Text style={styles.caption}>{this.state.post_items.caption}</Text>
             </View>
 
             {/* <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
-              style={{ width: '100%', borderRadius: 10, height: 130 }} /> */}
-            <Text style={styles.caption}>{this.state.post_items.caption}</Text>
-            <View>
+              style={{ width: '100%', borderRadius: 10, height: 130 }} /> */} 
               <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
                 <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>
-                  <Text ><IconAnt name="hearto" size={30} color="#FF5D8F" /> </Text>
+                  <Text ><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
                   <Text style={{ paddingLeft: 10 }}>4.5k</Text>
                 </View>
-                <View style={{ flexDirection: "row", width: '25%' }}>
-                  <Text ><IconOct name="comment" size={30} color="#FF5D8F" /> </Text>
+                <View style={{ flexDirection: "row", width: '28%' }}>
+                  <Text ><IconOct name="comment" size={23} color="#FF5D8F" /> </Text>
                   <Text style={{ paddingLeft: 12 }}>916</Text>
                 </View>
-                <View style={{ flexDirection: "row", width: '25%' }}>
-                  <IconFea name="share" size={30} color="#FF5D8F" />
+                <View style={{ flexDirection: "row", width: '30%' }}>
+                  <IconFea name="share" size={23} color="#FF5D8F" />
                 </View>
                 <Text style={{ alignSelf: 'flex-end' }}>
-                  <IconEnt  onPress={() => this.RBSheet.open()}  name="dots-three-vertical" size={30} color="#FF5D8F" />
+                  <IconEnt  onPress={() => this.RBSheet.open()}  name="dots-three-vertical" size={23} color="#FF5D8F" />
                 </Text>
                 <RBSheet
                   ref={ref => {
@@ -272,8 +273,7 @@ class PostDetails extends Component {
                   <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
                 </View>
                 </RBSheet>
-              </View> 
-                </View>
+              </View>  
               </View>  
           : ''
         }
@@ -299,7 +299,7 @@ class PostDetails extends Component {
             : <View></View>}
         </View>
         <View style={styles.main_footer} >
-          <View style={styles.footer} >
+          <View style={styles.footer}>
             <View style={{ width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
               <TextInput
                 onChangeText={(test) => {
@@ -309,7 +309,7 @@ class PostDetails extends Component {
                 onBlur={() => this.validation()}
                 value={this.state.post_comment}
                 underlineColorAndroid="transparent"
-                placeholder="Type Here...."
+                placeholder="Type Here..."
                 multiline={true}
                 placeholderTextColor={'white'}
                 style={{
@@ -329,8 +329,9 @@ class PostDetails extends Component {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-      </ScrollView >
+        </View> 
+      </ScrollView >  
+      </View>
     )
   }
 
@@ -344,11 +345,10 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#fff',
-    top: 20,
-    height: win,
+    top: 20, 
     width: '100%',
     borderRadius: 15,
-    padding: 1,
+    paddingBottom: 20,
     marginBottom: 10
   },
   caption: {
@@ -357,11 +357,11 @@ const styles = StyleSheet.create({
   },
   main_footer: {
     alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center"
+    justifyContent: "center", 
+    paddingBottom:40
   },
-  footer: {
-
+  footer: {  
+    position: 'absolute',  
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 5,

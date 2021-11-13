@@ -79,16 +79,16 @@ function Newpost({ navigation }) {
          let formData = new FormData();
          if (video) {
             console.log('video=====', video);
-            // formData.append('files_base', {
-            //   name: video.fileName,
-            //   uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
-            //   type: 'video/mov',
-            // });
-            // formData.append("files_base", {
-            //   name: "name.mp4",
-            //     uri: video.uri,
-            //     type: 'video/mp4'
-            // });
+            formData.append('files_base', {
+              name: video.fileName,
+              uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
+              type: 'video/mov',
+            });
+            formData.append("files_base", {
+              name: "name.mp4",
+                uri: video.uri,
+                type: 'video/mp4'
+            });
          }
          formData.append("user_id", 1);
          formData.append("caption", post_caption);
@@ -103,18 +103,17 @@ function Newpost({ navigation }) {
             formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
          }
          console.log('formData', formData);
-         axios.post('https://sista.bdmobilepoint.com/api/post_datas', formData,
-            {
-               headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'multipart/form-data',
-                  Authorization: "Bearer " + getToken,
-               }
-            })
-         fetch('https://sista.bdmobilepoint.com/api/post_datas', {
+         // axios.post('https://sista.bdmobilepoint.com/api/post_datas', formData,
+         //    {
+         //       headers: {
+         //          'Accept': 'application/json',
+         //          'Content-Type': 'multipart/form-data',
+         //          Authorization: "Bearer " + getToken,
+         //       }
+         //    })
+         fetch('https://sista.bdmobilepoint.com/api/video-upload', {
             method: 'POST',
-            headers: {
-               'Accept': 'application/json',
+            headers: { 
                'Content-Type': 'multipart/form-data',
                Authorization: "Bearer " + await AsyncStorage.getItem(TOKEN),
             },
@@ -196,8 +195,8 @@ function Newpost({ navigation }) {
       ImagePicker.launchImageLibrary({
          mediaType: 'photo',
          includeBase64: true,
-         maxHeight: 200,
-         maxWidth: 200,
+         // maxHeight: 200,
+         // maxWidth: 200,
       },
          (response) => {
             console.log(response);
