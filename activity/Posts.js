@@ -5,8 +5,7 @@ import api from '../api';
 import { ListItem, colors , Icon , Header } from 'react-native-elements';  
 import Events from '../components/Events';
 import Categories from '../components/Categories';
-import Post from './Post'; 
-import StatusBarCoolr from '../components/StatusBarCoolr';
+import Post from './Post';  
 class Posts extends Component {
   constructor(props) {
     super(props);
@@ -80,10 +79,7 @@ class Posts extends Component {
     this.setState({cat_id:''}, function () {
       this.fatchData();
     });  
-  }
-  handleToggleDrawer = () => {
-    this.props.navigation.navigate.toggleDrawer();
-  }
+  } 
   handleLikePost = index => {     
     let post = this.state.items[index] 
     const { liked, like } = post 

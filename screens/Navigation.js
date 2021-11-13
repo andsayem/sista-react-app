@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import 'react-native-gesture-handler';
-import { createStackNavigator } from '@react-navigation/stack';
 import WelcomeScreen from './WelcomeComponent';
 import LoginScreen from './LoginComponent';
 import RegisterScreen from './RegisterComponent';
 import HomeScreen from './HomeComponent';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { AsyncStorage } from 'react-native';
