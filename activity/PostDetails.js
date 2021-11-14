@@ -219,10 +219,12 @@ class PostDetails extends Component {
   render() {
     let { items, isLoading } = this.state;
     //console.log('commmmeee======',this.state.items); 
-    //console.log('commmmeee======',this.state.post_items.caption); 
+    console.log('commmmeee======',this.state.post_items.like); 
+    console.log('commmmeee======',this.state.post_items.comment); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return ( 
       <SafeAreaView style={styles.container}>  
+      <ScrollView>
         {this.state.post_items ?
           <View style={styles.header}>
             <View style={{ borderRadius: 10 }}>
@@ -239,11 +241,11 @@ class PostDetails extends Component {
               <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
                 <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>
                   <Text ><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
-                  <Text style={{ paddingLeft: 10 }}>4.5k</Text>
+                  <Text style={{ paddingLeft: 10 }}>{this.state.post_items.like}</Text>
                 </View>
                 <View style={{ flexDirection: "row", width: '28%' }}>
                   <Text ><IconOct name="comment" size={23} color="#FF5D8F" /> </Text>
-                  <Text style={{ paddingLeft: 12 }}>916</Text>
+                  <Text style={{ paddingLeft: 12 }}>{this.state.post_items.comment}</Text>
                 </View>
                 <View style={{ flexDirection: "row", width: '30%' }}>
                   <IconFea name="share" size={23} color="#FF5D8F" />
@@ -279,7 +281,7 @@ class PostDetails extends Component {
         <Toast visible={this.state.errortext} message={this.state.errortext} />
         {
           this.state.items ?
-            <FlatList style={{ paddingTop: 30 }}
+            <FlatList style={{ paddingTop: 30, paddingBottom:30}}
               data={Object.values(this.state.items)}
               renderItem={this.renderRow}
               refreshing={isLoading}
@@ -297,6 +299,7 @@ class PostDetails extends Component {
 
             : <View></View>}
         </View>
+        </ScrollView>
          <View style={styles.main_footer} >
           <View style={styles.footer}>
             <View style={{ width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
@@ -329,6 +332,7 @@ class PostDetails extends Component {
             </View>
           </View>
         </View>  
+        
       </SafeAreaView>
     )
   }
@@ -350,8 +354,10 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   caption: {
+    paddingTop:5,
     textAlign: 'center',
     fontSize: 18,
+    color:"#535353"
   },
   main_footer: {
     alignItems: "center",

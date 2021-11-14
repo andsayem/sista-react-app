@@ -103,11 +103,10 @@ const styles = StyleSheet.create({
     backgroundColor : '#000'
   },
   parents: {
-    width: '90%',
+    width: '93%',
     backgroundColor: '#fff',
     borderRadius: 10,
-    // borderColor: '#000',
-    // borderWidth: 1,
+    paddingBottom:10,
     padding: 1,
     marginTop: 10,
     marginBottom: 2,
@@ -120,7 +119,8 @@ const styles = StyleSheet.create({
     padding: 1,
     marginBottom: 2,
     marginLeft: 50,
-    marginRight: 20
+    marginRight: 20,
+    paddingBottom:10,
 
   },
   textAreaContainer: {

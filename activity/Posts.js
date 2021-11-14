@@ -51,7 +51,8 @@ class Posts extends Component {
     //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
     const { liked, like, props } = item
     return (
-      <Post
+      <View style={{padding:5}}>
+        <Post
         item= {item} 
         index={index.toString()}
         liked={liked}
@@ -61,6 +62,7 @@ class Posts extends Component {
         onPressPostDetails={this.handlePostDetails}
         onPressUserProfile={this.handleUserProfile}
       />
+      </View> 
     )
   } 
   handlePostDetails = (id) => {
@@ -132,13 +134,13 @@ class Posts extends Component {
               backgroundColor: '#E4E4E4' }}
         /> 
         <Events/> 
-        <ScrollView>
-        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 5 , marginTop : 10}}>   
+        <ScrollView style={{ margin: 10, backgroundColor: '#fff'}}>
+        <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}>   
         <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{ marginRight: -30}}
+          style={{ backgroundColor: '#fff'}}
           >
             <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
               <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
@@ -163,9 +165,10 @@ class Posts extends Component {
           refreshing={isLoading}
           extraData={this.state}
           ListFooterComponent={this.renderFooter}         
-          onEndReachedThreshold={0.5}
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          onRefresh={this.fatchData}      
+          onEndReachedThreshold={0.2} 
+          onRefresh={this.fatchData}     
+          onMomentumScrollBegin={() => this.setState({ scrollBegin: true })}
+          onMomentumScrollEnd={() => this.setState({ scrollBegin: false })} 
         /> 
         </View>
         </ScrollView>

@@ -31,9 +31,9 @@ class Post extends  React.Component{
       //console.log('Post = props',this.props.item.catjoin.cat_name);                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
-          <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0, marginBottom :10  }} > 
+          <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0,   }} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-              <ListItem bottomDivider> 
+              <ListItem  style={{borderRadius: 15}}> 
                   <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium" 
                  source={this.props.item.userjoin ? {uri: this.props.item.userjoin.pro_image } : null}   />
                   <ListItem.Content >
@@ -47,7 +47,7 @@ class Post extends  React.Component{
                   </ListItem.Content>  
                   <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}    
                   activeOpacity={0.5} >   
-                  <View style={{borderRadius:10}}>
+                  <View style={{borderRadius:15}}>
                   {this.props.item.followings == 1?
                     <Text style={styles.following}>+Following </Text>
                     : 
@@ -60,13 +60,13 @@ class Post extends  React.Component{
            
             {this.props.item.post_type == 3 ?
             
-            <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5 }}  >  
+            <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  
             <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
               <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
             </ImageBackground>  
             </View> 
             :
-            <View>
+            <View style={{ width: '100%', borderRadius: 10, paddingLeft:20, paddingRight:20 }} >
                <Text numberOfLines={2} ellipsizeMode='tail'   
                 style={{  fontFamily: "RobotoRegular", fontSize: 15, paddingBottom :9 ,  color: "#0D0E10",  }} 
                 note onPress={() => this.props.onPressPostDetails(this.props.item.id)}>{this.props.item.caption}
@@ -80,34 +80,30 @@ class Post extends  React.Component{
                 </View>  
             </View>
             }  
-            <View style={{ paddingTop: 10, flexDirection: "row", width: '100%' }}>
-                <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>                    
+            <View style={{ paddingTop: 10, paddingLeft:20, paddingRight:20, flexDirection: "row", width: '100%' }}>
+                <View style={{  marginStart: 2, flexDirection: "row", width: '25%'}}>                    
                   <TouchableOpacity onPress={() => this.props.onPressLike(this.props.index)}    
                   activeOpacity={0.5} >  
                   {this.props.liked ?
-                    <Text ><IconAnt name="heart" size={25} color="#FF5D8F" /> </Text>
+                    <Text><IconAnt name="heart" size={23} color="#FF5D8F" /> </Text>
                     : 
-                    <Text ><IconAnt name="hearto" size={25} color="#FF5D8F" /> </Text>
-                  }  
-                  
+                    <Text><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
+                  }                    
                   </TouchableOpacity>  
-                  <Text style={{ paddingLeft: 10,color:"#929292" }}>{ this.props.like } </Text>
-                </View> 
-                
-                    <View style={{ flexDirection: "row", width: '25%' }}>
-                      <Text ><IconOct name="comment" size={25} color="#B461FE" /> </Text>
-                      <Text style={{ paddingLeft: 12,color:"#929292" }}>{this.props.item.comment }</Text>
-                    </View>
-                    <View style={{ flexDirection: "row", width: '25%' }}>
-                      <IconFea name="share" size={25} color="#B461FE" />
-                    </View>
-                    <View style={{ width: '15%' }}>
-                      <Text onPress={() => this.RBSheet.open()}  style={{ alignSelf: 'flex-end' }}>
-                        {/* <IconEnt name="dots-three-vertical" size={20} color="#B461FE" /> */}
-                        <Text   style={{ alignSelf: 'flex-end' }}>
-                      <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" />
-                    </Text> 
-                    
+                  <Text style={{ paddingLeft: 10, color:"#929292" }}>{ this.props.like } </Text>
+                </View>                 
+                <View style={{ flexDirection: "row", left:0,  width: '25%' }}>
+                  <Text style={{alignSelf:'flex-start'}} ><IconOct name="comment" size={25} color="#B461FE" /> </Text>
+                  <Text style={{ paddingLeft: 12, color:"#929292" }}>{this.props.item.comment }</Text>
+                </View>
+                <View style={{ flexDirection: "row", width: '25%' }}>
+                  <IconFea name="share" size={23} color="#B461FE" />
+                </View>
+                <View style={{ width: '15%' }}>
+                  <Text onPress={() => this.RBSheet.open()}  style={{ alignSelf: 'flex-end' }}> 
+                    <Text style={{ alignSelf: 'flex-end' }}>
+                      <IconEnt name="dots-three-vertical" size={20} color="#FF5D8F" />
+                    </Text>                     
                   </Text>
                 </View>
                 <RBSheet
@@ -131,12 +127,7 @@ class Post extends  React.Component{
                       <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
                     </View>
                     </RBSheet>
-              </View>
-            <View> 
-            </View>  
-            {/* <View style={{  height: 66,  width: 100}}  >
-              <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {this.props.share} </Text>
-            </View>     */}
+              </View> 
           </View>  
         </ScrollView>                                                                     
       )                                                                               
