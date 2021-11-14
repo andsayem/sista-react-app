@@ -36,7 +36,7 @@ class Posts extends Component {
   renderFooter = () => { 
     useEffect(() => { this.fatchData()},[]) 
     return(  
-        <View>     
+        <View style={{height:70}}>     
             <Text style={styles.title}>Loading Data..</Text> 
         </View> 
     );
@@ -133,7 +133,7 @@ class Posts extends Component {
         /> 
         <Events/> 
         <ScrollView>
-        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>   
+        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 5 , marginTop : 10}}>   
         <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
         <ScrollView
           horizontal
@@ -155,7 +155,7 @@ class Posts extends Component {
             </ListItem>
             <Categories bgcolor={'#944CD4'} handlePostCate={this.handlePostCateWise} active="datat"/>   
         </ScrollView>
-        </View>
+        
         <FlatList 
           data={Object.values(this.state.items)}
           renderItem={this.renderRow}
@@ -163,10 +163,11 @@ class Posts extends Component {
           refreshing={isLoading}
           extraData={this.state}
           ListFooterComponent={this.renderFooter}         
-          onEndReachedThreshold={0.1}
+          onEndReachedThreshold={0.5}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onRefresh={this.fatchData}      
         /> 
+        </View>
         </ScrollView>
       </SafeAreaView>
     )

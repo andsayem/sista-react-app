@@ -222,8 +222,7 @@ class PostDetails extends Component {
     //console.log('commmmeee======',this.state.post_items.caption); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return ( 
-      <View style={styles.container}>
-      <ScrollView >
+      <SafeAreaView style={styles.container}>  
         {this.state.post_items ?
           <View style={styles.header}>
             <View style={{ borderRadius: 10 }}>
@@ -298,7 +297,7 @@ class PostDetails extends Component {
 
             : <View></View>}
         </View>
-        <View style={styles.main_footer} >
+         <View style={styles.main_footer} >
           <View style={styles.footer}>
             <View style={{ width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
               <TextInput
@@ -329,9 +328,8 @@ class PostDetails extends Component {
               </TouchableOpacity>
             </View>
           </View>
-        </View> 
-      </ScrollView >  
-      </View>
+        </View>  
+      </SafeAreaView>
     )
   }
 

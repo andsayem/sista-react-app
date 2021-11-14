@@ -31,7 +31,7 @@ class Post extends  React.Component{
       //console.log('Post = props',this.props.item.catjoin.cat_name);                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
-          <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 10, marginBottom :10  }} > 
+          <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0, marginBottom :10  }} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
               <ListItem bottomDivider> 
                   <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium" 
@@ -60,7 +60,7 @@ class Post extends  React.Component{
            
             {this.props.item.post_type == 3 ?
             
-            <View style={{ width: '100%', borderRadius: 10, height: 160,paddingBottom :5 }}  >  
+            <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5 }}  >  
             <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
               <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
             </ImageBackground>  
@@ -80,7 +80,7 @@ class Post extends  React.Component{
                 </View>  
             </View>
             }  
-            <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
+            <View style={{ paddingTop: 10, flexDirection: "row", width: '100%' }}>
                 <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>                    
                   <TouchableOpacity onPress={() => this.props.onPressLike(this.props.index)}    
                   activeOpacity={0.5} >  
