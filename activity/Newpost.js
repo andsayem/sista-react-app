@@ -54,6 +54,7 @@ function Newpost({ navigation }) {
    useEffect(() => setErrortext(false), [errortext]);
    useEffect(() => { getCategories() }, []);
    const readData = async () => {
+      getCategories();
       try {
          const token = await AsyncStorage.getItem(TOKEN);
          setToken(token);
