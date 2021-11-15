@@ -161,7 +161,8 @@ class UserProfile extends Component {
               />
               </View>
             </View>
-            : <View style={{  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
+            : 
+            <View style={{  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
                 <View  style={{ width: "50%", alignItems : 'flex-start' }} > 
                   <Image
                   source={require('../img/images/v1.png')}
@@ -174,7 +175,7 @@ class UserProfile extends Component {
                   style={{ height: 100, width: 170 ,  borderRadius: 10 }}
                 />
                 </View>
-              </View>
+            </View>
              }
 
             <View style={{ width:'100%',  marginTop: 20,flexDirection:"row" }}  > 
@@ -187,8 +188,10 @@ class UserProfile extends Component {
               </View> 
               :<View></View> }
             </View>
-            <View style={{  width:'100%',  marginTop: 10,flexDirection:"row" }}  > 
-              
+            
+            
+            
+            <View style={{  width:'100%',  marginTop: 10,flexDirection:"row" }}  >               
               <View  style={{ width: "50%",   alignItems : 'flex-start' }} >  
               { this.state.userData.photos ?
                 <Image
@@ -200,7 +203,11 @@ class UserProfile extends Component {
               <Text style={styles.noimage}>No image found</Text>
               }
               </View> 
-              <View  style={{  width: "50%"  , alignItems : 'flex-end'  }}  > 
+
+
+
+
+              <View  style={{  width: "50%", alignItems : 'flex-end'  }}  > 
               { this.state.userData.photos ?
               <Image
                onPress={() => { this.state.pro2 ? this.onPressPostDetails(this.state.pro2.id) : ''}}
@@ -214,13 +221,17 @@ class UserProfile extends Component {
                 <Image
                 onPress={() =>  { this.state.pro3 ? this.onPressPostDetails(this.state.pro3.id) : ''}}
                   source={this.state.pro3 ? {uri: this.state.pro3.file } : null} 
-                 style={{ height: 72, width: "165" , marginTop :10 ,  borderRadius: 10 }}
+                 style={{ height: 72, width: 165 , marginTop :10 ,  borderRadius: 10 }}
                /> 
                 : 
                 <Text style={styles.noimage}>No image found</Text>
                } 
-              </View>            
+              </View> 
+
+
             </View>
+
+            
         </View>
       </SafeAreaView>
     );
