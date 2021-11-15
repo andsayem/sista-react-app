@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { color } from "react-native-reanimated";
 
 module.exports={
   container: {
@@ -268,5 +269,27 @@ module.exports={
     textAlign : 'center', 
     backgroundColor : '#F8F8F8',
     marginHorizontal :30 ,
+  },
+  cat_icon_style:{
+    justifyContent: "center",
+    height: 66,
+    width: 66,
+    borderRadius: 50,
+    backgroundColor: "#EEEEEE",
+  },
+  cat_icon_active_style:{
+    justifyContent: "center", 
+    height: 66, 
+    width: 66, 
+    borderRadius: 50, 
+    backgroundColor: "#944CD4", 
+  },
+  icon_active_color :{
+    color : '#FFFFFF'
+  },
+  icon_color :{
+    color : '#000000'
   }
+
+
 }

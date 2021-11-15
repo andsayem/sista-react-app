@@ -28,18 +28,15 @@ const Categories = (props) => {
             { getCats.map((item, i) => (
             <ListItem.Content key={item.id} data={item} keyExtractor={(item , i) => item.id.toString()}  style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
               <TouchableOpacity onPress={() => props.handlePostCate(item.id)}
-                style={{ 
-                  justifyContent: "center",
-                  height: 66,
-                  width: 66,
-                  borderRadius: 50,
-                  backgroundColor: "#EEEEEE", 
-                }}
+                //style={Styles.cat_icon_style}
+                style={[props.cat_id == item.id ? Styles.cat_icon_active_style : Styles.cat_icon_style  ]}
               > 
-              <Icon color='#000000' name={item.cat_image} />  
+              <Icon 
+              color={ props.cat_id == item.id ? '#FFFFFF' : '#000000'} 
+               name={item.cat_image} />  
             </TouchableOpacity> 
             <Text style={{ textAlign: 'center', width:'100%', color:'#535353'}} >
-              {item.cat_name}</Text>
+              {item.cat_name} </Text>
             </ListItem.Content>
             ))
             }
