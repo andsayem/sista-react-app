@@ -54,18 +54,10 @@ class PostDetails extends Component {
     };
   }
   componentDidMount() {
-    this.fatchData();
-    // ChatAPI.subscribeToFriendStatus(      
-    //   this.props.friend.id,      
-    //   this.handleStatusChange    
-    // );  
+    this.fatchData(); 
   }
   componentWillUnmount() {
-    this.fatchData();
-    // ChatAPI.unsubscribeFromFriendStatus(      
-    //   this.props.friend.id,      
-    //   this.handleStatusChange    
-    // );  
+    this.fatchData(); 
   }
   handleStatusChange(status) {
     this.setState({
@@ -83,9 +75,7 @@ class PostDetails extends Component {
       // Error retrieving data  
     }
   };
-  fatchData = () => {
-    //console.log('this-props====',this.props.route.params.id);
-    // https://sista.bdmobilepoint.com/api/singelpost/319
+  fatchData = () => { 
     this.setState({ isLoading: true })
     api.getData('singelpost/' + this.props.route.params.id)
       .then(response => {
@@ -94,8 +84,7 @@ class PostDetails extends Component {
       })
       .finally(() => this.setState({ isLoading: false }))
   }
-  renderFooter = () => {
-    //useEffect(() => { this.fatchData()},[]) 
+  renderFooter = () => { 
     return (
       <View>
         <SafeAreaView>
@@ -104,8 +93,7 @@ class PostDetails extends Component {
       </View>
     );
   }
-  validation = () => {
-    //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
+  validation = () => { 
   }
   handleSubmitButton = async () => {
     if (!this.state.post_comment) {
