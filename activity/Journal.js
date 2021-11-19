@@ -46,19 +46,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
           }
         });
       }
-    // const [successtext, setSuccesstext] = useState(false);
-    // const [errortext, setErrortext] = useState(false);
-    // const [getJournals, setJournals] = useState([]);
-    // const getJournalss = async => {
-    //     api.getData('journals')
-    //     .then((res)=>{
-    //       setJournals( res.data.data);  
-    //     })
-    //     .catch((error) => {
-    //         console.log(error)
-    //     }) 
-    // }; 
-    //useEffect(() => getJournalss(false),[getJournals]); 
+
       getData =  (dete) => {
       var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
       "Jul", "Aug", "Sep", "Oct", "Nov", "December"
@@ -73,9 +61,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
     handlePressAddJurnal = () =>{ 
       this.props.navigation.navigate('Journal_add');
     }
-    journalSettings = () =>{
-      //this.state.numColumns = 1; 
-      //JournalSettings
+    journalSettings = () =>{ 
       this.props.navigation.navigate("JournalSettings");
     }
     handleOnRefresh = () => { 
@@ -105,21 +91,8 @@ import RBSheet from "react-native-raw-bottom-sheet";
         }}
        // style={{ padding : 0 ,  margin : 0 , }} 
         >  
-              <ListItem.Content
-              // style={{    
-              //   borderWidth : 1 ,
-              //   borderRadius : 10  ,
-              //   height : 120,
-              //   borderColor : '#efefef',    
-              //   }}
-                 > 
-                <ListItem.Content style={{  
-                  // overflow: 'hidden', 
-                  // color : '#ffffff' , 
-                  // textAlign :'justify' ,
-                  // margin : 0 ,
-                  // height : 100 ,  
-                  // paddingHorizontal : 10
+              <ListItem.Content> 
+                <ListItem.Content style={{   
                   }}>
                   <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
                   {item.title}
