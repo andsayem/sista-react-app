@@ -32,12 +32,13 @@ const Toast = ({ visible, message }) => {
    }
    return null;
 };
-function Newpost({ navigation }) {
+function Newpost(props) {
    // bs =React.createRef();
    // fall  = new Animated.value(1) ;
 
-   const [post_caption, setCaption] = useState(false);
-   const [category, setCategories] = useState(1);
+   const [post_caption, setCaption] = useState('');
+   const [category, setCategories] = useState(null);
+   const [categoryName , setCategoriesName] = useState(null);
    const [loading, setLoading] = useState(false);
    const [errortext, setErrortext] = useState(false);
    const [successText, setSuccesstext] = useState(false);
@@ -98,21 +99,11 @@ function Newpost({ navigation }) {
          formData.append("font_style", 'small');
          formData.append("font_size", 12);
          formData.append("post_type", index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3);
-         if (photo) {
-            //console.log('photos=====',photo.fileName);
-            //formData.append("files_base", 'photo.base64');
+         if (photo) { 
             formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
          }
-         console.log('formData', formData);
-         // axios.post('https://sista.bdmobilepoint.com/api/post_datas', formData,
-         //    {
-         //       headers: {
-         //          'Accept': 'application/json',
-         //          'Content-Type': 'multipart/form-data',
-         //          Authorization: "Bearer " + getToken,
-         //       }
-         //    })
-         fetch('https://sista.bdmobilepoint.com/api/video-upload', {
+         
+         fetch('https://sista.andsayem.com/api/video-upload', {
             method: 'POST',
             headers: { 
                'Content-Type': 'multipart/form-data',
@@ -120,12 +111,9 @@ function Newpost({ navigation }) {
             },
             body: formData
          })
-            .then((response) => {
-               console.log('ddres', response.json());
-               //console.log('formData ==',formData) 
+            .then((response) => { 
             }).then((responseJson) => {
-               setLoading(false);
-               //console.log('formData ============',formData) 
+               setLoading(false); 
                console.log('dataToSend ======', responseJson)
                if (responseJson.success === true) {
                   setSuccesstext({ message: 'Post Submit Successful' });
@@ -143,10 +131,11 @@ function Newpost({ navigation }) {
    };
    const handleSubmitButton = async () => {
       setErrortext(false);
-      if (!post_caption) {
-         setErrortext({ message: 'Please fill caption' });
-         return;
-      } else if (!category) {
+      // if (!post_caption) {
+      //    setErrortext({ message: 'Please fill caption' });
+      //    return;
+      // } else 
+      if (!category) {
          setErrortext({ message: 'Please fill category' });
          return;
       } else {
@@ -166,9 +155,8 @@ function Newpost({ navigation }) {
                   ["data:" + photo.type + ";base64," + photo.base64]
                   : ["data:" + video.type + ";base64," + video.base64]
                : null
-         };
-         console.log('dataToSend--==', dataToSend);
-         fetch('http://sista.bdmobilepoint.com/api/post_datas', {
+         }; 
+         fetch('http://sista.andsayem.com/api/post_datas', {
             method: 'POST',
             headers: {
                'Accept': 'application/json',
@@ -179,15 +167,16 @@ function Newpost({ navigation }) {
          })
             .then((response) => response.json())
             .then((responseJson) => {
-               setLoading(false);
-               console.log('responseJson============', responseJson)
+               setLoading(false); 
                if (responseJson.success === true) {
+                  setCaption('');
+                  setPhoto([]);
                   setSuccesstext({ message: 'Post Submit Successful' });
+                  props.navigation.navigate("Home");
                } else {
                }
             })
-            .catch((error) => {
-               console.log('error===', error);
+            .catch((error) => { 
                setLoading(false);
             });
       }
@@ -195,9 +184,7 @@ function Newpost({ navigation }) {
    const handleChoosePhoto = () => {
       ImagePicker.launchImageLibrary({
          mediaType: 'photo',
-         includeBase64: true,
-         // maxHeight: 200,
-         // maxWidth: 200,
+         includeBase64: true, 
       },
          (response) => {
             console.log(response);
@@ -221,25 +208,7 @@ function Newpost({ navigation }) {
       ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
          console.log('launchImageLibrary', response);
          setVideo(response);
-      })
-      // let options = {
-      //   title: 'Select Image',
-      //   noData: true,
-      //   mediaType: 'video',
-      //   includeBase64: true
-      // };
-      // launchImageLibrary(options, (response) => {  
-      //   //console.log(response);
-      //   //setPhoto(response); 
-      //   setVideo(response);  
-      //   if (response) {
-      //     setVideo(response); 
-      //   }
-      // });
-      // launchImageLibrary({ mediaType: 'video', includeBase64: true , noData: true}, (response) => { 
-      //   setVideo(response);  
-      //   console.log('launchImageLibrary',response)
-      // })
+      }) 
    }
    const getCategories = async => {
       api.getData('post_categories')
@@ -255,6 +224,12 @@ function Newpost({ navigation }) {
             console.log(error)
          })
    };
+   const categoryChange = async (data) =>{
+      console.log(data.value);
+      setCategories(data.value) ;
+      setCategoriesName(data.label) ; 
+      refRBSheet.current.close()
+   }
    const ChildViewEliment = () => {
       if (index == 0) {
          return (
@@ -417,11 +392,12 @@ function Newpost({ navigation }) {
          </View>
          <View >
          </View>
-         <View >
-            <View>
-               <Text style={styles.cat_title} itemStyle={{ justifyContent: 'flex-start' }} onPress={() => refRBSheet.current.open()}> Category
-                  <Icon style={{ padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
+         <View  style={{flexDirection:'row' , width : '100%'}} >
+            <View style={{flexDirection:'row' , margin : 10,  width : '100%'}}  >
+               <Text style={
+                  { flexDirection:'row',  color : 'black' ,   width : '92%' }}   onPress={() => refRBSheet.current.open()}> Category : {categoryName}  
                </Text>
+               <Icon style={{ padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
             </View>
             <RBSheet
                ref={refRBSheet}
@@ -429,15 +405,10 @@ function Newpost({ navigation }) {
                closeOnPressMask={true}
                height={250}
                openDuration={500} >
-               <Text style={{ textAlign: 'center', fontWeight: 'bold' }} >Category  </Text>
+               <Text style={{ textAlign: 'center', fontWeight: 'bold' }} >Category   </Text>
                <Text onPress={() => refRBSheet.current.close()} style={{ textAlign: 'right', fontWeight: 'bold' }} >Apply  </Text>
                <View>
-                  <RadioForm
-                     formHorizontal={false}
-                     initial={0}
-                     animation={true}
-                  >
-                     {/* To create radio buttons, loop through your array of options */}
+                  <RadioForm formHorizontal={false} initial={0} animation={true} > 
                      {
                         getCats.map((item, i) => (
                            <RadioButton labelHorizontal={true} key={i} >
@@ -449,19 +420,17 @@ function Newpost({ navigation }) {
                                  borderWidth={2}
                                  buttonOuterColor={'#944CD4'}
                                  buttonInnerColor={'#B461FE'}
-                                 onPress={() => { setCategories(item.value) }}
+                                 onPress={() => { categoryChange(item)}}
                                  buttonSize={18}
                                  buttonOuterSize={25}
                                  buttonStyle={{}}
-                                 buttonWrapStyle={{ marginLeft: 25, paddingBottom: 20 }}
-                              />
+                                 buttonWrapStyle={{ marginLeft: 25, paddingBottom: 20 }} />
                               <RadioButtonLabel
                                  obj={item}
                                  index={i}
                                  labelHorizontal={false}
                                  labelStyle={{ fontSize: 16, color: '#000000', paddingStart: 10, paddingBottom: 10 }}
-                                 labelWrapStyle={{}}
-                              />
+                                 labelWrapStyle={{}} />
                            </RadioButton>
                         ))
                      }
@@ -470,6 +439,7 @@ function Newpost({ navigation }) {
             </RBSheet>
          </View>
          <SegmentedControl selectedIndex={index} values={['Photo', 'Video', 'Text']} onChange={(event) => {
+            setCaption('');
             setIndex(event.nativeEvent.selectedSegmentIndex);
          }} />
          {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}

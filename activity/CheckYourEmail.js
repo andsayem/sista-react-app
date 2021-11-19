@@ -44,7 +44,7 @@ function CheckYourEmail(props ) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.bdmobilepoint.com/api/varify-password-otp', article,{headers})
+      axios.post('http://sista.andsayem.com/api/varify-password-otp', article,{headers})
       .then((response) => {
         setLoading(false); 
         if(response.data.success){

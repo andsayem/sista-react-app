@@ -3,8 +3,7 @@ import React from "react";
 
 import { createDrawerNavigator } from "@react-navigation/drawer"; 
 import TabsScreen from "../screens/TabsScreen";
-import Chats from "../activity/Chats";
-import { View, Text, Image, Button , ImageBackground ,TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
+import Chats from "../activity/Chats"; 
 import {
   shareOnFacebook,
   shareOnTwitter,

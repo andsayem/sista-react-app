@@ -110,7 +110,7 @@ class PostDetails extends Component {
         user_id: 2,
         comm_test: this.state.post_comment,
       };
-      fetch('http://sista.bdmobilepoint.com/api/all_comments', {
+      fetch('http://sista.andsayem.com/api/all_comments', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

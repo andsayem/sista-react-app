@@ -102,7 +102,7 @@ function LoginScreen(props) {
     } else {
       setLoading(false);
     }
-    axios.post('https://sista.bdmobilepoint.com/api/auth/login',
+    axios.post('https://sista.andsayem.com/api/auth/login',
       {
         email: userEmail,
         password: userPassword

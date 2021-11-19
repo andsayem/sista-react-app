@@ -24,7 +24,7 @@ function Chats(props) {
       <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
           <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.show_id,
-                 }) }   rounded   size="medium" source={ItemData.pro_image ? {uri:'https://sista.bdmobilepoint.com/storage/app/public/posts/'+ItemData.pro_image}: ''}/>
+                 }) }   rounded   size="medium" source={ItemData.pro_image ? {uri:'https://sista.andsayem.com/storage/app/public/posts/'+ItemData.pro_image}: ''}/>
           <Text>{ItemData.name}</Text> 
       </View> 
     );
@@ -41,7 +41,7 @@ function Chats(props) {
               }}>
                 <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.show_id,
-                 }) }   size="medium" source={ItemData.pro_image ? {uri:'https://sista.bdmobilepoint.com/storage/app/public/posts/'+ItemData.pro_image}: ''} />
+                 }) }   size="medium" source={ItemData.pro_image ? {uri:'https://sista.andsayem.com/storage/app/public/posts/'+ItemData.pro_image}: ''} />
                 <ListItem.Content >
                   <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.show_id,

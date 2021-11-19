@@ -43,7 +43,7 @@ function ForgotPassword(props) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.bdmobilepoint.com/api/forgot-password', article,{headers})
+      axios.post('http://sista.andsayem.com/api/forgot-password', article,{headers})
         .then((response) => {
           setLoading(false); 
           if(response.data.success){
@@ -63,7 +63,7 @@ function ForgotPassword(props) {
       // axios({
       //   method: 'post',
       //   responseType: 'json',
-      //   url: 'http://sista.bdmobilepoint.com/api/forgot-password',
+      //   url: 'http://sista.andsayem.com/api/forgot-password',
       //   data: {
       //     email: email
       //   }
@@ -81,7 +81,7 @@ function ForgotPassword(props) {
 
 
 
-      // fetch('http://sista.bdmobilepoint.com/api/forgot-password', {
+      // fetch('http://sista.andsayem.com/api/forgot-password', {
       //   method: 'POST', 
       //   headers: {  
       //     'Content-Type':'application/json'

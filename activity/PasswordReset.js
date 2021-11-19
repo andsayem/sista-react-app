@@ -56,7 +56,7 @@ function PasswordReset(props) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.bdmobilepoint.com/api/password-reset', article,{headers})
+      axios.post('http://sista.andsayem.com/api/password-reset', article,{headers})
       .then((response) => {
         setLoading(false); 
         if(response.data.success){
