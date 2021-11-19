@@ -147,13 +147,13 @@ class UserProfile extends Component {
           style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
         >
           <View style={{ width : 110}} >
-            <Avatar source={this.state.userData ? {uri: this.state.userData.pro_image } : require('../img/images/user_1.jpg')}
+            <Avatar  onPress={this.handleChoosePhoto}  source={this.state.userData ? {uri: this.state.userData.pro_image } : require('../img/images/user_1.jpg')}
             rounded size="medium" />
             <Text style={{ color:"#000", fontSize : 16 , fontWeight : '600' , paddingBottom : 17, paddingTop:12}}>{ this.state.userData.name}</Text>  
           </View>  
-          <View style={{paddingLeft:40}}>  
+          {/* <View style={{paddingLeft:40}}>  
             <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
-           </View> 
+           </View>  */}
         </ScrollView> 
         <Text style={{color:'#535353'}}>
            { this.state.userData.description } 
