@@ -187,10 +187,7 @@ class UserProfile extends Component {
                 <Text style={{ color : '#707070'}}> View all </Text>  
               </View> 
               :<View></View> }
-            </View>
-            
-            
-            
+            </View> 
             <View style={{  width:'100%',  marginTop: 10,flexDirection:"row" }}  >               
               <View  style={{ width: "50%",   alignItems : 'flex-start' }} >  
               { this.state.userData.photos ?
@@ -202,11 +199,7 @@ class UserProfile extends Component {
                 : 
               <Text style={styles.noimage}>No image found</Text>
               }
-              </View> 
-
-
-
-
+              </View>  
               <View  style={{  width: "50%", alignItems : 'flex-end'  }}  > 
               { this.state.userData.photos ?
               <Image
@@ -227,11 +220,7 @@ class UserProfile extends Component {
                 <Text style={styles.noimage}>No image found</Text>
                } 
               </View> 
-
-
-            </View>
-
-            
+            </View>            
         </View>
       </SafeAreaView>
     );

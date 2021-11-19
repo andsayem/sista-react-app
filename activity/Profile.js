@@ -1,7 +1,7 @@
 import React, { Component  } from "react";
 import { View, Button ,Text, ScrollView , FlatList , SafeAreaView ,StyleSheet , ToastAndroid, TouchableOpacity, Platform } from "react-native"; 
 import { Avatar, colors, Icon , Image , Header} from "react-native-elements"; 
-import Styles from "../styles";
+import IconEnt from 'react-native-vector-icons/Entypo';
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
@@ -33,7 +33,11 @@ class UserProfile extends Component {
       loading:false,
       token:'',
       parent_id:0,
-      isOnline: null
+      isOnline: null,
+      setLoading:true,
+      pro1:null,
+      pro2:null,
+      pro3:null,
       };  
   } 
 
@@ -57,6 +61,7 @@ class UserProfile extends Component {
       },
       (response) => {
         this.save(response);
+        this.fatchData();
       });  
         
   }
@@ -79,8 +84,11 @@ class UserProfile extends Component {
         setLoading(false);   
         console.log('responseJson============',responseJson)
         if (responseJson.success === true) { 
-          setSuccesstext({message:'Post Submit Successful'});  
+          this.setState({ successtext: 'Profile image change successful' }, function () {
+            this.fatchData();
+          }); 
         } else { 
+          this.setState({ successtext: '' });
         }
       })
       .catch((error) => { 
@@ -95,8 +103,11 @@ class UserProfile extends Component {
     api.getData('user_profile/'+ user_data.id)
     .then(response => {  
       console.log('========');
-      console.log(response.data.data.photos);
+      console.log(response.data.data);
       this.setState({userData:response.data.data}) 
+      this.setState({pro1:response.data.data.photos[0] ? response.data.data.photos[0] : null});
+      this.setState({pro2:response.data.data.photos[1] ? response.data.data.photos[1] : null});
+      this.setState({pro3:response.data.data.photos[2] ? response.data.data.photos[2] : null});
     }) 
     .finally( ()=>this.setState({isLoading: false})) 
   }
@@ -118,115 +129,139 @@ class UserProfile extends Component {
     let {items, isLoading} = this.state;
     return ( <SafeAreaView>
         <Header 
+            placement="left"
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'My Profile', style: { color: '#1E1E1E' , fontSize : 20 } }}
-             
+            onPress ={ ( ) =>  this.props.navigation.toggleDrawer() } ></Icon> }
+            centerComponent={{ text: 'Profile', style: { color: '#1E1E1E' , fontSize : 25 } }}
+            rightComponent={<IconEnt color={colors.black} size={23} name='dots-three-vertical'/>}
             containerStyle={{   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
-        /> 
-      
-        <View  style={{  backgroundColor: "#FEFEFE",   padding : 10 }}  > 
-        {/* <Toast visible={errortext} message={errortext.message} />
-        <Toast visible={successtext} message={successtext.message} /> */}
-        
+        />  
+        <View  style={{  backgroundColor: "#fff", width:"100%", padding:15 }}  > 
+        <Toast visible={this.state.errortext} message={this.state.errortext} />
+        <Toast visible={this.state.successtext} message={this.state.successtext} /> 
+          
         <ScrollView
           horizontal 
           style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
         >
           <View style={{ width : 110}} >
-            <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
-            <Text style={{ fontSize : 16 , fontWeight : '600' , paddingBottom : 17}}>{ this.state.userData.name}</Text>  
+            <Avatar  onPress={this.handleChoosePhoto}  source={this.state.userData ? {uri: this.state.userData.pro_image } : require('../img/images/user_1.jpg')}
+            rounded size="medium" />
+            <Text style={{ color:"#000", fontSize : 16 , fontWeight : '600' , paddingBottom : 17, paddingTop:12}}>{ this.state.userData.name}</Text>  
           </View>  
-          <View> 
+          {/* <View style={{paddingLeft:40}}>  
             <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
-           </View> 
+           </View>  */}
         </ScrollView> 
-        <Text>
-           { this.state.userData.description }
-        </Text>  
-        <ScrollView   horizontal   style={{ marginRight: 0, width:'100%',  marginTop: 10 }}  > 
-              <View  style={{   width: 110,   alignItems : 'center' }} >
-                <Text style={{ color : '#1c81b0'}}> { this.state.userData.total_potos } </Text>
-                <Text style={{ color : '#1c81b0'}}> Photos </Text>
-              </View>
-              <View style={{  width: 110, alignItems : 'center' }} >
-                <Text style={{ color : '#1c81b0'}}> { this.state.userData.total_followers } </Text>
-                <Text style={{ color : '#1c81b0'}}> Followers </Text> 
-              </View>
-              <View  style={{   width: 110, alignItems : 'center'  }}  >
-                <Text style={{ color : '#1c81b0'}}> { this.state.userData.total_post } </Text>
-                <Text style={{ color : '#1c81b0'}}> Posts </Text> 
-              </View>
-            </ScrollView> 
+        <Text style={{color:'#535353'}}>
+           { this.state.userData.description } 
+        </Text> 
+        <View style={{borderTopWidth: 2, borderTopColor: '#F5F5F5', backgroundColor:"#fff", color : '#535353', width:'100%', paddingTop:15, marginTop: 10, flexDirection: "row", }}  >              
+            <View  style={{  width:'33%', alignItems : 'flex-start'  }} >
+              <Text style={{ color : '#535353',paddingBottom:8, paddingLeft:5}}> { this.state.userData.total_potos } </Text>
+              <Text style={{  color : '#535353'}}> Photos </Text>
+            </View>
+            <View style={{  width:'33%',   alignItems : 'center' }} >
+              <Text style={{  color : '#535353',paddingBottom:8, textAlign:"justify"}}> { this.state.userData.total_followers } </Text>
+              <Text style={{ color : '#535353'}}> Followers </Text> 
+            </View>
+            <View  style={{  width:'33%',  alignItems : 'flex-end' }}  >
+              <Text style={{ color : '#535353',paddingBottom:8, paddingRight:5}}> { this.state.userData.total_post } </Text>
+              <Text style={{ color : '#535353'}}> Posts </Text> 
+            </View>
+        </View> 
         </View>
-        <View  style={{  backgroundColor: "#FEFEFE",   padding : 10 , marginTop: 10 , borderRadius: 10  }}  > 
-            <ScrollView   horizontal   style={{  width:'100%',  marginTop: 10 }}  > 
-              <View  style={{   width: 210,   alignItems : 'flex-start' }} > 
-                <Text style={{ color : '#0D0E10'}}> Videos ({ this.state.userData.total_videos}) </Text>
-                
+        <View  style={{  backgroundColor: "#FEFEFE", width:"100%",  padding : 15 , marginTop: 10 , borderRadius: 10  }}  > 
+            <View style={{  width:'100%',  marginTop: 10,flexDirection: "row", }}  > 
+              <View  style={{   width: "50%",   alignItems : 'flex-start' }} > 
+                <Text style={{ color : '#0D0E10'}}> Videos</Text> 
               </View> 
               { this.state.userData.total_videos > 3 ?
-                <View  style={{   width: 110, alignItems : 'flex-end'  }}  > 
+                <View  style={{   width: "50%", alignItems : 'flex-end'  }}  > 
                   <Text style={{ color : '#707070'}}> View all </Text>  
                 </View> 
-                : <View></View>
+                : <View  style={{   width: "50%", alignItems : 'flex-end'  }}  > 
+                <Text style={{ color : '#707070'}}> View all </Text>  
+              </View> 
               }
-            </ScrollView>
+            </View>
             { this.state.userData.total_videos > 3 ?
-            <ScrollView   horizontal   style={{  width:'100%',  marginTop: 10 }}  > 
-              <View  style={{   width: 110,   alignItems : 'flex-start' }} > 
+            <View style={{  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
+              <View  style={{ width: "50%", alignItems : 'flex-start' }} > 
                 <Image
                 source={require('../img/images/v1.png')}
-                style={{ height: 100, width: 150 , borderRadius: 10 }}
+                style={{ height: 100, width: 170 , borderRadius: 10 }}
               />
               </View> 
-              <View  style={{  width: 220  , alignItems : 'flex-end'  }}  > 
+              <View  style={{ width: "50%", alignItems : 'flex-end'  }}  > 
                 <Image
                 source={require('../img/images/v2.png')}
-                style={{ height: 100, width: 150 ,  borderRadius: 10 }}
+                style={{ height: 100, width: 170 ,  borderRadius: 10 }}
               />
               </View>
-            </ScrollView>
-            : <View></View>
+            </View>
+            : 
+            <View style={{  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
+                <View  style={{ width: "50%", alignItems : 'flex-start' }} > 
+                  <Image
+                  source={require('../img/images/v1.png')}
+                  style={{ height: 100, width: 170 , borderRadius: 10 }}
+                />
+                </View> 
+                <View  style={{ width: "50%", alignItems : 'flex-end'  }}  > 
+                  <Image
+                  source={require('../img/images/v2.png')}
+                  style={{ height: 100, width: 170 ,  borderRadius: 10 }}
+                />
+                </View>
+            </View>
              }
 
-            <ScrollView   horizontal   style={{  width:'100%',  marginTop: 20 }}  > 
-              <View  style={{   width: 210,   alignItems : 'flex-start' }} > 
-                <Text style={{ color : '#0D0E10'}}> Photos ( { this.state.userData.total_potos }) </Text>
-                
+            <View style={{ width:'100%',  marginTop: 20,flexDirection:"row" }}  > 
+              <View  style={{ width: "50%",   alignItems : 'flex-start' }} > 
+                <Text style={{ color : '#0D0E10'}}> Photos </Text>                
               </View> 
               { this.state.userData.total_potos > 3 ?
-              <View  style={{   width: 110, alignItems : 'flex-end'  }}  > 
+              <View  style={{ width: "50%", alignItems : 'flex-end'  }}  > 
                 <Text style={{ color : '#707070'}}> View all </Text>  
               </View> 
               :<View></View> }
-            </ScrollView>
-            <ScrollView   horizontal   style={{  width:'100%',  marginTop: 10 }}  > 
-              
-              <View  style={{   width: 110,   alignItems : 'flex-start' }} >  
+            </View> 
+            <View style={{  width:'100%',  marginTop: 10,flexDirection:"row" }}  >               
+              <View  style={{ width: "50%",   alignItems : 'flex-start' }} >  
+              { this.state.userData.photos ?
                 <Image
-                onPress={() => this.onPressPostDetails(this.state.userData.photos[0].id)}
-                  source={this.state.userData.photos ? {uri: this.state.userData.photos[0].file } : null} 
-                  style={{ height: 150, width: 150 , borderRadius: 10 }}
+                onPress={() =>  { this.state.pro1 ? this.onPressPostDetails(this.state.pro1.id) : ''}}
+                  source={this.state.pro1 ? {uri: this.state.pro1.file } : null} 
+                  style={{ height: 150, width: 170 , borderRadius: 10 }}
                 />
+                : 
+              <Text style={styles.noimage}>No image found</Text>
+              }
+              </View>  
+              <View  style={{  width: "50%", alignItems : 'flex-end'  }}  > 
+              { this.state.userData.photos ?
+              <Image
+               onPress={() => { this.state.pro2 ? this.onPressPostDetails(this.state.pro2.id) : ''}}
+                 source={this.state.pro2 ? {uri: this.state.pro2.file } : null} 
+                style={{ height: 72, width: 165 ,  borderRadius: 10 }}
+              />
+              : 
+              <Text style={styles.noimage}>No image found</Text>
+              } 
+              { this.state.userData.photos ?
+                <Image
+                onPress={() =>  { this.state.pro3 ? this.onPressPostDetails(this.state.pro3.id) : ''}}
+                  source={this.state.pro3 ? {uri: this.state.pro3.file } : null} 
+                 style={{ height: 72, width: 165 , marginTop :10 ,  borderRadius: 10 }}
+               /> 
+                : 
+                <Text style={styles.noimage}>No image found</Text>
+               } 
               </View> 
-              <View  style={{  width: 220  , alignItems : 'flex-end'  }}  > 
-               
-              <Image
-               onPress={() => this.onPressPostDetails(this.state.userData.photos[1].id)}
-                 source={this.state.userData.photos ? {uri: this.state.userData.photos[1].file } : null} 
-                style={{ height: 65, width: 150 , marginTop :15 ,  borderRadius: 10 }}
-              />
-              <Image
-               onPress={() => this.onPressPostDetails(this.state.userData.photos[2].id)}
-                 source={this.state.userData.photos ? {uri: this.state.userData.photos[2].file } : null} 
-                style={{ height: 65, width: 150 , marginTop :15 ,  borderRadius: 10 }}
-              />
-              </View>
-            
-            </ScrollView>
+            </View>            
         </View>
       </SafeAreaView>
     );
