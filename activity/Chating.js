@@ -77,7 +77,7 @@ const TOKEN = 'token';
   //   console.log('connected!');
   // });
   
-  //   const socket = SocketIOClient("https://sista.bdmobilepoint.com/api/user_conversations?receiver_id="+this.props.route.params.receiver_id, {
+  //   const socket = SocketIOClient("https://sista.andsayem.com/api/user_conversations?receiver_id="+this.props.route.params.receiver_id, {
   //       jsonp: true,
   //     });
   //     socket.on("connect", () => {
@@ -125,7 +125,7 @@ const TOKEN = 'token';
     this.setState({sending:true}); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.send_message);  
-    axios.post('https://sista.bdmobilepoint.com/api/new_conversation', formData,
+    axios.post('https://sista.andsayem.com/api/new_conversation', formData,
     {
       headers: { 
         'Accept': 'application/json',  

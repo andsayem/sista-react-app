@@ -65,7 +65,7 @@ class UserProfile extends Component {
       files_base: "data:"+response.type+";base64,"+ response.base64    
     };  
     console.log('dataToSend--==',dataToSend);
-    fetch('http://sista.bdmobilepoint.com/api/change-profile-image', {
+    fetch('http://sista.andsayem.com/api/change-profile-image', {
       method: 'POST', 
       headers: {  
         'Accept': 'application/json',  

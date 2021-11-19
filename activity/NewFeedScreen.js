@@ -83,7 +83,7 @@ export default class NewFeedScreen extends React.Component {
             formData.append("font_size", 12);
             formData.append("post_type", index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3);    
             //var base_url = "https://yourdomain.com/";
-            fetch('http://sista.bdmobilepoint.com/api/post_datas', {
+            fetch('http://sista.andsayem.com/api/post_datas', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'multipart/form-data',

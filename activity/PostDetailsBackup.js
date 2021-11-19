@@ -76,7 +76,7 @@ function PostDetails({navigation,route}) {
       comm_test: post_comment,       
     };  
     console.log('dataToSend--==',dataToSend);
-    fetch('http://sista.bdmobilepoint.com/api/all_comments', {
+    fetch('http://sista.andsayem.com/api/all_comments', {
       method: 'POST', 
       headers: {  
         'Accept': 'application/json',  
