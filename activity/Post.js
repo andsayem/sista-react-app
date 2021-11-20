@@ -10,6 +10,10 @@ import IconIonic from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
+import {
+  shareOnFacebook,
+  shareOnTwitter,
+} from 'react-native-social-share'; 
 const image = { uri: "https://reactjs.org/logo-og.png" };
  
 class Post extends  React.Component{   
@@ -25,7 +29,21 @@ class Post extends  React.Component{
       const { followings: oldFollowed, follow: oldFollowCount} = this.props;
       // If "liked" or "likeCount" is different, then update                          
       return liked !== oldLiked || like !== oldLikeCount || followings !== oldFollowed || follow !== oldFollowCount                       
-    }                                                                                
+    }        
+     facebookShare(item){ 
+       console.log(item);
+      shareOnFacebook({
+          'text':item.caption,
+          'link':'https://sista.andsayem.com/',
+          'imagelink':'http://www.andsayem.com/img/personal_2.jpg',
+          //or use image
+          'image': 'artboost-icon',
+        },
+        (results) => {
+          console.log(results);
+        }
+      );
+    }                                                                         
   
     render() { 
       //console.log('Post = props',this.props.item.catjoin.cat_name);                 
@@ -62,7 +80,7 @@ class Post extends  React.Component{
             
             <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  
             <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
-              <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
+              <Text numberOfLines={5} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
             </ImageBackground>  
             </View> 
             :
@@ -93,11 +111,12 @@ class Post extends  React.Component{
                   <Text style={{ paddingLeft: 10, color:"#929292" }}>{ this.props.like } </Text>
                 </View>                 
                 <View style={{ flexDirection: "row", left:0,  width: '25%' }}>
-                  <Text style={{alignSelf:'flex-start'}} ><IconOct name="comment" size={25} color="#B461FE" /> </Text>
+                  <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{alignSelf:'flex-start'}} >
+                    <IconOct name="comment" size={25} color="#B461FE" /> </Text>
                   <Text style={{ paddingLeft: 12, color:"#929292" }}>{this.props.item.comment }</Text>
                 </View>
                 <View style={{ flexDirection: "row", width: '25%' }}>
-                  <IconFea name="share" size={23} color="#B461FE" />
+                  <IconFea onPress={() => this.facebookShare(this.props.item)}  name="share" size={23} color="#B461FE" />
                 </View>
                 <View style={{ width: '15%' }}>
                   <Text onPress={() => this.RBSheet.open()}  style={{ alignSelf: 'flex-end' }}> 
@@ -123,7 +142,7 @@ class Post extends  React.Component{
                       <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
                       <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconMat  name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
                       <Text style={Styles.share_item}> <IconIonic  name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
-                      <Text style={Styles.share_item}> <IconAnt  name="sharealt" size={16} color="#000000" /> Share To....</Text>
+                      <Text onPress={() => this.facebookShare(this.props.item)} style={Styles.share_item}> <IconAnt  name="sharealt" size={16} color="#000000" /> Share To....</Text>
                       <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
                     </View>
                     </RBSheet>
