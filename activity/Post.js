@@ -118,7 +118,7 @@ class Post extends  React.Component{
                 <View style={{ flexDirection: "row", width: '25%' }}>
                   <IconFea onPress={() => this.facebookShare(this.props.item)}  name="share" size={23} color="#B461FE" />
                 </View>
-                <View style={{ width: '15%' }}>
+                <View style={{ width: '27%' }}>
                   <Text onPress={() => this.RBSheet.open()}  style={{ alignSelf: 'flex-end' }}> 
                     <Text style={{ alignSelf: 'flex-end' }}>
                       <IconEnt name="dots-three-vertical" size={20} color="#FF5D8F" />
