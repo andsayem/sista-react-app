@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ListItem, Avatar, Icon } from 'react-native-elements';
 import IconFnt from 'react-native-vector-icons/FontAwesome';
 import IconAnt from 'react-native-vector-icons/AntDesign';
+import moment from 'moment';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 
@@ -13,11 +14,12 @@ class Comment extends Component {
     this.state = {
       items: [],
       isLoading: false,
+      liked:false
     };
   }
   render() {
     //let {items, isLoading} = this.state;
-    console.log('Post = props', this.props.item);
+    //console.log('Post = props', this.props.item);
     //console.log('Post = childs',JSON.stringify(this.props.item.reply));
     return (
       <View style={styles.main_div}>
@@ -36,7 +38,10 @@ class Comment extends Component {
                 <View style={{ width: 70 }} >
                   <TouchableOpacity onPress={() => this.props.onPressCommentLike(this.props.item.id)}
                     activeOpacity={0.5} >
-                    <Text style={{ color: '#535353' }}>  <IconAnt name="like1" size={20} color="#5C6BC0" /> Like </Text>
+                      {this.props.item.liked ? 
+                          <Text style={{ color: '#535353' }}> <IconAnt name="like1" size={20} color="#5C6BC0" /> Like </Text> 
+                          : <Text style={{ color: '#535353' }}> <IconAnt name="like2" size={20} color="#535353" /> Like </Text>
+                          } 
                   </TouchableOpacity>
                 </View>
                 <View style={{ width: 120 }}>
@@ -47,7 +52,7 @@ class Comment extends Component {
                 </View>
                 <View style={{ width: 70 }}>
                   <Text style={{ alignSelf: 'flex-end' }}>
-                    54m
+                  {moment(this.props.item.created_at).fromNow('hh:mm A') }
                   </Text>
                 </View>
               </ScrollView>
@@ -66,9 +71,13 @@ class Comment extends Component {
                     style={{ marginTop: -10, marginLeft: 80 }}
                   >
                     <View style={{ width: 70 }}>
-                      <TouchableOpacity onPress={() => this.props.onPressCommentLike(reply.parent_id)}
+                      <TouchableOpacity onPress={() => this.props.onPressCommentLike(reply.id)}
                         activeOpacity={0.5} >
-                        <Text style={{ color: '#535353' }}> <IconAnt name="like2" size={20} color="#535353" /> Like </Text>
+                          {reply.liked ? 
+                          <Text style={{ color: '#535353' }}> <IconAnt name="like1" size={20} color="#5C6BC0" /> Like </Text> 
+                          : <Text style={{ color: '#535353' }}> <IconAnt name="like2" size={20} color="#535353" /> Like </Text>
+                          }
+                        
                       </TouchableOpacity>
                     </View>
                     <View style={{ width: 105 }}>
@@ -79,7 +88,7 @@ class Comment extends Component {
                     </View>
                     <View style={{ width: 20 }}>
                       <Text style={{ alignSelf: 'flex-end' }}>
-                        1h
+                      {moment(reply.created_at).fromNow('hh:mm A') }
                       </Text>
                     </View>
                   </ScrollView>

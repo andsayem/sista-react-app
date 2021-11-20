@@ -1,5 +1,5 @@
 import React, { Component, useEffect , useRef } from 'react';
-import { StyleSheet, Dimensions, FlatList, Text, View, SafeAreaView, ActivityIndicator, Image, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import { StyleSheet, Dimensions, FlatList, Text, View, SafeAreaView, ActivityIndicator, ImageBackground, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import api from '../api';
 import { colors, Icon, Header } from 'react-native-elements';
 import Comment from './Comment';
@@ -41,6 +41,8 @@ class PostDetails extends Component {
     this.state = {
       items: [],
       post_items: [],
+      like:'',
+      liked:false,
       isLoading: false,
       errortext: '',
       successtext: '',
@@ -152,9 +154,6 @@ class PostDetails extends Component {
     }
   }
 
-  handleLikeComment = (id) => {
-    api.getData('commentlike/' + id)
-  }
   handleCommentReply = (id, name) => {
     this.setState({ parent_id: id });
     this.setState({ reply_to_name: name });
@@ -187,23 +186,7 @@ class PostDetails extends Component {
   handleToggleDrawer = () => {
     this.props.navigation.navigate.toggleDrawer();
   }
-
-  handleLikePost = index => {
-    let post = this.state.items[index]
-    const { liked, like } = post
-    const newPost = {
-      ...post,
-      liked: !liked,
-      like: liked ? post.like - 1 : post.like + 1
-    }
-    api.getData('postlike/' + post.id)
-    this.setState({
-      items: {
-        ...this.state.items,
-        [index]: newPost
-      }
-    })
-  }
+ 
   handleFollowPost = index => {
     let post = this.state.items[index]
     console.log('follow', post.user_id);
@@ -216,31 +199,76 @@ class PostDetails extends Component {
     this.setState({ parent_id: 0 });
     this.setState({ reply_to_name: '' });
   }
+  handleLikeComment = (index) => {
+    // let comment = this.state.items[index] 
+    // const { liked, like } = comment 
+    // const newPost = {
+    //   ...comment,
+    //   liked: !liked,
+    //   like: liked ? comment.like - 1 : comment.like + 1
+    // }  
+    console.log('===========================',index)
+    api.getData('commentlike/'+index)
+    .catch((error) => {
+      console.log('error===', error); 
+    });
+    // this.setState({
+    //   items: {
+    //     ...this.state.items,
+    //     [index]: newPost
+    //   }
+    // }) 
+    this.fatchData();
+  }
+  handleLikePost = (id) => { 
+    api.getData('postlike/' + id) 
+    this.fatchData();
+    // api.getData('singelpost/' + id)
+    //   .then(response => { 
+    //     this.setState({ post_items: response.data.data }) 
+    //   }) 
+  } 
   render() {
     let { items, isLoading } = this.state;
     //console.log('commmmeee======',this.state.items); 
-    console.log('commmmeee======',this.state.post_items.like); 
-    console.log('commmmeee======',this.state.post_items.comment); 
+    //console.log('commmmeee======',this.state.post_items.like); 
+    console.log('commmmeee======',this.state.items); 
+    //console.log('post_id',this.state.post_items); 
     //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return ( 
       <SafeAreaView style={styles.container}>  
       <ScrollView>
         {this.state.post_items ?
           <View style={styles.header}>
-            <View style={{ borderRadius: 10 }}>
+            <View style={{ borderRadius: 10 }}> 
+            {this.state.post_items.post_type == 3 ?
+             
+             <AutoHeightImage
+                width={win}
+                source={require("../img/text/1.jpg")}
+              />  
+            : 
               <AutoHeightImage
                 width={win}
                 source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
-              />
-
-              <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+              />  
+            } 
+            <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+              
             </View>
 
             {/* <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
               style={{ width: '100%', borderRadius: 10, height: 130 }} /> */} 
               <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
                 <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>
-                  <Text ><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
+                  <TouchableOpacity onPress={() => this.handleLikePost(this.state.post_items.id)}    
+                  activeOpacity={0.5} >  
+                  {this.state.post_items.liked ?
+                    <Text><IconAnt name="heart" size={23} color="#FF5D8F" /> </Text>
+                    : 
+                    <Text><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
+                  }                    
+                  </TouchableOpacity>  
                   <Text style={{ paddingLeft: 10 }}>{this.state.post_items.like}</Text>
                 </View>
                 <View style={{ flexDirection: "row", width: '28%' }}>
