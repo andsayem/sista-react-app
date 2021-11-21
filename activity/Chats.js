@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-elements'; 
+import { ListItem, Avatar , SearchBar , colors , Icon , Header  } from 'react-native-elements'; 
 import Styles from "../styles"; 
 import api from '../api';
 function Chats(props) {
@@ -73,6 +73,14 @@ function Chats(props) {
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
         />
+         <SearchBar 
+                  lightTheme
+                  //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
+                  //  iconStyle={{backgroundColor:'#fff'}}
+                  //  inputStyle={{backgroundColor: '#ffffff'}}
+                  showLoading={false}
+                  clearIcon={true} 
+                  placeholder="Type Here..."   />
 
        
          <ScrollView key={'cvu'.toString()} horizontal  
