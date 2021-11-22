@@ -10,6 +10,7 @@ import IconIonic from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
+import ReadMore from '@fawazahmed/react-native-read-more';
 import {
   shareOnFacebook,
   shareOnTwitter,
@@ -85,10 +86,10 @@ class Post extends  React.Component{
             </View> 
             :
             <View style={{ width: '100%', borderRadius: 10, paddingLeft:20, paddingRight:20 }} >
-               <Text numberOfLines={2} ellipsizeMode='tail'   
-                style={{  fontFamily: "RobotoRegular", fontSize: 15, paddingBottom :9 ,  color: "#0D0E10",  }} 
-                note onPress={() => this.props.onPressPostDetails(this.props.item.id)}>{this.props.item.caption}
-              </Text> 
+                <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{  fontFamily: "RobotoRegular", fontSize: 15, paddingBottom :9 ,  color: "#0D0E10",  }}>
+                  {this.props.item.caption}
+                </ReadMore>
+              
                  <View> 
                  <TouchableOpacity onPress={() => this.props.onPressPostDetails(this.props.item.id)}>
                   <Image   
