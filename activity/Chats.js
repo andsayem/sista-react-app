@@ -7,6 +7,8 @@ import Styles from "../styles";
 import api from '../api';
 function Chats(props) {
     const [getUsers, setUsers] = useState([]); 
+    const [getSearchusers, setSearchusers] = useState([]); 
+    const [getSearchkey, setSearchkey] = useState(''); 
     const [selectedId, setSelectedId] = useState(null);
     const getUser = () =>{ 
       api.getData('conversation_list')
@@ -18,7 +20,21 @@ function Chats(props) {
             //console.log(error)
             //pro_image
         }) 
-    }
+    } 
+    const updateSearch =  async (search) => {    
+      setSearchkey(search );   
+      console.log('res.data.data=====');
+     
+      api.getData('users_search/'+search)
+      .then((res)=>{
+        console.log(res.data.data);
+        setSearchusers( res.data.data);   
+      })
+      .catch((error) => {
+          //console.log(error)
+          //pro_image
+      }) 
+    };
     useEffect(() => {getUser()},[]); 
     const Allusers = ({ ItemData }) => (
       <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
@@ -55,9 +71,36 @@ function Chats(props) {
               </ListItem>
         </View>  
     );
+    const SearchData = ({ ItemData }) => (
+      <View  >
+          <ListItem key={ItemData.id.toString()} style={{
+                backgroundColor: "#FEFEFE",
+                width: '100%',
+              }}>
+                <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.id,
+                 }) }   size="medium" source={ItemData.pro_image ? {uri:'https://sista.andsayem.com/storage/app/public/posts/'+ItemData.pro_image}: ''} />
+                <ListItem.Content >
+                  <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.id,
+                 }) }  onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.id,
+                 }) } >{ItemData.name}  </ListItem.Title>
+                  <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating',{ 
+                  receiver_id: ItemData.id,
+                 }) } >{ ItemData.email}</ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+        </View>  
+    );
     const renderConvUsers = ({item}) =>{
       return (
         <Convusers ItemData={item} />
+      );
+    }
+    const renderSearchUsers = ({item}) =>{
+      return (
+        <SearchData ItemData={item} />
       );
     }
 
@@ -77,12 +120,17 @@ function Chats(props) {
                   lightTheme
                   //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
                   //  iconStyle={{backgroundColor:'#fff'}}
-                  //  inputStyle={{backgroundColor: '#ffffff'}}
-                  showLoading={false}
-                  clearIcon={true} 
+                  //  inputStyle={{backgroundColor: '#ffffff'}} 
+                 
+                  value={getSearchkey}
+                  onChangeText={(getSearchkey) => { updateSearch(getSearchkey)}}
                   placeholder="Type Here..."   />
 
-       
+   
+      
+        { getSearchkey =='' ? 
+        <View>
+              
          <ScrollView key={'cvu'.toString()} horizontal  
          style={{  backgroundColor: '#fff',  marginLeft : 0 }}  > 
            <FlatList horizontal
@@ -92,28 +140,37 @@ function Chats(props) {
             extraData={selectedId}
           />   
         </ScrollView>
-      <View  style={{  backgroundColor: '#fff',  paddingTop : 0, marginTop : 10  }}  >
+          <View  style={{  backgroundColor: '#fff',  paddingTop : 0, marginTop : 10  }}  > 
      
-      <View >
-        <ListItem key={'nm'.toString()} style={{
-                backgroundColor: "#FEFEFE",
-                width: '100%',
-              }}>
-                <Avatar rounded   size="medium" source={require('../img/images/massage.png')} />
-                <ListItem.Content>
-                  <ListItem.Title> New Message Requests </ListItem.Title>
-                  <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem>
-        </View> 
+              <View >
+                <ListItem key={'nm'.toString()} style={{
+                  backgroundColor: "#FEFEFE",
+                  width: '100%',
+                  }}>
+                  <Avatar rounded   size="medium" source={require('../img/images/massage.png')} />
+                  <ListItem.Content>
+                    <ListItem.Title> New Message Requests </ListItem.Title>
+                    <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
+                  </ListItem.Content>
+                </ListItem>
+            </View> 
+          <FlatList 
+              data={getUsers} 
+              keyExtractor= {(item , i) => item.sender_id.toString()} 
+              renderItem={renderConvUsers} 
+              extraData={selectedId}
+            />
+          </View>
+        </View>
+          :
         <FlatList 
-            data={getUsers} 
-            keyExtractor= {(item , i) => item.sender_id.toString()} 
-            renderItem={renderConvUsers} 
+            data={getSearchusers} 
+            keyExtractor= {(item , i) => item.id.toString()} 
+            renderItem={renderSearchUsers} 
             extraData={selectedId}
           />
- 
-      </View>
+        }
+  
     </ScrollView>
       
     );
