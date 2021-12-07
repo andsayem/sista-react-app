@@ -38,7 +38,7 @@ function Newpost(props) {
 
    const [post_caption, setCaption] = useState('');
    const [category, setCategories] = useState(null);
-   const [categoryName , setCategoriesName] = useState(null);
+   const [categoryName, setCategoriesName] = useState(null);
    const [loading, setLoading] = useState(false);
    const [errortext, setErrortext] = useState(false);
    const [successText, setSuccesstext] = useState(false);
@@ -82,14 +82,14 @@ function Newpost(props) {
          if (video) {
             console.log('video=====', video);
             formData.append('files_base', {
-              name: video.fileName,
-              uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
-              type: 'video/mov',
+               name: video.fileName,
+               uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
+               type: 'video/mov',
             });
             formData.append("files_base", {
-              name: "name.mp4",
-                uri: video.uri,
-                type: 'video/mp4'
+               name: "name.mp4",
+               uri: video.uri,
+               type: 'video/mp4'
             });
          }
          formData.append("user_id", 1);
@@ -99,21 +99,21 @@ function Newpost(props) {
          formData.append("font_style", 'small');
          formData.append("font_size", 12);
          formData.append("post_type", index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3);
-         if (photo) { 
+         if (photo) {
             formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
          }
-         
+
          fetch('https://sista.andsayem.com/api/video-upload', {
             method: 'POST',
-            headers: { 
+            headers: {
                'Content-Type': 'multipart/form-data',
                Authorization: "Bearer " + await AsyncStorage.getItem(TOKEN),
             },
             body: formData
          })
-            .then((response) => { 
+            .then((response) => {
             }).then((responseJson) => {
-               setLoading(false); 
+               setLoading(false);
                console.log('dataToSend ======', responseJson)
                if (responseJson.success === true) {
                   setSuccesstext({ message: 'Post Submit Successful' });
@@ -155,7 +155,7 @@ function Newpost(props) {
                   ["data:" + photo.type + ";base64," + photo.base64]
                   : ["data:" + video.type + ";base64," + video.base64]
                : null
-         }; 
+         };
          fetch('http://sista.andsayem.com/api/post_datas', {
             method: 'POST',
             headers: {
@@ -167,7 +167,7 @@ function Newpost(props) {
          })
             .then((response) => response.json())
             .then((responseJson) => {
-               setLoading(false); 
+               setLoading(false);
                if (responseJson.success === true) {
                   setCaption('');
                   setPhoto([]);
@@ -176,7 +176,7 @@ function Newpost(props) {
                } else {
                }
             })
-            .catch((error) => { 
+            .catch((error) => {
                setLoading(false);
             });
       }
@@ -184,7 +184,7 @@ function Newpost(props) {
    const handleChoosePhoto = () => {
       ImagePicker.launchImageLibrary({
          mediaType: 'photo',
-         includeBase64: true, 
+         includeBase64: true,
       },
          (response) => {
             console.log(response);
@@ -208,7 +208,7 @@ function Newpost(props) {
       ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
          console.log('launchImageLibrary', response);
          setVideo(response);
-      }) 
+      })
    }
    const getCategories = async => {
       api.getData('post_categories')
@@ -224,10 +224,10 @@ function Newpost(props) {
             console.log(error)
          })
    };
-   const categoryChange = async (data) =>{
+   const categoryChange = async (data) => {
       console.log(data.value);
-      setCategories(data.value) ;
-      setCategoriesName(data.label) ; 
+      setCategories(data.value);
+      setCategoriesName(data.label);
       refRBSheet.current.close()
    }
    const ChildViewEliment = () => {
@@ -285,17 +285,17 @@ function Newpost(props) {
                            onValueChange={setSelection}
                         />
                      </ImageBackground> */}
-                     <ImageBackground 
-                        source={require("../img/text/1.jpg")} 
-                        style={ styles.backgroundImage }
-                        >
+                     <ImageBackground
+                        source={require("../img/text/1.jpg")}
+                        style={styles.backgroundImage}
+                     >
                         <Text
                            style={styles.checkbox}>
-                           <CheckBox 
-                              style={{ padding :50  }}
+                           <CheckBox
+                              style={{ padding: 50 }}
                               value={isSelected}
-                              onValueChange={setSelection}  
-                              />
+                              onValueChange={setSelection}
+                           />
                         </Text>
                      </ImageBackground>
                      {/* <Image   source={require("../img/text/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  />  */}
@@ -392,10 +392,10 @@ function Newpost(props) {
          </View>
          <View >
          </View>
-         <View  style={{flexDirection:'row' , width : '100%'}} >
-            <View style={{flexDirection:'row' , margin : 10,  width : '100%'}}  >
+         <View style={{ flexDirection: 'row', width: '100%' }} >
+            <View style={{ flexDirection: 'row', margin: 10, width: '100%' }}  >
                <Text style={
-                  { flexDirection:'row',  color : 'black' ,   width : '92%' }}   onPress={() => refRBSheet.current.open()}> Category : {categoryName}  
+                  { flexDirection: 'row', color: 'black', width: '92%' }} onPress={() => refRBSheet.current.open()}> Category : {categoryName}
                </Text>
                <Icon style={{ padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
             </View>
@@ -408,7 +408,7 @@ function Newpost(props) {
                <Text style={{ textAlign: 'center', fontWeight: 'bold' }} >Category   </Text>
                <Text onPress={() => refRBSheet.current.close()} style={{ textAlign: 'right', fontWeight: 'bold' }} >Apply  </Text>
                <View>
-                  <RadioForm formHorizontal={false} initial={0} animation={true} > 
+                  <RadioForm formHorizontal={false} initial={0} animation={true} >
                      {
                         getCats.map((item, i) => (
                            <RadioButton labelHorizontal={true} key={i} >
@@ -418,15 +418,16 @@ function Newpost(props) {
                                  index={i}
                                  isSelected={category === item.value}
                                  borderWidth={2}
+                                 onPress={() => { categoryChange(item) }}
                                  buttonOuterColor={'#944CD4'}
-                                 buttonInnerColor={'#B461FE'}
-                                 onPress={() => { categoryChange(item)}}
+                                 buttonInnerColor={'#B461FE'} 
                                  buttonSize={18}
                                  buttonOuterSize={25}
                                  buttonStyle={{}}
                                  buttonWrapStyle={{ marginLeft: 25, paddingBottom: 20 }} />
                               <RadioButtonLabel
                                  obj={item}
+                                 onPress={() => { categoryChange(item) }}
                                  index={i}
                                  labelHorizontal={false}
                                  labelStyle={{ fontSize: 16, color: '#000000', paddingStart: 10, paddingBottom: 10 }}
@@ -479,28 +480,28 @@ const styles = StyleSheet.create({
       // width : '30%'
       justifyContent: "center"
    },
-   backgroundImage : {
+   backgroundImage: {
       height: 100,
       width: 100,
-      position: 'relative', 
+      position: 'relative',
       top: 0,
-      left: 0 ,
-      marginRight :5
+      left: 0,
+      marginRight: 5
    },
-   checked_bg_image : {
+   checked_bg_image: {
       flex: 1,
-      width : '30%',
+      width: '30%',
       justifyContent: "center"
    },
-   checkbox : {
+   checkbox: {
       fontWeight: 'bold',
       color: 'white',
       position: 'absolute',
-      marginVertical : 32,
-      marginHorizontal : 32,
-      borderRadius : 15,
-      paddingEnd :  5 
-      
+      marginVertical: 32,
+      marginHorizontal: 32,
+      borderRadius: 15,
+      paddingEnd: 5
+
    },
    text_bg: {
       color: "black",
