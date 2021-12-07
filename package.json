@@ -48,6 +48,7 @@
     "react-native-paper": "^4.9.2",
     "react-native-radio-buttons-group": "^2.2.4",
     "react-native-raw-bottom-sheet": "^2.2.0",
+    "react-native-read-more": "^1.0.0",
     "react-native-reanimated": "^1.13.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^2.18.1",
