@@ -11,6 +11,10 @@ import moment from 'moment';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
 import ReadMore from '@fawazahmed/react-native-read-more';
+import AsyncStorage from '@react-native-community/async-storage';
+const STORAGE_KEY = 'save_user';
+const TOKEN = 'token';
+import api from '../api';
 import {
   shareOnFacebook,
   shareOnTwitter,
@@ -21,7 +25,10 @@ class Post extends  React.Component{
   
     constructor(props) {
       super(props);  
-    }                          
+      this.state = { 
+        userData:[],
+        }; 
+    }                      
     shouldComponentUpdate(nextProps, nextState) {                                     
       const { liked, like } = nextProps                                          
       const { liked: oldLiked, like: oldLikeCount } = this.props 
@@ -44,9 +51,10 @@ class Post extends  React.Component{
           console.log(results);
         }
       );
-    }                                                                         
+    } 
+    
   
-    render() { 
+    render() {                
       //console.log('Post = props',this.props.item.catjoin.cat_name);                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
@@ -66,17 +74,20 @@ class Post extends  React.Component{
                   </ListItem.Content>  
                   <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}    
                   activeOpacity={0.5} >   
-                  <View style={{borderRadius:15}}>
-                  {this.props.item.followings == 1?
-                    <Text style={styles.following}>+Following </Text>
+                  <View style={{borderRadius:15}}> 
+                  {this.props.user.id !=this.props.item.userjoin.id ? 
+                    this.props.item.followings == 1?
+                    <Text style={styles.following}>+Following  </Text>
                     : 
                     <Text style={styles.follow}>+Follow </Text> 
-                  } 
+                    :
+                    <Text ></Text> 
+                  }
                   </View>
                   </TouchableOpacity>    
               </ListItem>    
             </View> 
-           
+                       
             {this.props.item.post_type == 3 ?
             
             <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  

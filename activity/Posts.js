@@ -7,22 +7,28 @@ import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post';  
 import Styles from "../styles"; 
+import AsyncStorage from '@react-native-community/async-storage';
+const STORAGE_KEY = 'save_user'; 
+const TOKEN = 'token';
 class Posts extends Component {
   constructor(props) {
     super(props);
     this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
+    this.fatchUserData = this.fatchUserData.bind(this);
     this.state = { 
       items:[], 
       isLoading: false,
       cat_id:'',
       cat_active:'',
+      userData:[],
       };  
   }  
   componentDidMount(){    
-    // StatusBar.setBarStyle('light-content',true);
+    // statusBar.setBarStyle('light-content',true);
     // StatusBar.setBackgroundColor("red");
     this.fatchData(); 
+    this.fatchUserData();
   }
   fatchData = async () => { 
     this.setState({isLoading:true})    
@@ -48,8 +54,15 @@ class Posts extends Component {
       this.fatchData();
     })
   }   
+
+  fatchUserData = async() => {   
+    const userData = await AsyncStorage.getItem(STORAGE_KEY); 
+    let user_data = JSON.parse(userData)  
+    this.setState({userData:user_data}) 
+    console.log('itemitemitemitemitemitemitemitemitemitem',this.state.userData); 
+  } 
   renderRow = ({ item , index }) => { 
-    //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    
     const { liked, like, props } = item
     return (
       <View style={{padding:5}}>
@@ -58,6 +71,7 @@ class Posts extends Component {
         index={index.toString()}
         liked={liked}
         like={like}  
+        user={this.state.userData}
         onPressLike={this.handleLikePost}
         onPressFollow={this.handleFollowPost}
         onPressPostDetails={this.handlePostDetails}
@@ -111,6 +125,7 @@ class Posts extends Component {
   componentWillUnmount() {   
     this.handlePostCates(); 
     this.fatchData();
+    this.fatchUserData();
     console.log('componentWillUnmount')    
   }
   render(){
