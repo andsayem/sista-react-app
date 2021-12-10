@@ -1,5 +1,5 @@
 import React, { Component, useEffect , useRef } from 'react';
-import { StyleSheet, Dimensions, FlatList, Text, View, SafeAreaView, ActivityIndicator, ImageBackground, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import { StyleSheet, Dimensions, FlatList,  Text, View, SafeAreaView, ActivityIndicator, ImageBackground, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import api from '../api';
 import { colors, Icon, Header } from 'react-native-elements';
 import Comment from './Comment';
@@ -223,18 +223,10 @@ class PostDetails extends Component {
   handleLikePost = (id) => { 
     api.getData('postlike/' + id) 
     this.fatchData();
-    // api.getData('singelpost/' + id)
-    //   .then(response => { 
-    //     this.setState({ post_items: response.data.data }) 
-    //   }) 
+    
   } 
   render() {
     let { items, isLoading } = this.state;
-    //console.log('commmmeee======',this.state.items); 
-    //console.log('commmmeee======',this.state.post_items.like); 
-    console.log('commmmeee======',this.state.items); 
-    //console.log('post_id',this.state.post_items); 
-    //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return ( 
       <SafeAreaView style={styles.container}>  
       <ScrollView>
@@ -242,18 +234,25 @@ class PostDetails extends Component {
           <View style={styles.header}>
             <View style={{ borderRadius: 10 }}> 
             {this.state.post_items.post_type == 3 ?
-             
-             <AutoHeightImage
-                width={win}
-                source={require("../img/text/1.jpg")}
-              />  
+              <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  
+                <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
+                  <Text numberOfLines={5}  style={styles.text_bg}>{this.state.post_items.caption}  </Text>
+                </ImageBackground>  
+              </View>
+            //  <AutoHeightImage
+            //     width={win}
+            //     source={require("../img/text/1.jpg")}
+            //   />  
             : 
+            <View>
               <AutoHeightImage
                 width={win}
                 source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
-              />  
+              /> 
+                <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+            </View> 
             } 
-            <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+          
               
             </View>
 
@@ -419,5 +418,14 @@ const styles = StyleSheet.create({
     top: 3.2,
     backgroundColor: '#fff'
   },
+    image_bg: {
+      flex: 1,
+      justifyContent: "center"
+    },
+     text_bg: {
+      color: "black",
+      fontWeight: "bold",
+      textAlign: "center",
+   },
 })
 export default PostDetails;
