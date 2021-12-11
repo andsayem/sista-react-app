@@ -220,13 +220,36 @@ class PostDetails extends Component {
     // }) 
     this.fatchData();
   }
-  handleLikePost = (id) => { 
+  handleLikePost2 = (id) => { 
     api.getData('postlike/' + id) 
     this.fatchData();
     
   } 
+  handleLikePost = index => {     
+    let post = this.state.items[index] 
+    this.state.post_items
+    console.log('post-details', this.state.post_items)
+    // const { liked, like } = post 
+    // const newPost = {
+    //   ...post,
+    //   liked: !liked,
+    //   like: liked ? post.like - 1 : post.like + 1
+    // }  
+    //api.getData('postlike/'+post.id)
+    // this.setState({
+    //   items: {
+    //     ...this.state.items,
+    //     [index]: newPost
+    //   }
+    // })
+  }
   render() {
     let { items, isLoading } = this.state;
+    //console.log('commmmeee======',this.state.items); 
+    //console.log('commmmeee======',this.state.post_items.like); 
+    console.log('commmmeee======',this.state.post_items.like); 
+    //console.log('post_id',this.state.post_items); 
+    //this.state.post_comment ? this.setState({errortext:false}) :  this.setState({errortext:true}); 
     return ( 
       <SafeAreaView style={styles.container}>  
       <ScrollView>

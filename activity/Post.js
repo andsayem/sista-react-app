@@ -38,7 +38,7 @@ class Post extends  React.Component{
       // If "liked" or "likeCount" is different, then update                          
       return liked !== oldLiked || like !== oldLikeCount || followings !== oldFollowed || follow !== oldFollowCount                       
     }        
-     facebookShare(item){ 
+    facebookShare(item){ 
        console.log(item);
       shareOnFacebook({
           'text':item.caption,
@@ -87,7 +87,7 @@ class Post extends  React.Component{
                   </TouchableOpacity>    
               </ListItem>    
             </View> 
-                       
+
             {this.props.item.post_type == 3 ?
             
             <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  
