@@ -28,6 +28,7 @@ import Chating from "./activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
 import PostDetails from './activity/PostDetails';
+import JournalDetails from './activity/JournalDetails';
 import Profile from "./activity/Profile";
 import UserProfile from './activity/UserProfile';
 import AppTutorial from './screens/WelcomeScreen'; 
@@ -125,6 +126,7 @@ function App(){
         <StackApp.Screen name="Support" component={Support} options={{ headerShown : false, name : 'Support'}} />
         <StackApp.Screen name="Chating" component={Chating} options={{ headerShown : false, name : 'Chating'}} />
         <StackApp.Screen name="PostDetails" component={PostDetails} options={{ headerShown : false, name : 'PostDetails'}} />
+        <StackApp.Screen name="JournalDetails" component={JournalDetails} options={{ headerShown : false, name : 'JournalDetails'}} /> 
         <StackApp.Screen name="Profile" component={Profile} options={{ headerShown : false, name : 'UserProfile'}} />
         <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown : false, name : 'UserProfile'}} />
       </StackApp.Navigator>

@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 
 const  apiClient = create({
-    baseURL : "https://sista.abdulmazidcse.com/api/" 
+    baseURL : "https://sista.droidit.net/api/" 
 });
 
 export  default apiClient ;

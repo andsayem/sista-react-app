@@ -102,7 +102,7 @@ function LoginScreen(props) {
     } else {
       setLoading(false);
     }
-    axios.post('https://sista.andsayem.com/api/auth/login',
+    axios.post('https://sista.droidit.net/api/auth/login',
       {
         email: userEmail,
         password: userPassword

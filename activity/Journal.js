@@ -57,6 +57,9 @@ import RBSheet from "react-native-raw-bottom-sheet";
       var date = d.getDate();
       return  date + ' '+  monthNames[month ];
     }
+    onPressJournalDetails = (id) => {
+        this.props.navigation.navigate('JournalDetails', {id: id });
+    } 
 
     handlePressAddJurnal = () =>{ 
       this.props.navigation.navigate('Journal_add');
@@ -92,12 +95,14 @@ import RBSheet from "react-native-raw-bottom-sheet";
        // style={{ padding : 0 ,  margin : 0 , }} 
         >  
               <ListItem.Content> 
-                <ListItem.Content style={{   
+                <ListItem.Content 
+                   onPress={() => this.onPressJournalDetails(this.item.id)} 
+                 style={{   
                   }}>
                   <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
                   {item.title}
                     </ListItem.Title>
-                    <Text numberOfLines={this.state.numLines} >{item.details}</Text>
+                    <Text numberOfLines={this.state.numLines} > teas : {item.details}</Text>
                     <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
                     { this.getData(item.created_at)}
                     </ListItem.Title>

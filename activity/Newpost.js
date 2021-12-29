@@ -103,7 +103,7 @@ function Newpost(props) {
             formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
          }
 
-         fetch('https://sista.andsayem.com/api/video-upload', {
+         fetch('https://sista.droidit.net/api/video-upload', {
             method: 'POST',
             headers: {
                'Content-Type': 'multipart/form-data',

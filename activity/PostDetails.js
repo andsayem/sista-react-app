@@ -87,7 +87,7 @@ class PostDetails extends Component {
   };
   fatchData = () => {
     //console.log('this-props====',this.props.route.params.id);
-    // https://sista.andsayem.com/api/singelpost/319
+    // https://sista.droidit.net/api/singelpost/319
     this.setState({ isLoading: true })
     api.getData('singelpost/' + this.props.route.params.id)
       .then(response => {

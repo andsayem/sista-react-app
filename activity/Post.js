@@ -42,7 +42,7 @@ class Post extends  React.Component{
        console.log(item);
       shareOnFacebook({
           'text':item.caption,
-          'link':'https://sista.andsayem.com/',
+          'link':'https://sista.droidit.net/',
           'imagelink':'http://www.andsayem.com/img/personal_2.jpg',
           //or use image
           'image': 'artboost-icon',
