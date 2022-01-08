@@ -156,7 +156,7 @@ function Newpost(props) {
                   : ["data:" + video.type + ";base64," + video.base64]
                : null
          };
-         fetch('http://sista.andsayem.com/api/post_datas', {
+         fetch('https://sista.droidit.net/api/post_datas', {
             method: 'POST',
             headers: {
                'Accept': 'application/json',

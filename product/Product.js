@@ -3,44 +3,38 @@ import { View, Text, ScrollView,  SafeAreaView , StyleSheet ,
   Image, 
   TouchableOpacity,
   FlatList} from "react-native";
+import api from '../api';
 import { SearchBar } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors , Icon , Header } from 'react-native-elements';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
-
+const TOKEN = 'token';
   class Product extends  Component {   
     constructor(props) {
       super(props); 
+      this.fatchData = this.fatchData.bind(this);
       this.state = {
         search: '', 
-        destinations:[
-          {
-              id: 0,
-              name: "Ski Villa",
-              img: images.skiVilla,
-          },
-          {
-              id: 1,
-              name: "Climbing Hills",
-              img: images.climbingHills,
-          },
-          {
-              id: 2,
-              name: "Frozen Hills",
-              img: images.frozenHills,
-          },
-          {
-              id: 3,
-              name: "Beach",
-              img: images.beach,
-          },
-      ], 
+        destinations:[], 
+        book:[], 
         isLoading: false,
         cat_id:'',
         cat_active:'',
         };  
     }  
-    
+    componentDidMount(){     
+      this.fatchData();  
+    }
+    fatchData = async () => {  
+      this.setState({isLoading:true})    
+      api.getData('products')
+      .then((response) => {
+        let json =  response.data.data ;
+        this.setState({destinations:json});
+        this.setState({book:json[0]});
+      })
+      .finally( ()=>this.setState({isLoading: false})) 
+    }  
     renderDestinations(item, index) {
       var destinationStyle = {};
 
@@ -50,11 +44,11 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 
       return (
           <TouchableOpacity 
-          onPress={() => {  this.props.navigation.navigate("ProductDetail") }}
+          onPress={() => {  this.props.navigation.navigate("ProductDetail",{product_id: item.id}) }}
            style={{ paddingRight : 15}} 
           >
               <Image
-                  source={item.img}
+                  source={item.file ? {uri: item.file } : null} 
                   resizeMode="cover"
                   style={{
                       width: SIZES.width * 0.35,
@@ -92,9 +86,9 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
                   justifyContent : 'flex-start'
                 }}
                 >
-                <Text  style={{ paddingHorizontal : 10 , paddingVertical : 6 , fontWeight : 'bold', color :  '#ffffff'}} >{item.name}</Text>
+                <Text  style={{ paddingHorizontal : 10 , paddingVertical : 6 , fontWeight : 'bold', color :  '#ffffff'}} >{item.title}</Text>
                  <Text  style={{ paddingHorizontal : 10 , color :  '#ffffff'}} >
-                  Price :  <Text  >22$</Text >  15$</Text>
+                  Price :  <Text  >{item.price}$</Text >  {item.price_offer}$</Text>
               </View>
 
               {/* <Text >{item.name}</Text> */}
@@ -102,6 +96,7 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
       )
   }
     render(){
+      let {isLoading} = this.state;
       return ( 
       <SafeAreaView style={styles.container}>
         <ScrollView >  
@@ -127,7 +122,7 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
                <Text style={ styles.sectionTitle}>Book</Text>
                <View>
                   <Image
-                    source={images.homeBanner}
+                    source={images.homeBanner} 
                     //resizeMode="cover"
                     style={{
                         width: "100%",
@@ -165,9 +160,9 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
                   justifyContent : 'flex-start'
                 }}
                 >
-                <Text  style={{ paddingHorizontal : 10 , paddingVertical : 6 , fontWeight : 'bold', color :  '#ffffff'}} >My Sista's KeepHer</Text>
+                <Text  style={{ paddingHorizontal : 10 , paddingVertical : 6 , fontWeight : 'bold', color :  '#ffffff'}} >{this.state.book.title }</Text>
                  <Text  style={{ paddingHorizontal : 10 , color :  '#ffffff'}} >
-                  Price :  <Text  >22$</Text >  15$</Text>
+                  Price :  <Text  >{this.state.book.price}$</Text >  {this.state.book.price_offer }$</Text>
               </View>
               </View>
             </View> 
@@ -178,6 +173,7 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={this.state.destinations}
+                    refreshing={isLoading}
                     keyExtractor={item => item.id.toString()}
                     renderItem={({ item, index }) => this.renderDestinations(item, index)}
                 />

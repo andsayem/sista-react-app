@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
@@ -13,7 +13,8 @@ import Styles from "../styles";
 import LinearGradient from 'react-native-linear-gradient';
 import IconFea from 'react-native-vector-icons/Feather';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
-
+const STORAGE_KEY = 'save_user';
+const TOKEN = 'token';
 const StarReview = ({ rate }) => {
     var starComponents = [];
     var fullStar = Math.floor(rate)
@@ -89,24 +90,27 @@ const IconLabel = ({ icon, label }) => {
     )
 }
 
-const ProductDetail = ({ navigation }) => {
+class ProductDetail extends Component {
+    constructor(props) {
+
+    }
 
     // Render
-
-    return (
-        <View style={styles.container}>
-        {/* <ScrollView style={styles.container} >    */}
-            {/* Header */}
-            <View style={{ flex: 1 }}>
-                <Image
-                    source={images.skiVillaBanner}
-                    resizeMode="cover"
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                    }}
-                />
-                {/* <View
+    render() {
+        return (
+            <View style={styles.container}>
+                {/* <ScrollView style={styles.container} >    */}
+                {/* Header */}
+                <View style={{ flex: 1 }}>
+                    <Image
+                        source={images.skiVillaBanner}
+                        resizeMode="cover"
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    />
+                    {/* <View
                     style={[{
                         position: 'absolute',
                         bottom: "5%",
@@ -147,8 +151,8 @@ const ProductDetail = ({ navigation }) => {
                     </View>
                 </View> */}
 
-                {/* Header Buttons */}
-                {/* <View
+                    {/* Header Buttons */}
+                    {/* <View
                     style={{
                         position: 'absolute',
                         top: 50,
@@ -187,12 +191,12 @@ const ProductDetail = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View> */}
-            </View>
+                </View>
 
-            {/* Body */}
-            <View style={{    paddingEnd : 5  }}>
-                {/* Icons */}
-                {/* <View style={{ flexDirection: 'row', marginTop: SIZES.base, paddingHorizontal: SIZES.padding * 2, justifyContent: 'space-between' }}>
+                {/* Body */}
+                <View style={{ paddingEnd: 5 }}>
+                    {/* Icons */}
+                    {/* <View style={{ flexDirection: 'row', marginTop: SIZES.base, paddingHorizontal: SIZES.padding * 2, justifyContent: 'space-between' }}>
                     <IconLabel
                         icon={icons.villa}
                         label="Villa"
@@ -209,9 +213,9 @@ const ProductDetail = ({ navigation }) => {
                     />
                 </View> */}
 
-                {/* About */}
-                <View style={{  paddingHorizontal: SIZES.padding , paddingTop : 10}}>
-                <View style={{ marginHorizontal: SIZES.radius, justifyContent: 'space-around' }}>
+                    {/* About */}
+                    <View style={{ paddingHorizontal: SIZES.padding, paddingTop: 10 }}>
+                        <View style={{ marginHorizontal: SIZES.radius, justifyContent: 'space-around' }}>
                             {/* <Text style={{ ...FONTS.h3 }}>Ski Villa</Text>
                             <Text style={{ color: COLORS.gray, ...FONTS.body3 }}>France</Text> */}
 
@@ -219,60 +223,61 @@ const ProductDetail = ({ navigation }) => {
                                 rate={4.5}
                             />
                         </View>
-                <View style={{width : '100%' , flexDirection: "row", }}>
-                    <View  style={{width : '80%'  }}>
-                    <Text style={{ color : '#000', ...FONTS.h2 }}>Man T-Shirt</Text>
-                    </View>
-                    <View  style={{width : '20%' }}>
-                        <Text style={{ color: '#000', fontWeight: 'bold', textAlign : 'right' , justifyContent : 'flex-end'}}>15$</Text>
-                    </View>
-                </View>
-                <View style={{width : '100%' , flexDirection: "row", }}>
-                    <View  style={{width : '80%'  }}>
-                    <Text style={{ color : '#8E8E8E',  }}>Half Sleeve White Men's Basic t-shirt</Text>
-                    </View>
-                    <View  style={{width : '20%' }}>
-                        <Text style={{ color: '#8E8E8E',   textAlign : 'right' , justifyContent : 'flex-end'}}>22$</Text>
-                    </View>
-                </View>
-                    
-                    <Text style={{ marginTop: SIZES.radius, color: COLORS.gray, ...FONTS.body3 }}>
-                        It is a long established fact that a reader will be 
-                        distracted by the readable content of a page when 
-                        looking at its layout. The point of using Lorem 
-                        Ipsum is that it has a more-or-less normal 
-                        distribution of letters, as opposed to using   
-                    </Text>
-                </View>
-                <View style={{  paddingHorizontal: SIZES.padding , paddingTop : 15 , paddingEnd : 5 , width : '100%'}}>
-                    <Text style={{ fontWeight: 'bold', color : '#000'}}>Location</Text>
-                    <Text style={{ paddingVertical: 5  ,fontWeight: 'bold', color : '#000'}}>In New York City , USA</Text>
-                </View>
-                
-            </View>
-            <View style={{ 
-                borderRightColor : '#efefef',
-                borderTopWidth : 0.3 ,
-                marginHorizontal : 25
-                }}></View>
-            <View style={{ paddingHorizontal: SIZES.padding , paddingTop : 10 }}>
-                <Text style={{ color : '#707070'}}>
-                <IconFea  name="message-circle" size={18} paddingEnd={10} color="#9253C1" /> 
-                    Send a message to " My Sista's KeepHer "
-                    </Text>
-                <Text style={{color : '#000' , width : '100%' ,
-                        borderWidth : 2,
-                        padding : 3 ,
-                        marginTop :  10 ,
-                        borderColor : '#efefef' ,
-                        paddingLeft :  10 ,
-                    }}>
-                    Hello, is this still available ?
-                </Text>
-            </View>
+                        <View style={{ width: '100%', flexDirection: "row", }}>
+                            <View style={{ width: '80%' }}>
+                                <Text style={{ color: '#000', ...FONTS.h2 }}>Man T-Shirt</Text>
+                            </View>
+                            <View style={{ width: '20%' }}>
+                                <Text style={{ color: '#000', fontWeight: 'bold', textAlign: 'right', justifyContent: 'flex-end' }}>15$</Text>
+                            </View>
+                        </View>
+                        <View style={{ width: '100%', flexDirection: "row", }}>
+                            <View style={{ width: '80%' }}>
+                                <Text style={{ color: '#8E8E8E', }}>Half Sleeve White Men's Basic t-shirt</Text>
+                            </View>
+                            <View style={{ width: '20%' }}>
+                                <Text style={{ color: '#8E8E8E', textAlign: 'right', justifyContent: 'flex-end' }}>22$</Text>
+                            </View>
+                        </View>
 
-            {/* Footer */}
-            {/* <View style={{ flex: 0.5, paddingHorizontal: SIZES.padding }}>
+                        <Text style={{ marginTop: SIZES.radius, color: COLORS.gray, ...FONTS.body3 }}>
+                            It is a long established fact that a reader will be
+                            distracted by the readable content of a page when
+                            looking at its layout. The point of using Lorem
+                            Ipsum is that it has a more-or-less normal
+                            distribution of letters, as opposed to using
+                        </Text>
+                    </View>
+                    <View style={{ paddingHorizontal: SIZES.padding, paddingTop: 15, paddingEnd: 5, width: '100%' }}>
+                        <Text style={{ fontWeight: 'bold', color: '#000' }}>Location</Text>
+                        <Text style={{ paddingVertical: 5, fontWeight: 'bold', color: '#000' }}>In New York City , USA</Text>
+                    </View>
+
+                </View>
+                <View style={{
+                    borderRightColor: '#efefef',
+                    borderTopWidth: 0.3,
+                    marginHorizontal: 25
+                }}></View>
+                <View style={{ paddingHorizontal: SIZES.padding, paddingTop: 10 }}>
+                    <Text style={{ color: '#707070' }}>
+                        <IconFea name="message-circle" size={18} paddingEnd={10} color="#9253C1" />
+                        Send a message to " My Sista's KeepHer "
+                    </Text>
+                    <Text style={{
+                        color: '#000', width: '100%',
+                        borderWidth: 2,
+                        padding: 3,
+                        marginTop: 10,
+                        borderColor: '#efefef',
+                        paddingLeft: 10,
+                    }}>
+                        Hello, is this still available ?
+                    </Text>
+                </View>
+
+                {/* Footer */}
+                {/* <View style={{ flex: 0.5, paddingHorizontal: SIZES.padding }}>
                 <LinearGradient
                     style={[{ height: 70, width: '100%', borderRadius: 15 }]}
                     colors={['#edf0fc', '#d6dfff']}
@@ -300,28 +305,29 @@ const ProductDetail = ({ navigation }) => {
                     </View>
                 </LinearGradient>
             </View> */}
-        {/* </ScrollView> */}
-        <TouchableOpacity
-          style={{ 
-          flexDirection : 'row',
-          alignItems : 'center',
-          width : '100%',   
-          paddingHorizontal : 90
-          }}   >
-              <View style={{ 
-                  backgroundColor : '#9253C1' ,
-                  textAlign : 'center',
-                  justifyContent : 'center',
-                  width  : 200, 
-                  marginVertical : 10,
-                  paddingVertical : 10,
-                  borderRadius : 30
-                  }}>
-                    <Text style={{ textAlign : 'center' , color : '#ffffff' ,  fontWeight : 'bold' , fontSize : 20 , marginHorizontal : 10}}   >Send</Text>
-              </View> 
-        </TouchableOpacity> 
-    </View>
-    );
+                {/* </ScrollView> */}
+                <TouchableOpacity
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        width: '100%',
+                        paddingHorizontal: 90
+                    }}   >
+                    <View style={{
+                        backgroundColor: '#9253C1',
+                        textAlign: 'center',
+                        justifyContent: 'center',
+                        width: 200,
+                        marginVertical: 10,
+                        paddingVertical: 10,
+                        borderRadius: 30
+                    }}>
+                        <Text style={{ textAlign: 'center', color: '#ffffff', fontWeight: 'bold', fontSize: 20, marginHorizontal: 10 }}   >Send</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    };
 };
 
 const styles = StyleSheet.create({
@@ -342,4 +348,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ProductDetail ;
+export default ProductDetail;
