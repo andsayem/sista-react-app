@@ -35,6 +35,9 @@ const TOKEN = 'token';
       })
       .finally( ()=>this.setState({isLoading: false})) 
     }  
+    handleProductDetails = (id) => {
+      this.props.navigation.navigate('ProductDetail', {id: id });
+    }
     renderDestinations(item, index) {
       var destinationStyle = {};
 
@@ -44,7 +47,7 @@ const TOKEN = 'token';
 
       return (
           <TouchableOpacity 
-          onPress={() => {  this.props.navigation.navigate("ProductDetail",{product_id: item.id}) }}
+           onPress={() => this.handleProductDetails(item.id)} 
            style={{ paddingRight : 15}} 
           >
               <Image

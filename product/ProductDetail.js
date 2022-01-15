@@ -10,6 +10,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Styles from "../styles";
+import api from '../api';
 import LinearGradient from 'react-native-linear-gradient';
 import IconFea from 'react-native-vector-icons/Feather';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
@@ -92,8 +93,27 @@ const IconLabel = ({ icon, label }) => {
 
 class ProductDetail extends Component {
     constructor(props) {
-
+         super(props);
+         this.fatchData = this.fatchData.bind(this);
+         this.state = {
+            item: [],
+            isLoading: false,
+         }
     }
+    componentDidMount() {
+        this.fatchData(); 
+      }
+      componentWillUnmount() {
+        this.fatchData(); 
+      }
+    fatchData = () => { 
+        this.setState({ isLoading: true })
+        api.getData('products/' + this.props.route.params.id)
+          .then(response => {
+            this.setState({ item: response.data.data }) 
+          })
+          .finally(() => this.setState({ isLoading: false }))
+      }
 
     // Render
     render() {
@@ -103,13 +123,14 @@ class ProductDetail extends Component {
                 {/* Header */}
                 <View style={{ flex: 1 }}>
                     <Image
-                        source={images.skiVillaBanner}
+                         source={this.state.item.file ? {uri: this.state.item.file } : null} 
                         resizeMode="cover"
                         style={{
                             width: '100%',
                             height: '100%',
                         }}
                     />
+ 
                     {/* <View
                     style={[{
                         position: 'absolute',
@@ -241,11 +262,7 @@ class ProductDetail extends Component {
                         </View>
 
                         <Text style={{ marginTop: SIZES.radius, color: COLORS.gray, ...FONTS.body3 }}>
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page when
-                            looking at its layout. The point of using Lorem
-                            Ipsum is that it has a more-or-less normal
-                            distribution of letters, as opposed to using
+                           {this.state.item.title}
                         </Text>
                     </View>
                     <View style={{ paddingHorizontal: SIZES.padding, paddingTop: 15, paddingEnd: 5, width: '100%' }}>
