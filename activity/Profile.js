@@ -6,6 +6,7 @@ import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
+import helpers from '../helpers';
 import * as ImagePicker from 'react-native-image-picker';
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -70,7 +71,7 @@ class UserProfile extends Component {
       files_base: "data:"+response.type+";base64,"+ response.base64    
     };  
     console.log('dataToSend--==',dataToSend);
-    fetch('http://sista.andsayem.com/api/change-profile-image', {
+    fetch(helpers.baseurl()+'api/change-profile-image', {
       method: 'POST', 
       headers: {  
         'Accept': 'application/json',  

@@ -6,7 +6,7 @@ import Styles from "../styles";
 import { Icon } from 'react-native-elements';   
 import Loader from '../components/Loader';  
 import RBSheet from "react-native-raw-bottom-sheet"; 
- 
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -94,7 +94,7 @@ function RegisterScreen ({navigation,props}){
       }
       formBody = formBody.join('&');
 
-      fetch('http://sista.andsayem.com/api/users', {
+      fetch(helpers.baseurl()+'api/users', {
         method: 'POST',
         body: formBody,
         headers: {

@@ -16,6 +16,7 @@ import axios from 'axios';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
 import FormData from 'form-data';
+import helpers from '../helpers';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 //import renderIf from './renderIf'
@@ -103,7 +104,7 @@ function Newpost(props) {
             formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
          }
 
-         fetch('https://sista.andsayem.com/api/video-upload', {
+         fetch(helpers.baseurl()+'api/video-upload', {
             method: 'POST',
             headers: {
                'Content-Type': 'multipart/form-data',
@@ -156,7 +157,7 @@ function Newpost(props) {
                   : ["data:" + video.type + ";base64," + video.base64]
                : null
          };
-         fetch('http://sista.andsayem.com/api/post_datas', {
+         fetch(helpers.baseurl()+'api/post_datas', {
             method: 'POST',
             headers: {
                'Accept': 'application/json',
@@ -177,6 +178,7 @@ function Newpost(props) {
                }
             })
             .catch((error) => {
+               console.log('New post error->',error)
                setLoading(false);
             });
       }
@@ -349,7 +351,7 @@ function Newpost(props) {
             <ListItem.Content  >
                <ListItem.Content >
                   <ListItem.Title style={{ fontWeight: 'bold' }} >
-                     Write a caption
+                     Write a caption 
                   </ListItem.Title>
                </ListItem.Content>
             </ListItem.Content>

@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
+import helpers from '../helpers';
 const TOKEN = 'token';
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -43,7 +44,7 @@ function ForgotPassword(props) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.andsayem.com/api/forgot-password', article,{headers})
+      axios.post(helpers.baseurl()+'api/forgot-password', article,{headers})
         .then((response) => {
           setLoading(false); 
           if(response.data.success){
@@ -63,7 +64,7 @@ function ForgotPassword(props) {
       // axios({
       //   method: 'post',
       //   responseType: 'json',
-      //   url: 'http://sista.andsayem.com/api/forgot-password',
+      //   url: helpers.baseurl()+'api/forgot-password',
       //   data: {
       //     email: email
       //   }
@@ -81,7 +82,7 @@ function ForgotPassword(props) {
 
 
 
-      // fetch('http://sista.andsayem.com/api/forgot-password', {
+      // fetch(helpers.baseurl()+'api/forgot-password', {
       //   method: 'POST', 
       //   headers: {  
       //     'Content-Type':'application/json'

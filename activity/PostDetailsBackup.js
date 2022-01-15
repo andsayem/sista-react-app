@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import FormData from 'form-data'; 
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
-
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -76,7 +76,7 @@ function PostDetails({navigation,route}) {
       comm_test: post_comment,       
     };  
     console.log('dataToSend--==',dataToSend);
-    fetch('http://sista.andsayem.com/api/all_comments', {
+    fetch(helpers.baseurl()+'api/all_comments', {
       method: 'POST', 
       headers: {  
         'Accept': 'application/json',  

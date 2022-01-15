@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, Text } from
 import { TextInput, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'react-native-image-picker';
-
+import helpers from '../helpers';
 const screen = Dimensions.get('window');
 export default class NewFeedScreen extends React.Component {
     constructor(props) {
@@ -83,7 +83,7 @@ export default class NewFeedScreen extends React.Component {
             formData.append("font_size", 12);
             formData.append("post_type", index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3);    
             //var base_url = "https://yourdomain.com/";
-            fetch('http://sista.andsayem.com/api/post_datas', {
+            fetch(helpers.baseurl()+'api/post_datas', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'multipart/form-data',

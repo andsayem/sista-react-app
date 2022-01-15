@@ -19,6 +19,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 const win = Dimensions.get('window').width;
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -124,7 +125,7 @@ class PostDetails extends Component {
         user_id: 2,
         comm_test: this.state.post_comment,
       };
-      fetch('http://sista.andsayem.com/api/all_comments', {
+      fetch(helpers.baseurl()+'api/all_comments', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

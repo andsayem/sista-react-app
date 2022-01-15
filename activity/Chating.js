@@ -6,7 +6,7 @@ import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-element
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage'; 
 import axios from 'axios'; 
- 
+import helpers from '../helpers';
 const STORAGE_KEY = 'save_user';
 
 const TOKEN = 'token'; 
@@ -125,7 +125,7 @@ const TOKEN = 'token';
     this.setState({sending:true}); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.send_message);  
-    axios.post('https://sista.andsayem.com/api/new_conversation', formData,
+    axios.post(helpers.baseurl()+'api/new_conversation', formData,
     {
       headers: { 
         'Accept': 'application/json',  

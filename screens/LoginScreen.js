@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
-
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -102,7 +102,7 @@ function LoginScreen(props) {
     } else {
       setLoading(false);
     }
-    axios.post('https://sista.andsayem.com/api/auth/login',
+    axios.post(helpers.baseurl()+'api/auth/login',
       {
         email: userEmail,
         password: userPassword
@@ -129,6 +129,7 @@ function LoginScreen(props) {
         // props.navigation.navigate("Home");
         setLoading(false);
       }).catch(function (error) {
+        console.log('login-screen', error);
         setLoading(false);
       });
   };
