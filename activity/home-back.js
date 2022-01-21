@@ -11,15 +11,12 @@ import api from '../api';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 
-const likeSubmitButton = (postid) => {   
-  console.log('tes===========================' ,postid);  
+const likeSubmitButton = (postid) => {    
   let post_id  = postid ; 
   api.getData('postlike/'+ post_id)
-  .then((res)=>{
-      console.log(res.data.data);  
+  .then((res)=>{ 
   })
-  .catch((error) => {
-      console.log(error)
+  .catch((error) => { 
   }) 
 }; 
 
@@ -80,8 +77,7 @@ function Home ({navigation}){
       .then((res)=>{
           setItems( res.data.data);  
       })
-      .catch((error) => {
-          console.log(error)
+      .catch((error) => { 
       })  
   const [users, setUser] = useState('');
   const [successtext, setSuccesstext] = useState(false);
@@ -93,8 +89,7 @@ function Home ({navigation}){
     .then((res)=>{
       setCats( res.data.data);  
     })
-    .catch((error) => {
-        console.log(error)
+    .catch((error) => { 
     }) 
   }; 
   
@@ -102,16 +97,8 @@ function Home ({navigation}){
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => getCategories(false)); 
 
-  const likeSubmitButton = (postid) => {   
-    console.log('tes===========================' ,postid);  
-    Alert.alert(postid);
-    // api.getData('postlike/'+ postid)
-    // .then((res)=>{
-    //     console.log(res.data.data);  
-    // })
-    // .catch((error) => {
-    //     console.log(error)
-    // }) 
+  const likeSubmitButton = (postid) => {    
+    Alert.alert(postid); 
   }; 
 
   const createTwoButtonAlert = () =>
@@ -121,10 +108,10 @@ function Home ({navigation}){
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => { },
           style: "cancel"
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => {}}
       ]
     );
 

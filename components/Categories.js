@@ -10,13 +10,10 @@ const Categories = (props) => {
     const [getCats, setCats] = useState([]);
     const getCategories = async => {
         api.getData('post_categories')
-        .then((res)=>{
-          //console.log('propspropspropsprops===',props);
-          ///console.log('post_categories=====',res)
+        .then((res)=>{ 
           setCats( res.data.data);  
         })
-        .catch((error) => {
-            console.log(error)
+        .catch((error) => { 
         }) 
     };   
     useEffect(() => getCategories(false),[getCats]); 

@@ -58,8 +58,7 @@ class JournalDetails extends Component {
         try {
             const value = await AsyncStorage.getItem('TOKEN');
             if (value !== null) {
-                this.setState({ token: value });
-                console.log(value);
+                this.setState({ token: value }); 
             }
         } catch (error) {
             // Error retrieving data  

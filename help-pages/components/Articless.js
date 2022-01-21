@@ -47,8 +47,7 @@ export default function Articless() {
         let response = await fetch(
           'http://www.mocky.io/v2/5e3315753200008abe94d3d8?mocky-delay=2000ms',
         );
-        let responseJson = await response.json();
-        console.log(responseJson);
+        let responseJson = await response.json(); 
         setListData(responseJson.result.concat(initialData));
         setRefreshing(false)
       } catch (error) {

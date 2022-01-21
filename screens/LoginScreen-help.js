@@ -28,8 +28,7 @@ class LoginScreen extends Component {
             this.props.navigation.navigate("Home", {
                 screen: "HomeScreen",
             });
-        } catch (err) {
-            console.log(err);
+        } catch (err) { 
         }
     };
 
@@ -46,8 +45,7 @@ class LoginScreen extends Component {
             if (password !== null) {
             this.setState({ password })
             }
-        } catch (err) {
-            console.log(err);
+        } catch (err) { 
         }
     }
 

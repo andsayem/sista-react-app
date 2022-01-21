@@ -16,8 +16,7 @@ class Posts extends Component {
   componentDidMount() {
     fetch('http://speechbd.com/api/v1/fontend/posts?column=id&direction=desc&per_page=7&page='+this.state.offset)
       .then((response) => response.json()) 
-      .then((json) => {  
-        console.log('offset = ',this.state.offset); 
+      .then((json) => {   
         // this.state.data.data
          this.setState({ 
           isLoading2: false,
@@ -29,11 +28,8 @@ class Posts extends Component {
         this.setState({ isLoading: false });
       });      
   }   
-  handleLoadMore = () =>{
-    console.log('Load More');
-    console.log('offset = ',this.state.offset);
-    this.setState({ offset: this.state.offset + 1},()=>{ 
-      console.log('offset = ',this.state.offset);
+  handleLoadMore = () =>{  
+    this.setState({ offset: this.state.offset + 1},()=>{  
       this.componentDidMount();
     });
   }

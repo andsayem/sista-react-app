@@ -79,8 +79,7 @@ function Newpost(props) {
          setSuccesstext(false);
          setLoading(true);
          let formData = new FormData();
-         if (video) {
-            console.log('video=====', video);
+         if (video) { 
             formData.append('files_base', {
                name: video.fileName,
                uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
@@ -113,8 +112,7 @@ function Newpost(props) {
          })
             .then((response) => {
             }).then((responseJson) => {
-               setLoading(false);
-               console.log('dataToSend ======', responseJson)
+               setLoading(false); 
                if (responseJson.success === true) {
                   setSuccesstext({ message: 'Post Submit Successful' });
                   setCaption('');
@@ -123,24 +121,18 @@ function Newpost(props) {
                } else {
                }
             })
-            .catch((error) => {
-               console.log('error ============', error)
+            .catch((error) => { 
                setLoading(false);
             });
       }
    };
    const handleSubmitButton = async () => {
-      setErrortext(false);
-      // if (!post_caption) {
-      //    setErrortext({ message: 'Please fill caption' });
-      //    return;
-      // } else 
+      setErrortext(false); 
       if (!category) {
          setErrortext({ message: 'Please fill category' });
          return;
       } else {
-         setSuccesstext(false);
-         //console.log( video.uri );
+         setSuccesstext(false); 
          setLoading(true);
          var dataToSend = {
             user_id: 1,
@@ -186,8 +178,7 @@ function Newpost(props) {
          mediaType: 'photo',
          includeBase64: true,
       },
-         (response) => {
-            console.log(response);
+         (response) => { 
             setPhoto(response);
          });
    }
@@ -197,16 +188,14 @@ function Newpost(props) {
          noData: true,
          includeBase64: true
       };
-      launchImageLibrary(options, (response) => {
-         console.log(response);
+      launchImageLibrary(options, (response) => { 
          if (response) {
             setPhoto(response);
          }
       });
    };
    const selectVideo = () => {
-      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
-         console.log('launchImageLibrary', response);
+      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => { 
          setVideo(response);
       })
    }
@@ -220,12 +209,10 @@ function Newpost(props) {
             }
             setCats(data);
          })
-         .catch((error) => {
-            console.log(error)
+         .catch((error) => { 
          })
    };
-   const categoryChange = async (data) => {
-      console.log(data.value);
+   const categoryChange = async (data) => { 
       setCategories(data.value);
       setCategoriesName(data.label);
       refRBSheet.current.close()

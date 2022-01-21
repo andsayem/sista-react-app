@@ -38,8 +38,7 @@ class Post extends  React.Component{
       // If "liked" or "likeCount" is different, then update                          
       return liked !== oldLiked || like !== oldLikeCount || followings !== oldFollowed || follow !== oldFollowCount                       
     }        
-     facebookShare(item){ 
-       console.log(item);
+     facebookShare(item){  
       shareOnFacebook({
           'text':item.caption,
           'link':'https://sista.droidit.net/',
@@ -47,15 +46,13 @@ class Post extends  React.Component{
           //or use image
           'image': 'artboost-icon',
         },
-        (results) => {
-          console.log(results);
+        (results) => { 
         }
       );
     } 
     
   
-    render() {                
-      //console.log('Post = props',this.props.item.catjoin.cat_name);                 
+    render() {                                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
           <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0,   }} > 

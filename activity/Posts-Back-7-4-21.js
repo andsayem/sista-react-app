@@ -8,41 +8,27 @@ class Posts extends Component {
     super(props);
     this.state = { data:[], isLoading: true, page:1, refreshing:false, totalData:5, moreLoading:true };  
   }
-  componentDidMount() {
-    //console.log('didlmount after')
-    this.fatchData();
-    //console.log('didlmount before')
+  componentDidMount() { 
+    this.fatchData(); 
   }  
   componentWillUnmount() {
     this.fatchData();
     this.renderFooter();
   }    
   fatchData = async() => { 
-    // api.getData('post_datas')
-    // .then((res)=>{
-    //     setItems( res.data.data);  
-    //     //console.log('posts=====',res.data.data)
-    // })
-    // .catch((error) => {
-    //     //console.log(error)
-    // }) 
-    // fetch('https://speechbd.com/api/v1/fontend/posts?column=id&direction=desc&per_page=5&page='+this.state.page)
+    
     api.getData('post_datas')
       .then((json) => { 
         if( Number(this.state.totalData) === Number(this.state.data.length) ){
-          this.setState({moreLoading:false})
-          //console.log('more loaded data cond = ',this.state.moreLoading);
+          this.setState({moreLoading:false}) 
         }else{
-          this.setState({moreLoading:true})
-          //console.log('more loaded data cond = ',this.state.moreLoading);
+          this.setState({moreLoading:true}) 
         }
         if(this.state.isLoading){
           this.setState({moreLoading:true})
         } 
         this.setState({  
-          data:this.state.data.concat(json.data.data),  // working...
-          //totalData:json.data.total, 
-          //data:[...this.state.data, ...json.model.data] /// working ...
+          data:this.state.data.concat(json.data.data),  // working... 
         });
       })
       .catch((error) => console.error(error))
@@ -50,16 +36,13 @@ class Posts extends Component {
         this.setState({ isLoading: false, refreshing:false});
       });
   }
-  likeSubmitButton = (ItemData) => {    
-    console.log('likes======',ItemData)
+  likeSubmitButton = (ItemData) => {     
 
     api.getData('postlike/'+ ItemData.id)
     .then((res)=>{
-      alert(res.data.message);
-        //console.log(res.data);  
+      alert(res.data.message); 
     })
-    .catch((error) => {
-        //console.log(error)
+    .catch((error) => { 
     }) 
   }; 
   ChildView=({childData})=>{ 

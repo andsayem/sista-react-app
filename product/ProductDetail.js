@@ -131,110 +131,12 @@ class ProductDetail extends Component {
                         }}
                     />
  
-                    {/* <View
-                    style={[{
-                        position: 'absolute',
-                        bottom: "5%",
-                        left: "5%",
-                        right: "5%",
-                        borderRadius: 15,
-                        padding: SIZES.padding,
-                        backgroundColor: COLORS.white
-                    }, styles.shadow]}
-                >
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.shadow}>
-                            <Image
-                                source={images.skiVilla}
-                                resizeMode="cover"
-                                style={{
-                                    width: 70,
-                                    height: 70,
-                                    borderRadius: 15,
-                                }}
-                            />
-                        </View>
-
-                        <View style={{ marginHorizontal: SIZES.radius, justifyContent: 'space-around' }}>
-                            <Text style={{ ...FONTS.h3 }}>Ski Villa</Text>
-                            <Text style={{ color: COLORS.gray, ...FONTS.body3 }}>France</Text>
-
-                            <StarReview
-                                rate={4.5}
-                            />
-                        </View>
-                    </View>
-
-                    <View style={{ marginTop: SIZES.radius }}>
-                        <Text style={{ color: COLORS.gray, ...FONTS.body3 }}>
-                            Ski Villa offers simple rooms with mountain views in front of the ski lift to the Ski Resort
-                        </Text>
-                    </View>
-                </View> */}
-
-                    {/* Header Buttons */}
-                    {/* <View
-                    style={{
-                        position: 'absolute',
-                        top: 50,
-                        left: 20,
-                        right: 20,
-                        //height: 50,
-                        flexDirection: 'row',
-                    }}
-                >
-                    <View style={{ flex: 1 }}>
-                        <TouchableOpacity
-                            onPress={() => { navigation.navigate('Home') }}
-                        >
-                            <Image
-                                source={icons.back}
-                                resizeMode="cover"
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                        <TouchableOpacity
-                            onPress={() => { console.log("Menu on pressed") }}
-                        >
-                            <Image
-                                source={icons.menu}
-                                resizeMode="cover"
-                                style={{
-                                    width: 30,
-                                    height: 30,
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
+                    
                 </View>
 
                 {/* Body */}
                 <View style={{ paddingEnd: 5 }}>
-                    {/* Icons */}
-                    {/* <View style={{ flexDirection: 'row', marginTop: SIZES.base, paddingHorizontal: SIZES.padding * 2, justifyContent: 'space-between' }}>
-                    <IconLabel
-                        icon={icons.villa}
-                        label="Villa"
-                    />
-
-                    <IconLabel
-                        icon={icons.parking}
-                        label="Parking"
-                    />
-
-                    <IconLabel
-                        icon={icons.wind}
-                        label="4 °C"
-                    />
-                </View> */}
-
-                    {/* About */}
+                    
                     <View style={{ paddingHorizontal: SIZES.padding, paddingTop: 10 }}>
                         <View style={{ marginHorizontal: SIZES.radius, justifyContent: 'space-around' }}>
                             {/* <Text style={{ ...FONTS.h3 }}>Ski Villa</Text>
@@ -293,35 +195,7 @@ class ProductDetail extends Component {
                     </Text>
                 </View>
 
-                {/* Footer */}
-                {/* <View style={{ flex: 0.5, paddingHorizontal: SIZES.padding }}>
-                <LinearGradient
-                    style={[{ height: 70, width: '100%', borderRadius: 15 }]}
-                    colors={['#edf0fc', '#d6dfff']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                >
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{ flex: 1, marginHorizontal: SIZES.padding, justifyContent: 'center' }}>
-                            <Text style={{ ...FONTS.h1 }}>$1000</Text>
-                        </View>
-
-                        <TouchableOpacity
-                            style={{ width: 130, height: '80%', marginHorizontal: SIZES.radius }}
-                            onPress={() => { console.log("Booking on pressed") }}
-                        >
-                            <LinearGradient
-                                style={[{ flex: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 10 }]}
-                                colors={['#46aeff', '#5884ff']}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 0 }}
-                            >
-                                <Text style={{ color: COLORS.white, ...FONTS.h2 }}>BOOKING</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </LinearGradient>
-            </View> */}
+               
                 {/* </ScrollView> */}
                 <TouchableOpacity
                     style={{

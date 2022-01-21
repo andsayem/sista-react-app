@@ -13,26 +13,19 @@ function Chats(props) {
     const getUser = () =>{ 
       api.getData('conversation_list')
         .then((res)=>{
-          setUsers( res.data.data);  
-            console.log('users',res.data.data)
+          setUsers( res.data.data);   
         })
-        .catch((error) => {
-            //console.log(error)
-            //pro_image
+        .catch((error) => { 
         }) 
     } 
     const updateSearch =  async (search) => {    
-      setSearchkey(search );   
-      console.log('res.data.data=====');
+      setSearchkey(search );    
      
       api.getData('users_search/'+search)
-      .then((res)=>{
-        console.log(res.data.data);
+      .then((res)=>{ 
         setSearchusers( res.data.data);   
       })
-      .catch((error) => {
-          //console.log(error)
-          //pro_image
+      .catch((error) => { 
       }) 
     };
     useEffect(() => {getUser()},[]); 

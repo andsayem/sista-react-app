@@ -32,8 +32,7 @@ const Articles = () => {
     });
   }
 
-  const getData = () => {
-    console.log(offset);
+  const getData = () => { 
     if (!loading && !isListEnd) { 
       setLoading(true);
       //Service to get the data from the server to render
@@ -41,8 +40,7 @@ const Articles = () => {
         //Sending the currect offset with get request
         .then((response) => response.json())
         .then((responseJson) => {
-          //Successful response from the API Call
-          console.log(responseJson);
+          //Successful response from the API Call 
           if (responseJson.model.data.length > 0) {
             setOffset(offset + 1); 
             setDataSource([...dataSource, ...responseJson.model.data]);
@@ -52,8 +50,7 @@ const Articles = () => {
             setLoading(false);
           }
         })
-        .catch((error) => {
-          console.error(error);
+        .catch((error) => { 
         });
     }
   };

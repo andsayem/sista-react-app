@@ -17,10 +17,7 @@ class Comment extends Component {
       liked:false
     };
   }
-  render() {
-    //let {items, isLoading} = this.state;
-    //console.log('Post = props', this.props.item);
-    //console.log('Post = childs',JSON.stringify(this.props.item.reply));
+  render() { 
     return (
       <View style={styles.main_div}>
       {/* <View style={styles.sub_main_div}> */}

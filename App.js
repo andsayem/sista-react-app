@@ -98,8 +98,7 @@ function App(){
   //useEffect(() => { readData() },[getToken])  
   useEffect(() => { SplashScreen.hide() },[getToken]) 
   useEffect(() => {  
-    return () => { 
-      console.log(initialRoute,'dfgf'); 
+    return () => {  
       readData();
     }
   }, [getToken]);
@@ -163,20 +162,16 @@ function App22(navigation) {
     // })
 
     useEffect(() => {
-      window.addEventListener('mousemove', () => {
-        console.log('returned function will be called on component unmount mousemove');
+      window.addEventListener('mousemove', () => { 
       });    
-      console.log('returned function will be called on component unmount ');
-      // returned function will be called on component unmount 
+      
       return () => {
-        window.removeEventListener('mousemove', () => {
-          console.log('returned function will be called on component mount ');
+        window.removeEventListener('mousemove', () => { 
         })
       }
       
     }, [])
-
-    //console.log('loggedIn app page ',loggedIn);
+ 
   return (
     <NavigationContainer>
       <Stack.Navigator>

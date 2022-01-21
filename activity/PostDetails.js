@@ -78,16 +78,13 @@ class PostDetails extends Component {
     try {
       const value = await AsyncStorage.getItem('TOKEN');
       if (value !== null) {
-        this.setState({ token: value });
-        console.log(value);
+        this.setState({ token: value }); 
       }
     } catch (error) {
       // Error retrieving data  
     }
   };
-  fatchData = () => {
-    //console.log('this-props====',this.props.route.params.id);
-    // https://sista.droidit.net/api/singelpost/319
+  fatchData = () => { 
     this.setState({ isLoading: true })
     api.getData('singelpost/' + this.props.route.params.id)
       .then(response => {
@@ -96,8 +93,7 @@ class PostDetails extends Component {
       })
       .finally(() => this.setState({ isLoading: false }))
   }
-  renderFooter = () => {
-    //useEffect(() => { this.fatchData()},[]) 
+  renderFooter = () => { 
     return (
       <View>
         <SafeAreaView>
@@ -147,8 +143,7 @@ class PostDetails extends Component {
           } else {
           }
         })
-        .catch((error) => {
-          console.log('error===', error);
+        .catch((error) => { 
           this.setState({ loading: false });
         });
     }
@@ -188,10 +183,8 @@ class PostDetails extends Component {
   }
  
   handleFollowPost = index => {
-    let post = this.state.items[index]
-    console.log('follow', post.user_id);
-    api.getData('following/' + post.user_id).then((res) => {
-      console.log('test');
+    let post = this.state.items[index] 
+    api.getData('following/' + post.user_id).then((res) => { 
       this.fatchData();
     })
   }
@@ -200,24 +193,11 @@ class PostDetails extends Component {
     this.setState({ reply_to_name: '' });
   }
   handleLikeComment = (index) => {
-    // let comment = this.state.items[index] 
-    // const { liked, like } = comment 
-    // const newPost = {
-    //   ...comment,
-    //   liked: !liked,
-    //   like: liked ? comment.like - 1 : comment.like + 1
-    // }  
-    console.log('===========================',index)
+    
     api.getData('commentlike/'+index)
-    .catch((error) => {
-      console.log('error===', error); 
+    .catch((error) => { 
     });
-    // this.setState({
-    //   items: {
-    //     ...this.state.items,
-    //     [index]: newPost
-    //   }
-    // }) 
+    
     this.fatchData();
   }
   handleLikePost = (id) => { 

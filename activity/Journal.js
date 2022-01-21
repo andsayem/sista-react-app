@@ -77,8 +77,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
       items: {}                                                                               
       // Other states                                                                         
     } 
-    renderRow = ({ item , index }) => { 
-      //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    renderRow = ({ item , index }) => {  
       const { liked, like, props } = item
       return (
         <ListItem   

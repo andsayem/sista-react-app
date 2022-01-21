@@ -4,8 +4,7 @@ import { View } from "react-native";
 import {colors  , Header} from 'react-native-elements';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 class RatingApp extends Component {
-  ratingCompleted(rating) {
-    console.log("Rating is: " + rating)
+  ratingCompleted(rating) { 
   }
   //const WATER_IMAGE = require('../img/Screenshot_4.png')
 

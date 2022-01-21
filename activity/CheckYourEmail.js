@@ -57,8 +57,7 @@ function CheckYourEmail(props ) {
           setSuccesstext({message: response.data.message });
         } 
         setLoading(false);
-      }).catch((error) => {
-       // console.log(error.response.data.message);
+      }).catch((error) => { 
        setLoading(false); 
         setSuccesstext({message: error.response.data.message }); 
       });
