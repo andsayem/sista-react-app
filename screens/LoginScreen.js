@@ -112,15 +112,13 @@ function LoginScreen(props) {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => {
-        console.log('login===', res.data);
+      .then((res) => { 
         let userData = res.data;
         if (userData.status === 1) {
           setLoginData(res.data);
           saveToken(userData.access_token);
           saveData(userData.user);
-          setUserData(userData)
-          console.log('=========================', userData);
+          setUserData(userData) 
           props.navigation.navigate("Home");
           
         } else {
@@ -145,13 +143,11 @@ function LoginScreen(props) {
   }
 
   const saveData = async (loginData) => {
-    try {
-      //console.log('1232sdxfd',loginData)
+    try { 
       let userData = JSON.stringify(loginData);
       await AsyncStorage.setItem(STORAGE_KEY, userData)
       setSuccesstext({ message: 'Data successfully saved' });
-    } catch (e) {
-      //console.log('Error', e);
+    } catch (e) { 
       setErrortext({ message: 'Failed to save the data to the storage' });
     }
   }
@@ -171,8 +167,7 @@ function LoginScreen(props) {
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({}));
       props.navigation.navigate("Home");
-    } catch (err) {
-      console.log(err);
+    } catch (err) { 
     }
   }
 

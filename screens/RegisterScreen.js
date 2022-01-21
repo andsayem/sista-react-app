@@ -84,8 +84,7 @@ function RegisterScreen ({navigation,props}){
         gender: userGender,
         zip_code : userZipcode,
         password: userPassword,
-      };
-      console.log(dataToSend);
+      }; 
       var formBody = [];
       for (var key in dataToSend) {
         var encodedKey = encodeURIComponent(key);
@@ -106,8 +105,7 @@ function RegisterScreen ({navigation,props}){
         .then((response) => response.json())
         .then((responseJson) => {
           //Hide Loader
-          setLoading(false);
-          console.log(responseJson); 
+          setLoading(false); 
           // If server response message same as Data Matched
           if (responseJson.success === true) { 
             setSuccesstext({message:'Registration Successful. Please Login to proceed'}); 

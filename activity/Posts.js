@@ -58,8 +58,7 @@ class Posts extends Component {
   fatchUserData = async() => {   
     const userData = await AsyncStorage.getItem(STORAGE_KEY); 
     let user_data = JSON.parse(userData)  
-    this.setState({userData:user_data}) 
-    console.log('itemitemitemitemitemitemitemitemitemitem',this.state.userData); 
+    this.setState({userData:user_data})  
   } 
   renderRow = ({ item , index }) => { 
     
@@ -115,8 +114,7 @@ class Posts extends Component {
   }
   handleFollowPost = index => {     
     let post = this.state.items[index] 
-    api.getData('following/'+post.user_id).then((res)=>{
-      console.log('test');
+    api.getData('following/'+post.user_id).then((res)=>{ 
       this.fatchData(); 
     })
     
@@ -125,8 +123,7 @@ class Posts extends Component {
   componentWillUnmount() {   
     this.handlePostCates(); 
     this.fatchData();
-    this.fatchUserData();
-    console.log('componentWillUnmount')    
+    this.fatchUserData();  
   }
   render(){
     let {isLoading} = this.state;

@@ -42,20 +42,18 @@ class Post extends  React.Component{
        console.log(item);
       shareOnFacebook({
           'text':item.caption,
-          'link':'https://sista.andsayem.com/',
+          'link':'https://sista.droidit.net/',
           'imagelink':'http://www.andsayem.com/img/personal_2.jpg',
           //or use image
           'image': 'artboost-icon',
         },
-        (results) => {
-          console.log(results);
+        (results) => { 
         }
       );
     } 
     
   
-    render() {                
-      //console.log('Post = props',this.props.item.catjoin.cat_name);                 
+    render() {                                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
           <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0,   }} > 

@@ -82,8 +82,7 @@ class UserProfile extends Component {
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        setLoading(false);   
-        console.log('responseJson============',responseJson)
+        setLoading(false);    
         if (responseJson.success === true) { 
           this.setState({ successtext: 'Profile image change successful' }, function () {
             this.fatchData();
@@ -92,8 +91,7 @@ class UserProfile extends Component {
           this.setState({ successtext: '' });
         }
       })
-      .catch((error) => { 
-        console.log('error===',error);
+      .catch((error) => {  
         setLoading(false); 
       }); 
   }
@@ -102,9 +100,7 @@ class UserProfile extends Component {
     let user_data = JSON.parse(userData) 
     this.setState({isLoading:true})  
     api.getData('user_profile/'+ user_data.id)
-    .then(response => {  
-      console.log('========');
-      console.log(response.data.data);
+    .then(response => {   
       this.setState({userData:response.data.data}) 
       this.setState({pro1:response.data.data.photos[0] ? response.data.data.photos[0] : null});
       this.setState({pro2:response.data.data.photos[1] ? response.data.data.photos[1] : null});

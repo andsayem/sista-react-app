@@ -63,16 +63,13 @@ function PasswordReset(props) {
         if(response.data.success){
           setSuccesstext({message: response.data.message });
           if(response.data.data == 1){
-            props.navigation.navigate('CongratulationResetPassword')
-           // props.navigation.navigate('PasswordReset') 
-          } 
-         // props.navigation.navigate("CheckYourEmail");  
+            props.navigation.navigate('CongratulationResetPassword') 
+          }  
         }else{
           setSuccesstext({message: response.data.message });
         } 
         setLoading(false);
-      }).catch((error) => {
-       // console.log(error.response.data.message);
+      }).catch((error) => { 
        setLoading(false); 
         setSuccesstext({message: error.response.data.message }); 
       }); 

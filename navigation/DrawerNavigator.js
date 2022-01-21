@@ -20,8 +20,7 @@ const DrawerNavigator = () => {
         //or use image
         'image': 'artboost-icon',
       },
-      (results) => {
-        console.log(results);
+      (results) => { 
       }
     );
   }

@@ -99,7 +99,7 @@ function LoginScreen( { navigation: { navigate } }) {
       setLoading(false);
     }
  
-     axios.post('https://sista.abdulmazidcse.com/api/auth/login',
+     axios.post('https://sista.droidit.net/api/auth/login',
      {
       email: userEmail ,
       password: userPassword 
@@ -109,17 +109,14 @@ function LoginScreen( { navigation: { navigate } }) {
               "Content-Type": "application/json", 
           },
       })
-      .then((res) => { 
-        console.log('responses ================ ',res.data)
+      .then((res) => {  
         let userData  = res.data ;  
         setLoginData(res.data);
         saveToken(userData.access_token);   
         saveData();  
         setUserData(userData)
         setLoading(false);       
-      }).catch(function (error) {
-        console.log('=========OUT========');
-        console.log(error);
+      }).catch(function (error) { 
         setLoading(false);
       }); 
   };
@@ -134,13 +131,11 @@ function LoginScreen( { navigation: { navigate } }) {
   }
  
   const saveData = async () => {
-    try {
-      console.log('1232sdxfd',loginData)
+    try { 
       let userData =  JSON.stringify(loginData);    
       await AsyncStorage.setItem(STORAGE_KEY, userData)
       setSuccesstext({ message:'Data successfully saved ' }); 
-    } catch (e) {
-      console.log('Error', e);
+    } catch (e) { 
       setErrortext({ message: 'Failed to save the data to the storage' }); 
     }
   }
@@ -149,8 +144,7 @@ function LoginScreen( { navigation: { navigate } }) {
     try {
       const user = await AsyncStorage.getItem(STORAGE_KEY);
       let jsonuser = JSON.parse(user)
-      const token = await AsyncStorage.getItem(TOKEN);   
-      console.log('jsonuser=============================',jsonuser);
+      const token = await AsyncStorage.getItem(TOKEN);    
       if((token) && (user)) {
         setSuccesstext({ message:'read successfully saved' });  
         
@@ -176,7 +170,6 @@ function LoginScreen( { navigation: { navigate } }) {
   } 
 
   useEffect(() => {
-    console.log('userData ============',userData);
     if(userData.status===1){ 
       setLoading(true);
       navigate('Tabs'); 

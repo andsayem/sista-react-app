@@ -12,8 +12,7 @@ const Events = ({ navigation }) => {
         .then((res)=>{
           setCats( res.data.data);  
         })
-        .catch((error) => {
-            console.log(error)
+        .catch((error) => { 
         }) 
     }; 
     const Toast = ({ visible, message }) => {

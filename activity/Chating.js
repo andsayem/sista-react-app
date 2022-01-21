@@ -57,39 +57,9 @@ const TOKEN = 'token';
     this.fatchData(); 
   }
   async componentwillmount(){   
-    this.fatchData();
-    //this.socketioClient();
+    this.fatchData(); 
   }
 
-  // socketioClient = async () => {
-  //   if (!window.location) {
-  //     // App is running in simulator
-  //     window.navigator.userAgent = 'ReactNative';
-  // }
-  
-  // This must be below your `window.navigator` hack above
-  // const io = require('socket.io-client/socket.io');
-  // const sockets = io('http://chat.feathersjs.com', {
-  //   transports: ['websocket'] // you need to explicitly tell it to use websockets
-  // });
-  
-  // sockets.on('connect', () => {
-  //   console.log('connected!');
-  // });
-  
-  //   const socket = SocketIOClient("https://sista.andsayem.com/api/user_conversations?receiver_id="+this.props.route.params.receiver_id, {
-  //       jsonp: true,
-  //     });
-  //     socket.on("connect", () => {
-  //       console.log("connected");
-  //       socket.emit("hello", "world");
-  //     });
-      
-  //     socket.on("connect_error", (err) => {
-  //       console.log(err instanceof Error);
-  //       console.log(err.message); 
-  //     }); 
-  // }
   fatchData  =  async () => {  
     this.setState({isLoading:true})  
     api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)

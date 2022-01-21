@@ -29,8 +29,7 @@ export default class NewFeedScreen extends React.Component {
                 maxHeight: 200,
                 maxWidth: 200,
             },
-            (response) => {
-                console.log(response);
+            (response) => { 
                 this.setState({ image: response });
             },
         )
@@ -41,7 +40,7 @@ export default class NewFeedScreen extends React.Component {
      */
     selectVideo = async () => {
         ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
-            console.log(response);
+           
             this.setState({ video: response });
         })
     }
@@ -94,14 +93,12 @@ export default class NewFeedScreen extends React.Component {
                     return response.json();
                 })
                 .then(async (res) => {
-                    this.setState({ loading: false });
-                    console.log(res)
+                    this.setState({ loading: false }); 
                     if(res.error == 0){
                         this.props.navigation.navigate("Feed");
                     }
                 })
-                .catch(error => {
-                    console.log(error);
+                .catch(error => { 
                     this.setState({ loading: false });
                 });
         } else {

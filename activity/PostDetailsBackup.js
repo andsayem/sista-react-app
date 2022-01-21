@@ -38,21 +38,16 @@ function PostDetails({navigation,route}) {
   const fatchData = async => {
     api.getData('post_datas/'+route.params.id)
     .then((res)=>{
-      setPost( res.data.data); 
-      console.log('res.data.data',res.data.data); 
+      setPost( res.data.data);  
     })
-    .catch((error) => {
-        console.log(error)
+    .catch((error) => { 
     }) 
   };  
   const allComments = async => {
     api.getData('all_comments?parent_id=0&post_id='+route.params.id)
-    .then((res)=>{
-      //setPost( res.data.data); 
-      console.log('allComments',res.data.data); 
+    .then((res)=>{ 
     })
-    .catch((error) => {
-        console.log(error)
+    .catch((error) => { 
     }) 
   };  
   useEffect(() => {fatchData()}, []);
@@ -66,8 +61,7 @@ function PostDetails({navigation,route}) {
       setErrortext({message : 'Please fill caption'});  
       return;
     }else{
-      setSuccesstext(false);
-    //console.log( video.uri );
+      setSuccesstext(false); 
     setLoading(true); 
     var dataToSend = {  
       post_id: route.params.id,
@@ -87,16 +81,14 @@ function PostDetails({navigation,route}) {
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        setLoading(false);   
-        console.log('responseJson============',responseJson)
+        setLoading(false);    
         if (responseJson.success === true) { 
           setComment('');
           setSuccesstext({message:'Post Submit Successful'});  
         } else { 
         }
       })
-      .catch((error) => { 
-        console.log('error===',error);
+      .catch((error) => {  
         setLoading(false); 
       });
     }

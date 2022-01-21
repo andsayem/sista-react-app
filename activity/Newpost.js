@@ -80,8 +80,7 @@ function Newpost(props) {
          setSuccesstext(false);
          setLoading(true);
          let formData = new FormData();
-         if (video) {
-            console.log('video=====', video);
+         if (video) { 
             formData.append('files_base', {
                name: video.fileName,
                uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
@@ -114,8 +113,7 @@ function Newpost(props) {
          })
             .then((response) => {
             }).then((responseJson) => {
-               setLoading(false);
-               console.log('dataToSend ======', responseJson)
+               setLoading(false); 
                if (responseJson.success === true) {
                   setSuccesstext({ message: 'Post Submit Successful' });
                   setCaption('');
@@ -124,24 +122,18 @@ function Newpost(props) {
                } else {
                }
             })
-            .catch((error) => {
-               console.log('error ============', error)
+            .catch((error) => { 
                setLoading(false);
             });
       }
    };
    const handleSubmitButton = async () => {
-      setErrortext(false);
-      // if (!post_caption) {
-      //    setErrortext({ message: 'Please fill caption' });
-      //    return;
-      // } else 
+      setErrortext(false); 
       if (!category) {
          setErrortext({ message: 'Please fill category' });
          return;
       } else {
-         setSuccesstext(false);
-         //console.log( video.uri );
+         setSuccesstext(false); 
          setLoading(true);
          var dataToSend = {
             user_id: 1,
@@ -188,8 +180,7 @@ function Newpost(props) {
          mediaType: 'photo',
          includeBase64: true,
       },
-         (response) => {
-            console.log(response);
+         (response) => { 
             setPhoto(response);
          });
    }
@@ -199,16 +190,14 @@ function Newpost(props) {
          noData: true,
          includeBase64: true
       };
-      launchImageLibrary(options, (response) => {
-         console.log(response);
+      launchImageLibrary(options, (response) => { 
          if (response) {
             setPhoto(response);
          }
       });
    };
    const selectVideo = () => {
-      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
-         console.log('launchImageLibrary', response);
+      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => { 
          setVideo(response);
       })
    }
@@ -222,12 +211,10 @@ function Newpost(props) {
             }
             setCats(data);
          })
-         .catch((error) => {
-            console.log(error)
+         .catch((error) => { 
          })
    };
-   const categoryChange = async (data) => {
-      console.log(data.value);
+   const categoryChange = async (data) => { 
       setCategories(data.value);
       setCategoriesName(data.label);
       refRBSheet.current.close()
@@ -236,44 +223,13 @@ function Newpost(props) {
       if (index == 0) {
          return (
             <View>
-               {/* <ListItem >
-                  <ListItem.Content>
-                     <Image source={require("../img/images/img1.png")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-                  <ListItem.Content>
-                     <Image source={require("../img/images/2.jpg")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-                  <ListItem.Content>
-                     <Image source={require("../img/images/3.jpg")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-               </ListItem>
-               <ListItem >
-                  <ListItem.Content>
-                     <Image source={require("../img/images/2.jpg")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-                  <ListItem.Content>
-                     <Image source={require("../img/images/3.jpg")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-                  <ListItem.Content>
-                     <Image source={require("../img/images/img1.png")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-               </ListItem> */}
+               
             </View>
          )
       } else if (index == 1) {
          return (
             <View>
-               {/* <ListItem >
-                  <ListItem.Content>
-                     <Image source={require("../img/images/2.jpg")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-                  <ListItem.Content>
-                     <Image source={require("../img/images/3.jpg")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-                  <ListItem.Content>
-                     <Image source={require("../img/images/img1.png")} style={{ width: '100%', borderRadius: 10, height: 100 }} />
-                  </ListItem.Content>
-               </ListItem> */}
+               
             </View>
          )
       } else {
@@ -281,12 +237,7 @@ function Newpost(props) {
             <View>
                <ListItem >
                   <ListItem.Content>
-                     {/* <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
-                        <CheckBox
-                           value={isSelected}
-                           onValueChange={setSelection}
-                        />
-                     </ImageBackground> */}
+                     
                      <ImageBackground
                         source={require("../img/text/1.jpg")}
                         style={styles.backgroundImage}
@@ -302,14 +253,7 @@ function Newpost(props) {
                      </ImageBackground>
                      {/* <Image   source={require("../img/text/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  />  */}
                   </ListItem.Content>
-                  {/*          
-      <ListItem.Content>
-         <Image   source={require("../img/images/3.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
-      </ListItem.Content>
-      <ListItem.Content>
-         <Image   source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
-      </ListItem.Content>
-      */}
+                  
                </ListItem>
             </View>
          )
@@ -337,14 +281,7 @@ function Newpost(props) {
                   source={photo ? { uri: photo.uri } : null}
                   style={{ width: '100%', height: photo.uri ? 300 : 0 }}
                /> : ''}
-               {/* <Video 
-         source={{uri: 'https://youtu.be/oEFEGcsjk1A'}}   // Can be a URL or a local file.
-         ref={(ref) => {
-         this.player = ref
-         }}                                      // Store reference
-         onBuffer={this.onBuffer}                // Callback when remote video is buffering
-         onError={this.videoError}               // Callback when video cannot be loaded
-         style={styles.backgroundVideo} />  */}
+               
             </ListItem.Content>
          </ListItem>
          <ListItem >

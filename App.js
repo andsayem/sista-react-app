@@ -21,6 +21,7 @@ import Product from "./product/Product";
 import PrivacyPolicy from "./activity/PrivacyPolicy";
 import Settings from "./activity/Settings";
 import About from "./activity/About";
+import ProductInfo from "./product/ProductInfo";
 import AppInformation from "./activity/AppInformation";
 import RatingApp from "./activity/RatingApp";
 import Support from "./activity/Support";
@@ -28,6 +29,7 @@ import Chating from "./activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
 import PostDetails from './activity/PostDetails';
+import JournalDetails from './activity/JournalDetails';
 import Profile from "./activity/Profile";
 import UserProfile from './activity/UserProfile';
 import AppTutorial from './screens/WelcomeScreen'; 
@@ -56,6 +58,7 @@ function DrawerNavigator() {
         <Drawer.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false}}/>
         <Drawer.Screen name="Settings" component={Settings} options={{ headerShown : false}}/>
         <Drawer.Screen name="About" component={About} options={{ headerShown : false}}/>
+        <Drawer.Screen name="ProductInfo" component={ProductInfo} options={{ headerShown : false}}/>
         <Drawer.Screen name="AppInformation" component={AppInformation} options={{ headerShown : false}}/>
         <Drawer.Screen name="RatingApp" component={RatingApp} options={{ headerShown : false}}/>
         <Drawer.Screen name="Support" component={Support} options={{ headerShown : false}}/>
@@ -95,8 +98,7 @@ function App(){
   //useEffect(() => { readData() },[getToken])  
   useEffect(() => { SplashScreen.hide() },[getToken]) 
   useEffect(() => {  
-    return () => { 
-      console.log(initialRoute,'dfgf'); 
+    return () => {  
       readData();
     }
   }, [getToken]);
@@ -119,12 +121,14 @@ function App(){
         <StackApp.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown : false, name : 'Product Detail'}} />
         <StackApp.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown : false, name : 'Privacy Policy'}} />
         <StackApp.Screen name="Settings" component={Settings} options={{ headerShown : false, name : 'Settings'}} />
-        <StackApp.Screen name="About" component={About} options={{ headerShown : false, name : 'About'}} />
+        <StackApp.Screen name="About" component={About} options={{ headerShown : false, name : 'ProductInfo'}} />
+        <StackApp.Screen name="ProductInfo" component={ProductInfo} options={{ headerShown : false, name : 'About'}} />
         <StackApp.Screen name="AppInformation" component={AppInformation} options={{ headerShown : false, name : 'App Information'}} />
         <StackApp.Screen name="RatingApp" component={RatingApp} options={{ headerShown : false, name : 'Rate Us'}} />
         <StackApp.Screen name="Support" component={Support} options={{ headerShown : false, name : 'Support'}} />
         <StackApp.Screen name="Chating" component={Chating} options={{ headerShown : false, name : 'Chating'}} />
         <StackApp.Screen name="PostDetails" component={PostDetails} options={{ headerShown : false, name : 'PostDetails'}} />
+        <StackApp.Screen name="JournalDetails" component={JournalDetails} options={{ headerShown : false, name : 'JournalDetails'}} /> 
         <StackApp.Screen name="Profile" component={Profile} options={{ headerShown : false, name : 'UserProfile'}} />
         <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown : false, name : 'UserProfile'}} />
       </StackApp.Navigator>
@@ -158,20 +162,16 @@ function App22(navigation) {
     // })
 
     useEffect(() => {
-      window.addEventListener('mousemove', () => {
-        console.log('returned function will be called on component unmount mousemove');
+      window.addEventListener('mousemove', () => { 
       });    
-      console.log('returned function will be called on component unmount ');
-      // returned function will be called on component unmount 
+      
       return () => {
-        window.removeEventListener('mousemove', () => {
-          console.log('returned function will be called on component mount ');
+        window.removeEventListener('mousemove', () => { 
         })
       }
       
     }, [])
-
-    //console.log('loggedIn app page ',loggedIn);
+ 
   return (
     <NavigationContainer>
       <Stack.Navigator>
