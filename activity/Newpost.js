@@ -15,6 +15,7 @@ import api from '../api';
 import axios from 'axios';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
+import DocumentPicker from 'react-native-document-picker';
 import FormData from 'form-data';
 import helpers from '../helpers';
 const STORAGE_KEY = 'save_user';
@@ -52,6 +53,7 @@ function Newpost(props) {
    const [isSelected, setSelection] = useState(true);
    const [value, setValue] = React.useState('first');
    const [getToken, setToken] = useState(false);
+   const [singleFile, setSingleFile] = useState(null);
    useEffect(() => setSuccesstext(false), [successText]);
    useEffect(() => setErrortext(false), [errortext]);
    useEffect(() => { getCategories() }, []);
@@ -68,7 +70,7 @@ function Newpost(props) {
       setErrortext(false);
       setSuccesstext(false);
    }, [handleSubmitButton])
-   const handleSubmitButton2 = async () => {
+   const handleSubmitButton = async () => {
       setErrortext(false);
       if (!post_caption) {
          setErrortext({ message: 'Please fill caption' });
@@ -81,16 +83,16 @@ function Newpost(props) {
          setLoading(true);
          let formData = new FormData();
          if (video) { 
-            formData.append('files_base', {
-               name: video.fileName,
-               uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
-               type: 'video/mov',
-            });
-            formData.append("files_base", {
-               name: "name.mp4",
-               uri: video.uri,
-               type: 'video/mp4'
-            });
+            // formData.append('files_base', {
+            //    name: video.fileName,
+            //    uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
+            //    type: 'video/mov',
+            // });
+            // formData.append("files_base", {
+            //    name: "name.mp4",
+            //    uri: video.uri,
+            //    type: 'video/mp4'
+            // });
          }
          formData.append("user_id", 1);
          formData.append("caption", post_caption);
@@ -99,20 +101,27 @@ function Newpost(props) {
          formData.append("font_style", 'small');
          formData.append("font_size", 12);
          formData.append("post_type", index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3);
-         if (photo) {
-            formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
+         if (photo) { 
+            const fileToUpload = singleFile; 
+            data.append('name', 'Image Upload');
+            //data.append('files_base', fileToUpload);
+            //formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
+            formData.append("files_base", fileToUpload);
          }
-
-         fetch(helpers.baseurl()+'api/video-upload', {
+         console.log(formData)
+         fetch(helpers.baseurl()+'api/post_datas', {
             method: 'POST',
-            headers: {
-               'Content-Type': 'multipart/form-data',
+            headers: { 
+               Accept: 'application/json',
+               'Content-Type': 'multipart/form-data; ',
                Authorization: "Bearer " + await AsyncStorage.getItem(TOKEN),
             },
             body: formData
          })
             .then((response) => {
+               console.log('response', response)
             }).then((responseJson) => {
+               console.log('responseJson', responseJson)
                setLoading(false); 
                if (responseJson.success === true) {
                   setSuccesstext({ message: 'Post Submit Successful' });
@@ -123,11 +132,76 @@ function Newpost(props) {
                }
             })
             .catch((error) => { 
+               console.log('erro',error)
+               //console.log('erro',helpers.baseurl())
                setLoading(false);
             });
       }
    };
-   const handleSubmitButton = async () => {
+   const handleChoosePhoto = async () => {
+      // Opening Document Picker to select one file
+      try {
+        const res = await DocumentPicker.pick({
+          // Provide which type of file you want user to pick
+          type: [DocumentPicker.types.allFiles],
+          // There can me more options as well
+          // DocumentPicker.types.allFiles
+          // DocumentPicker.types.images
+          // DocumentPicker.types.plainText
+          // DocumentPicker.types.audio
+          // DocumentPicker.types.pdf
+        });
+        // Printing the log realted to the file
+        console.log('res : ' + JSON.stringify(res));
+        // Setting the state to show single file attributes
+        setPhoto(res);
+        setSingleFile(res);
+      } catch (err) {
+         setSingleFile(null);
+         setPhoto(null);
+        // Handling any exception (If any)
+        if (DocumentPicker.isCancel(err)) {
+          // If user canceled the document selection
+          alert('Canceled');
+        } else {
+          // For Unknown Error
+          alert('Unknown Error: ' + JSON.stringify(err));
+          throw err;
+        }
+      }
+    };
+
+    const selectFile = async () => {
+      // Opening Document Picker to select one file
+      try {
+        const res = await DocumentPicker.pick({
+          // Provide which type of file you want user to pick
+          type: [DocumentPicker.types.allFiles],
+          // There can me more options as well
+          // DocumentPicker.types.allFiles
+          // DocumentPicker.types.images
+          // DocumentPicker.types.plainText
+          // DocumentPicker.types.audio
+          // DocumentPicker.types.pdf
+        });
+        // Printing the log realted to the file
+        console.log('res : ' + JSON.stringify(res));
+        // Setting the state to show single file attributes
+        setSingleFile(res);
+      } catch (err) {
+        setSingleFile(null);
+        // Handling any exception (If any)
+        if (DocumentPicker.isCancel(err)) {
+          // If user canceled the document selection
+          alert('Canceled');
+        } else {
+          // For Unknown Error
+          alert('Unknown Error: ' + JSON.stringify(err));
+          throw err;
+        }
+      }
+    };
+   const handleSubmitButton2 = async () => {
       setErrortext(false); 
       if (!category) {
          setErrortext({ message: 'Please fill category' });
@@ -160,6 +234,7 @@ function Newpost(props) {
          })
             .then((response) => response.json())
             .then((responseJson) => {
+               console.log('New post error->',responseJson)
                setLoading(false);
                if (responseJson.success === true) {
                   setCaption('');
@@ -170,12 +245,13 @@ function Newpost(props) {
                }
             })
             .catch((error) => {
+               console.log('New post error->',helpers.baseurl())
                console.log('New post error->',error)
                setLoading(false);
             });
       }
    };
-   const handleChoosePhoto = () => {
+   const handleChoosePhoto2 = () => {
       ImagePicker.launchImageLibrary({
          mediaType: 'photo',
          includeBase64: true,
@@ -184,11 +260,18 @@ function Newpost(props) {
             setPhoto(response);
          });
    }
-   const handleChoosePhoto2 = () => {
+   const handleChoosePhoto3 = () => {
       let options = {
          title: 'Select Image',
-         noData: true,
-         includeBase64: true
+         quality: 1.0,
+         maxWidth: 500,
+         maxHeight: 500,
+         storageOptions: {
+            skipBackup: true,
+            path: 'images',
+            cameraRoll: true,
+            waitUntilSaved: true,
+         },
       };
       launchImageLibrary(options, (response) => { 
          if (response) {
@@ -212,6 +295,7 @@ function Newpost(props) {
             setCats(data);
          })
          .catch((error) => { 
+            console.log('category-error',error)
          })
    };
    const categoryChange = async (data) => { 
@@ -272,8 +356,7 @@ function Newpost(props) {
                backgroundColor: '#E4E4E4'
             }}
          />
-         <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) =>
-            Toast.setRef(ref)} />
+         <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message}/>
          <Toast visible={successText} message={successText.message} />
          <ListItem>
             <ListItem.Content >
@@ -333,6 +416,25 @@ function Newpost(props) {
          </View>
          <View style={{ flexDirection: 'row', width: '100%' }} >
             <View style={{ flexDirection: 'row', margin: 10, width: '100%' }}  >
+            {singleFile != null ? (
+            <Text style={styles.textStyle}>
+               File Name: {singleFile.name ? singleFile.name : ''}
+               {'\n'}
+               Type: {singleFile.type ? singleFile.type : ''}
+               {'\n'}
+               File Size: {singleFile.size ? singleFile.size : ''}
+               {'\n'}
+               URI: {singleFile.uri ? singleFile.uri : ''}
+               {'\n'}
+            </Text>
+            ) : null}
+            <TouchableOpacity
+            style={styles.buttonStyle}
+            activeOpacity={0.5}
+            onPress={selectFile}>
+            <Text style={styles.buttonTextStyle}>Select File</Text>
+            </TouchableOpacity>
+            
                <Text style={
                   { flexDirection: 'row', color: 'black', width: '92%' }} onPress={() => refRBSheet.current.open()}> Category : {categoryName}
                </Text>
