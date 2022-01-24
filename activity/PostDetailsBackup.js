@@ -68,8 +68,7 @@ function PostDetails({navigation,route}) {
       parent_id: 0,
       user_id:2,
       comm_test: post_comment,       
-    };  
-    console.log('dataToSend--==',dataToSend);
+    };   
     fetch(helpers.baseurl()+'api/all_comments', {
       method: 'POST', 
       headers: {  

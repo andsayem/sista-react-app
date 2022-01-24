@@ -1,9 +1,9 @@
 export default helpers = {
     baseurl: function(){
-    	return 'https://sista.speechbd.com/'
+    	return 'https://sista.droidit.net/'
     },
     storage: function(){
-        return 'https://sista.andsayem.com/storage/'
+        return 'https://sista.droidit.net/'
     },
     api: function(param1, param2){
 

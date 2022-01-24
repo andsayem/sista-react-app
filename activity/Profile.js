@@ -69,8 +69,7 @@ class UserProfile extends Component {
   save =  async(response) =>{
     var dataToSend = {  
       files_base: "data:"+response.type+";base64,"+ response.base64    
-    };  
-    console.log('dataToSend--==',dataToSend);
+    };   
     fetch(helpers.baseurl()+'api/change-profile-image', {
       method: 'POST', 
       headers: {  

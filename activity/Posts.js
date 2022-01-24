@@ -30,6 +30,13 @@ class Posts extends Component {
     this.fatchData(); 
     this.fatchUserData();
   }
+
+  /* React get method.  */
+
+componentWillMount(){
+   this.fatchData(); 
+    this.fatchUserData();
+}
   fatchData = async () => { 
     this.setState({isLoading:true})    
     api.getData('post_datas?cat_id='+this.state.cat_id)

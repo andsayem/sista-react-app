@@ -126,8 +126,7 @@ function LoginScreen(props) {
         }
         // props.navigation.navigate("Home");
         setLoading(false);
-      }).catch(function (error) {
-        console.log('login-screen', error);
+      }).catch(function (error) { 
         setLoading(false);
       });
   };

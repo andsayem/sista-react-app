@@ -38,8 +38,7 @@ class Post extends  React.Component{
       // If "liked" or "likeCount" is different, then update                          
       return liked !== oldLiked || like !== oldLikeCount || followings !== oldFollowed || follow !== oldFollowCount                       
     }        
-    facebookShare(item){ 
-       console.log(item);
+    facebookShare(item){  
       shareOnFacebook({
           'text':item.caption,
           'link':'https://sista.droidit.net/',
