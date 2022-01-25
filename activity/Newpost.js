@@ -37,7 +37,16 @@ const Toast = ({ visible, message }) => {
 function Newpost(props) {
    // bs =React.createRef();
    // fall  = new Animated.value(1) ;
-
+   Cats = [
+      {label : 'Videos',
+      value : 1},
+      {label : 'Quotes',
+      value : 2},
+      {label : 'Support',
+      value : 3},
+      {label : 'Poetry',
+      value : 3},
+   ]
    const [post_caption, setCaption] = useState('');
    const [category, setCategories] = useState(null);
    const [categoryName, setCategoriesName] = useState(null);
@@ -47,7 +56,7 @@ function Newpost(props) {
    const [index, setIndex] = useState(0);
    const [photo, setPhoto] = useState([]);
    const [video, setVideo] = useState([]);
-   const [getCats, setCats] = useState([]);
+   //const [getCats, setCats] = useState([]);
    const refRBSheet = useRef();
    const [checked, setChecked] = React.useState('');
    const [isSelected, setSelection] = useState(true);
@@ -56,9 +65,9 @@ function Newpost(props) {
    const [singleFile, setSingleFile] = useState(null);
    useEffect(() => setSuccesstext(false), [successText]);
    useEffect(() => setErrortext(false), [errortext]);
-   useEffect(() => { getCategories() }, []);
+   //useEffect(() => { getCategories() }, []);
    const readData = async () => {
-      getCategories();
+     // getCategories();
       try {
          const token = await AsyncStorage.getItem(TOKEN);
          setToken(token);
@@ -141,62 +150,32 @@ function Newpost(props) {
    const handleChoosePhoto = async () => {
       // Opening Document Picker to select one file
       try {
-        const res = await DocumentPicker.pick({
-          // Provide which type of file you want user to pick
-          type: [DocumentPicker.types.allFiles],
-          // There can me more options as well
-          // DocumentPicker.types.allFiles
-          // DocumentPicker.types.images
-          // DocumentPicker.types.plainText
-          // DocumentPicker.types.audio
-          // DocumentPicker.types.pdf
-        });
-        // Printing the log realted to the file
-        console.log('res : ' + JSON.stringify(res));
-        // Setting the state to show single file attributes
+        const res = await DocumentPicker.pick({ 
+          type: [DocumentPicker.types.allFiles], 
+        }); 
+        console.log('res : ' + JSON.stringify(res)); 
         setPhoto(res);
         setSingleFile(res);
       } catch (err) {
          setSingleFile(null);
-         setPhoto(null);
-        // Handling any exception (If any)
-        if (DocumentPicker.isCancel(err)) {
-          // If user canceled the document selection
-          alert('Canceled');
-        } else {
-          // For Unknown Error
-          alert('Unknown Error: ' + JSON.stringify(err));
+         setPhoto(null); 
+        if (DocumentPicker.isCancel(err)) {  
+        } else { 
           throw err;
         }
       }
     };
 
-    const selectFile = async () => {
-      // Opening Document Picker to select one file
+    const selectFile = async () => { 
       try {
-        const res = await DocumentPicker.pick({
-          // Provide which type of file you want user to pick
-          type: [DocumentPicker.types.allFiles],
-          // There can me more options as well
-          // DocumentPicker.types.allFiles
-          // DocumentPicker.types.images
-          // DocumentPicker.types.plainText
-          // DocumentPicker.types.audio
-          // DocumentPicker.types.pdf
-        });
-        // Printing the log realted to the file
-        console.log('res : ' + JSON.stringify(res));
-        // Setting the state to show single file attributes
+        const res = await DocumentPicker.pick({ 
+          type: [DocumentPicker.types.allFiles], 
+        });  
         setSingleFile(res);
       } catch (err) {
-        setSingleFile(null);
-        // Handling any exception (If any)
-        if (DocumentPicker.isCancel(err)) {
-          // If user canceled the document selection
-          alert('Canceled');
-        } else {
-          // For Unknown Error
-          alert('Unknown Error: ' + JSON.stringify(err));
+        setSingleFile(null); 
+        if (DocumentPicker.isCancel(err)) { 
+        } else { 
           throw err;
         }
       }
@@ -284,20 +263,20 @@ function Newpost(props) {
          setVideo(response);
       })
    }
-   const getCategories = async => {
-      api.getData('post_categories')
-         .then((res) => {
-            let data = [];
-            for (let index = 0; index < res.data.data.length; index++) {
-               let d = { label: res.data.data[index].cat_name, value: res.data.data[index].id };
-               data.push(d);
-            }
-            setCats(data);
-         })
-         .catch((error) => { 
-            console.log('category-error',error)
-         })
-   };
+   // const getCategories = async => {
+   //    api.getData('post_categories')
+   //       .then((res) => {
+   //          let data = [];
+   //          for (let index = 0; index < res.data.data.length; index++) {
+   //             let d = { label: res.data.data[index].cat_name, value: res.data.data[index].id };
+   //             data.push(d);
+   //          }
+   //          setCats(data);
+   //       })
+   //       .catch((error) => { 
+   //          console.log('category-error',error)
+   //       })
+   // };
    const categoryChange = async (data) => { 
       setCategories(data.value);
       setCategoriesName(data.label);
@@ -432,7 +411,7 @@ function Newpost(props) {
             style={styles.buttonStyle}
             activeOpacity={0.5}
             onPress={selectFile}>
-            <Text style={styles.buttonTextStyle}>Select File</Text>
+            {/* <Text style={styles.buttonTextStyle}>Select File</Text> */}
             </TouchableOpacity>
             
                <Text style={
@@ -451,7 +430,7 @@ function Newpost(props) {
                <View>
                   <RadioForm formHorizontal={false} initial={0} animation={true} >
                      {
-                        getCats.map((item, i) => (
+                        Cats.map((item, i) => (
                            <RadioButton labelHorizontal={true} key={i} >
                               {/*  You can set RadioButtonLabel before RadioButtonInput */}
                               <RadioButtonInput
@@ -480,7 +459,7 @@ function Newpost(props) {
                </View>
             </RBSheet>
          </View>
-         <SegmentedControl selectedIndex={index} values={['Photo', 'Video', 'Text']} onChange={(event) => {
+         <SegmentedControl style={{ backgroundColor : '#efefef'}} selectedIndex={index} values={['Photo', 'Video', 'Text']} onChange={(event) => {
             setCaption('');
             setIndex(event.nativeEvent.selectedSegmentIndex);
          }} />
