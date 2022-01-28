@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import IconFea from 'react-native-vector-icons/Feather';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 import AutoHeightImage from 'react-native-auto-height-image';
+import helpers from '../helpers';
 const win = Dimensions.get('window').width;
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
@@ -100,6 +101,7 @@ class ProductDetail extends Component {
          this.state = {
             item: [],
             isLoading: false,
+            currency:'',
          }
     }
     componentDidMount() {
@@ -128,7 +130,7 @@ class ProductDetail extends Component {
             <ScrollView> 
                 {/* <ScrollView style={styles.container} >    */}
                 {/* Header */}
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginTop:20}}>
                 <AutoHeightImage
                     width={win}
                     source={{ uri: this.props.route.params.item.file ? this.props.route.params.item.file : '' }}
@@ -153,7 +155,9 @@ class ProductDetail extends Component {
                                 <Text style={{ color: '#000', ...FONTS.h2 }}>Man T-Shirt</Text>
                             </View>
                             <View style={{ width: '20%' }}>
-                                <Text style={{ color: '#000', fontWeight: 'bold', textAlign: 'right', justifyContent: 'flex-end' }}>15$</Text>
+                                <Text style={{ color: '#000', fontWeight: 'bold', textAlign: 'right', justifyContent: 'flex-end' }}>
+                                {helpers.currency(this.props.route.params.item.price_offer,this.state.currency)}
+                                </Text>
                             </View>
                         </View>
                         <View style={{ width: '100%', flexDirection: "row", }}>
@@ -161,7 +165,9 @@ class ProductDetail extends Component {
                                 <Text style={{ color: '#8E8E8E', }}>Half Sleeve White Men's Basic t-shirt</Text>
                             </View>
                             <View style={{ width: '20%' }}>
-                                <Text style={{ color: '#8E8E8E', textAlign: 'right', justifyContent: 'flex-end' }}>22$</Text>
+                                <Text style={{ color: '#8E8E8E', textAlign: 'right', justifyContent: 'flex-end', textDecorationLine: 'line-through' }}>
+                                {helpers.currency(this.props.route.params.item.price,this.state.currency)}
+                                </Text>
                             </View>
                         </View>
 
@@ -227,7 +233,11 @@ class ProductDetail extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
+        paddingTop: 13,
+        paddingBottom: 4,
+        paddingRight: 1,
+        paddingLeft: 1,
     },
     shadow: {
         shadowColor: "#000",
