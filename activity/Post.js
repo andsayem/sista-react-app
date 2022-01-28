@@ -12,6 +12,9 @@ import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
 import ReadMore from '@fawazahmed/react-native-read-more';
 import AsyncStorage from '@react-native-community/async-storage';
+import helpers from '../helpers';
+import Video from 'react-native-video'; 
+import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 import api from '../api';
@@ -41,7 +44,7 @@ class Post extends  React.Component{
     facebookShare(item){  
       shareOnFacebook({
           'text':item.caption,
-          'link':'https://sista.droidit.net/',
+          'link':helpers.baseurl(),
           'imagelink':'http://www.andsayem.com/img/personal_2.jpg',
           //or use image
           'image': 'artboost-icon',
@@ -95,14 +98,28 @@ class Post extends  React.Component{
             :
             <View style={{ width: '100%', borderRadius: 10, paddingLeft:20, paddingRight:20 }} >
                 <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{  fontFamily: "RobotoRegular", fontSize: 15, paddingBottom :9 ,  color: "#0D0E10",  }}>
-                  {this.props.item.caption}
+                  {this.props.item.caption} 
                 </ReadMore>
               
                  <View> 
                  <TouchableOpacity onPress={() => this.props.onPressPostDetails(this.props.item.id)}>
-                  <Image   
-                  source={this.props.item.file ? {uri: this.props.item.file } : null} 
-                  style={{ width: '100%', borderRadius: 10, height: 130 }} />   
+                   { mime.lookup(this.props.item.file) =='video/mp4' ? 
+                   <Video
+                   source={{ uri: this.props.item.file, type: mime.lookup(this.props.item.file)}}
+                   style={{ width: '100%', height: this.props.item.file ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
+                   rate={1}
+                   paused={false}
+                   volume={5}
+                   muted={false}
+                   resizeMode={'cover'}
+                   onError={(e) => console.log(e)}
+                   onLoad={(load) => console.log(load)}
+                   repeat={true}
+                /> : 
+                   <Image   
+                   source={this.props.item.file ? {uri: this.props.item.file } : null} 
+                   style={{ width: '100%', borderRadius: 10, height: 130 }} /> }
+                     
                   </TouchableOpacity>         
                 </View>  
             </View>
