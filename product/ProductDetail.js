@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -7,13 +6,16 @@ import {
     Image,
     ScrollView,
     SafeAreaView,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
 import Styles from "../styles";
 import api from '../api';
 import LinearGradient from 'react-native-linear-gradient';
 import IconFea from 'react-native-vector-icons/Feather';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
+import AutoHeightImage from 'react-native-auto-height-image';
+const win = Dimensions.get('window').width;
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 const StarReview = ({ rate }) => {
@@ -101,16 +103,20 @@ class ProductDetail extends Component {
          }
     }
     componentDidMount() {
-        this.fatchData(); 
-      }
-      componentWillUnmount() {
-        this.fatchData(); 
-      }
+        console.log('componentDidMount=>',this.props.route.params.item);
+    this.fatchData(); 
+    }
+    componentWillUnmount() {
+        console.log('props=>',this.props);
+    this.fatchData(); 
+    }
     fatchData = () => { 
+        console.log('props=>',this.props);
         this.setState({ isLoading: true })
-        api.getData('products/' + this.props.route.params.id)
+        api.getData('products/' + this.props.route.params.item.id)
           .then(response => {
             this.setState({ item: response.data.data }) 
+            console.log('Product details', response.data.data)
           })
           .finally(() => this.setState({ isLoading: false }))
       }
@@ -118,19 +124,15 @@ class ProductDetail extends Component {
     // Render
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
+            <ScrollView> 
                 {/* <ScrollView style={styles.container} >    */}
                 {/* Header */}
                 <View style={{ flex: 1 }}>
-                    <Image
-                         source={this.state.item.file ? {uri: this.state.item.file } : null} 
-                        resizeMode="cover"
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                        }}
-                    />
- 
+                <AutoHeightImage
+                    width={win}
+                    source={{ uri: this.props.route.params.item.file ? this.props.route.params.item.file : '' }}
+                />  
                     
                 </View>
 
@@ -216,7 +218,8 @@ class ProductDetail extends Component {
                         <Text style={{ textAlign: 'center', color: '#ffffff', fontWeight: 'bold', fontSize: 20, marginHorizontal: 10 }}   >Send</Text>
                     </View>
                 </TouchableOpacity>
-            </View>
+                </ScrollView>
+            </SafeAreaView>
         );
     };
 };
