@@ -105,20 +105,20 @@ class ProductDetail extends Component {
          }
     }
     componentDidMount() {
-        console.log('componentDidMount=>',this.props.route.params.item);
+        //console.log('componentDidMount=>',this.props.route.params.item);
     this.fatchData(); 
     }
     componentWillUnmount() {
-        console.log('props=>',this.props);
+        //console.log('props=>',this.props);
     this.fatchData(); 
     }
     fatchData = () => { 
-        console.log('props=>',this.props);
+        //console.log('props=>',this.props);
         this.setState({ isLoading: true })
         api.getData('products/' + this.props.route.params.item.id)
           .then(response => {
             this.setState({ item: response.data.data }) 
-            console.log('Product details', response.data.data)
+            //console.log('Product details', response.data.data)
           })
           .finally(() => this.setState({ isLoading: false }))
       }
