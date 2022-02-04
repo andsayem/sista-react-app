@@ -15,7 +15,9 @@ import IconMat from 'react-native-vector-icons/MaterialIcons';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
-import AutoHeightImage from 'react-native-auto-height-image';
+import AutoHeightImage from 'react-native-auto-height-image'; 
+import VideoPlayer from 'react-native-video-player'; 
+import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 const win = Dimensions.get('window').width;
@@ -231,11 +233,23 @@ class PostDetails extends Component {
             //   />  
             : 
             <View>
-              <AutoHeightImage
-                width={win}
+              
+              { mime.lookup(this.state.post_items.file) =='video/mp4' ? 
+                <VideoPlayer
+                  onBuffer={this.onBuffer}
+                  fullScreenOnLongPress={true}
+                  ref={r => this.player = r}
+                  playControl={true}
+                  controlButton={true}
+                  video={{ uri: this.state.post_items.file }} 
+                  thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                  style={styles.backgroundVideo}
+              /> : 
+              <AutoHeightImage width={win}
                 source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
-              /> 
-                <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+              />  
+              }
+              <Text style={styles.caption}>{this.state.post_items.caption}</Text>
             </View> 
             } 
           
@@ -404,14 +418,20 @@ const styles = StyleSheet.create({
     top: 3.2,
     backgroundColor: '#fff'
   },
-    image_bg: {
-      flex: 1,
-      justifyContent: "center"
-    },
-     text_bg: {
-      color: "black",
-      fontWeight: "bold",
-      textAlign: "center",
-   },
+  image_bg: {
+    flex: 1,
+    justifyContent: "center"
+  },
+    text_bg: {
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  backgroundVideo: { 
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 })
 export default PostDetails;

@@ -14,6 +14,7 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import AsyncStorage from '@react-native-community/async-storage';
 import helpers from '../helpers';
 import Video from 'react-native-video'; 
+import VideoPlayer from 'react-native-video-player'; 
 import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
@@ -103,19 +104,12 @@ class Post extends  React.Component{
               
                  <View> 
                  <TouchableOpacity onPress={() => this.props.onPressPostDetails(this.props.item.id)}>
+                 
                    { mime.lookup(this.props.item.file) =='video/mp4' ? 
-                   <Video
-                   source={{ uri: this.props.item.file, type: mime.lookup(this.props.item.file)}}
-                   style={{ width: '100%', height: this.props.item.file ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
-                   rate={1}
-                   paused={false}
-                   volume={5}
-                   muted={false}
-                   resizeMode={'cover'}
-                   onError={(e) => console.log(e)}
-                   onLoad={(load) => console.log(load)}
-                   repeat={true}
-                /> : 
+                   <VideoPlayer
+                      video={{ uri: this.props.item.file }} 
+                      thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                  /> : 
                    <Image   
                    source={this.props.item.file ? {uri: this.props.item.file } : null} 
                    style={{ width: '100%', borderRadius: 10, height: 130 }} /> }
