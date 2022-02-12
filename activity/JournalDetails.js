@@ -8,6 +8,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet";
+import IconEnt from 'react-native-vector-icons/Entypo';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 const win = Dimensions.get('window').width;
@@ -76,50 +77,73 @@ class JournalDetails extends Component {
         //useEffect(() => { this.fatchData()},[]) 
         return ( <
             View >
-            <
-            SafeAreaView >
-
-            <
-            /SafeAreaView> <
-            /View>
+            </View>
         );
     }
     validation = () => {
         //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
     }
 
+    getData =  (dete) => {
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "December"
+        ];
+        var  d  =  new Date(dete) ;
+        var month =  d.getMonth()  ;
+       
+        var date = d.getDate();
+        return  date + ' '+  monthNames[month ];
+      }
+
     render() {
         let { items, isLoading } = this.state;
-        return ( <
-            SafeAreaView style = { styles.container } >
-            <
-            ScrollView >
+        return ( 
+        <SafeAreaView   > 
+           <Header 
+              leftComponent={<Icon color={colors.black} size={30} name='menu' 
+              onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+              centerComponent={{ text: 'Journal', style: { color: '#1E1E1E' , fontSize : 20 } }}
+              rightComponent={
+                <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" 
+                 onPress ={ ( ) => this.RBSheet.open() } /> 
+              }
+              containerStyle={{   
+                color : '1E1E1E',
+                backgroundColor: '#E4E4E4' }}
+          /> 
+            <ScrollView >
 
-            <
-            ListItem.Content >
-            <
-            ListItem.Content >
-            <
-            ListItem.Title style = {
-                { fontSize: 18, fontWeight: 'bold', paddingBottom: 8 } } > { this.state.journal_items.title } <
-            /ListItem.Title> <
-            Text > { this.state.journal_items.details } < /Text> <
-            ListItem.Title style = {
-                { fontSize: 18, paddingTop: 8 } } > { this.getData(this.state.journal_items.created_at) } <
-            /ListItem.Title> <
-            /ListItem.Content>   <
-            /ListItem.Content>    
+            <ListItem style={{
+                flex: 1,
+                flexDirection: 'column',
+                margin: 6,
+                borderStyle : 'solid',
+                borderWidth : 1,
+                borderColor : '#ABABAB',
+                borderRadius: 7
+            }}>   
+                <ListItem.Content   
+                 style={{   
+                  }}>
+                  <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}  >
+                  {this.state.journal_items.title}
+                    </ListItem.Title>
+                    <Text numberOfLines={this.state.numLines} >{this.state.journal_items.details}</Text>
+                    <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
+                    { this.getData(this.state.journal_items.created_at)}
+                    </ListItem.Title>
+                  </ListItem.Content>      
+          </ListItem>  
 
-            <
-            /ScrollView> <
-            /SafeAreaView>
+            </ScrollView> 
+            </SafeAreaView>
         )
     }
 
 }
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 60,
         flex: 1,
         padding: 2,
         width: '100%'
