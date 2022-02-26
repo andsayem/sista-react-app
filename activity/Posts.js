@@ -182,7 +182,7 @@ class Posts extends Component {
           containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4'}}
       /> 
       <Events/>
-      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 550}}> 
+      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
       <SafeAreaView>  
         <FlatList 
           data={Object.values(this.state.items)}
