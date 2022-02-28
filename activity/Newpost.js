@@ -124,11 +124,11 @@ function Newpost(props) {
          })
          .then(function (response) {
             setLoading(false);
-            console.log("response :", response);
+            //console.log("response :", response);
          })
          .catch(function (error) {
             setLoading(false);
-            console.log("error from image :", error);
+            //console.log("error from image :", error);
          }); 
       }
    };
@@ -138,7 +138,7 @@ function Newpost(props) {
          height: 400,
          cropping: false
        }).then(image => {
-         console.log("selected Image", image)
+         //console.log("selected Image", image)
          setVideo([]);
          setPhoto({uri: image.path, 
             mime: image.mime});  
@@ -148,7 +148,7 @@ function Newpost(props) {
       ImagePicker.openPicker({
          mediaType: "video",
        }).then((video) => {
-         console.log("selected video", video)
+         //console.log("selected video", video)
          setPhoto([]);
          setVideo({uri: video.path,
             width: video.width,
@@ -232,9 +232,7 @@ function Newpost(props) {
                      paused={false}
                      volume={5}
                      muted={false}
-                     resizeMode={'cover'}
-                     onError={(e) => console.log(e)}
-                     onLoad={(load) => console.log(load)}
+                     resizeMode={'cover'} 
                      repeat={true}
                   />
                : ""}

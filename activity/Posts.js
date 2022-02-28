@@ -28,18 +28,24 @@ class Posts extends Component {
       page:1
       };  
   }  
+  // shouldComponentUpdate(nextProps, nextState) {  
+  //   console.log('nextProps',nextProps)
+  //   console.log('nextState',nextState)
+  // }
   componentDidMount(){    
     // statusBar.setBarStyle('light-content',true);
     // StatusBar.setBackgroundColor("red");
-    //this.fatchData(); 
-    this.fatchUserData();
+    //this.fatchData();
+    //console.log('componentDidMount') 
+    this.fatchData();
   }
 
   /* React get method.  */
 
   componentWillMount(){
     //this.fatchData(); 
-    this.fatchUserData();
+    //console.log('componentWillMount') 
+    this.fatchData();
   }
   fatchData = async () => { 
     //this.setState({isLoading:true})   
