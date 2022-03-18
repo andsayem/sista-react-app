@@ -9,6 +9,21 @@ import Post from './Post';
 import Styles from "../styles"; 
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
+
+// import Pusher from 'pusher-js/react-native';
+// Pusher.logToConsole = true;
+
+// var pusher = new Pusher('28f66afb2b72c8e97219', {
+//   cluster: 'ap2'
+// });
+
+// var channel = pusher.subscribe('post-channel');
+// channel.bind('post-event', function(data) {
+//   alert(JSON.stringify(data));
+// });
+
+
+
 const STORAGE_KEY = 'save_user'; 
 const TOKEN = 'token';
 class Posts extends Component {
@@ -184,8 +199,7 @@ class Posts extends Component {
           centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
           rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
           containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
-          rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4'}}
+           
       /> 
       <Events/>
       <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 

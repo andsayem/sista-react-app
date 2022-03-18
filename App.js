@@ -34,6 +34,10 @@ import Profile from "./activity/Profile";
 import UserProfile from './activity/UserProfile';
 import AppTutorial from './screens/WelcomeScreen'; 
 import ProductDetail from "./product/ProductDetail";
+import Chat from './Chat';
+
+
+
 const Stack = createStackNavigator();
 const StackApp = createStackNavigator();
 const Drawer = createDrawerNavigator(); 
@@ -131,6 +135,7 @@ function App(){
         <StackApp.Screen name="JournalDetails" component={JournalDetails} options={{ headerShown : false, name : 'JournalDetails'}} /> 
         <StackApp.Screen name="Profile" component={Profile} options={{ headerShown : false, name : 'UserProfile'}} />
         <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown : false, name : 'UserProfile'}} />
+        <Stack.Screen name="Chat" component={Chat} />   
       </StackApp.Navigator>
     </NavigationContainer>
   );
