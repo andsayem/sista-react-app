@@ -59,7 +59,7 @@ class Post extends  React.Component{
     render() {                                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
-          <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0,   }} > 
+          <View style={{ backgroundColor: '#fff', minHeight: 320 , width: '100%', borderRadius: 15, paddingBottom : 10}} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
               <ListItem  style={{borderRadius: 15}}> 
                   <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium" 
@@ -108,7 +108,8 @@ class Post extends  React.Component{
                    { mime.lookup(this.props.item.file) =='video/mp4' ? 
                    <VideoPlayer
                       video={{ uri: this.props.item.file }} 
-                      thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                      style={{ width : '100%' , height : 200}}
+                      thumbnail={require('../img/images/v2.png')}
                   /> : 
                    <Image   
                    source={this.props.item.file ? {uri: this.props.item.file } : null} 

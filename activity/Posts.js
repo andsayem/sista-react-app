@@ -9,6 +9,21 @@ import Post from './Post';
 import Styles from "../styles"; 
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
+
+// import Pusher from 'pusher-js/react-native';
+// Pusher.logToConsole = true;
+
+// var pusher = new Pusher('28f66afb2b72c8e97219', {
+//   cluster: 'ap2'
+// });
+
+// var channel = pusher.subscribe('post-channel');
+// channel.bind('post-event', function(data) {
+//   alert(JSON.stringify(data));
+// });
+
+
+
 const STORAGE_KEY = 'save_user'; 
 const TOKEN = 'token';
 class Posts extends Component {
@@ -28,18 +43,24 @@ class Posts extends Component {
       page:1
       };  
   }  
+  // shouldComponentUpdate(nextProps, nextState) {  
+  //   console.log('nextProps',nextProps)
+  //   console.log('nextState',nextState)
+  // }
   componentDidMount(){    
     // statusBar.setBarStyle('light-content',true);
     // StatusBar.setBackgroundColor("red");
-    //this.fatchData(); 
-    this.fatchUserData();
+    //this.fatchData();
+    //console.log('componentDidMount') 
+    this.fatchData();
   }
 
   /* React get method.  */
 
   componentWillMount(){
     //this.fatchData(); 
-    this.fatchUserData();
+    //console.log('componentWillMount') 
+    this.fatchData();
   }
   fatchData = async () => { 
     //this.setState({isLoading:true})   
@@ -178,11 +199,10 @@ class Posts extends Component {
           centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
           rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
           containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
-          rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4'}}
+           
       /> 
       <Events/>
-      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 550}}> 
+      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
       <SafeAreaView>  
         <FlatList 
           data={Object.values(this.state.items)}

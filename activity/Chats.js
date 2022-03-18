@@ -1,12 +1,65 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList , StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , SearchBar , colors , Icon , Header  } from 'react-native-elements'; 
 import Styles from "../styles"; 
 import api from '../api';
 import helpers from "../helpers";
+import useWebSocket from 'react-native-use-websocket'; 
+import { Button, } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import {
+  SafeAreaView  ,
+  Image,
+  TouchableOpacity
+} from 'react-native'; 
+
 function Chats(props) {
+
+  const navigation = useNavigation();
+  const [userList, setUserList] = useState([
+    {
+      name: 'Rahul',
+      email: 'rahul@gmail.com',
+      image_path: 'https://www.beautifulhomes.com/content/dam/beautifulhomes/images/user-image-icon-11.jpg',
+      sender_id: '1',
+      receiver_id: '2',
+    },
+    {
+      name: 'Muskan',
+      email: 'muskan@gmail.com',
+      image_path: 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png',
+      sender_id: "2",
+      receiver_id: '1'
+    },
+  ])
+
+
+
+//   const navigation = useNavigation();
+//   const {
+//     sendMessage,
+//     lastMessage,
+//     readyState,
+//     getWebSocket
+// } = useWebSocket('wss://echo.websocket.org', {
+//     share: true
+// });
+  
+//    const socketUrl = 'wss://sista.droidit.net';
+// const {
+//   sendMessage,
+//   sendJsonMessage,
+//   lastMessage,
+//   lastJsonMessage,
+//   readyState,
+//   getWebSocket
+// } = useWebSocket(socketUrl, {
+//   onOpen: () => console.log('opened'),
+//   //Will attempt to reconnect on all close events, such as server shutting down
+//   shouldReconnect: (closeEvent) => true,
+// });
     const [getUsers, setUsers] = useState([]); 
     const [getSearchusers, setSearchusers] = useState([]); 
     const [getSearchkey, setSearchkey] = useState(''); 
@@ -44,7 +97,7 @@ function Chats(props) {
     };
     const Convusers = ({ ItemData }) => (
       <View  >
-          <ListItem key={ItemData.id+'cvu'.toString()} style={{
+          {/* <ListItem key={ItemData.id+'cvu'.toString()} style={{
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
@@ -61,12 +114,12 @@ function Chats(props) {
                   receiver_id: ItemData.show_id,
                  }) } >hi dear, have u got the prom... </ListItem.Subtitle>
                 </ListItem.Content>
-              </ListItem>
+              </ListItem> */}
         </View>  
     );
     const SearchData = ({ ItemData }) => (
       <View  >
-          <ListItem key={ItemData.id.toString()} style={{
+          {/* <ListItem key={ItemData.id.toString()} style={{
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
@@ -82,7 +135,7 @@ function Chats(props) {
                   receiver_id: ItemData.id,
                  }) } >{ ItemData.email}</ListItem.Subtitle>
                 </ListItem.Content>
-              </ListItem>
+              </ListItem> */}
         </View>  
     );
     const renderConvUsers = ({item}) =>{
@@ -162,10 +215,79 @@ function Chats(props) {
             extraData={selectedId}
           />
         }
-  
+  <View style={styles.container}>
+      <View style={{
+        padding: 15,
+        marginTop: 50,
+        backgroundColor: "black",
+        alignItems: "center",
+        justifyContent: 'center'
+      }}>
+        <Text style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          color: "#fff"
+        }}>{`>>  User List  <<`}</Text>
+      </View>
+      <FlatList
+        style={{
+          marginHorizontal: 15,
+          marginTop: 20
+        }}
+        data={userList}
+        keyExtractor={(item, index) => index.toString()} 
+        renderItem={({ item, index }) =>
+          <TouchableOpacity
+            key={index}
+            style={{
+              padding: 10,
+              elevation: 10,
+              borderRadius: 10,
+              borderWidth: 1,
+              backgroundColor: '#ff',
+              borderColor: '#ddd',
+              marginBottom: 20,
+              flexDirection: 'row',
+              alignItems: "center"
+            }}
+            onPress={() => {
+              navigation.push('Chat',
+                {
+                  record: item
+                }
+              )
+            }}
+          >
+            <Image
+              style={{
+                height: 50,
+                width: 50,
+                borderRadius: 25,
+                borderWidth: 0.5,
+                borderColor: '#ddd'
+              }}
+              source={{ uri: item.image_path }}
+              resizeMode='contain'
+            />
+            <Text
+              style={{
+                fontSize: 14,
+                marginLeft: 20,
+                fontWeight: '400'
+              }}
+            >{item.name + `\n` + item.email} </Text>
+          </TouchableOpacity>
+        }
+      />
+    </View>
     </ScrollView>
       
     );
 }
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  }
+});
 export default Chats;
