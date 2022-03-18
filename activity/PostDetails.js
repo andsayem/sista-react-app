@@ -15,10 +15,13 @@ import IconMat from 'react-native-vector-icons/MaterialIcons';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
-import AutoHeightImage from 'react-native-auto-height-image';
+import AutoHeightImage from 'react-native-auto-height-image'; 
+import VideoPlayer from 'react-native-video-player'; 
+import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 const win = Dimensions.get('window').width;
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -78,16 +81,13 @@ class PostDetails extends Component {
     try {
       const value = await AsyncStorage.getItem('TOKEN');
       if (value !== null) {
-        this.setState({ token: value });
-        console.log(value);
+        this.setState({ token: value }); 
       }
     } catch (error) {
       // Error retrieving data  
     }
   };
-  fatchData = () => {
-    //console.log('this-props====',this.props.route.params.id);
-    // https://sista.droidit.net/api/singelpost/319
+  fatchData = () => { 
     this.setState({ isLoading: true })
     api.getData('singelpost/' + this.props.route.params.id)
       .then(response => {
@@ -96,8 +96,7 @@ class PostDetails extends Component {
       })
       .finally(() => this.setState({ isLoading: false }))
   }
-  renderFooter = () => {
-    //useEffect(() => { this.fatchData()},[]) 
+  renderFooter = () => { 
     return (
       <View>
         <SafeAreaView>
@@ -124,7 +123,7 @@ class PostDetails extends Component {
         user_id: 2,
         comm_test: this.state.post_comment,
       };
-      fetch('http://sista.andsayem.com/api/all_comments', {
+      fetch(helpers.baseurl()+'api/all_comments', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -147,8 +146,7 @@ class PostDetails extends Component {
           } else {
           }
         })
-        .catch((error) => {
-          console.log('error===', error);
+        .catch((error) => { 
           this.setState({ loading: false });
         });
     }
@@ -188,10 +186,8 @@ class PostDetails extends Component {
   }
  
   handleFollowPost = index => {
-    let post = this.state.items[index]
-    console.log('follow', post.user_id);
-    api.getData('following/' + post.user_id).then((res) => {
-      console.log('test');
+    let post = this.state.items[index] 
+    api.getData('following/' + post.user_id).then((res) => { 
       this.fatchData();
     })
   }
@@ -200,33 +196,25 @@ class PostDetails extends Component {
     this.setState({ reply_to_name: '' });
   }
   handleLikeComment = (index) => {
-    // let comment = this.state.items[index] 
-    // const { liked, like } = comment 
-    // const newPost = {
-    //   ...comment,
-    //   liked: !liked,
-    //   like: liked ? comment.like - 1 : comment.like + 1
-    // }  
-    console.log('===========================',index)
+    
     api.getData('commentlike/'+index)
-    .catch((error) => {
-      console.log('error===', error); 
+    .catch((error) => { 
     });
-    // this.setState({
-    //   items: {
-    //     ...this.state.items,
-    //     [index]: newPost
-    //   }
-    // }) 
+    
     this.fatchData();
   }
-  handleLikePost = (id) => { 
+  handleLikePost2 = (id) => { 
     api.getData('postlike/' + id) 
     this.fatchData();
     
   } 
+  handleLikePost = index => {     
+    let post = this.state.items[index] 
+    this.state.post_items 
+     
+  }
   render() {
-    let { items, isLoading } = this.state;
+    let { items, isLoading } = this.state; 
     return ( 
       <SafeAreaView style={styles.container}>  
       <ScrollView>
@@ -245,11 +233,23 @@ class PostDetails extends Component {
             //   />  
             : 
             <View>
-              <AutoHeightImage
-                width={win}
+              
+              { mime.lookup(this.state.post_items.file) =='video/mp4' ? 
+                <VideoPlayer
+                  onBuffer={this.onBuffer}
+                  fullScreenOnLongPress={true}
+                  ref={r => this.player = r}
+                  playControl={true}
+                  controlButton={true}
+                  video={{ uri: this.state.post_items.file }} 
+                  thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                  style={styles.backgroundVideo}
+              /> : 
+              <AutoHeightImage width={win}
                 source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
-              /> 
-                <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+              />  
+              }
+              <Text style={styles.caption}>{this.state.post_items.caption}</Text>
             </View> 
             } 
           
@@ -418,14 +418,20 @@ const styles = StyleSheet.create({
     top: 3.2,
     backgroundColor: '#fff'
   },
-    image_bg: {
-      flex: 1,
-      justifyContent: "center"
-    },
-     text_bg: {
-      color: "black",
-      fontWeight: "bold",
-      textAlign: "center",
-   },
+  image_bg: {
+    flex: 1,
+    justifyContent: "center"
+  },
+    text_bg: {
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  backgroundVideo: { 
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 })
 export default PostDetails;

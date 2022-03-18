@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
+import helpers from '../helpers';
 const TOKEN = 'token';
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -43,7 +44,7 @@ function ForgotPassword(props) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.andsayem.com/api/forgot-password', article,{headers})
+      axios.post(helpers.baseurl()+'api/forgot-password', article,{headers})
         .then((response) => {
           setLoading(false); 
           if(response.data.success){
@@ -53,60 +54,11 @@ function ForgotPassword(props) {
             setSuccesstext({message: response.data.message });
           } 
           setLoading(false);
-        }).catch((error) => {
-         // console.log(error.response.data.message);
+        }).catch((error) => { 
          setLoading(false); 
           setSuccesstext({message: error.response.data.message }); 
         });
 
-
-      // axios({
-      //   method: 'post',
-      //   responseType: 'json',
-      //   url: 'http://sista.andsayem.com/api/forgot-password',
-      //   data: {
-      //     email: email
-      //   }
-      // })
-      //  .then(response => {
-      //    console.log(response);
-      //    //dispatch(something(response));
-      //  })
-      //  .catch(error => {
-      //   console.log(error);
-      //   //  dispatch({ type: AUTH_FAILED });
-      //   //  dispatch({ type: ERROR, payload: error.data.error.message });
-      //  });
-
-
-
-
-      // fetch('http://sista.andsayem.com/api/forgot-password', {
-      //   method: 'POST', 
-      //   headers: {  
-      //     'Content-Type':'application/json'
-      //   },
-      //   body: JSON.stringify(dataToSend) 
-      //   })
-      //   .then((response) => {
-      //     response.json() ;  
-      //     console.log(response);
-      //     setSuccesstext({message:' Post Submit Successful'}); 
-      //   })
-      //   .then((responseJson) => { 
-      //     console.log(responseJson);
-      //     setLoading(false);  
-      //     if (responseJson.success === true) { 
-      //       setSuccesstext({message:'Post Submit Successful'}); 
-      //       setCaption('');
-      //       setCategories(''); 
-      //     } else { 
-      //     }
-      //   })
-      //   .catch((error) => { 
-      //     console.log(error);
-      //     setLoading(false); 
-      //   });
     }
   };
   return (

@@ -6,6 +6,7 @@ import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
+import helpers from '../helpers';
 import * as ImagePicker from 'react-native-image-picker';
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -68,9 +69,8 @@ class UserProfile extends Component {
   save =  async(response) =>{
     var dataToSend = {  
       files_base: "data:"+response.type+";base64,"+ response.base64    
-    };  
-    console.log('dataToSend--==',dataToSend);
-    fetch('http://sista.andsayem.com/api/change-profile-image', {
+    };   
+    fetch(helpers.baseurl()+'api/change-profile-image', {
       method: 'POST', 
       headers: {  
         'Accept': 'application/json',  
@@ -81,8 +81,7 @@ class UserProfile extends Component {
       })
       .then((response) => response.json())
       .then((responseJson) => { 
-        setLoading(false);   
-        console.log('responseJson============',responseJson)
+        setLoading(false);    
         if (responseJson.success === true) { 
           this.setState({ successtext: 'Profile image change successful' }, function () {
             this.fatchData();
@@ -91,8 +90,7 @@ class UserProfile extends Component {
           this.setState({ successtext: '' });
         }
       })
-      .catch((error) => { 
-        console.log('error===',error);
+      .catch((error) => {  
         setLoading(false); 
       }); 
   }
@@ -101,9 +99,7 @@ class UserProfile extends Component {
     let user_data = JSON.parse(userData) 
     this.setState({isLoading:true})  
     api.getData('user_profile/'+ user_data.id)
-    .then(response => {  
-      console.log('========');
-      console.log(response.data.data);
+    .then(response => {   
       this.setState({userData:response.data.data}) 
       this.setState({pro1:response.data.data.photos[0] ? response.data.data.photos[0] : null});
       this.setState({pro2:response.data.data.photos[1] ? response.data.data.photos[1] : null});

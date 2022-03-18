@@ -58,8 +58,7 @@ function Journaladd({navigation}) {
         user_id: 1, 
         details: details,    
         title: title,    
-      }; 
-      console.log('test by sayem',dataToSend);
+      };  
       fetch('https://sista.droidit.net/api/journals', {
         method: 'POST', 
         headers: { 

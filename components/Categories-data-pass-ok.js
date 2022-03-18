@@ -47,8 +47,7 @@ class Categories extends  React.Component{
    
     this.fatchData();
   }
-  render(){
-    console.log('ttttt========', this.state.items)
+  render(){ 
     return ( 
         <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>        
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -30}} >

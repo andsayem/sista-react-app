@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View , SafeAreaView } from "react-native";
+import { Text , SafeAreaView } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 class AppTutorial extends Component {
   constructor(props) {

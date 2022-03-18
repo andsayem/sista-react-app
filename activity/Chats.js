@@ -5,6 +5,7 @@ import { ScrollView  } from "react-native-gesture-handler";
 import { ListItem, Avatar , SearchBar , colors , Icon , Header  } from 'react-native-elements'; 
 import Styles from "../styles"; 
 import api from '../api';
+import helpers from "../helpers";
 function Chats(props) {
     const [getUsers, setUsers] = useState([]); 
     const [getSearchusers, setSearchusers] = useState([]); 
@@ -13,34 +14,26 @@ function Chats(props) {
     const getUser = () =>{ 
       api.getData('conversation_list')
         .then((res)=>{
-          setUsers( res.data.data);  
-            console.log('users',res.data.data)
+          setUsers( res.data.data);   
         })
-        .catch((error) => {
-            //console.log(error)
-            //pro_image
+        .catch((error) => { 
         }) 
     } 
     const updateSearch =  async (search) => {    
-      setSearchkey(search );   
-      console.log('res.data.data=====');
+      setSearchkey(search );    
      
       api.getData('users_search/'+search)
-      .then((res)=>{
-        console.log(res.data.data);
+      .then((res)=>{ 
         setSearchusers( res.data.data);   
       })
-      .catch((error) => {
-          //console.log(error)
-          //pro_image
+      .catch((error) => { 
       }) 
     };
     useEffect(() => {getUser()},[]); 
     const Allusers = ({ ItemData }) => (
       <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
           <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.show_id,
-                 }) }   rounded   size="medium" source={ItemData.pro_image ? {uri:'https://sista.droidit.net/storage/app/public/posts/'+ItemData.pro_image}: ''}/>
+                  receiver_id: ItemData.show_id,}) }   rounded   size="medium" source={ItemData.pro_image ? {uri:helpers.storage+'app/public/posts/'+ItemData.pro_image}: ''}/>
           <Text>{ItemData.name}</Text> 
       </View> 
     );
@@ -57,7 +50,7 @@ function Chats(props) {
               }}>
                 <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.show_id,
-                 }) }   size="medium" source={ItemData.pro_image ? {uri:'https://sista.droidit.net/storage/app/public/posts/'+ItemData.pro_image}: ''} />
+                 }) }   size="medium" source={ItemData.pro_image ? {uri:helpers.storage+'app/public/posts/'+ItemData.pro_image}: ''} />
                 <ListItem.Content >
                   <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.show_id,
@@ -78,8 +71,7 @@ function Chats(props) {
                 width: '100%',
               }}>
                 <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.id,
-                 }) }   size="medium" source={ItemData.pro_image ? {uri:'https://sista.droidit.net/storage/app/public/posts/'+ItemData.pro_image}: ''} />
+                  receiver_id: ItemData.id}) }   size="medium" source={ItemData.pro_image ? {uri:helpers.storage+'app/public/posts/'+ItemData.pro_image}: ''} />
                 <ListItem.Content >
                   <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
                   receiver_id: ItemData.id,

@@ -54,8 +54,7 @@ class UserProfile extends Component {
   fatchData = () => {   
     this.setState({isLoading:true})   
     api.getData('user_profile/'+this.props.route.params.id)
-    .then(response => {   
-       console.log(response.data.data)
+    .then(response => {    
       this.setState({pro1:response.data.data.photos[0] ? response.data.data.photos[0] : null});
       this.setState({pro2:response.data.data.photos[1] ? response.data.data.photos[1] : null});
       this.setState({pro3:response.data.data.photos[2] ? response.data.data.photos[2] : null});
@@ -82,8 +81,7 @@ class UserProfile extends Component {
  
   render(){
     let {items, isLoading} = this.state;
-    let props = this.props; 
-    console.log('===user===');
+    let props = this.props;  
     return ( <SafeAreaView>
         <Header 
             placement="left"

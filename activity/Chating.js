@@ -6,7 +6,7 @@ import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-element
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage'; 
 import axios from 'axios'; 
- 
+import helpers from '../helpers';
 const STORAGE_KEY = 'save_user';
 
 const TOKEN = 'token'; 
@@ -57,39 +57,9 @@ const TOKEN = 'token';
     this.fatchData(); 
   }
   async componentwillmount(){   
-    this.fatchData();
-    //this.socketioClient();
+    this.fatchData(); 
   }
 
-  // socketioClient = async () => {
-  //   if (!window.location) {
-  //     // App is running in simulator
-  //     window.navigator.userAgent = 'ReactNative';
-  // }
-  
-  // This must be below your `window.navigator` hack above
-  // const io = require('socket.io-client/socket.io');
-  // const sockets = io('http://chat.feathersjs.com', {
-  //   transports: ['websocket'] // you need to explicitly tell it to use websockets
-  // });
-  
-  // sockets.on('connect', () => {
-  //   console.log('connected!');
-  // });
-  
-  //   const socket = SocketIOClient("https://sista.droidit.net/api/user_conversations?receiver_id="+this.props.route.params.receiver_id, {
-  //       jsonp: true,
-  //     });
-  //     socket.on("connect", () => {
-  //       console.log("connected");
-  //       socket.emit("hello", "world");
-  //     });
-      
-  //     socket.on("connect_error", (err) => {
-  //       console.log(err instanceof Error);
-  //       console.log(err.message); 
-  //     }); 
-  // }
   fatchData  =  async () => {  
     this.setState({isLoading:true})  
     api.getData('user_conversations?receiver_id='+this.props.route.params.receiver_id)
@@ -125,7 +95,7 @@ const TOKEN = 'token';
     this.setState({sending:true}); 
     formData.append("receiver_id", this.props.route.params.receiver_id);
     formData.append("message", this.state.send_message);  
-    axios.post('https://sista.droidit.net/api/new_conversation', formData,
+    axios.post(helpers.baseurl()+'api/new_conversation', formData,
     {
       headers: { 
         'Accept': 'application/json',  

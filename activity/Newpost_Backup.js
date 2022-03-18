@@ -7,8 +7,7 @@ import Styles from "../styles";
 import Loader from '../components/Loader';
 import SegmentedControl from '@react-native-community/segmented-control';
 import { launchImageLibrary } from 'react-native-image-picker';
-//import * as ImagePicker from 'react-native-image-picker';
-import ImagePicker from 'react-native-image-crop-picker';
+import * as ImagePicker from 'react-native-image-picker';
 import Video from 'react-native-video';
 import Textarea from 'react-native-textarea';
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -38,7 +37,7 @@ const Toast = ({ visible, message }) => {
 function Newpost(props) {
    // bs =React.createRef();
    // fall  = new Animated.value(1) ;
-   const Cats = [
+   Cats = [
       {label : 'Videos',
       value : 1},
       {label : 'Quotes',
@@ -55,14 +54,15 @@ function Newpost(props) {
    const [errortext, setErrortext] = useState(false);
    const [successText, setSuccesstext] = useState(false);
    const [index, setIndex] = useState(0);
-   const [photo, setPhoto] = useState([]);  
+   const [photo, setPhoto] = useState([]);
    const [video, setVideo] = useState([]);
    //const [getCats, setCats] = useState([]);
    const refRBSheet = useRef();
    const [checked, setChecked] = React.useState('');
    const [isSelected, setSelection] = useState(true);
    const [value, setValue] = React.useState('first');
-   const [getToken, setToken] = useState(false); 
+   const [getToken, setToken] = useState(false);
+   const [singleFile, setSingleFile] = useState(null);
    useEffect(() => setSuccesstext(false), [successText]);
    useEffect(() => setErrortext(false), [errortext]);
    //useEffect(() => { getCategories() }, []);
@@ -78,8 +78,109 @@ function Newpost(props) {
    useEffect(() => {
       setErrortext(false);
       setSuccesstext(false);
-   }, [handleSubmitButton])  
+   }, [handleSubmitButton])
    const handleSubmitButton = async () => {
+      setErrortext(false);
+      if (!post_caption) {
+         setErrortext({ message: 'Please fill caption' });
+         return;
+      } else if (!category) {
+         setErrortext({ message: 'Please fill category' });
+         return;
+      } else {
+         setSuccesstext(false);
+         setLoading(true);
+         let formData = new FormData();
+         if (video) { 
+            // formData.append('files_base', {
+            //    name: video.fileName,
+            //    uri: Platform.OS === 'android' ? video.uri : video.uri.replace('file://', ''),
+            //    type: 'video/mov',
+            // });
+            // formData.append("files_base", {
+            //    name: "name.mp4",
+            //    uri: video.uri,
+            //    type: 'video/mp4'
+            // });
+         }
+         formData.append("user_id", 1);
+         formData.append("caption", post_caption);
+         formData.append("cat_id", category);
+         formData.append("background_id", 1);
+         formData.append("font_style", 'small');
+         formData.append("font_size", 12);
+         formData.append("post_type", index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3);
+         if (photo) { 
+            const fileToUpload = singleFile; 
+            data.append('name', 'Image Upload');
+            //data.append('files_base', fileToUpload);
+            //formData.append("files_base", "data:" + photo.type + ";base64," + photo.base64);
+            formData.append("files_base", fileToUpload);
+         }
+         console.log(formData)
+         fetch(helpers.baseurl()+'api/post_datas', {
+            method: 'POST',
+            headers: { 
+               Accept: 'application/json',
+               'Content-Type': 'multipart/form-data; ',
+               Authorization: "Bearer " + await AsyncStorage.getItem(TOKEN),
+            },
+            body: formData
+         })
+            .then((response) => {
+               console.log('response', response)
+            }).then((responseJson) => {
+               console.log('responseJson', responseJson)
+               setLoading(false); 
+               if (responseJson.success === true) {
+                  setSuccesstext({ message: 'Post Submit Successful' });
+                  setCaption('');
+                  setPhoto('');
+                  setCategories('');
+               } else {
+               }
+            })
+            .catch((error) => { 
+               console.log('erro',error)
+               //console.log('erro',helpers.baseurl())
+               setLoading(false);
+            });
+      }
+   };
+   const handleChoosePhoto = async () => {
+      // Opening Document Picker to select one file
+      try {
+        const res = await DocumentPicker.pick({ 
+          type: [DocumentPicker.types.allFiles], 
+        }); 
+        console.log('res : ' + JSON.stringify(res)); 
+        setPhoto(res);
+        setSingleFile(res);
+      } catch (err) {
+         setSingleFile(null);
+         setPhoto(null); 
+        if (DocumentPicker.isCancel(err)) {  
+        } else { 
+          throw err;
+        }
+      }
+    };
+
+    const selectFile = async () => { 
+      try {
+        const res = await DocumentPicker.pick({ 
+          type: [DocumentPicker.types.allFiles], 
+        });  
+        setSingleFile(res);
+      } catch (err) {
+        setSingleFile(null); 
+        if (DocumentPicker.isCancel(err)) { 
+        } else { 
+          throw err;
+        }
+      }
+    };
+   const handleSubmitButton2 = async () => {
       setErrortext(false); 
       if (!category) {
          setErrortext({ message: 'Please fill category' });
@@ -87,75 +188,95 @@ function Newpost(props) {
       } else {
          setSuccesstext(false); 
          setLoading(true);
-         let formData = new FormData(); 
-         formData.append("user_id", 1);
-         formData.append("caption", post_caption);
-         formData.append("cat_id", category);
-         formData.append("background_id", 1);
-         formData.append("font_style", 'small');
-         formData.append("font_size", 12);
-         formData.append("post_type", index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3); 
-         if (photo) { 
-            formData.append("files_base", {
-               uri: photo.uri,
-               name: 'image.png',
-               fileName: 'image',
-               type: 'image/png'
-            })
-         }
-         if (video) { 
-            formData.append("files_base", {
-               uri: video.uri,
-               cropping: false,
-               mediaType: "video",
-               type:video.mime,
-               name: 'video.mp4',
-               fileName: 'video', 
-             })
-         }
-         axios({url : helpers.baseurl()+'api/post_datas', method : 'POST',data  : formData,
+         var dataToSend = {
+            user_id: 1,
+            post_type: index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3,
+            caption: post_caption,
+            cat_id: category,
+            background_id: 1,
+            font_style: 'small',
+            font_size: 12,
+            files_base: index == 0 || index == 1 ?
+               index == 0 ?
+                  ["data:" + photo.type + ";base64," + photo.base64]
+                  : ["data:" + video.type + ";base64," + video.base64]
+               : null
+         };
+         fetch(helpers.baseurl()+'api/post_datas', {
+            method: 'POST',
             headers: {
-               Accept: 'application/json',
-               'Content-Type': 'multipart/form-data',
-               'Access-Control-Allow-Origin' : '*',
-               'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-               'Authorization':"Bearer "+ await AsyncStorage.getItem(TOKEN)
-            }
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               Authorization: "Bearer " + await AsyncStorage.getItem(TOKEN)
+            },
+            body: JSON.stringify(dataToSend)
          })
-         .then(function (response) {
-            setLoading(false);
-            console.log("response :", response);
-         })
-         .catch(function (error) {
-            setLoading(false);
-            console.log("error from image :", error);
-         }); 
+            .then((response) => response.json())
+            .then((responseJson) => {
+               console.log('New post error->',responseJson)
+               setLoading(false);
+               if (responseJson.success === true) {
+                  setCaption('');
+                  setPhoto([]);
+                  setSuccesstext({ message: 'Post Submit Successful' });
+                  props.navigation.navigate("Home");
+               } else {
+               }
+            })
+            .catch((error) => {
+               console.log('New post error->',helpers.baseurl())
+               console.log('New post error->',error)
+               setLoading(false);
+            });
       }
    };
-   const handleChoosePhoto = () => {
-      ImagePicker.openPicker({
-         width: 300,
-         height: 400,
-         cropping: false
-       }).then(image => {
-         console.log("selected Image", image)
-         setVideo([]);
-         setPhoto({uri: image.path, 
-            mime: image.mime});  
-       }); 
-   } 
-   const selectVideo = () => { 
-      ImagePicker.openPicker({
-         mediaType: "video",
-       }).then((video) => {
-         console.log("selected video", video)
-         setPhoto([]);
-         setVideo({uri: video.path,
-            width: video.width,
-            height: video.height,
-            mime: video.mime}); 
-       }); 
-   }  
+   const handleChoosePhoto2 = () => {
+      ImagePicker.launchImageLibrary({
+         mediaType: 'photo',
+         includeBase64: true,
+      },
+         (response) => { 
+            setPhoto(response);
+         });
+   }
+   const handleChoosePhoto3 = () => {
+      let options = {
+         title: 'Select Image',
+         quality: 1.0,
+         maxWidth: 500,
+         maxHeight: 500,
+         storageOptions: {
+            skipBackup: true,
+            path: 'images',
+            cameraRoll: true,
+            waitUntilSaved: true,
+         },
+      };
+      launchImageLibrary(options, (response) => { 
+         if (response) {
+            setPhoto(response);
+         }
+      });
+   };
+   const selectVideo = () => {
+      ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => { 
+         setVideo(response);
+      })
+   }
+   // const getCategories = async => {
+   //    api.getData('post_categories')
+   //       .then((res) => {
+   //          let data = [];
+   //          for (let index = 0; index < res.data.data.length; index++) {
+   //             let d = { label: res.data.data[index].cat_name, value: res.data.data[index].id };
+   //             data.push(d);
+   //          }
+   //          setCats(data);
+   //       })
+   //       .catch((error) => { 
+   //          console.log('category-error',error)
+   //       })
+   // };
    const categoryChange = async (data) => { 
       setCategories(data.value);
       setCategoriesName(data.label);
@@ -201,7 +322,6 @@ function Newpost(props) {
          )
       }
    }
- 
    return (
       <ScrollView >
          <Loader loading={loading} />
@@ -214,7 +334,7 @@ function Newpost(props) {
                color: '1E1E1E',
                backgroundColor: '#E4E4E4'
             }}
-         /> 
+         />
          <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message}/>
          <Toast visible={successText} message={successText.message} />
          <ListItem>
@@ -224,20 +344,6 @@ function Newpost(props) {
                   style={{ width: '100%', height: photo.uri ? 300 : 0 }}
                /> : ''}
                
-               {video ?  
-                  <Video
-                     source={{ uri: video.uri, type: video.mime }}
-                     style={{ width: '100%', height: video.uri ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
-                     rate={1}
-                     paused={false}
-                     volume={5}
-                     muted={false}
-                     resizeMode={'cover'}
-                     onError={(e) => console.log(e)}
-                     onLoad={(load) => console.log(load)}
-                     repeat={true}
-                  />
-               : ""}
             </ListItem.Content>
          </ListItem>
          <ListItem >
@@ -288,7 +394,26 @@ function Newpost(props) {
          <View >
          </View>
          <View style={{ flexDirection: 'row', width: '100%' }} >
-            <View style={{ flexDirection: 'row', margin: 10, width: '100%' }}  > 
+            <View style={{ flexDirection: 'row', margin: 10, width: '100%' }}  >
+            {singleFile != null ? (
+            <Text style={styles.textStyle}>
+               File Name: {singleFile.name ? singleFile.name : ''}
+               {'\n'}
+               Type: {singleFile.type ? singleFile.type : ''}
+               {'\n'}
+               File Size: {singleFile.size ? singleFile.size : ''}
+               {'\n'}
+               URI: {singleFile.uri ? singleFile.uri : ''}
+               {'\n'}
+            </Text>
+            ) : null}
+            <TouchableOpacity
+            style={styles.buttonStyle}
+            activeOpacity={0.5}
+            onPress={selectFile}>
+            {/* <Text style={styles.buttonTextStyle}>Select File</Text> */}
+            </TouchableOpacity>
+            
                <Text style={
                   { flexDirection: 'row', color: 'black', width: '92%' }} onPress={() => refRBSheet.current.open()}> Category : {categoryName}
                </Text>

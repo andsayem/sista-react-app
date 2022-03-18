@@ -58,6 +58,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
       return  date + ' '+  monthNames[month ];
     }
     onPressJournalDetails = (id) => {
+      //alert('dddd');
         this.props.navigation.navigate('JournalDetails', {id: id });
     } 
 
@@ -77,8 +78,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
       items: {}                                                                               
       // Other states                                                                         
     } 
-    renderRow = ({ item , index }) => { 
-      //console.log('itemitemitemitemitemitemitemitemitemitem',index); 
+    renderRow = ({ item , index }) => {  
       const { liked, like, props } = item
       return (
         <ListItem   
@@ -93,21 +93,19 @@ import RBSheet from "react-native-raw-bottom-sheet";
          
         }}
        // style={{ padding : 0 ,  margin : 0 , }} 
-        >  
-              <ListItem.Content> 
-                <ListItem.Content 
-                   onPress={() => this.onPressJournalDetails(this.item.id)} 
+        >   
+                <ListItem.Content   
                  style={{   
                   }}>
-                  <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}>
+                  <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}
+                  onPress={() => this.onPressJournalDetails(item.id)} >
                   {item.title}
                     </ListItem.Title>
                     <Text numberOfLines={this.state.numLines} > teas : {item.details}</Text>
                     <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
                     { this.getData(item.created_at)}
                     </ListItem.Title>
-                  </ListItem.Content>  
-              </ListItem.Content>    
+                  </ListItem.Content>      
           </ListItem> 
       )
     } 

@@ -31,45 +31,39 @@ class Posts extends Component {
   componentDidMount(){    
     // statusBar.setBarStyle('light-content',true);
     // StatusBar.setBackgroundColor("red");
-    //this.fatchData(); 
+    this.fatchData(); 
     this.fatchUserData();
   }
 
   /* React get method.  */
 
   componentWillMount(){
-    //this.fatchData(); 
-    this.fatchUserData();
+    this.fatchData(); 
+      this.fatchUserData();
   }
   fatchData = async () => { 
-    //this.setState({isLoading:true})   
-     
+    //this.setState({isLoading:true})  
+    console.log('cat_id',this.state.cat_id);  
+    console.log('page',this.state.page);  
     api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
     .then(response => response.data.data)
-    .then((json) => { 
-      //console.log('json-length=>', json.length)
+    .then((json) => {
+      this.setState({items:json})
       if(json.length > 1){
-        //console.log('page++',this.state.page); 
-        this.setState({items:this.state.items.concat(json)})
-        this.setState({moreLoding:true})
-        this.setState({page:this.state.page+1})
-      }else{
-        //console.log('page',this.state.page); 
         this.setState({moreLoding:false})
+      }else{
+        this.setState({moreLoding:true})
       }
-      //if(this.state.isLoading){this.setState({moreLoding:true})}
-    })
+      if(this.state.isLoading){this.setState({moreLoding:true})}
+      }
+    )
     .finally( ()=>{
       this.setState({isLoading: false, refreshing:false })
     }) 
   }   
   handleLoadMore = () => {   
-    if(this.state.moreLoding ){
-      //console.log('handleLoadMore', this.state.page)
-      this.setState({page: this.state.page, isLoading:true }, () => { this.fatchData()});
-    } 
-    
-     
+    console.log('handleLoadMore')
+    this.setState({page: this.state.page + 1, isLoading:true }, () => { this.fatchData()});
     //this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
   }  
   renderFooter = () => { 
@@ -90,10 +84,10 @@ class Posts extends Component {
     );
   }
   handleOnRefresh = () => { 
-    // this.setState({page:1, items:[]})
-    // this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
-    //   this.fatchData();
-    // })
+    this.setState({page:1, items:[]})
+    this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
+      this.fatchData();
+    })
   }   
 
   fatchUserData = async() => {   
@@ -161,7 +155,7 @@ class Posts extends Component {
   
   componentWillUnmount() {   
     this.handlePostCates(); 
-    //this.fatchData();
+    this.fatchData();
     this.fatchUserData();  
     this.renderFooter();  
   }
@@ -169,35 +163,63 @@ class Posts extends Component {
     let {isLoading} = this.state;
     let props = this.props; 
     return(
-      <View>
-      <Header 
-          leftComponent={ <View> 
-            <Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> 
-          </View> }
-          centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
-          rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
-          rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4'}}
-      /> 
-      <Events/>
-      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 550}}> 
-      <SafeAreaView>  
+      <SafeAreaView> 
+        <Header 
+            leftComponent={ <View> 
+              <Icon color={colors.black} size={30} name='menu' 
+              onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> 
+            </View> }
+            centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
+            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4'}}
+        /> 
+        <Events/> 
+        <ScrollView style={{ margin: 10, backgroundColor: '#fff'}}>
+        <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 290}}>   
+        <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ backgroundColor: '#fff'}}
+          >
+            <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
+              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+              <TouchableOpacity onPress={this.handlePostCates}          
+              style={[this.state.cat_id == '' ? Styles.cat_icon_active_style : Styles.cat_icon_style  ]}
+              > 
+              
+              <Icon   
+                color={ this.state.cat_id == '' ? '#FFFFFF' : '#000000'} 
+                name='border-all' />  
+            </TouchableOpacity> 
+            <Text style={{ textAlign : 'center' , width : '100%',color:'#535353'}} >All</Text>
+              </ListItem.Content>
+            </ListItem>
+            <Categories 
+            cat_id= {this.state.cat_id} 
+            bgcolor={'#944CD4'} 
+            handlePostCate={this.handlePostCateWise} 
+            active="datat"/>   
+        </ScrollView>
+        
         <FlatList 
           data={Object.values(this.state.items)}
-          keyExtractor={(item) => new Date().getTime().toString() + (Math.floor(Math.random() * Math.floor(new Date().getTime()))).toString()} 
-           
+          keyExtractor={(item, i) => item.id.toString()}  
           onEndReached={this.handleLoadMore}
           renderItem={this.renderRow}
           ListFooterComponent={this.renderFooter}
-          onEndReachedThreshold={200}
+          onEndReachedThreshold={0.1}
           refreshing={this.state.refreshing} 
-          onRefresh={this.handleOnRefresh}     
-        />   
+          onRefresh={this.handleOnRefresh}    
+          onMomentumScrollBegin={() => this.setState({ scrollBegin: true })}
+          onMomentumScrollEnd={() => this.setState({ scrollBegin: false })} 
+          extraData={this.state}
+        /> 
+        </View>
+        </ScrollView>
       </SafeAreaView>
-      </View> 
-      </View>
     )
     }
   

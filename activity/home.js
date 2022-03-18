@@ -57,16 +57,13 @@ const Home = ({navigation}) => {
     return null;
   };
   
-  const likeSubmitButton = (ItemData) => {    
-    console.log('likes======',ItemData)
+  const likeSubmitButton = (ItemData) => {   
 
     api.getData('postlike/'+ ItemData.id)
     .then((res)=>{
-      alert(res.data.message);
-        //console.log(res.data);  
+      alert(res.data.message); 
     })
-    .catch((error) => {
-        //console.log(error)
+    .catch((error) => { 
     }) 
   }; 
   
@@ -74,8 +71,7 @@ const Home = ({navigation}) => {
     try {
       const user = await AsyncStorage.getItem(STORAGE_KEY);
       let jsonuser = JSON.parse(user)
-      const token = await AsyncStorage.getItem(TOKEN);   
-      console.log('jsonuser=============================',jsonuser);
+      const token = await AsyncStorage.getItem(TOKEN);    
       if((token) && (user)) {
         setSuccesstext({ message:'read successfully saved' });  
         this.navigation.navigate("Tabs", {
@@ -92,19 +88,16 @@ const Home = ({navigation}) => {
     .then((res)=>{
       setCats( res.data.data);  
     })
-    .catch((error) => {
-        console.log(error)
+    .catch((error) => { 
     }) 
   };  
 
   const getPosts = () =>{
     api.getData('post_datas')
       .then((res)=>{
-          setItems( res.data.data);  
-          //console.log('posts=====',res.data.data)
+          setItems( res.data.data);   
       })
-      .catch((error) => {
-          //console.log(error)
+      .catch((error) => { 
       }) 
   }
   useEffect(() => readData(false), []); 
@@ -158,10 +151,8 @@ const Home = ({navigation}) => {
       </View>
     </View> 
   );
-  const renderItem = ({ item }) => { 
-    //console.log('renderItem',selectedId);
-    const likeCount = item.id === selectedId ? item.like+1 : item.like;
-    //console.log('likeCount',likeCount);
+  const renderItem = ({ item }) => {  
+    const likeCount = item.id === selectedId ? item.like+1 : item.like; 
     return (
       <Item ItemData={item}
         onPress={() => setSelectedId(item.id)}

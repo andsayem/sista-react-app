@@ -29,18 +29,11 @@ function TabsScreen (navigation){
         setLogin(false);
       }
       
-    } catch (e) { 
-      // navigation.push('Login');
-      // navigation.navigate("Login");
-      //alert('Failed to fetch the data from storage tabscreen') 
+    } catch (e) {  
     }
   } 
   
-  //console.log('loggedIn app page ',loggedIn);
-  // useEffect(() => {
-  //   readData();
-  // },[])
-
+ 
     return ( 
         <Tab.Navigator>
           <Tab.Screen name="Posts" component={Posts}   

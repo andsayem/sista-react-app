@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, Text } from
 import { TextInput, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'react-native-image-picker';
-
+import helpers from '../helpers';
 const screen = Dimensions.get('window');
 export default class NewFeedScreen extends React.Component {
     constructor(props) {
@@ -29,8 +29,7 @@ export default class NewFeedScreen extends React.Component {
                 maxHeight: 200,
                 maxWidth: 200,
             },
-            (response) => {
-                console.log(response);
+            (response) => { 
                 this.setState({ image: response });
             },
         )
@@ -41,7 +40,7 @@ export default class NewFeedScreen extends React.Component {
      */
     selectVideo = async () => {
         ImagePicker.launchImageLibrary({ mediaType: 'video', includeBase64: true }, (response) => {
-            console.log(response);
+           
             this.setState({ video: response });
         })
     }
@@ -83,7 +82,7 @@ export default class NewFeedScreen extends React.Component {
             formData.append("font_size", 12);
             formData.append("post_type", index == 0  ?  1 : index == 1 ? 2 : index == 2 ? 3 : 3);    
             //var base_url = "https://yourdomain.com/";
-            fetch('http://sista.andsayem.com/api/post_datas', {
+            fetch(helpers.baseurl()+'api/post_datas', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -94,14 +93,12 @@ export default class NewFeedScreen extends React.Component {
                     return response.json();
                 })
                 .then(async (res) => {
-                    this.setState({ loading: false });
-                    console.log(res)
+                    this.setState({ loading: false }); 
                     if(res.error == 0){
                         this.props.navigation.navigate("Feed");
                     }
                 })
-                .catch(error => {
-                    console.log(error);
+                .catch(error => { 
                     this.setState({ loading: false });
                 });
         } else {

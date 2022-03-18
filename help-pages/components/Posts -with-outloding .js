@@ -12,8 +12,7 @@ class Posts extends Component {
   componentDidMount() {
     fetch('http://speechbd.com/api/v1/fontend/posts?column=id&direction=desc&per_page=7&page='+this.state.offset)
       .then((response) => response.json()) 
-      .then((json) => {
-        console.log('Hi! Console data');  
+      .then((json) => {  
         this.setState({ data: json.model });
       })
       .catch((error) => console.error(error))

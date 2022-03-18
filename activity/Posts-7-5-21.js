@@ -13,10 +13,8 @@ class Posts extends Component {
       isLoading: false,
       };  
   }
-  componentDidMount() {
-    //console.log('didlmount after')
-    this.fatchData();
-    //console.log('didlmount before')
+  componentDidMount() { 
+    this.fatchData(); 
   }    
 
   fatchData = () => { 
@@ -82,16 +80,13 @@ class Posts extends Component {
   handleLoadMore = () => {  
     this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
   } 
-  likeSubmitButton = (ItemData) => {    
-    console.log('likes======',ItemData)
+  likeSubmitButton = (ItemData) => {     
 
     api.getData('postlike/'+ ItemData.id)
     .then((res)=>{
-      alert(res.data.message);
-        //console.log(res.data);  
+      alert(res.data.message); 
     })
-    .catch((error) => {
-        //console.log(error)
+    .catch((error) => { 
     }) 
   }; 
   renderFooter = () => { 

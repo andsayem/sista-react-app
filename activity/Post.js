@@ -12,6 +12,10 @@ import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
 import ReadMore from '@fawazahmed/react-native-read-more';
 import AsyncStorage from '@react-native-community/async-storage';
+import helpers from '../helpers';
+import Video from 'react-native-video'; 
+import VideoPlayer from 'react-native-video-player'; 
+import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 import api from '../api';
@@ -38,24 +42,21 @@ class Post extends  React.Component{
       // If "liked" or "likeCount" is different, then update                          
       return liked !== oldLiked || like !== oldLikeCount || followings !== oldFollowed || follow !== oldFollowCount                       
     }        
-     facebookShare(item){ 
-       console.log(item);
+    facebookShare(item){  
       shareOnFacebook({
           'text':item.caption,
-          'link':'https://sista.droidit.net/',
+          'link':helpers.baseurl(),
           'imagelink':'http://www.andsayem.com/img/personal_2.jpg',
           //or use image
           'image': 'artboost-icon',
         },
-        (results) => {
-          console.log(results);
+        (results) => { 
         }
       );
     } 
     
   
-    render() {                
-      //console.log('Post = props',this.props.item.catjoin.cat_name);                 
+    render() {                                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
           <View style={{ backgroundColor: '#fff', height: 320, width: '100%', borderRadius: 15, padding: 0,   }} > 
@@ -87,7 +88,7 @@ class Post extends  React.Component{
                   </TouchableOpacity>    
               </ListItem>    
             </View> 
-                       
+
             {this.props.item.post_type == 3 ?
             
             <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  
@@ -98,14 +99,21 @@ class Post extends  React.Component{
             :
             <View style={{ width: '100%', borderRadius: 10, paddingLeft:20, paddingRight:20 }} >
                 <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{  fontFamily: "RobotoRegular", fontSize: 15, paddingBottom :9 ,  color: "#0D0E10",  }}>
-                  {this.props.item.caption}
+                  {this.props.item.caption} 
                 </ReadMore>
               
                  <View> 
                  <TouchableOpacity onPress={() => this.props.onPressPostDetails(this.props.item.id)}>
-                  <Image   
-                  source={this.props.item.file ? {uri: this.props.item.file } : null} 
-                  style={{ width: '100%', borderRadius: 10, height: 130 }} />   
+                 
+                   { mime.lookup(this.props.item.file) =='video/mp4' ? 
+                   <VideoPlayer
+                      video={{ uri: this.props.item.file }} 
+                      thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                  /> : 
+                   <Image   
+                   source={this.props.item.file ? {uri: this.props.item.file } : null} 
+                   style={{ width: '100%', borderRadius: 10, height: 130 }} /> }
+                     
                   </TouchableOpacity>         
                 </View>  
             </View>

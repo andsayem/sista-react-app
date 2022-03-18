@@ -37,10 +37,7 @@ function TabsScreen ({navigation,props}){
     }
   } 
   
-  console.log('loggedIn app page ',loggedIn);
-  // useEffect(() => {
-  //   readData();
-  // },[])
+ 
 
     return ( 
         <Tab.Navigator>

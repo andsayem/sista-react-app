@@ -8,6 +8,7 @@ import { SearchBar } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors , Icon , Header } from 'react-native-elements';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
+import helpers from '../helpers';
 const TOKEN = 'token';
   class Product extends  Component {   
     constructor(props) {
@@ -20,6 +21,7 @@ const TOKEN = 'token';
         isLoading: false,
         cat_id:'',
         cat_active:'',
+        currency:'tk',
         };  
     }  
     componentDidMount(){     
@@ -31,10 +33,13 @@ const TOKEN = 'token';
       .then((response) => {
         let json =  response.data.data ;
         this.setState({destinations:json});
-        this.setState({book:json[0]});
+        this.setState({book:json[0]}); 
       })
       .finally( ()=>this.setState({isLoading: false})) 
     }  
+    handleProductDetails = (item) => {
+      this.props.navigation.navigate('ProductDetail', {item: item});
+    }
     renderDestinations(item, index) {
       var destinationStyle = {};
 
@@ -44,7 +49,7 @@ const TOKEN = 'token';
 
       return (
           <TouchableOpacity 
-          onPress={() => {  this.props.navigation.navigate("ProductDetail",{product_id: item.id}) }}
+           onPress={() => this.handleProductDetails(item)} 
            style={{ paddingRight : 15}} 
           >
               <Image
@@ -88,7 +93,7 @@ const TOKEN = 'token';
                 >
                 <Text  style={{ paddingHorizontal : 10 , paddingVertical : 6 , fontWeight : 'bold', color :  '#ffffff'}} >{item.title}</Text>
                  <Text  style={{ paddingHorizontal : 10 , color :  '#ffffff'}} >
-                  Price :  <Text  >{item.price}$</Text >  {item.price_offer}$</Text>
+                  Price :  <Text style={{textDecorationLine: 'line-through'}}>{helpers.currency(item.price,this.state.currency)}</Text >  {helpers.currency(item.price_offer,this.state.currency)} </Text>
               </View>
 
               {/* <Text >{item.name}</Text> */}
@@ -162,7 +167,8 @@ const TOKEN = 'token';
                 >
                 <Text  style={{ paddingHorizontal : 10 , paddingVertical : 6 , fontWeight : 'bold', color :  '#ffffff'}} >{this.state.book.title }</Text>
                  <Text  style={{ paddingHorizontal : 10 , color :  '#ffffff'}} >
-                  Price :  <Text  >{this.state.book.price}$</Text >  {this.state.book.price_offer }$</Text>
+                  Price : <Text style={{textDecorationLine: 'line-through'}} > { helpers.currency(this.state.book.price,this.state.currency)}</Text >  { helpers.currency(this.state.book.price_offer, this.state.currency)}</Text>
+                   
               </View>
               </View>
             </View> 

@@ -6,6 +6,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -44,7 +45,7 @@ function CheckYourEmail(props ) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.andsayem.com/api/varify-password-otp', article,{headers})
+      axios.post(helpers.baseurl()+'api/varify-password-otp', article,{headers})
       .then((response) => {
         setLoading(false); 
         if(response.data.success){
@@ -57,8 +58,7 @@ function CheckYourEmail(props ) {
           setSuccesstext({message: response.data.message });
         } 
         setLoading(false);
-      }).catch((error) => {
-       // console.log(error.response.data.message);
+      }).catch((error) => { 
        setLoading(false); 
         setSuccesstext({message: error.response.data.message }); 
       });

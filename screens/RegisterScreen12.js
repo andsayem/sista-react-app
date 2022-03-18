@@ -66,14 +66,10 @@ function RegisterScreen ({navigation,props}){
         .then((response) => response.json())
         .then((responseJson) => {
           //Hide Loader
-          setLoading(false);
-          console.log(responseJson);
+          setLoading(false); 
           // If server response message same as Data Matched
           if (responseJson.status === 'success') {
-            setIsRegistraionSuccess(true);
-            console.log(
-              'Registration Successful. Please Login to proceed'
-            );
+            setIsRegistraionSuccess(true); 
           } else {
             setErrortext(responseJson.msg);
           }

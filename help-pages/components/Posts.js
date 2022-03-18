@@ -5,10 +5,8 @@ class Posts extends Component {
     super(props);
     this.state = { data:[], isLoading: true, page:1, refreshing:false, totalData:0, moreLoading:true };  
   }
-  componentDidMount() {
-    //console.log('didlmount after')
-    this.fatchData();
-    //console.log('didlmount before')
+  componentDidMount() { 
+    this.fatchData(); 
   }  
   componentWillUnmount() {
     this.fatchData();
@@ -19,11 +17,9 @@ class Posts extends Component {
       .then((response) => response.json()) 
       .then((json) => { 
         if( Number(this.state.totalData) === Number(this.state.data.length) ){
-          this.setState({moreLoading:false})
-          //console.log('more loaded data cond = ',this.state.moreLoading);
+          this.setState({moreLoading:false}) 
         }else{
-          this.setState({moreLoading:true})
-          //console.log('more loaded data cond = ',this.state.moreLoading);
+          this.setState({moreLoading:true}) 
         }
         if(this.state.isLoading){
           this.setState({moreLoading:true})

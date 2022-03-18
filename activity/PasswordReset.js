@@ -6,6 +6,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'
+import helpers from '../helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -56,22 +57,19 @@ function PasswordReset(props) {
         'Content-Type':'application/json'
       };
       setLoading(true); 
-      axios.post('http://sista.andsayem.com/api/password-reset', article,{headers})
+      axios.post(helpers.baseurl()+'api/password-reset', article,{headers})
       .then((response) => {
         setLoading(false); 
         if(response.data.success){
           setSuccesstext({message: response.data.message });
           if(response.data.data == 1){
-            props.navigation.navigate('CongratulationResetPassword')
-           // props.navigation.navigate('PasswordReset') 
-          } 
-         // props.navigation.navigate("CheckYourEmail");  
+            props.navigation.navigate('CongratulationResetPassword') 
+          }  
         }else{
           setSuccesstext({message: response.data.message });
         } 
         setLoading(false);
-      }).catch((error) => {
-       // console.log(error.response.data.message);
+      }).catch((error) => { 
        setLoading(false); 
         setSuccesstext({message: error.response.data.message }); 
       }); 
