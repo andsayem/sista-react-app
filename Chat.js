@@ -26,14 +26,15 @@ import socketio from 'socket.io-client';
 const Chat = () => {
   const navigation = useNavigation()
   const route = useRoute();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]); 
+  const [tostNotificetion, setTostNotificetion] = useState('Test');
   const [senderId, setSenderId] = useState(route.params.record.sender_id)
   const [receiverId, setReceiverId] = useState(route.params.record.receiver_id)
   const [name, setName] = useState(route.params.record.name)
   const [image_path, setImage_path] = useState(route.params.record.image_path)
   const ws = useRef(null);
   const echo = new Echo({
-    host: 'http://192.168.31.250:6379',
+    host: 'http://127.0.0.1:6379',
     broadcaster: 'socket.io',
     client: socketio,
   });
@@ -42,6 +43,7 @@ const Chat = () => {
     .channel('chats.1')
     .listen('ChatMessageCreated', ev =>{
     //  console.log('8888888888888888888888888888888888888888');
+    setTostNotificetion(ev.message.text);
     console.log(ev.message.text)});
   useEffect(() => {
     console.log("initiateSocketConnection")
@@ -104,7 +106,7 @@ const Chat = () => {
 
   return (
     <View style={styles.container}>
-       
+      <Text style={styles.text}>{tostNotificetion}</Text>
       <GiftedChat
         messages={messages}
         onSend={messages => onSend(messages)}

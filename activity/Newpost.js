@@ -124,12 +124,17 @@ function Newpost(props) {
          })
          .then(function (response) {
             setLoading(false);
-            //console.log("response :", response);
+            console.log("response :", response);
          })
-         .catch(function (error) {
+         .catch(function (response) {
             setLoading(false);
-            //console.log("error from image :", error);
-         }); 
+            console.log('*****handle failure******');
+            console.log(response);
+          });
+         // .catch(function (error) {
+         //    setLoading(false);
+         //    console.log("error from image :", error);
+         // }); 
       }
    };
    const handleChoosePhoto = () => {

@@ -7,9 +7,7 @@ export default helpers = {
     	//return 'https://sista.speechbd.com/'
     	//return 'https://sista.droidit.net/'
     },
-    storage: function(){
-        return 'https://sista.speechbd.com/storage/'
-    },
+    
     currency: function(price, symbol){
         if((symbol == 'bdt') || (symbol=="BDT") || (symbol=="tk")){
             return price +' ৳';

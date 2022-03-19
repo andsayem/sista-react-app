@@ -1,21 +1,24 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, FlatList , StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar , SearchBar , colors , Icon , Header  } from 'react-native-elements'; 
-import Styles from "../styles"; 
+import { ScrollView } from "react-native-gesture-handler";
+import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-elements';
+import Styles from "../styles";
 import api from '../api';
 import helpers from "../helpers";
-import useWebSocket from 'react-native-use-websocket'; 
+import useWebSocket from 'react-native-use-websocket';
 import { Button, } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import {
-  SafeAreaView  ,
+  SafeAreaView,
   Image,
   TouchableOpacity
-} from 'react-native'; 
+} from 'react-native';
+import Echo from 'laravel-echo';
+import socketio from 'socket.io-client';
 
 function Chats(props) {
+  // const ws = useRef(null);
 
   const navigation = useNavigation();
   const [userList, setUserList] = useState([
@@ -37,67 +40,91 @@ function Chats(props) {
 
 
 
-//   const navigation = useNavigation();
-//   const {
-//     sendMessage,
-//     lastMessage,
-//     readyState,
-//     getWebSocket
-// } = useWebSocket('wss://echo.websocket.org', {
-//     share: true
-// });
-  
-//    const socketUrl = 'wss://sista.droidit.net';
-// const {
-//   sendMessage,
-//   sendJsonMessage,
-//   lastMessage,
-//   lastJsonMessage,
-//   readyState,
-//   getWebSocket
-// } = useWebSocket(socketUrl, {
-//   onOpen: () => console.log('opened'),
-//   //Will attempt to reconnect on all close events, such as server shutting down
-//   shouldReconnect: (closeEvent) => true,
-// });
-    const [getUsers, setUsers] = useState([]); 
-    const [getSearchusers, setSearchusers] = useState([]); 
-    const [getSearchkey, setSearchkey] = useState(''); 
-    const [selectedId, setSelectedId] = useState(null);
-    const getUser = () =>{ 
-      api.getData('conversation_list')
-        .then((res)=>{
-          setUsers( res.data.data);   
-        })
-        .catch((error) => { 
-        }) 
-    } 
-    const updateSearch =  async (search) => {    
-      setSearchkey(search );    
-     
-      api.getData('users_search/'+search)
-      .then((res)=>{ 
-        setSearchusers( res.data.data);   
+  //   const navigation = useNavigation();
+  //   const {
+  //     sendMessage,
+  //     lastMessage,
+  //     readyState,
+  //     getWebSocket
+  // } = useWebSocket('wss://echo.websocket.org', {
+  //     share: true
+  // });
+
+  //    const socketUrl = 'wss://sista.droidit.net';
+  // const {
+  //   sendMessage,
+  //   sendJsonMessage,
+  //   lastMessage,
+  //   lastJsonMessage,
+  //   readyState,
+  //   getWebSocket
+  // } = useWebSocket(socketUrl, {
+  //   onOpen: () => console.log('opened'),
+  //   //Will attempt to reconnect on all close events, such as server shutting down
+  //   shouldReconnect: (closeEvent) => true,
+  // });
+  const [tostNotificetion, setTostNotificetion] = useState('Test');
+  const [getUsers, setUsers] = useState([]);
+  const [getSearchusers, setSearchusers] = useState([]);
+  const [getSearchkey, setSearchkey] = useState('');
+  const [selectedId, setSelectedId] = useState(null);
+  const getUser = () => {
+    api.getData('conversation_list')
+      .then((res) => {
+        setUsers(res.data.data);
       })
-      .catch((error) => { 
-      }) 
-    };
-    useEffect(() => {getUser()},[]); 
-    const Allusers = ({ ItemData }) => (
-      <View key={ItemData.sender_id+'cu'.toString()} style={{ backgroundColor: '#fff' ,padding: 5  }} > 
-          <Avatar  onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.show_id,}) }   rounded   size="medium" source={ItemData.pro_image ? {uri:helpers.storage+'app/public/posts/'+ItemData.pro_image}: ''}/>
-          <Text>{ItemData.name}</Text> 
-      </View> 
+      .catch((error) => {
+      })
+  }
+  const updateSearch = async (search) => {
+    setSearchkey(search);
+
+    api.getData('users_search/' + search)
+      .then((res) => {
+        setSearchusers(res.data.data);
+      })
+      .catch((error) => {
+      })
+  };
+  // setTostNotificetion("123");
+
+
+    
+  useEffect(() => { 
+    const echo = new Echo({
+      host: 'http://127.0.0.1:6001',
+      broadcaster: 'socket.io',
+      client: socketio,
+      
+      
+    });
+    console.log('777777777777777777777777777');
+    console.log(echo);
+    echo.channel('chats.1')
+      .listen('ChatMessageCreated', ev => {
+        console.log('8888888888888888888888888888888888888888');
+        setTostNotificetion(ev.message.text);
+        console.log(ev.message.text)
+      }).error(e => {
+        console.log(e);
+      });
+    getUser() }, []);
+  const Allusers = ({ ItemData }) => (
+    <View key={ItemData.sender_id + 'cu'.toString()} style={{ backgroundColor: '#fff', padding: 5 }} >
+      <Avatar onPress={() => props.navigation.navigate('Chating', {
+        receiver_id: ItemData.show_id,
+      })} rounded size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
+      <Text>{ItemData.name}</Text>
+    </View>
+  );
+  const renderAllUsers = ({ item }) => {
+    return (
+      <Allusers ItemData={item} />
     );
-    const renderAllUsers = ({ item }) => {   
-      return (
-        <Allusers ItemData={item} />
-      );
-    };
-    const Convusers = ({ ItemData }) => (
-      <View  >
-          {/* <ListItem key={ItemData.id+'cvu'.toString()} style={{
+  };
+  const Convusers = ({ ItemData }) => (
+    <View  >
+      {/* <ListItem key={ItemData.id+'cvu'.toString()} style={{
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
@@ -115,11 +142,11 @@ function Chats(props) {
                  }) } >hi dear, have u got the prom... </ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem> */}
-        </View>  
-    );
-    const SearchData = ({ ItemData }) => (
-      <View  >
-          {/* <ListItem key={ItemData.id.toString()} style={{
+    </View>
+  );
+  const SearchData = ({ ItemData }) => (
+    <View  >
+      {/* <ListItem key={ItemData.id.toString()} style={{
                 backgroundColor: "#FEFEFE",
                 width: '100%',
               }}>
@@ -136,153 +163,155 @@ function Chats(props) {
                  }) } >{ ItemData.email}</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem> */}
-        </View>  
-    );
-    const renderConvUsers = ({item}) =>{
-      return (
-        <Convusers ItemData={item} />
-      );
-    }
-    const renderSearchUsers = ({item}) =>{
-      return (
-        <SearchData ItemData={item} />
-      );
-    }
-
+    </View>
+  );
+  const renderConvUsers = ({ item }) => {
     return (
-      <ScrollView >
-        
-        <Header 
-            leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'Chats', style: { color: '#1E1E1E' , fontSize : 20 } }}
-            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{   
-              color : '1E1E1E',
-              backgroundColor: '#E4E4E4' }}
-        />
-         <SearchBar 
-                  lightTheme
-                  //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
-                  //  iconStyle={{backgroundColor:'#fff'}}
-                  //  inputStyle={{backgroundColor: '#ffffff'}} 
-                 
-                  value={getSearchkey}
-                  onChangeText={(getSearchkey) => { updateSearch(getSearchkey)}}
-                  placeholder="Type Here..."   />
+      <Convusers ItemData={item} />
+    );
+  }
+  const renderSearchUsers = ({ item }) => {
+    return (
+      <SearchData ItemData={item} />
+    );
+  }
 
-   
-      
-        { getSearchkey =='' ? 
+  return (
+    <ScrollView >
+
+      <Header
+        leftComponent={<Icon color={colors.black} size={30} name='menu'
+          onPress={() => props.navigation.toggleDrawer()} ></Icon>}
+        centerComponent={{ text: 'Chats', style: { color: '#1E1E1E', fontSize: 20 } }}
+        rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+        containerStyle={{
+          color: '1E1E1E',
+          backgroundColor: '#E4E4E4'
+        }}
+      />
+      <SearchBar
+        lightTheme
+        //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
+        //  iconStyle={{backgroundColor:'#fff'}}
+        //  inputStyle={{backgroundColor: '#ffffff'}} 
+
+        value={getSearchkey}
+        onChangeText={(getSearchkey) => { updateSearch(getSearchkey) }}
+        placeholder="Type Here..." />
+      <Text style={styles.text}>{tostNotificetion}</Text>
+
+
+
+      {getSearchkey == '' ?
         <View>
-              
-         <ScrollView key={'cvu'.toString()} horizontal  
-         style={{  backgroundColor: '#fff',  marginLeft : 0 }}  > 
-           <FlatList horizontal
-            data={getUsers} 
-            keyExtractor={(item, index) => index} 
-            renderItem={renderAllUsers} 
-            extraData={selectedId}
-          />   
-        </ScrollView>
-          <View  style={{  backgroundColor: '#fff',  paddingTop : 0, marginTop : 10  }}  > 
-     
-              <View >
-                <ListItem key={'nm'.toString()} style={{
-                  backgroundColor: "#FEFEFE",
-                  width: '100%',
-                  }}>
-                  <Avatar rounded   size="medium" source={require('../img/images/massage.png')} />
-                  <ListItem.Content>
-                    <ListItem.Title> New Message Requests </ListItem.Title>
-                    <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
-                  </ListItem.Content>
-                </ListItem>
-            </View> 
-          <FlatList 
-              data={getUsers} 
-              keyExtractor= {(item , i) => item.sender_id.toString()} 
-              renderItem={renderConvUsers} 
+
+          <ScrollView key={'cvu'.toString()} horizontal
+            style={{ backgroundColor: '#fff', marginLeft: 0 }}  >
+            <FlatList horizontal
+              data={getUsers}
+              keyExtractor={(item, index) => index}
+              renderItem={renderAllUsers}
+              extraData={selectedId}
+            />
+          </ScrollView>
+          <View style={{ backgroundColor: '#fff', paddingTop: 0, marginTop: 10 }}  >
+
+            <View >
+              <ListItem key={'nm'.toString()} style={{
+                backgroundColor: "#FEFEFE",
+                width: '100%',
+              }}>
+                <Avatar rounded size="medium" source={require('../img/images/massage.png')} />
+                <ListItem.Content>
+                  <ListItem.Title> New Message Requests </ListItem.Title>
+                  <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            </View>
+            <FlatList
+              data={getUsers}
+              keyExtractor={(item, i) => item.sender_id.toString()}
+              renderItem={renderConvUsers}
               extraData={selectedId}
             />
           </View>
         </View>
-          :
-        <FlatList 
-            data={getSearchusers} 
-            keyExtractor= {(item , i) => item.id.toString()} 
-            renderItem={renderSearchUsers} 
-            extraData={selectedId}
-          />
-        }
-  <View style={styles.container}>
-      <View style={{
-        padding: 15,
-        marginTop: 50,
-        backgroundColor: "black",
-        alignItems: "center",
-        justifyContent: 'center'
-      }}>
-        <Text style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          color: "#fff"
-        }}>{`>>  User List  <<`}</Text>
+        :
+        <FlatList
+          data={getSearchusers}
+          keyExtractor={(item, i) => item.id.toString()}
+          renderItem={renderSearchUsers}
+          extraData={selectedId}
+        />
+      }
+      <View style={styles.container}>
+        <View style={{
+          padding: 15,
+          marginTop: 50,
+          backgroundColor: "black",
+          alignItems: "center",
+          justifyContent: 'center'
+        }}>
+          <Text style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: "#fff"
+          }}>{`>>  User List  <<`}</Text>
+        </View>
+        <FlatList
+          style={{
+            marginHorizontal: 15,
+            marginTop: 20
+          }}
+          data={userList}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) =>
+            <TouchableOpacity
+              key={index}
+              style={{
+                padding: 10,
+                elevation: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                backgroundColor: '#ff',
+                borderColor: '#ddd',
+                marginBottom: 20,
+                flexDirection: 'row',
+                alignItems: "center"
+              }}
+              onPress={() => {
+                navigation.push('Chat',
+                  {
+                    record: item
+                  }
+                )
+              }}
+            >
+              <Image
+                style={{
+                  height: 50,
+                  width: 50,
+                  borderRadius: 25,
+                  borderWidth: 0.5,
+                  borderColor: '#ddd'
+                }}
+                source={{ uri: item.image_path }}
+                resizeMode='contain'
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginLeft: 20,
+                  fontWeight: '400'
+                }}
+              >{item.name + `\n` + item.email} </Text>
+            </TouchableOpacity>
+          }
+        />
       </View>
-      <FlatList
-        style={{
-          marginHorizontal: 15,
-          marginTop: 20
-        }}
-        data={userList}
-        keyExtractor={(item, index) => index.toString()} 
-        renderItem={({ item, index }) =>
-          <TouchableOpacity
-            key={index}
-            style={{
-              padding: 10,
-              elevation: 10,
-              borderRadius: 10,
-              borderWidth: 1,
-              backgroundColor: '#ff',
-              borderColor: '#ddd',
-              marginBottom: 20,
-              flexDirection: 'row',
-              alignItems: "center"
-            }}
-            onPress={() => {
-              navigation.push('Chat',
-                {
-                  record: item
-                }
-              )
-            }}
-          >
-            <Image
-              style={{
-                height: 50,
-                width: 50,
-                borderRadius: 25,
-                borderWidth: 0.5,
-                borderColor: '#ddd'
-              }}
-              source={{ uri: item.image_path }}
-              resizeMode='contain'
-            />
-            <Text
-              style={{
-                fontSize: 14,
-                marginLeft: 20,
-                fontWeight: '400'
-              }}
-            >{item.name + `\n` + item.email} </Text>
-          </TouchableOpacity>
-        }
-      />
-    </View>
     </ScrollView>
-      
-    );
+
+  );
 }
 const styles = StyleSheet.create({
   container: {
