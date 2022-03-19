@@ -6,11 +6,26 @@ import { ListItem, Avatar , colors , Icon , Header  } from 'react-native-element
 import api from '../api';
 import AsyncStorage from '@react-native-community/async-storage'; 
 import axios from 'axios'; 
-import helpers from '../helpers';
-import useWebSocket from 'react-native-use-websocket';
+import helpers from '../helpers'; 
+import Pusher from 'pusher-js/react-native'; 
 const STORAGE_KEY = 'save_user';
-
+//Pusher.logToConsole = true;
 const TOKEN = 'token'; 
+
+
+var pusher = new Pusher(helpers.pusherConfig().app_key, {
+  cluster: helpers.pusherConfig().app_key
+});
+
+var channel = pusher.subscribe('chart-channel.1');
+console.log('channel',channel)
+channel.bind('chart-event.1', function(data) { 
+  console.log(data);
+  //this.fatchData();
+   alert(JSON.stringify(data.message));
+}); 
+
+
  const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(

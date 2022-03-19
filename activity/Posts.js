@@ -10,6 +10,11 @@ import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
 import Pusher from 'pusher-js/react-native';
+import helpers from '../helpers';
+//import Pusher from 'pusher-js/react-native';
+
+//AppRegistry.registerComponent(appName, () => App);
+//Pusher.logToConsole = true;
 
 // import Pusher from 'pusher-js/react-native';
 // Pusher.logToConsole = true;
@@ -29,6 +34,9 @@ const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
   constructor(props) {
+
+    //Pusher.logToConsole = true;
+ 
     super(props);
     this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
@@ -47,6 +55,17 @@ class Posts extends Component {
   }  
  
   componentDidMount(){    
+    var pusher = new Pusher(helpers.pusherConfig().app_key, {
+      cluster: helpers.pusherConfig().app_key
+    });
+
+    var channel = pusher.subscribe('blog-channel');
+    console.log('channel',channel)
+    channel.bind('blog-event', function(data) { 
+      console.log(data);
+      //this.fatchData();
+       alert(JSON.stringify(data.message));
+    }); 
     this.fatchData();
   }
 
@@ -95,10 +114,10 @@ class Posts extends Component {
     );
   }
   handleOnRefresh = () => { 
-    // this.setState({page:1, items:[]})
-    // this.setState({page:1, refreshing:true, seed: this.state.seed+1},() => {
-    //   this.fatchData();
-    // })
+    this.setState({page:1, items:[]})
+    this.setState({page:1, refreshing:false, seed: this.state.seed+1},() => {
+      this.fatchData();
+    })
   }   
 
   fatchUserData = async() => {   
