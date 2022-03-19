@@ -9,33 +9,8 @@ import axios from 'axios';
 import helpers from '../helpers';
 import useWebSocket from 'react-native-use-websocket';
 const STORAGE_KEY = 'save_user';
-// const socketUrl = 'wss://sista.droidit.net';
-// const {
-//   sendMessage,
-//   sendJsonMessage,
-//   lastMessage,
-//   lastJsonMessage,
-//   readyState,
-//   getWebSocket
-// } = useWebSocket(socketUrl, {
-//   onOpen: () => console.log('opened'),
-//   //Will attempt to reconnect on all close events, such as server shutting down
-//   shouldReconnect: (closeEvent) => true,
-// });
+
 const TOKEN = 'token'; 
-// function Chating({navigation, route}) {
- 
-//   const [getToken, setToken] = useState(false);
-//   const [senderId, setSenderId] = useState(null);
-//   const [receiverId, setReceiverId] = useState(null);
-//   const [message, setMessage] = useState(false);
-//   const [conversations, setConversations] = useState([]);
-//   const [getUser, setUser] = useState([]);  
-//   const [loading, setLoading] = useState(false);
-//   const [errortext, setErrortext] = useState(false);
-//   const [successText, setSuccesstext] = useState(false);   
-//   const [index, setIndex] = useState(0);
- // const [conversations, setConversations] = useState(0);
  const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(

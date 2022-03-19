@@ -123,18 +123,11 @@ function Newpost(props) {
             }
          })
          .then(function (response) {
-            setLoading(false);
-            console.log("response :", response);
+            setLoading(false); 
          })
-         .catch(function (response) {
-            setLoading(false);
-            console.log('*****handle failure******');
-            console.log(response);
-          });
-         // .catch(function (error) {
-         //    setLoading(false);
-         //    console.log("error from image :", error);
-         // }); 
+         .catch(function (error) {
+            setLoading(false); 
+         }); 
       }
    };
    const handleChoosePhoto = () => {
@@ -265,8 +258,7 @@ function Newpost(props) {
                         maxLength={1000}
                         placeholder={'Type something...'}
                         returnKeyType="next"
-                        multiline={true}
-                        underlineColorAndroid="transparent"
+                        multiline={true} 
                         underlineColorAndroid={'transparent'}
                      />
                   </ImageBackground>
@@ -282,8 +274,7 @@ function Newpost(props) {
                   maxLength={1000}
                   placeholder={'Type something...'}
                   returnKeyType="next"
-                  multiline={true}
-                  underlineColorAndroid="transparent"
+                  multiline={true} 
                   underlineColorAndroid={'transparent'}
                />
             }

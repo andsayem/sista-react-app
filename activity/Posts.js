@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react'; 
-import { StyleSheet, FlatList, Text, View,SafeAreaView, TouchableOpacity, ScrollView, StatusBar
+import { StyleSheet, AppRegistry, FlatList, Text, View,SafeAreaView, TouchableOpacity, ScrollView, StatusBar
 } from 'react-native';
 import api from '../api';
 import { ListItem, colors , Icon , Header } from 'react-native-elements';  
@@ -9,6 +9,7 @@ import Post from './Post';
 import Styles from "../styles"; 
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
+import Pusher from 'pusher-js/react-native';
 
 // import Pusher from 'pusher-js/react-native';
 // Pusher.logToConsole = true;
@@ -42,56 +43,39 @@ class Posts extends Component {
       refreshing:false,
       page:1
       };  
+
   }  
-  // shouldComponentUpdate(nextProps, nextState) {  
-  //   console.log('nextProps',nextProps)
-  //   console.log('nextState',nextState)
-  // }
+ 
   componentDidMount(){    
-    // statusBar.setBarStyle('light-content',true);
-    // StatusBar.setBackgroundColor("red");
-    //this.fatchData();
-    //console.log('componentDidMount') 
     this.fatchData();
   }
 
   /* React get method.  */
 
-  componentWillMount(){
-    //this.fatchData(); 
-    //console.log('componentWillMount') 
+  componentWillMount(){ 
     this.fatchData();
   }
-  fatchData = async () => { 
-    //this.setState({isLoading:true})   
-     
+  fatchData = async () => {  
     api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
     .then(response => response.data.data)
-    .then((json) => { 
-      //console.log('json-length=>', json.length)
-      if(json.length > 1){
-        //console.log('page++',this.state.page); 
+    .then((json) => {  
+      if(json.length > 1){  
         this.setState({items:this.state.items.concat(json)})
         this.setState({moreLoding:true})
         this.setState({page:this.state.page+1})
-      }else{
-        //console.log('page',this.state.page); 
+      }else{  
         this.setState({moreLoding:false})
-      }
-      //if(this.state.isLoading){this.setState({moreLoding:true})}
+      } 
     })
     .finally( ()=>{
       this.setState({isLoading: false, refreshing:false })
     }) 
   }   
   handleLoadMore = () => {   
-    if(this.state.moreLoding ){
-      //console.log('handleLoadMore', this.state.page)
+    if(this.state.moreLoding ){ 
       this.setState({page: this.state.page, isLoading:true }, () => { this.fatchData()});
     } 
-    
-     
-    //this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
+       
   }  
   renderFooter = () => { 
     useEffect(() => { this.fatchData()},[]) 
