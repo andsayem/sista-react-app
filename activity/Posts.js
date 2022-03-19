@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react'; 
-import { StyleSheet, FlatList, Text, View,SafeAreaView, TouchableOpacity, ScrollView, StatusBar
+import { StyleSheet, AppRegistry, FlatList, Text, View,SafeAreaView, TouchableOpacity, ScrollView, StatusBar
 } from 'react-native';
 import api from '../api';
 import { ListItem, colors , Icon , Header } from 'react-native-elements';  
@@ -9,6 +9,7 @@ import Post from './Post';
 import Styles from "../styles"; 
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
+import Pusher from 'pusher-js/react-native';
 
 // import Pusher from 'pusher-js/react-native';
 // Pusher.logToConsole = true;
@@ -42,12 +43,14 @@ class Posts extends Component {
       refreshing:false,
       page:1
       };  
+
   }  
   // shouldComponentUpdate(nextProps, nextState) {  
   //   console.log('nextProps',nextProps)
   //   console.log('nextState',nextState)
   // }
-  componentDidMount(){    
+  componentDidMount(){   
+    
     // statusBar.setBarStyle('light-content',true);
     // StatusBar.setBackgroundColor("red");
     //this.fatchData();
