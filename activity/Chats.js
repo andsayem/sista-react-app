@@ -35,31 +35,6 @@ function Chats(props) {
     },
   ])
 
-
-
-//   const navigation = useNavigation();
-//   const {
-//     sendMessage,
-//     lastMessage,
-//     readyState,
-//     getWebSocket
-// } = useWebSocket('wss://echo.websocket.org', {
-//     share: true
-// });
-  
-//    const socketUrl = 'wss://sista.droidit.net';
-// const {
-//   sendMessage,
-//   sendJsonMessage,
-//   lastMessage,
-//   lastJsonMessage,
-//   readyState,
-//   getWebSocket
-// } = useWebSocket(socketUrl, {
-//   onOpen: () => console.log('opened'),
-//   //Will attempt to reconnect on all close events, such as server shutting down
-//   shouldReconnect: (closeEvent) => true,
-// });
     const [getUsers, setUsers] = useState([]); 
     const [getSearchusers, setSearchusers] = useState([]); 
     const [getSearchkey, setSearchkey] = useState(''); 

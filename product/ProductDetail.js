@@ -104,16 +104,13 @@ class ProductDetail extends Component {
             currency:'',
          }
     }
-    componentDidMount() {
-        //console.log('componentDidMount=>',this.props.route.params.item);
+    componentDidMount() { 
     this.fatchData(); 
     }
-    componentWillUnmount() {
-        //console.log('props=>',this.props);
+    componentWillUnmount() { 
     this.fatchData(); 
     }
-    fatchData = () => { 
-        //console.log('props=>',this.props);
+    fatchData = () => {  
         this.setState({ isLoading: true })
         api.getData('products/' + this.props.route.params.item.id)
           .then(response => {

@@ -4,20 +4,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'; 
 import helpers from './helpers';
-
-// const jwt =  AsyncStorage.getItem(TOKEN);
-// const getData = async () => {
-//     try {
-//       let response = await fetch(
-//         'https://examples.com/data.json'
-//       );
-//       let json = await response.json();
-//       return json.movies;
-//     } catch (error) {
-//        console.error(error);
-//     }
-//   };
-
 export default {  getData : async (path) =>
     axios({
         'method':'GET',

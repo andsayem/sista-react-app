@@ -42,9 +42,7 @@ class Posts extends Component {
       this.fatchUserData();
   }
   fatchData = async () => { 
-    //this.setState({isLoading:true})  
-    console.log('cat_id',this.state.cat_id);  
-    console.log('page',this.state.page);  
+    //this.setState({isLoading:true})   
     api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
     .then(response => response.data.data)
     .then((json) => {
@@ -61,8 +59,7 @@ class Posts extends Component {
       this.setState({isLoading: false, refreshing:false })
     }) 
   }   
-  handleLoadMore = () => {   
-    console.log('handleLoadMore')
+  handleLoadMore = () => {    
     this.setState({page: this.state.page + 1, isLoading:true }, () => { this.fatchData()});
     //this.setState({page: this.state.page + 1, isLoading:true}, this.fatchData )   
   }  
@@ -171,9 +168,7 @@ class Posts extends Component {
             </View> }
             centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
-            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4'}}
+            containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }} 
         /> 
         <Events/> 
         <ScrollView style={{ margin: 10, backgroundColor: '#fff'}}>

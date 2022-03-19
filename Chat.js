@@ -37,22 +37,19 @@ const Chat = () => {
     broadcaster: 'socket.io',
     client: socketio,
   });
- // console.log('777777777777777777777777777');
   echo
     .channel('chats.1')
     .listen('ChatMessageCreated', ev =>{
-    //  console.log('8888888888888888888888888888888888888888');
-    console.log(ev.message.text)});
+      
+  });
   useEffect(() => {
-    console.log("initiateSocketConnection")
+    
     // enter your websocket url
     ws.current = new WebSocket("wss://echo.websocket.org/")
     ws.current.onopen = () => {
-      console.log("connection establish open")
+      
     };
-    // ws.current.onclose = () => {
-    //   console.log("connection establish closed");
-    // }
+    
     return () => {
       ws.current.close();
     };
@@ -75,8 +72,7 @@ const Chat = () => {
 
   useEffect(() => {
     ws.current.onmessage = e => {
-      const response = JSON.parse(e.data);
-      console.log("onmessage=>", JSON.stringify(response));
+      const response = JSON.parse(e.data); 
       var sentMessages = {
         _id: response.receiverId,
         text: response.message,
