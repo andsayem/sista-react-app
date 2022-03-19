@@ -50,16 +50,7 @@ function Chats(props) {
         .catch((error) => { 
         }) 
     } 
-    const updateSearch =  async (search) => {    
-      setSearchkey(search );    
-     
-      api.getData('users_search/'+search)
-      .then((res)=>{ 
-        setSearchusers( res.data.data);   
-      })
-      .catch((error) => {
-      })
-  }
+    
   const updateSearch = async (search) => {
     setSearchkey(search);
 
