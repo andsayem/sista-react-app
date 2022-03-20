@@ -34,7 +34,7 @@ const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
   constructor(props) {
-
+    console.log('constructor');
     //Pusher.logToConsole = true;
  
     super(props);
@@ -54,7 +54,8 @@ class Posts extends Component {
 
   }  
  
-  componentDidMount(){    
+  componentDidMount(){   
+    console.log('componentDidMount'); 
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
     });
@@ -71,7 +72,12 @@ class Posts extends Component {
 
   /* React get method.  */
 
+ 
+
+  // Called when our screen is focused
+ 
   componentWillMount(){ 
+    console.log('componentWillMount');
     this.fatchData();
   }
   fatchData = async () => {  
