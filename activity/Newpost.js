@@ -113,20 +113,23 @@ function Newpost(props) {
                fileName: 'video', 
              })
          }
-         axios({url : helpers.baseurl()+'api/post_datas', method : 'POST',data  : formData,
+         axios(
+            {url : helpers.baseurl()+'api/post_datas', method : 'POST',data  : formData,
             headers: {
-               Accept: 'application/json',
+               'Accept': 'application/json',
                'Content-Type': 'multipart/form-data',
-               'Access-Control-Allow-Origin' : '*',
-               'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+               //'Access-Control-Allow-Origin' : '*',
+               //'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
                'Authorization':"Bearer "+ await AsyncStorage.getItem(TOKEN)
             }
          })
          .then(function (response) {
+            console.log('response.............', response);
             setLoading(false); 
          })
          .catch(function (error) {
             setLoading(false); 
+            console.log('error............', error )
          }); 
       }
    };
