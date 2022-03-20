@@ -55,7 +55,11 @@ class Posts extends Component {
   }  
  
   componentDidMount(){   
-    console.log('componentDidMount'); 
+    this.focusListener = this.props.navigation.addListener('focus',
+        () =>{ 
+          alert('hhgj');
+          this.fatchData();
+        } ); 
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
     });
@@ -67,7 +71,7 @@ class Posts extends Component {
       //this.fatchData();
        alert(JSON.stringify(data.message));
     }); 
-    this.fatchData();
+   
   }
 
   /* React get method.  */
@@ -190,6 +194,7 @@ class Posts extends Component {
   } 
   
   componentWillUnmount() {   
+    this.focusListener.remove();
     this.handlePostCates(); 
     //this.fatchData();
     this.fatchUserData();  
