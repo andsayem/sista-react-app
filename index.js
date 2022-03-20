@@ -9,7 +9,7 @@ import {name as appName} from './app.json';
 import Pusher from 'pusher-js/react-native';
 
 AppRegistry.registerComponent(appName, () => App);
-Pusher.logToConsole = true;
+Pusher.logToConsole = false;
 
 // var pusher = new Pusher('28f66afb2b72c8e97219', {
 //   cluster: 'ap2'

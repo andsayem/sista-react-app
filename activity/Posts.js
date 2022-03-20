@@ -121,7 +121,7 @@ class Posts extends Component {
   }
   handleOnRefresh = () => { 
     this.setState({page:1, items:[]})
-    this.setState({page:1, refreshing:false, seed: this.state.seed+1},() => {
+    this.setState({page:1, refreshing:false, seed: this.state.seed },() => {
       this.fatchData();
     })
   }   
@@ -211,6 +211,7 @@ class Posts extends Component {
            
       /> 
       <Events/>
+      <Categories/>
       <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
       <SafeAreaView>  
         <FlatList 

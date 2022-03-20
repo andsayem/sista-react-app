@@ -24,7 +24,8 @@ const Categories = (props) => {
             <ListItem >  
             { getCats.map((item, i) => (
             <ListItem.Content key={item.id} data={item} keyExtractor={(item , i) => item.id.toString()}  style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
-              <TouchableOpacity onPress={() => props.handlePostCate(item.id)}
+              <TouchableOpacity
+                //  onPress={() => props.handlePostCate(item.id)}
                 //style={Styles.cat_icon_style}
                 style={[props.cat_id == item.id ? Styles.cat_icon_active_style : Styles.cat_icon_style  ]}
               > 
