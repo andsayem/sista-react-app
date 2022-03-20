@@ -38,7 +38,8 @@ export function DrawerContent(props){
   } 
   const clearAsyncStorage = async() => {
     AsyncStorage.clear(); 
-    props.navigation.navigate("Login");
+    this.props.navigation.navigate("Login");
+    //props.navigation.navigate("Login");
     
   }  
   const asyncStorageData = async () => {

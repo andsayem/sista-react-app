@@ -43,7 +43,7 @@ const DrawerNavigator = () => {
             <Drawer.Screen name="Rate Us" component={Chats}   /> 
             <Drawer.Screen name="Support" component={Chats}   /> 
             <Drawer.Screen name="Privacy Policy" component={Chats}   /> 
-            <Drawer.Screen name="Logout" component={Chats}   />  
+            <Drawer.Screen name="Logout Test" component={Chats}   />  
       </Drawer.Navigator> 
   );
 }

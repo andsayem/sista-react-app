@@ -21,41 +21,42 @@ function Chats(props) {
   // const ws = useRef(null);
 
   const navigation = useNavigation();
-  const [userList, setUserList] = useState([
-    {
-      name: 'Rahul',
-      email: 'rahul@gmail.com',
-      image_path: 'https://www.beautifulhomes.com/content/dam/beautifulhomes/images/user-image-icon-11.jpg',
-      sender_id: '1',
-      receiver_id: '2',
-    },
-    {
-      name: 'Muskan',
-      email: 'muskan@gmail.com',
-      image_path: 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png',
-      sender_id: "2",
-      receiver_id: '1'
-    },
-  ])
+  // const [userList, setUserList] = useState([
+  //   {
+  //     name: 'Rahul',
+  //     email: 'rahul@gmail.com',
+  //     image_path: 'https://www.beautifulhomes.com/content/dam/beautifulhomes/images/user-image-icon-11.jpg',
+  //     sender_id: '1',
+  //     receiver_id: '2',
+  //   },
+  //   {
+  //     name: 'Muskan',
+  //     email: 'muskan@gmail.com',
+  //     image_path: 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png',
+  //     sender_id: "2",
+  //     receiver_id: '1'
+  //   },
+  // ])
 
-    const [getUsers, setUsers] = useState([]); 
-    const [getSearchusers, setSearchusers] = useState([]); 
-    const [getSearchkey, setSearchkey] = useState(''); 
-    const [selectedId, setSelectedId] = useState(null);
-    const getUser = () =>{ 
-      api.getData('conversation_list')
-        .then((res)=>{
-          setUsers( res.data.data);   
-        })
-        .catch((error) => { 
-        }) 
-    } 
-    const updateSearch =  async (search) => {    
-      setSearchkey(search );    
-     
-      api.getData('users_search/'+search)
-      .then((res)=>{ 
-        setSearchusers( res.data.data);   
+  const [getUsers, setUsers] = useState([]);
+  const [getSearchusers, setSearchusers] = useState([]);
+  const [getSearchkey, setSearchkey] = useState('');
+  const [selectedId, setSelectedId] = useState(null);
+  const getUser = () => {
+    api.getData('conversation_list')
+      .then((res) => {
+        setUsers(res.data.data);
+      })
+      .catch((error) => {
+      })
+  }
+
+  const updateSearch = async (search) => {
+    setSearchkey(search);
+
+    api.getData('users_search/' + search)
+      .then((res) => {
+        setSearchusers(res.data.data);
       })
       .catch((error) => {
       })
@@ -64,26 +65,27 @@ function Chats(props) {
   // setTostNotificetion("123");
 
 
-    
-  useEffect(() => { 
-    const echo = new Echo({
-      host: 'http://127.0.0.1:6001',
-      broadcaster: 'socket.io',
-      client: socketio,
-      
-      
-    });
-    console.log('777777777777777777777777777');
-    console.log(echo);
-    echo.channel('chats.1')
-      .listen('ChatMessageCreated', ev => {
-        console.log('8888888888888888888888888888888888888888');
-        setTostNotificetion(ev.message.text);
-        console.log(ev.message.text)
-      }).error(e => {
-        console.log(e);
-      });
-    getUser() }, []);
+
+  useEffect(() => {
+    // const echo = new Echo({
+    //   host: 'http://127.0.0.1:6001',
+    //   broadcaster: 'socket.io',
+    //   client: socketio,
+
+
+    // });
+    // console.log('777777777777777777777777777');
+    // console.log(echo);
+    // echo.channel('chats.1')
+    //   .listen('ChatMessageCreated', ev => {
+    //     console.log('8888888888888888888888888888888888888888');
+    //     setTostNotificetion(ev.message.text);
+    //     console.log(ev.message.text)
+    //   }).error(e => {
+    //     console.log(e);
+    //   });
+    getUser()
+  }, []);
   const Allusers = ({ ItemData }) => (
     <View key={ItemData.sender_id + 'cu'.toString()} style={{ backgroundColor: '#fff', padding: 5 }} >
       <Avatar onPress={() => props.navigation.navigate('Chating', {
@@ -172,11 +174,7 @@ function Chats(props) {
 
         value={getSearchkey}
         onChangeText={(getSearchkey) => { updateSearch(getSearchkey) }}
-        placeholder="Type Here..." />
-      <Text style={styles.text}>{tostNotificetion}</Text>
-
-
-
+        placeholder="Type Here..." /> 
       {getSearchkey == '' ?
         <View>
 
@@ -219,71 +217,7 @@ function Chats(props) {
           extraData={selectedId}
         />
       }
-      <View style={styles.container}>
-        <View style={{
-          padding: 15,
-          marginTop: 50,
-          backgroundColor: "black",
-          alignItems: "center",
-          justifyContent: 'center'
-        }}>
-          <Text style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            color: "#fff"
-          }}>{`>>  User List  <<`}</Text>
-        </View>
-        <FlatList
-          style={{
-            marginHorizontal: 15,
-            marginTop: 20
-          }}
-          data={userList}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) =>
-            <TouchableOpacity
-              key={index}
-              style={{
-                padding: 10,
-                elevation: 10,
-                borderRadius: 10,
-                borderWidth: 1,
-                backgroundColor: '#ff',
-                borderColor: '#ddd',
-                marginBottom: 20,
-                flexDirection: 'row',
-                alignItems: "center"
-              }}
-              onPress={() => {
-                navigation.push('Chat',
-                  {
-                    record: item
-                  }
-                )
-              }}
-            >
-              <Image
-                style={{
-                  height: 50,
-                  width: 50,
-                  borderRadius: 25,
-                  borderWidth: 0.5,
-                  borderColor: '#ddd'
-                }}
-                source={{ uri: item.image_path }}
-                resizeMode='contain'
-              />
-              <Text
-                style={{
-                  fontSize: 14,
-                  marginLeft: 20,
-                  fontWeight: '400'
-                }}
-              >{item.name + `\n` + item.email} </Text>
-            </TouchableOpacity>
-          }
-        />
-      </View>
+      
     </ScrollView>
 
   );

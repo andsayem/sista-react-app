@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {  StyleSheet } from "react-native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';  
+import { StyleSheet } from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
-import { Icon } from "react-native-elements"; 
+import { Icon } from "react-native-elements";
 import Profile from '../activity/Profile';
-import Chats from "../activity/Chats"; 
-import Journal from "../activity/Journal"; 
+import Chats from "../activity/Chats";
+import Journal from "../activity/Journal";
 import Newpost from '../activity/Newpost';
 import NewFeedScreen from '../activity/NewFeedScreen';
 import NewListingButton from "../navigation/NewListingButton";
@@ -14,74 +14,80 @@ import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 import Home from '../activity/home';
 // import Login from '../screens/LoginScreen';
-const TOKEN = 'token'; 
+const TOKEN = 'token';
 const Tab = createBottomTabNavigator();
-function TabsScreen (navigation){ 
+function TabsScreen(props) {
+ // super(props);
   const [loggedIn, setLogin] = useState(false);
   const readData = async () => {
-    try { 
-      const getToken = await AsyncStorage.getItem(TOKEN);   
-      const userInfo = await AsyncStorage.getItem(STORAGE_KEY); 
-      setToken(getToken); 
-      if(getToken){
+    try {
+      const getToken = await AsyncStorage.getItem(TOKEN);
+      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
+      setToken(getToken);
+      if (getToken) {
         setLogin(true);
-      }else{
+      } else {
         setLogin(false);
       }
-      
-    } catch (e) {  
+
+    } catch (e) {
     }
-  } 
-  
- 
-    return ( 
-        <Tab.Navigator>
-          <Tab.Screen name="Posts" component={Posts}   
-            options={{
-              headerShown : false,
-              tabBarLabel: 'Posts',
-              tabBarIcon: ({ color, size }) => (
-                  <Icon name='home' />
-                )
-            }}/>   
-          <Tab.Screen name="Chats" component={Chats} 
-           options={{
-            headerShown : true,
-            tabBarBadge: '+9',
-            tabBarLabel: 'Chats',
-            tabBarIcon: ({ color, size }) => (
-                <Icon name='chat' />
-              )
-          }}
-           />
-           <Tab.Screen name="Newpost" component={Newpost} 
-           options={({ navigation  })=>({ 
-            tabBarButton : () =><NewListingButton onPress={()=> navigation.navigate("Newpost")  }  ></NewListingButton>,
-            tabBarIcon: ({ color, size }) => (
-                <Icon name='add' />
-              )
-          })}
-           />  
-          <Tab.Screen name="Journal" component={Journal} 
-           options={{
-            headerShown : true,
-            tabBarLabel: 'Journal',
-            tabBarIcon: ({ color, size }) => (
-                <Icon name='book' />
-              )
-          }}
-           />
-          <Tab.Screen name="Profile" component={Profile} 
-           options={{
-            headerShown : true,
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({ color, size }) => (
-                <Icon type='font-awesome' name='user' />
-              )
-          }}
-           />
-        </Tab.Navigator> 
-    );
+  }
+
+
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Posts" component={Posts}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Posts',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='home' />
+          ),
+          tabBarOnPress: () => {
+            props.navigation.navigate("Posts");
+           // console.log('onPress:');
+           // jumpToIndex(scene.index);
+          },
+        }} />
+      <Tab.Screen name="Chats" component={Chats}
+        options={{
+          headerShown: true,
+          tabBarBadge: '+9',
+          tabBarLabel: 'Chats',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='chat' />
+          )
+        }}
+      />
+      <Tab.Screen name="Newpost" component={Newpost}
+        options={({ navigation }) => ({
+          tabBarButton: () => <NewListingButton onPress={() => navigation.navigate("Newpost")}  ></NewListingButton>,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='add' />
+          )
+        })}
+      />
+      <Tab.Screen name="Journal" component={Journal}
+        options={{
+          headerShown: true,
+          tabBarLabel: 'Journal',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='book' />
+          )
+        }}
+      />
+      <Tab.Screen name="Profile" component={Profile}
+        options={{
+          headerShown: true,
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Icon type='font-awesome' name='user' />
+          )
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
 
 

@@ -46,14 +46,14 @@ const Chat = () => {
   useEffect(() => {
     
     // enter your websocket url
-    ws.current = new WebSocket("wss://echo.websocket.org/")
-    ws.current.onopen = () => {
+    // ws.current = new WebSocket("wss://echo.websocket.org/")
+    // ws.current.onopen = () => {
       
-    };
+    // };
     
-    return () => {
-      ws.current.close();
-    };
+    // return () => {
+    //   ws.current.close();
+    // };
   }, [])
 
   useEffect(() => {
