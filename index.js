@@ -16,7 +16,7 @@ var pusher = new Pusher('28f66afb2b72c8e97219', {
 });
 
 var channel = pusher.subscribe('blog-channel');
-channel.bind('blog-event', function(data) { 
+channel.bind('App\Events\ChatMessageCreated', function(data) { 
   console.log(data);
-  alert(JSON.stringify(data));
-}); 
+  alert("2345");
+});
