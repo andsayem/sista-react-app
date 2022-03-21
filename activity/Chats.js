@@ -6,16 +6,9 @@ import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-
 import Styles from "../styles";
 import api from '../api';
 import helpers from "../helpers";
-import useWebSocket from 'react-native-use-websocket';
-import { Button, } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import {
-  SafeAreaView,
-  Image,
-  TouchableOpacity
-} from 'react-native';
 import Echo from 'laravel-echo';
-import socketio from 'socket.io-client';
+//import socketio from 'socket.io-client';
 
 function Chats(props) {
   // const ws = useRef(null);
@@ -61,33 +54,13 @@ function Chats(props) {
       .catch((error) => {
       })
   };
-  
-  // setTostNotificetion("123");
-
-
 
   useEffect(() => {
-    // const echo = new Echo({
-    //   host: 'http://127.0.0.1:6001',
-    //   broadcaster: 'socket.io',
-    //   client: socketio,
 
-
-    // });
-    // console.log('777777777777777777777777777');
-    // console.log(echo);
-    // echo.channel('chats.1')
-    //   .listen('ChatMessageCreated', ev => {
-    //     console.log('8888888888888888888888888888888888888888');
-    //     setTostNotificetion(ev.message.text);
-    //     console.log(ev.message.text)
-    //   }).error(e => {
-    //     console.log(e);
-    //   });
     getUser()
   }, []);
   const Allusers = ({ ItemData }) => (
-    <View key={ItemData.sender_id + 'cu'.toString()} style={{ backgroundColor: '#fff', padding: 5 }} >
+    <View key={ItemData.sender_id + 'cu'.toString()} style={styles.useAvater} >
       <Avatar onPress={() => props.navigation.navigate('Chating', {
         receiver_id: ItemData.show_id,
       })} rounded size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
@@ -101,45 +74,42 @@ function Chats(props) {
   };
   const Convusers = ({ ItemData }) => (
     <View  >
-      {/* <ListItem key={ItemData.id+'cvu'.toString()} style={{
-                backgroundColor: "#FEFEFE",
-                width: '100%',
-              }}>
-                <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.show_id,
-                 }) }   size="medium" source={ItemData.pro_image ? {uri:helpers.storage+'app/public/posts/'+ItemData.pro_image}: ''} />
-                <ListItem.Content >
-                  <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.show_id,
-                 }) }  onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.show_id,
-                 }) } >{ItemData.name}  </ListItem.Title>
-                  <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.show_id,
-                 }) } >hi dear, have u got the prom... </ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem> */}
+      <ListItem key={ItemData.id + 'cvu'.toString()} style={{
+        backgroundColor: "#FEFEFE",
+        width: '100%',
+      }}>
+        <Avatar rounded onPress={() => props.navigation.navigate('Chating', {
+          receiver_id: ItemData.show_id,
+        })} size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
+        <ListItem.Content >
+          <ListItem.Title onPress={() => props.navigation.navigate('Chating', {
+            receiver_id: ItemData.show_id,
+          })}  >{ItemData.name}  </ListItem.Title>
+          <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating', {
+            receiver_id: ItemData.show_id,
+          })} >hi dear, have u got the prom... </ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
     </View>
   );
   const SearchData = ({ ItemData }) => (
     <View  >
-      {/* <ListItem key={ItemData.id.toString()} style={{
-                backgroundColor: "#FEFEFE",
-                width: '100%',
-              }}>
-                <Avatar rounded onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.id}) }   size="medium" source={ItemData.pro_image ? {uri:helpers.storage+'app/public/posts/'+ItemData.pro_image}: ''} />
-                <ListItem.Content >
-                  <ListItem.Title onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.id,
-                 }) }  onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.id,
-                 }) } >{ItemData.name}  </ListItem.Title>
-                  <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating',{ 
-                  receiver_id: ItemData.id,
-                 }) } >{ ItemData.email}</ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem> */}
+      <ListItem key={ItemData.id.toString()} style={{
+        backgroundColor: "#FEFEFE",
+        width: '100%',
+      }}>
+        <Avatar rounded onPress={() => props.navigation.navigate('Chating', {
+          receiver_id: ItemData.id
+        })} size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
+        <ListItem.Content >
+          <ListItem.Title onPress={() => props.navigation.navigate('Chating', {
+            receiver_id: ItemData.id,
+          })}    >{ItemData.name}  </ListItem.Title>
+          <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating', {
+            receiver_id: ItemData.id,
+          })} >{ItemData.email}</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
     </View>
   );
   const renderConvUsers = ({ item }) => {
@@ -155,8 +125,20 @@ function Chats(props) {
 
   return (
     <ScrollView >
+      <View style={{paddingTop :35, backgroundColor: "#efefef",  }}  > 
+          <View >
+            <ListItem style={{backgroundColor: "#efefef",width: '100%',}}>
+            <Icon color={colors.black} size={30} name='menu'
+          onPress={() => props.navigation.toggleDrawer()} ></Icon>
+              <Avatar rounded   size="medium" source={require('../img/images/user_1.jpg')} />
+              <ListItem.Content>
+                <ListItem.Title> Chats </ListItem.Title> 
+              </ListItem.Content>
+            </ListItem>
+          </View>     
+        </View> 
 
-      <Header
+      {/* <Header
         leftComponent={<Icon color={colors.black} size={30} name='menu'
           onPress={() => props.navigation.toggleDrawer()} ></Icon>}
         centerComponent={{ text: 'Chats', style: { color: '#1E1E1E', fontSize: 20 } }}
@@ -165,7 +147,7 @@ function Chats(props) {
           color: '1E1E1E',
           backgroundColor: '#E4E4E4'
         }}
-      />
+      /> */}
       <SearchBar
         lightTheme
         //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
@@ -174,7 +156,7 @@ function Chats(props) {
 
         value={getSearchkey}
         onChangeText={(getSearchkey) => { updateSearch(getSearchkey) }}
-        placeholder="Type Here..." /> 
+        placeholder="Type Here..." />
       {getSearchkey == '' ?
         <View>
 
@@ -217,7 +199,7 @@ function Chats(props) {
           extraData={selectedId}
         />
       }
-      
+
     </ScrollView>
 
   );
@@ -226,6 +208,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  useAvater: {
+    backgroundColor: '#fff', padding: 5
   }
 });
 export default Chats;
