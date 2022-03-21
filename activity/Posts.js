@@ -34,6 +34,7 @@ import helpers from '../helpers';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
+  _isMounted = false;
   constructor(props) { 
     //Pusher.logToConsole = true; 
     super(props);
@@ -53,10 +54,14 @@ class Posts extends Component {
   }  
  
   componentDidMount(){   
+    this._isMounted = true;
+    
     this.focusListener = this.props.navigation.addListener('focus',
         () =>{ 
           this.handleResetParam()
-          this.fatchData();
+          if (this._isMounted) {
+            this.fatchData();
+          } 
         } ); 
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
@@ -68,10 +73,7 @@ class Posts extends Component {
   }
 
   /* React get method.  */
- 
-  componentWillMount(){  
-    this.fatchData();
-  }
+  
   fatchData = async () => {
     //console.log('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page);
     api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
@@ -86,7 +88,7 @@ class Posts extends Component {
       } 
     })
     .finally( ()=>{
-      this.setState({isLoading: false, refreshing:false })
+      this.setState({isLoading: false, refreshing:false,moreLoding:false})
     }) 
   }   
   handleLoadMore = () => {   
@@ -110,7 +112,7 @@ class Posts extends Component {
             </View>
           ):(
             <View> 
-              <Text style={styles.title}>Loaded</Text> 
+              <Text style={styles.title}>Loading Data..</Text> 
             </View>
           )}
         </View> 
@@ -188,13 +190,12 @@ class Posts extends Component {
     
   } 
   handleResetParam = () =>{
-    this.state.items=[];
-    this.state.page=1;
+    this.setState({items:[],page:1});
   }
-  componentWillUnmount() {   
-    this.focusListener.remove();
-    this.handlePostCates(); 
-    this.fatchData();
+  componentWillUnmount() {  
+    this._isMounted = false; 
+    this.focusListener;
+    this.handlePostCates();  
     this.fatchUserData();
     this.renderFooter();
   }
