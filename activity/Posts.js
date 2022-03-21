@@ -34,10 +34,8 @@ import helpers from '../helpers';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
-  constructor(props) {
-    //console.log('constructor');
-    //Pusher.logToConsole = true;
-
+  constructor(props) { 
+    //Pusher.logToConsole = true; 
     super(props);
     this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
@@ -49,79 +47,72 @@ class Posts extends Component {
       cat_active: '',
       userData: [],
       moreLoding: true,
-      refreshing: false,
-      page: 1
-    };
-
-  }
-
-  componentDidMount() {
+      refreshing:false,
+      page:1
+      };
+  }  
+ 
+  componentDidMount(){   
     this.focusListener = this.props.navigation.addListener('focus',
-      () => {
-        //alert('hhgj');
-        this.fatchData();
-      });
+        () =>{ 
+          this.handleResetParam()
+          this.fatchData();
+        } ); 
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
-    });
-
-    var channel = pusher.subscribe('blog-channel');
-    //console.log('channel',channel)
-    channel.bind('blog-event', function (data) {
-      //console.log(data);
-      //this.fatchData();
-      //alert(JSON.stringify(data.message));
-    });
-
+    }); 
+    var channel = pusher.subscribe('blog-channel'); 
+    channel.bind('blog-event', function(data) {  
+    }); 
+   
   }
 
   /* React get method.  */
-
-
-
-  // Called when our screen is focused
-
-  componentWillMount() {
-    //console.log('componentWillMount');
+ 
+  componentWillMount(){  
     this.fatchData();
   }
   fatchData = async () => {
-    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
-      .then(response => response.data.data)
-      .then((json) => {
-        if (json.length > 1) {
-          this.setState({ items: this.state.items.concat(json) })
-          this.setState({ moreLoding: true })
-          this.setState({ page: this.state.page + 1 })
-        } else {
-          this.setState({ moreLoding: false })
-        }
-      })
-      .finally(() => {
-        this.setState({ isLoading: false, refreshing: false })
-      })
-  }
-  handleLoadMore = () => {
-    if (this.state.moreLoding) {
-      this.setState({ page: this.state.page, isLoading: true }, () => { this.fatchData() });
-    }
-
-  }
-  renderFooter = () => {
-    useEffect(() => { this.fatchData() }, [])
-    return (
-      <View style={{ height: 60 }}>
-        {this.state.moreLoding ? (
-          <View>
-            <ActivityIndicator />
-            <Text style={styles.title}>Loading Data..</Text>
-          </View>
-        ) : (
-          <View>
-            <Text style={styles.title}>Loaded</Text>
-          </View>
-        )}
-      </View>
+    api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
+    .then(response => response.data.data)
+    .then((json) => {  
+      if(json.length > 1){  
+        this.setState({items:this.state.items.concat(json)})
+        this.setState({moreLoding:true})
+        this.setState({page:this.state.page+1})
+      }else{  
+        this.setState({moreLoding:false})
+      } 
+    })
+    .finally( ()=>{
+      this.setState({isLoading: false, refreshing:false })
+    }) 
+  }   
+  handleLoadMore = () => {   
+    if(this.state.moreLoding ){ 
+      this.setState({page: this.state.page, isLoading:true }, () => { this.fatchData()});
+    } 
+       
+  }  
+  renderFooter = () => {  
+    useEffect(() => { 
+      let isMounted = true; 
+      this.fatchData()
+      return () => { isMounted = false };
+    },[]) 
+    return(  
+        <View style={{height:60}}> 
+          { this.state.moreLoding ? (
+            <View>
+              <ActivityIndicator /> 
+              <Text style={styles.title}>Loading Data..</Text> 
+            </View>
+          ):(
+            <View> 
+              <Text style={styles.title}>Loaded</Text> 
+            </View>
+          )}
+        </View> 
     );
   }
   handleOnRefresh = () => {
@@ -161,7 +152,8 @@ class Posts extends Component {
     this.props.navigation.navigate('UserProfile', { id: id });
   }
   handlePostCateWise = (id) => {
-    this.setState({ cat_id: id }, function () {
+    this.handleResetParam()
+    this.setState({cat_id: id}, function () {
       this.fatchData();
     });
   }
@@ -191,12 +183,15 @@ class Posts extends Component {
     api.getData('following/' + post.user_id).then((res) => {
       this.fatchData();
     })
-
+    
+  } 
+  handleResetParam = () =>{
+    this.state.items=[];
+    this.state.page=1;
   }
-
-  componentWillUnmount() {
-   // this.focusListener.remove();
-    this.handlePostCates();
+  componentWillUnmount() {   
+    this.focusListener.remove();
+    this.handlePostCates(); 
     //this.fatchData();
     this.fatchUserData();
     this.renderFooter();
@@ -213,29 +208,28 @@ class Posts extends Component {
           </View>}
           centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E', fontSize: 20 } }}
           rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }}
-
-        />
-        <Events />
-        <View style={{ backgroundColor: "#E4E4E4", paddingBottom: 5, marginTop: 10 }}>
-          <SafeAreaView>
-            <FlatList
-              ListHeaderComponent={() => {
-                return (<View><Categories/></View>)
-              }}
-              data={Object.values(this.state.items)}
-              keyExtractor={(item) => new Date().getTime().toString() + (Math.floor(Math.random() * Math.floor(new Date().getTime()))).toString()}
-
-              onEndReached={this.handleLoadMore}
-              renderItem={this.renderRow}
-              ListFooterComponent={this.renderFooter}
-              onEndReachedThreshold={200}
-              refreshing={this.state.refreshing}
-              onRefresh={this.handleOnRefresh} 
-              stickyHeaderIndices={[0]}
-            />
-          </SafeAreaView>
-        </View>
+          containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
+           
+      /> 
+      <Events/>
+      <Categories 
+      cat_id= {this.state.cat_id} 
+      handlePostCate={this.handlePostCateWise} />
+      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
+      <SafeAreaView>  
+        <FlatList 
+          data={Object.values(this.state.items)}
+          keyExtractor={(item) => new Date().getTime().toString() + (Math.floor(Math.random() * Math.floor(new Date().getTime()))).toString()} 
+           
+          onEndReached={this.handleLoadMore}
+          renderItem={this.renderRow}
+          ListFooterComponent={this.renderFooter}
+          onEndReachedThreshold={200}
+          refreshing={this.state.refreshing} 
+          onRefresh={this.handleOnRefresh}     
+        />   
+      </SafeAreaView>
+      </View> 
       </View>
     )
   }
