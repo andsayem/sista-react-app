@@ -6,7 +6,7 @@ export default helpers = {
     	return {'app_key' :'28f66afb2b72c8e97219' , 'cluster' : 'ap2'} ;
     },
     storage: function(){
-        return 'https://sista.droidit.net/'
+        return 'https://sista.droidit.net/storage/'
     	//return 'https://sista.speechbd.com/'
     	//return 'https://sista.droidit.net/'
     },
