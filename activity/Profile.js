@@ -57,8 +57,8 @@ class UserProfile extends Component {
     ImagePicker.launchImageLibrary({
           mediaType: 'photo', 
           includeBase64: true,
-          maxHeight: 200,
-          maxWidth: 200,
+          maxHeight: 44,
+          maxWidth: 44,
       },
       (response) => {
         this.save(response);
