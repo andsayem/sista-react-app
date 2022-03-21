@@ -33,10 +33,8 @@ import helpers from '../helpers';
 const STORAGE_KEY = 'save_user'; 
 const TOKEN = 'token';
 class Posts extends Component {
-  constructor(props) {
-    console.log('constructor');
-    //Pusher.logToConsole = true;
- 
+  constructor(props) { 
+    //Pusher.logToConsole = true; 
     super(props);
     this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
@@ -50,41 +48,30 @@ class Posts extends Component {
       moreLoding: true,
       refreshing:false,
       page:1
-      };  
-
+      };
   }  
  
   componentDidMount(){   
     this.focusListener = this.props.navigation.addListener('focus',
         () =>{ 
-          alert('hhgj');
+          this.handleResetParam()
           this.fatchData();
         } ); 
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
-    });
-
-    var channel = pusher.subscribe('blog-channel');
-    console.log('channel',channel)
-    channel.bind('blog-event', function(data) { 
-      console.log(data);
-      //this.fatchData();
-       alert(JSON.stringify(data.message));
+    }); 
+    var channel = pusher.subscribe('blog-channel'); 
+    channel.bind('blog-event', function(data) {  
     }); 
    
   }
 
   /* React get method.  */
-
  
-
-  // Called when our screen is focused
- 
-  componentWillMount(){ 
-    console.log('componentWillMount');
+  componentWillMount(){  
     this.fatchData();
   }
-  fatchData = async () => {  
+  fatchData = async () => {
     api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
     .then(response => response.data.data)
     .then((json) => {  
@@ -106,8 +93,12 @@ class Posts extends Component {
     } 
        
   }  
-  renderFooter = () => { 
-    useEffect(() => { this.fatchData()},[]) 
+  renderFooter = () => {  
+    useEffect(() => { 
+      let isMounted = true; 
+      this.fatchData()
+      return () => { isMounted = false };
+    },[]) 
     return(  
         <View style={{height:60}}> 
           { this.state.moreLoding ? (
@@ -159,7 +150,8 @@ class Posts extends Component {
   handleUserProfile = (id) => {  
     this.props.navigation.navigate('UserProfile', {id: id });
   }
-  handlePostCateWise = (id) => { 
+  handlePostCateWise = (id) => {
+    this.handleResetParam()
     this.setState({cat_id: id}, function () {
       this.fatchData();
     }); 
@@ -192,7 +184,10 @@ class Posts extends Component {
     })
     
   } 
-  
+  handleResetParam = () =>{
+    this.state.items=[];
+    this.state.page=1;
+  }
   componentWillUnmount() {   
     this.focusListener.remove();
     this.handlePostCates(); 
@@ -216,7 +211,9 @@ class Posts extends Component {
            
       /> 
       <Events/>
-      <Categories/>
+      <Categories 
+      cat_id= {this.state.cat_id} 
+      handlePostCate={this.handlePostCateWise} />
       <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
       <SafeAreaView>  
         <FlatList 
