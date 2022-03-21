@@ -152,16 +152,17 @@ class Posts extends Component {
   handleUserProfile = (id) => {
     this.props.navigation.navigate('UserProfile', { id: id });
   }
-  handlePostCateWise = (id) => {
+  handlePostCateWise = (id) => {    
     this.handleResetParam()
-    this.setState({cat_id: id}, function () {
+    this.setState({cat_id: id}, function () {      
       this.fatchData();
     });
   }
   handlePostCates = () => {
-    this.state.cat_id = '';
-    this.handleResetParam() 
-    this.fatchData(); 
+    this.handleResetParam()
+    this.setState({cat_id:''}, function () {      
+      this.fatchData();
+    }); 
   }
   handleLikePost = index => {
     let post = this.state.items[index]
@@ -193,7 +194,7 @@ class Posts extends Component {
   componentWillUnmount() {   
     this.focusListener.remove();
     this.handlePostCates(); 
-    //this.fatchData();
+    this.fatchData();
     this.fatchUserData();
     this.renderFooter();
   }
