@@ -63,8 +63,12 @@ function Chats(props) {
     <View key={ItemData.sender_id + 'cu'.toString()} style={styles.useAvater} >
       <Avatar onPress={() => props.navigation.navigate('Chating', {
         receiver_id: ItemData.show_id,
-      })} rounded size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
-      <Text>{ItemData.name}</Text>
+      })} rounded size="medium" source={ItemData.pro_image ? { uri: helpers.storage() + 'app/public/posts/' + ItemData.pro_image } : ''} />
+      <Text style={{ width : 50  ,  textAlign : 'center'}}>
+      {ItemData.name.split(" ").length < 2
+                ? `${ItemData.name}`
+                : `${ItemData.name.split(" ")[0]}`}
+      </Text>
     </View>
   );
   const renderAllUsers = ({ item }) => {
@@ -80,14 +84,14 @@ function Chats(props) {
       }}>
         <Avatar rounded onPress={() => props.navigation.navigate('Chating', {
           receiver_id: ItemData.show_id,
-        })} size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
+        })} size="medium" source={ItemData.pro_image ? { uri: helpers.storage() + 'app/public/posts/' + ItemData.pro_image } : ''} />
         <ListItem.Content >
           <ListItem.Title onPress={() => props.navigation.navigate('Chating', {
             receiver_id: ItemData.show_id,
           })}  >{ItemData.name}  </ListItem.Title>
           <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating', {
             receiver_id: ItemData.show_id,
-          })} >hi dear, have u got the prom... </ListItem.Subtitle>
+          })} > {ItemData.latest_message} </ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     </View>
@@ -100,7 +104,7 @@ function Chats(props) {
       }}>
         <Avatar rounded onPress={() => props.navigation.navigate('Chating', {
           receiver_id: ItemData.id
-        })} size="medium" source={ItemData.pro_image ? { uri: helpers.storage + 'app/public/posts/' + ItemData.pro_image } : ''} />
+        })} size="medium" source={ItemData.pro_image ? { uri: helpers.storage() + 'app/public/posts/' + ItemData.pro_image } : ''} />
         <ListItem.Content >
           <ListItem.Title onPress={() => props.navigation.navigate('Chating', {
             receiver_id: ItemData.id,
@@ -148,7 +152,7 @@ function Chats(props) {
           backgroundColor: '#E4E4E4'
         }}
       /> */}
-      <SearchBar
+      {/* <SearchBar
         lightTheme
         //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
         //  iconStyle={{backgroundColor:'#fff'}}
@@ -156,7 +160,7 @@ function Chats(props) {
 
         value={getSearchkey}
         onChangeText={(getSearchkey) => { updateSearch(getSearchkey) }}
-        placeholder="Type Here..." />
+        placeholder="Type Here..." /> */}
       {getSearchkey == '' ?
         <View>
 
