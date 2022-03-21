@@ -21,7 +21,22 @@ const Categories = (props) => {
     useEffect(() => setErrortext(false), [errortext]);
     useEffect(() => {getCategories()},[]);  
     return (   
+      
             <ListItem >  
+              <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
+              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+                <TouchableOpacity onPress={props.handleAllPost}          
+                style={[props.cat_id == '' ? Styles.cat_icon_active_style : Styles.cat_icon_style  ]}
+                > 
+                
+                <Icon   
+                  color={ props.cat_id == '' ? '#FFFFFF' : '#000000'} 
+                  name='border-all' />  
+              </TouchableOpacity> 
+              <Text style={{ textAlign : 'center' , width : '100%',color:'#535353'}} >All</Text>
+              </ListItem.Content>
+            </ListItem>
+
             { getCats.map((item, i) => (
             <ListItem.Content key={item.id} data={item} keyExtractor={(item , i) => item.id.toString()}  style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
               <TouchableOpacity

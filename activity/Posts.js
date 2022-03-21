@@ -37,7 +37,7 @@ class Posts extends Component {
   constructor(props) { 
     //Pusher.logToConsole = true; 
     super(props);
-    this.handlePostCates = this.handlePostCates.bind(this);
+    //this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
     this.fatchUserData = this.fatchUserData.bind(this);
     this.state = {
@@ -73,6 +73,7 @@ class Posts extends Component {
     this.fatchData();
   }
   fatchData = async () => {
+    //console.log('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page);
     api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
     .then(response => response.data.data)
     .then((json) => {  
@@ -158,9 +159,9 @@ class Posts extends Component {
     });
   }
   handlePostCates = () => {
-    this.setState({ cat_id: '' }, function () {
-      this.fatchData();
-    });
+    this.state.cat_id = '';
+    this.handleResetParam() 
+    this.fatchData(); 
   }
   handleLikePost = index => {
     let post = this.state.items[index]
@@ -210,11 +211,7 @@ class Posts extends Component {
           rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
           containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
            
-      /> 
-      <Events/>
-      <Categories 
-      cat_id= {this.state.cat_id} 
-      handlePostCate={this.handlePostCateWise} />
+      />  
       <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
       <SafeAreaView>  
         <FlatList 
@@ -226,7 +223,26 @@ class Posts extends Component {
           ListFooterComponent={this.renderFooter}
           onEndReachedThreshold={200}
           refreshing={this.state.refreshing} 
-          onRefresh={this.handleOnRefresh}     
+          onRefresh={this.handleOnRefresh} 
+          ListHeaderComponent={
+            <View>
+              <Events/>
+            
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{
+                marginHorizontal: -10,
+                paddingEnd : 10 , 
+                marginRight : 5,
+                marginTop: 1 }}
+            > 
+            <Categories 
+            cat_id= {this.state.cat_id} 
+            handleAllPost= {this.handlePostCates} 
+            handlePostCate={this.handlePostCateWise} />
+            </ScrollView>
+            </View>}    
         />   
       </SafeAreaView>
       </View> 
