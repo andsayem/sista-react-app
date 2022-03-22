@@ -3,8 +3,9 @@ import {View, ScrollView ,Text, ToastAndroid} from 'react-native';
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles"; 
 import api from '../api'; 
-function Events(navigation){
-    console.log('props-event-page',navigation);
+import { useNavigation } from '@react-navigation/native';
+const Events = () => {
+    const navigation = useNavigation(); 
     const [successtext, setSuccesstext] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [getCats, setCats] = useState([]);

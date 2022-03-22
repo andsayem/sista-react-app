@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
 import { Icon } from "react-native-elements";
 import Profile from '../activity/Profile';
-import Chats from "../activity/Chats";
+import Chats from "../activity/Chats"; 
 import Journal from "../activity/Journal";
 import Newpost from '../activity/Newpost';
 import NewFeedScreen from '../activity/NewFeedScreen';
@@ -52,8 +52,7 @@ function TabsScreen(props) {
         }} />
       <Tab.Screen name="Chats" component={Chats}
         options={{
-          headerShown: true,
-          tabBarBadge: '+9',
+          headerShown: true, 
           tabBarLabel: 'Chats',
           tabBarIcon: ({ color, size }) => (
             <Icon name='chat' />
