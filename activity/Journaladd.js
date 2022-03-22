@@ -128,8 +128,7 @@ function Journaladd({navigation}) {
                   maxLength={1000}
                   placeholder={'Type something...'}  
                   returnKeyType="next"
-                  multiline={true}
-                  underlineColorAndroid="transparent"
+                  multiline={true} 
                   underlineColorAndroid={'transparent'}
                 />
               </ListItem.Content>   

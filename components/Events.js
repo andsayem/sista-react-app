@@ -3,7 +3,8 @@ import {View, ScrollView ,Text, ToastAndroid} from 'react-native';
 import { ListItem, Avatar, colors , Icon , Header } from 'react-native-elements'; 
 import Styles from "../styles"; 
 import api from '../api'; 
-const Events = ({ navigation }) => {
+function Events(navigation){
+    console.log('props-event-page',navigation);
     const [successtext, setSuccesstext] = useState(false);
     const [errortext, setErrortext] = useState(false);
     const [getCats, setCats] = useState([]);
@@ -28,6 +29,9 @@ const Events = ({ navigation }) => {
         }
         return null;
     };
+    const allEvents = () => {
+        navigation.navigate("Events");
+      }
     useEffect(() => setSuccesstext(false), [successtext]); 
     useEffect(() => setErrortext(false), [errortext]);
     useEffect(() => {getEvents()},[]); 
@@ -73,7 +77,7 @@ const Events = ({ navigation }) => {
                     </ListItem.Title>                     
                   </ListItem.Content>   
                   <View> 
-                  <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353',alignSelf: 'flex-end' }}>See All </Text>
+                  <Text onPress={allEvents }  style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353',alignSelf: 'flex-end' }}>See All </Text>
                   </View>   
               </ListItem>    
             </View> 
