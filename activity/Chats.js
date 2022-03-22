@@ -35,6 +35,8 @@ function Chats(props) {
   const [getSearchusers, setSearchusers] = useState([]);
   const [getSearchkey, setSearchkey] = useState('');
   const [selectedId, setSelectedId] = useState(null);
+  const [refreshing, setRefreshing] = useState(false)
+   
   const getUser = () => {
     api.getData('conversation_list')
       .then((res) => {
@@ -43,7 +45,13 @@ function Chats(props) {
       .catch((error) => {
       })
   }
-
+  const handleOnRefresh = () => {
+    getUser()
+  }
+  const _onRefresh = () => {
+    console.log('_onRefresh')
+    setRefreshing(true); 
+  };
   const updateSearch = async (search) => {
     setSearchkey(search);
 
@@ -55,8 +63,7 @@ function Chats(props) {
       })
   };
 
-  useEffect(() => {
-
+  useEffect(() => { 
     getUser()
   }, []);
   const Allusers = ({ ItemData }) => (
@@ -173,25 +180,28 @@ function Chats(props) {
               extraData={selectedId}
             />
           </ScrollView>
-          <View style={{ backgroundColor: '#fff', paddingTop: 0, marginTop: 10 }}  >
-
-            <View >
-              <ListItem key={'nm'.toString()} style={{
-                backgroundColor: "#FEFEFE",
-                width: '100%',
-              }}>
-                <Avatar rounded size="medium" source={require('../img/images/massage.png')} />
-                <ListItem.Content>
-                  <ListItem.Title> New Message Requests </ListItem.Title>
-                  <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem>
-            </View>
+          <View style={{ backgroundColor: '#fff', paddingTop: 0, marginTop: 10 }}  > 
             <FlatList
               data={getUsers}
               keyExtractor={(item, i) => item.sender_id.toString()}
               renderItem={renderConvUsers}
               extraData={selectedId}
+              refreshing={refreshing} 
+              onRefresh={handleOnRefresh} 
+              ListHeaderComponent={
+                <View >
+                  <ListItem key={'nm'.toString()} style={{
+                    backgroundColor: "#FEFEFE",
+                    width: '100%',
+                  }}>
+                    <Avatar rounded size="medium" source={require('../img/images/massage.png')} />
+                    <ListItem.Content>
+                      <ListItem.Title> New Message Requests </ListItem.Title>
+                      <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
+                    </ListItem.Content>
+                  </ListItem>
+                </View>
+              }
             />
           </View>
         </View>
@@ -201,6 +211,12 @@ function Chats(props) {
           keyExtractor={(item, i) => item.id.toString()}
           renderItem={renderSearchUsers}
           extraData={selectedId}
+          refreshControl={
+            <RefreshControl 
+                refreshing={refreshing} 
+                onRefresh={_onRefresh}
+                tintColor="#F8852D"/>
+          }
         />
       }
 
