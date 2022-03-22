@@ -119,6 +119,10 @@ export function DrawerContent(props){
           onPress={()=>{props.navigation.navigate('PrivacyPolicy')}} 
           label={() => <Text style={{ color: '#fff' }}>Privacy Policy</Text> }            
         />
+         <DrawerItem
+          onPress={()=>{props.navigation.navigate('EventsList')}} 
+          label={() => <Text style={{ color: '#fff' }}>EventsList</Text> }            
+        />
         { getToken ? 
         <DrawerItem
         onPress={()=> {clearAsyncStorage() }} 

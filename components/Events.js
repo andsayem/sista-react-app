@@ -30,7 +30,7 @@ function Events(navigation){
         return null;
     };
     const allEvents = () => {
-        navigation.navigate("Events");
+        navigation.navigate("EventsList");
       }
     useEffect(() => setSuccesstext(false), [successtext]); 
     useEffect(() => setErrortext(false), [errortext]);
