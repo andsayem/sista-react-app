@@ -1,29 +1,54 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, FlatList, Text, View, Alert } from "react-native";
 import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-elements';
+import api from '../api';
 export default class EventsList extends Component {
     constructor(props) {
-        super(props);
-
-        this.state = {
-            GridListItems: [
-                { key: "Item1" },
-                { key: "Item2" },
-                { key: "Item3" },
-                { key: "Item4" },
-                { key: "Item5" },
-                { key: "Item6" },
-                { key: "Item7" },
-                { key: "Item8" },
-                { key: "Item9" },
-                { key: "Item10" },
-                { key: "Item11" },
-                { key: "Item12" },
-                { key: "Item13" },
-                { key: "Item14" },
-            ]
+        super(props); 
+        this.state = { 
+            items: []
         };
     }
+    componentDidMount(){  
+       this.getEvents(); 
+    }
+     getEvents = async => {
+        api.getData('events')
+        .then((res)=>{
+            console.log('hhhhhhhhhhhhhhhhhhhh');
+            this.setState({items: res.data.data });
+          //setCats( res.data.data);  
+        })
+        .catch((error) => { 
+        }) 
+    }; 
+     getData =(data , type )=>{ 
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "December"
+                ];
+        var  d  =  new Date(data) ;
+        var  n  =  new Date(data) ;
+        var date = d.getDate();
+        var month =  d.getMonth();
+       // var year = new Date().getFullYear();  
+       if(type ==  'date'){
+        return date  ;
+       }else if(type =='month'){
+        return  monthNames[month]; 
+       }else if( type=='th'){
+        return   (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : ''); 
+       }  
+    }
+     formatAMPM = (time) => { 
+        const myArr = time.split(":");
+        var hours = myArr[0];
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        var minutes =  myArr[1];
+        hours = hours ? hours : 12; 
+        var strTime = hours + ':' + minutes + '' + ampm;
+        return strTime;
+      }
 
     GetGridViewItem(item) {
         Alert.alert(item);
@@ -43,19 +68,53 @@ export default class EventsList extends Component {
                 />
                 <FlatList
                     style={{ margin: 10 }}
-                    data={this.state.GridListItems}
+                    data={this.state.items}
                     renderItem={({ item }) =>
                         <View style={styles.GridViewContainer}>
-                            <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }} onPress={this.GetGridViewItem.bind(this, item.key)} > Poetry With Sista </Text>
+                            <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }} onPress={this.GetGridViewItem.bind(this, item.key)} >{ item.title }</Text>
                             <Text style={{
                                 color: '#ffffff',
-                            }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />  4:00 Pm</Text>
+                            }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="clock-o" size={12} /> { this.formatAMPM(item.event_time) }</Text>
                             <Text style={{
                                 color: '#ffffff',
-                            }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} />  Los Angeles, Calefornia</Text>
+                            }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="map-marker" size={12} />{item.location} </Text>
 
-                            <Text style={{ color: '#FFFFFF' }} >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of</Text>
-
+                            <Text style={{ color: '#FFFFFF' }} >{ item.details } It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of</Text>
+                            <View
+                                style={{
+                                    position : 'absolute',
+                                    top : 110,
+                                    right : 20,
+                                    shadowColor : '#f00000', 
+                                    borderRadius: 8,
+                                    backgroundColor: '#efefef',
+                                    height: 60,
+                                    width: 55,
+                                   
+                                }} >
+                                <Text style={{
+                                    fontSize: 14,
+                                    position: 'absolute',
+                                    fontWeight: 'bold',
+                                    alignItems: 'flex-end',
+                                    textAlign: 'right',
+                                    marginTop: 15,
+                                    paddingEnd: 0,
+                                    color: '#341BA9',
+                                    width: '100%'
+                                }}> {this.getData(item.event_date, 'th')} </Text>
+                                <ListItem.Title
+                                    style={{
+                                        fontWeight: 'bold',
+                                        color: '#341BA9',
+                                        fontSize: 20
+                                    }}
+                                > {this.getData(item.event_date, 'date')}
+                                </ListItem.Title>
+                                <ListItem.Subtitle
+                                    style={{ color: '#341BA9', paddingLeft: 5 }}
+                                > {this.getData(item.event_date, 'month')} </ListItem.Subtitle>
+                            </View>
                         </View>}
                     numColumns={1}
                 />
