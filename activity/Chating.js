@@ -20,7 +20,7 @@ const TOKEN = 'token';
 var pusher = new Pusher('28f66afb2b72c8e97219', {
   cluster: 'ap2'
 });
-var channel = pusher.subscribe('chart-channel'); 
+
 //console.log(pusher);
 
 // var channel = pusher.subscribe('chart-channel');
@@ -66,15 +66,7 @@ class Chating extends Component {
       send_message: '',
       sending: false,
     };
-    let self = this;
-    channel.bind('chart-event', function(data) {
-      console.log(JSON.stringify(data['message']['message']))
-        self.fatchData();
-      // this.focusListener = this.props.navigation.addListener('focus',
-      // () =>{ 
-      // this.fatchData();
-      // }); 
-    });
+    
 
   }
   componentWillUnmount() {  
@@ -82,7 +74,22 @@ class Chating extends Component {
     this.focusListener;
   }
   componentDidMount = async () => {
-  
+    const user = await AsyncStorage.getItem(STORAGE_KEY);
+    this.setState({ user: JSON.parse(user) });
+    let self = this;
+    
+    
+    console.log('Test .........  ',this.state.user.id);
+    var channel = pusher.subscribe('chart-channel.'+this.state.user.id); 
+    channel.bind('chart-event', function(data) {
+      console.log('User_id', self.state.user.id );
+      console.log(JSON.stringify(data['message']['message']))
+        self.fatchData();
+      // this.focusListener = this.props.navigation.addListener('focus',
+      // () =>{ 
+      // this.fatchData();
+      // }); 
+    });
     // this._isMounted = true;
     
     // this.focusListener = this.props.navigation.addListener('focus',
@@ -95,8 +102,7 @@ class Chating extends Component {
 
 
   
-    const user = await AsyncStorage.getItem(STORAGE_KEY);
-    this.setState({ user: JSON.parse(user) });
+    
     this.fatchData();
   }
   // async componentwillmount() {
