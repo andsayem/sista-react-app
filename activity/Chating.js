@@ -12,25 +12,12 @@ import Pusher from 'pusher-js/react-native';
 const STORAGE_KEY = 'save_user';
 //Pusher.logToConsole = true;
 const TOKEN = 'token';
-
-
 // var pusher = new Pusher(helpers.pusherConfig().app_key, {
 //   cluster: helpers.pusherConfig().app_key
 // });
 var pusher = new Pusher('28f66afb2b72c8e97219', {
   cluster: 'ap2'
 });
-
-//console.log(pusher);
-
-// var channel = pusher.subscribe('chart-channel');
-// console.log('channel',channel)
-// channel.bind('chart-event', function(data) { 
-//   console.log(data);
-//   //this.fatchData();
-//    alert(JSON.stringify(data.message));
-// }); 
-
 
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -49,13 +36,6 @@ class Chating extends Component {
   _isMounted = false;
   constructor(props) {
     super(props);
-    
-    // channel.bind('chart-event', function (data) {
-    //   this._isMounted = true;
-    //   console.log(JSON.stringify(data['message']['message']))
-    //   //this.fatchData();  
-    //   //alert(JSON.stringify(data['message']['message']));
-    // });
     this.state = {
       items: [],
       user: [],
@@ -66,57 +46,32 @@ class Chating extends Component {
       send_message: '',
       sending: false,
     };
-    
+
 
   }
-  componentWillUnmount() {  
-    this._isMounted = false; 
+  componentWillUnmount() {
+    this._isMounted = false;
     this.focusListener;
   }
   componentDidMount = async () => {
     const user = await AsyncStorage.getItem(STORAGE_KEY);
     this.setState({ user: JSON.parse(user) });
     let self = this;
-    
-    
-    console.log('Test .........  ',this.state.user.id);
-    var channel = pusher.subscribe('chart-channel.'+this.state.user.id); 
-    channel.bind('chart-event', function(data) {
-      console.log('User_id', self.state.user.id );
+    var channel = pusher.subscribe('chart-channel.' + this.state.user.id);
+    channel.bind('chart-event', function (data) {
+      console.log('User_id', self.state.user.id);
       console.log(JSON.stringify(data['message']['message']))
-        self.fatchData();
-      // this.focusListener = this.props.navigation.addListener('focus',
-      // () =>{ 
-      // this.fatchData();
-      // }); 
+      self.fatchData();
     });
-    // this._isMounted = true;
-    
-    // this.focusListener = this.props.navigation.addListener('focus',
-    //     () =>{ 
-           
-    //       if (this._isMounted) {
-    //         this.fatchData();
-    //       } 
-    //     } ); 
-
-
-  
-    
     this.fatchData();
   }
-  // async componentwillmount() {
-  //   this.fatchData();
-  // }
-
-  async  fatchData(){
+  async fatchData() {
     this.setState({ isLoading: true })
     api.getData('user_conversations?receiver_id=' + this.props.route.params.receiver_id)
       .then((response) => {
         this.setState({ items: response.data.data })
       })
       .finally(() => this.setState({ isLoading: false }));
-
   }
   handleOnRefresh = () => {
     this.setState({ page: 1, data: [] })
@@ -124,14 +79,11 @@ class Chating extends Component {
       this.fatchData();
     })
   }
-
   readData = async () => {
     try {
       token = await AsyncStorage.getItem(TOKEN);
-      // setToken(token); 
       this.setState({ token: token })
     } catch (e) {
-
     }
   }
 

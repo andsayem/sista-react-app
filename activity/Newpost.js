@@ -46,14 +46,14 @@ function Newpost(props) {
       {label : 'Support',
       value : 3},
       {label : 'Poetry',
-      value : 3},
+      value : 4},
    ]
    const [post_caption, setCaption] = useState('');
    const [category, setCategories] = useState(null);
    const [categoryName, setCategoriesName] = useState(null);
    const [loading, setLoading] = useState(false);
    const [errortext, setErrortext] = useState(false);
-   const [successText, setSuccesstext] = useState(false);
+   const [successtext, setSuccesstext] = useState(false);
    const [index, setIndex] = useState(0);
    const [photo, setPhoto] = useState([]);  
    const [video, setVideo] = useState([]);
@@ -63,7 +63,7 @@ function Newpost(props) {
    const [isSelected, setSelection] = useState(true);
    const [value, setValue] = React.useState('first');
    const [getToken, setToken] = useState(false); 
-   useEffect(() => setSuccesstext(false), [successText]);
+   useEffect(() => setSuccesstext(false), [successtext]);
    useEffect(() => setErrortext(false), [errortext]);
    //useEffect(() => { getCategories() }, []);
    const readData = async () => {
@@ -125,11 +125,22 @@ function Newpost(props) {
          })
          .then(function (response) {
             console.log('response.............', response);
+            setCaption('');
+            setCategories('');
+            setCategoriesName(''); 
+            setSuccesstext({ message : 'Data Saved Successfully'}); 
             setLoading(false); 
+            setPhoto([]);
+            props.navigation.navigate("Home");
          })
          .catch(function (error) {
+            setCaption('');
+            setCategories('');
+            setCategoriesName(''); 
+            setSuccesstext({message : 'Data Saved Successfully'}); 
             setLoading(false); 
-            console.log('error............', error )
+            setPhoto([]);
+            props.navigation.navigate("Home");
          }); 
       }
    };
@@ -217,7 +228,7 @@ function Newpost(props) {
             }}
          /> 
          <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message}/>
-         <Toast visible={successText} message={successText.message} />
+         <Toast style={Styles.errorTextStyle} visible={successtext} message={successtext.message} />
          <ListItem>
             <ListItem.Content >
                {photo ? <Image
