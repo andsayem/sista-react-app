@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image , Text} from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
 import { Icon } from "react-native-elements";
 import Profile from '../activity/Profile';
-import Chats from "../activity/Chats"; 
+import Chats from "../activity/Chats";
 import Journal from "../activity/Journal";
 import Newpost from '../activity/Newpost';
 import NewFeedScreen from '../activity/NewFeedScreen';
@@ -17,7 +17,7 @@ import Home from '../activity/home';
 const TOKEN = 'token';
 const Tab = createBottomTabNavigator();
 function TabsScreen(props) {
- // super(props);
+  // super(props);
   const [loggedIn, setLogin] = useState(false);
   const readData = async () => {
     try {
@@ -37,52 +37,63 @@ function TabsScreen(props) {
 
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Posts" component={Posts}
-        options={{
-          headerShown: false,
-          tabBarLabel: 'Posts',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='home' />
+      <Tab.Screen name="Home" component={Posts} 
+        options={({ route }) => ({
+          tabBarLabel: 'Home' ,  
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../img/icon/home_active.png')} /> : <Image source={require('../img/icon/home.png')} />
           ),
+
           tabBarOnPress: () => {
             props.navigation.navigate("Posts");
-           // console.log('onPress:');
-           // jumpToIndex(scene.index);
+            // console.log('onPress:');
+            // jumpToIndex(scene.index);
           },
-        }} />
+        })} />
       <Tab.Screen name="Chats" component={Chats}
-        options={{
-          headerShown: true, 
+        options={({ route }) => ({
+          headerShown: true,
           tabBarLabel: 'Chats',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='chat' />
-          )
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../img/icon/chart_active.png')} /> : <Image source={require('../img/icon/chart.png')} />
+          ),
+        })}
+      />
+
+      <Tab.Screen name="Add" onPress={() => navigation.navigate("Newpost")} component={Newpost}
+        options={{
+          headerShown: true,
+          tabBarLabel: 'Add',
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../img/icon/add_active.png')} /> : <Image source={require('../img/icon/add.png')} />
+          ),
         }}
       />
-      <Tab.Screen name="Newpost" component={Newpost}
+      {/* <Tab.Screen name="Newpost" component={Newpost}
         options={({ navigation }) => ({
           tabBarButton: () => <NewListingButton onPress={() => navigation.navigate("Newpost")}  ></NewListingButton>,
           tabBarIcon: ({ color, size }) => (
             <Icon name='add' />
           )
         })}
-      />
+      /> */}
       <Tab.Screen name="Journal" component={Journal}
         options={{
           headerShown: true,
           tabBarLabel: 'Journal',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='book' />
-          )
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../img/icon/journal_active.png')} /> : <Image source={require('../img/icon/journal.png')} />
+          ),
         }}
       />
       <Tab.Screen name="Profile" component={Profile}
         options={{
           headerShown: true,
+          tabBarOptions: { activeTintColor: 'red' },
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <Icon type='font-awesome' name='user' />
-          )
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image source={require('../img/icon/profile_active.png')} /> : <Image source={require('../img/icon/profile.png')} />
+          ),
         }}
       />
     </Tab.Navigator>
