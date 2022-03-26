@@ -39,11 +39,13 @@ function TabsScreen(props) {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Posts} 
         options={({ route }) => ({
-          tabBarLabel: 'Home' ,  
-          tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../img/icon/home_active.png')} /> : <Image source={require('../img/icon/home.png')} />
-          ),
-
+          tabBarLabel: ({focused}) => (
+            <Text style={{color: focused ? '#783EA4' : styles.home}} >Home</Text>
+          ),  
+          tabBarIcon: ({ focused}) => (
+            focused ? <Image source={require('../img/icon/home_active.png')} /> 
+            : <Image source={require('../img/icon/home.png')} />
+          ), 
           tabBarOnPress: () => {
             props.navigation.navigate("Posts");
             // console.log('onPress:');
@@ -53,7 +55,9 @@ function TabsScreen(props) {
       <Tab.Screen name="Chats" component={Chats}
         options={({ route }) => ({
           headerShown: true,
-          tabBarLabel: 'Chats',
+          tabBarLabel: ({focused}) => (
+            <Text style={{color: focused ? '#783EA4' : styles.home}} >Chats</Text>
+          ), 
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/chart_active.png')} /> : <Image source={require('../img/icon/chart.png')} />
           ),
@@ -63,7 +67,9 @@ function TabsScreen(props) {
       <Tab.Screen name="Add" onPress={() => navigation.navigate("Newpost")} component={Newpost}
         options={{
           headerShown: true,
-          tabBarLabel: 'Add',
+          tabBarLabel: ({focused}) => (
+            <Text style={{color: focused ? '#783EA4' : styles.home}} >Add</Text>
+          ),  
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/add_active.png')} /> : <Image source={require('../img/icon/add.png')} />
           ),
@@ -80,7 +86,9 @@ function TabsScreen(props) {
       <Tab.Screen name="Journal" component={Journal}
         options={{
           headerShown: true,
-          tabBarLabel: 'Journal',
+          tabBarLabel: ({focused}) => (
+            <Text style={{color: focused ? '#783EA4' : styles.home}} >Journal</Text>
+          ),  
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/journal_active.png')} /> : <Image source={require('../img/icon/journal.png')} />
           ),
@@ -89,8 +97,9 @@ function TabsScreen(props) {
       <Tab.Screen name="Profile" component={Profile}
         options={{
           headerShown: true,
-          tabBarOptions: { activeTintColor: 'red' },
-          tabBarLabel: 'Profile',
+          tabBarLabel: ({focused}) => (
+            <Text style={{color: focused ? '#783EA4' : styles.home}} >Profile</Text>
+          ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/profile_active.png')} /> : <Image source={require('../img/icon/profile.png')} />
           ),
@@ -104,6 +113,9 @@ function TabsScreen(props) {
 export default TabsScreen;
 
 const styles = StyleSheet.create({
+  home:{ 
+    color: '#783EA4',
+  }, 
   SectionStyle: {
     flexDirection: 'row',
     height: 40,
