@@ -8,7 +8,7 @@ export default class EventsList extends Component {
         super(props);
         this.state = {
             items: [],
-            refreshing:false,
+            refreshing: false,
             isLoading: true,
             moreLoding: true,
         };
@@ -21,24 +21,24 @@ export default class EventsList extends Component {
         this.setState({ refreshing: false }, () => {
             //this.setState({ items: [] })
             this.getEvents();
-        }) 
-    } 
+        })
+    }
 
-    renderFooter = () => {  
-        return(  
-            <View style={{height:60}}> 
-              { this.state.moreLoding ? (
-                <View>
-                  <ActivityIndicator />  
-                </View>
-              ):(
-                <View> 
-                  <Text> </Text> 
-                </View>
-              )}
-            </View> 
+    renderFooter = () => {
+        return (
+            <View style={{ height: 60 }}>
+                {this.state.moreLoding ? (
+                    <View>
+                        <ActivityIndicator />
+                    </View>
+                ) : (
+                    <View>
+                        <Text> </Text>
+                    </View>
+                )}
+            </View>
         );
-      }
+    }
     //fatchData = async () => {
     getEvents = async () => {
         api.getData('events')
@@ -47,8 +47,8 @@ export default class EventsList extends Component {
             })
             .catch((error) => {
             })
-            .finally( ()=>{
-                this.setState({isLoading: false, refreshing:false, moreLoding:false})
+            .finally(() => {
+                this.setState({ isLoading: false, refreshing: false, moreLoding: false })
             })
     };
     getData = (data, type) => {
@@ -81,9 +81,9 @@ export default class EventsList extends Component {
     GetGridViewItem(item) {
         Alert.alert(item);
     }
-      EventDetails = (item) => {
+    EventDetails = (item) => {
         console.log('--------------------++++++++');
-        this.props.navigation.navigate("EventDetails" , { item: item });
+        this.props.navigation.navigate("EventDetails", { item: item });
     }
     render() {
         return (
@@ -99,68 +99,68 @@ export default class EventsList extends Component {
                 <FlatList
                     style={{ margin: 10 }}
                     data={this.state.items}
-                    renderItem={({ item, index }) => { 
+                    renderItem={({ item, index }) => {
                         var icon = item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png');
                         return (
-                        <ImageBackground source={icon} resizeMode="cover" style={styles.image_bg} >
-                            <View 
-                            
-                            style={styles.GridViewContainer}>
-                                <Text 
-                                 onPress={() => this.EventDetails(item)}
-                                style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }} onPress={this.GetGridViewItem.bind(this, item.key)} >{item.title}</Text>
-                                <Text style={{
-                                    color: '#ffffff',
-                                }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="clock-o" size={12} /> {this.formatAMPM(item.event_time)}</Text>
-                                <Text 
-                                 onPress={() => this.EventDetails(item)}
-                                style={{
-                                    color: '#ffffff',
-                                }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="map-marker" size={12} />{item.location} </Text>
-
-                                <Text  numberOfLines={3}  style={{ color: '#FFFFFF' , width : '76%' }} >{item.details} </Text>
-                                <View
-                                    style={{
-                                        position: 'absolute',
-                                        top: 110,
-                                        right: 20, 
-                                        borderRadius: 8,
-                                        backgroundColor: '#efefef',
-                                        height: 60,
-                                        width: 55,
-
-                                    }} >
+                            <ImageBackground source={icon} resizeMode="cover" style={styles.image_bg} >
+                                <View 
+                                    style={styles.GridViewContainer}>
+                                    <Text
+                                        onPress={() => this.EventDetails(item)}
+                                        style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }}>{item.title}</Text>
                                     <Text style={{
-                                        fontSize: 14,
-                                        position: 'absolute',
-                                        fontWeight: 'bold',
-                                        alignItems: 'flex-end',
-                                        textAlign: 'right',
-                                        marginTop: 15,
-                                        paddingEnd: 0,
-                                        color: '#341BA9',
-                                        width: '100%'
-                                    }}> {this.getData(item.event_date, 'th')} </Text>
-                                    <ListItem.Title
+                                        color: '#ffffff',
+                                    }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="clock-o" size={12} /> {this.formatAMPM(item.event_time)}</Text>
+                                    <Text
+                                        onPress={() => this.EventDetails(item)}
                                         style={{
+                                            color: '#ffffff',
+                                        }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="map-marker" size={12} />{item.location} </Text>
+
+                                    <Text numberOfLines={3} style={{ color: '#FFFFFF', width: '76%' }} >{item.details} </Text>
+                                    <View
+                                        style={{
+                                            position: 'absolute',
+                                            top: 110,
+                                            right: 20,
+                                            borderRadius: 8,
+                                            backgroundColor: '#efefef',
+                                            height: 60,
+                                            width: 55,
+
+                                        }} >
+                                        <Text style={{
+                                            fontSize: 14,
+                                            position: 'absolute',
                                             fontWeight: 'bold',
+                                            alignItems: 'flex-end',
+                                            textAlign: 'right',
+                                            marginTop: 15,
+                                            paddingEnd: 0,
                                             color: '#341BA9',
-                                            fontSize: 20
-                                        }}
-                                    > {this.getData(item.event_date, 'date')}
-                                    </ListItem.Title>
-                                    <ListItem.Subtitle
-                                        style={{ color: '#341BA9', paddingLeft: 5 }}
-                                    > {this.getData(item.event_date, 'month')} </ListItem.Subtitle>
+                                            width: '100%'
+                                        }}> {this.getData(item.event_date, 'th')} </Text>
+                                        <ListItem.Title
+                                            style={{
+                                                fontWeight: 'bold',
+                                                color: '#341BA9',
+                                                fontSize: 20
+                                            }}
+                                        > {this.getData(item.event_date, 'date')}
+                                        </ListItem.Title>
+                                        <ListItem.Subtitle
+                                            style={{ color: '#341BA9', paddingLeft: 5 }}
+                                        > {this.getData(item.event_date, 'month')} </ListItem.Subtitle>
+                                    </View>
                                 </View>
-                            </View>
-                        </ImageBackground>
-                    )}
+                            </ImageBackground>
+                        )
+                    }
                     }
                     ListFooterComponent={this.renderFooter}
                     onEndReachedThreshold={200}
-                    refreshing={this.state.refreshing} 
-                    onRefresh={this.handleOnRefresh} 
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.handleOnRefresh}
                 />
             </View>
         );

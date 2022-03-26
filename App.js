@@ -25,7 +25,7 @@ import EventsList from "./components/EventsList";
 import ProductInfo from "./product/ProductInfo";
 import AppInformation from "./activity/AppInformation";
 import RatingApp from "./activity/RatingApp";
-import Support from "./activity/Support";
+import Support from "./activity/support/Support";
 import Chating from "./activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";

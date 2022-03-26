@@ -1,16 +1,30 @@
 import React, { Component } from "react";
-import { Platform, Image, ImageBackground, StyleSheet, FlatList, Text, View, Alert } from "react-native";
-import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-elements';
+import { Image, ImageBackground, StyleSheet, Text, View, BackHandler } from "react-native";
+import { colors, Icon, Header } from 'react-native-elements';
 import api from '../api';
 export default class EventsDetails extends Component {
-    constructor(props) { 
+    constructor(props) {
         super(props);
         this.state = {
-            item:this.props.route.params.item 
+            item: this.props.route.params.item,
+            img: this.props.route.params.item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png')
         };
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
-    componentDidMount() {
-       // this.getEvent();
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+    handleBackButtonClick() {
+        BackHandler.exitApp();
+        return true;
+    }
+
+    handleBackButtonClick() {
+        return true;   // when back button don't need to go back 
     }
     // getEvent = async => {
     //     api.getData('events/'+this.props.route.params.id)
@@ -46,8 +60,8 @@ export default class EventsDetails extends Component {
         var strTime = hours + ':' + minutes + '' + ampm;
         return strTime;
     }
-    eventRegister =() => {
-        console.log('Text');
+    eventRegister = () => {
+        console.log('Textfghjkl=============');
     }
     render() {
         return (
@@ -60,7 +74,7 @@ export default class EventsDetails extends Component {
                     centerComponent={{ text: 'Events', style: { color: '#1E1E1E', fontSize: 20, textAlign: 'left' } }}
                     containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }} />
                 <View style={{ height: 200 }}>
-                    <ImageBackground source={require('../img/bg/event_bg_1.png')} resizeMode="cover" style={styles.image_bg} >
+                    <ImageBackground source={this.state.img} resizeMode="cover" style={styles.image_bg} >
                         <Text style={{ color: '#ffffff', textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}> {this.state.item.title}</Text>
                     </ImageBackground>
                 </View>
@@ -70,8 +84,8 @@ export default class EventsDetails extends Component {
                 <Text style={{ color: '#0D0E10', paddingStart: 20 }} > <Icon style={{ padding: 5 }} type='font-awesome' name="map-marker" size={12} />{this.state.item.location} </Text>
                 <Text style={{ color: '#0D0E10', padding: 20 }} >{this.state.item.details} </Text>
 
-                <View onPress={this.eventRegister()} style={{ textAlign : 'center' , }}>
-                    <Image   style={{ alignSelf: 'center' }} source={require('../img/bg/event_register_now.png')} />
+                <View  onPress={() => this.eventRegister()}  style={{ textAlign: 'center', }}>
+                    <Image style={{ alignSelf: 'center' }} source={require('../img/bg/event_register_now.png')} />
                 </View>
             </View>
         );
