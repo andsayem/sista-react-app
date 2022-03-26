@@ -2,22 +2,53 @@ import React, { Component } from "react";
 import { Platform, ImageBackground, StyleSheet, FlatList, Text, View, Alert } from "react-native";
 import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-elements';
 import api from '../api';
+import { ActivityIndicator } from 'react-native-paper';
 export default class EventsList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            items: [],
+            refreshing:false,
+            isLoading: true,
+            moreLoding: true,
         };
     }
     componentDidMount() {
         this.getEvents();
     }
-    getEvents = async => {
+
+    handleOnRefresh = () => {
+        this.setState({ refreshing: false }, () => {
+            //this.setState({ items: [] })
+            this.getEvents();
+        }) 
+    } 
+
+    renderFooter = () => {  
+        return(  
+            <View style={{height:60}}> 
+              { this.state.moreLoding ? (
+                <View>
+                  <ActivityIndicator />  
+                </View>
+              ):(
+                <View> 
+                  <Text> </Text> 
+                </View>
+              )}
+            </View> 
+        );
+      }
+    //fatchData = async () => {
+    getEvents = async () => {
         api.getData('events')
             .then((res) => {
                 this.setState({ items: res.data.data });
             })
             .catch((error) => {
+            })
+            .finally( ()=>{
+                this.setState({isLoading: false, refreshing:false, moreLoding:false})
             })
     };
     getData = (data, type) => {
@@ -50,6 +81,7 @@ export default class EventsList extends Component {
     GetGridViewItem(item) {
         Alert.alert(item);
     }
+    
     render() {
         return (
             <View style={styles.container}>
@@ -116,7 +148,10 @@ export default class EventsList extends Component {
                         </ImageBackground>
                     )}
                     }
-                    numColumns={1}
+                    ListFooterComponent={this.renderFooter}
+                    onEndReachedThreshold={200}
+                    refreshing={this.state.refreshing} 
+                    onRefresh={this.handleOnRefresh} 
                 />
             </View>
         );
