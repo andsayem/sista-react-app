@@ -3,23 +3,23 @@ import { Platform, Image, ImageBackground, StyleSheet, FlatList, Text, View, Ale
 import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-elements';
 import api from '../api';
 export default class EventsDetails extends Component {
-    constructor(props) {
+    constructor(props) { 
         super(props);
         this.state = {
-            item: []
+            item:this.props.route.params.item 
         };
     }
     componentDidMount() {
-        this.getEvent();
+       // this.getEvent();
     }
-    getEvent = async => {
-        api.getData('events/1')
-            .then((res) => {
-                this.setState({ item: res.data.data });
-            })
-            .catch((error) => {
-            })
-    };
+    // getEvent = async => {
+    //     api.getData('events/'+this.props.route.params.id)
+    //         .then((res) => {
+    //             this.setState({ item: res.data.data });
+    //         })
+    //         .catch((error) => {
+    //         })
+    // };
     getData = (data, type) => {
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "December"

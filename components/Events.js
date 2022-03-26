@@ -33,9 +33,9 @@ const Events = () => {
     const allEvents = () => {
         navigation.navigate("EventsList");
     }
-    const EventDetails = () => {
+    const EventDetails = (item) => {
         console.log('--------------------++++++++');
-        navigation.navigate("EventDetails");
+        navigation.navigate("EventDetails" , { item: item });
     }
     useEffect(() => setSuccesstext(false), [successtext]);
     useEffect(() => setErrortext(false), [errortext]);
@@ -102,7 +102,8 @@ const Events = () => {
                     return (
                         //<ImageBackground source={icon} resizeMode="cover" style={styles.image_bg} >
                             <ListItem key={item.id} keyExtractor={(item, i) => item.id.toString()} >
-                                <ListItem.Content 
+                                <ListItem.Content  
+                                 
                                     style={{
                                         backgroundColor: "#341BA9",
                                         borderTopLeftRadius: 20,
@@ -159,7 +160,7 @@ const Events = () => {
                                         color: '#ffffff'
                                     }} >
                                     <Text
-                                    onPress={EventDetails}
+                                   onPress={() => EventDetails(item)}
                                         style={{
                                             color: '#ffffff',
                                             fontWeight: 'bold',
@@ -170,7 +171,9 @@ const Events = () => {
                                     <Text style={{
                                         color: '#ffffff',
                                     }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />  {formatAMPM(item.event_time)}</Text>
-                                    <Text style={{
+                                    <Text
+                                    onPress={() => EventDetails(item)}
+                                     style={{
                                         color: '#ffffff',
                                     }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} /> {item.location}</Text>
 

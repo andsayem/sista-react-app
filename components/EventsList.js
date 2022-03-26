@@ -81,7 +81,10 @@ export default class EventsList extends Component {
     GetGridViewItem(item) {
         Alert.alert(item);
     }
-    
+      EventDetails = (item) => {
+        console.log('--------------------++++++++');
+        this.props.navigation.navigate("EventDetails" , { item: item });
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -100,12 +103,18 @@ export default class EventsList extends Component {
                         var icon = item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png');
                         return (
                         <ImageBackground source={icon} resizeMode="cover" style={styles.image_bg} >
-                            <View style={styles.GridViewContainer}>
-                                <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }} onPress={this.GetGridViewItem.bind(this, item.key)} >{item.title}</Text>
+                            <View 
+                            
+                            style={styles.GridViewContainer}>
+                                <Text 
+                                 onPress={() => this.EventDetails(item)}
+                                style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }} onPress={this.GetGridViewItem.bind(this, item.key)} >{item.title}</Text>
                                 <Text style={{
                                     color: '#ffffff',
                                 }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="clock-o" size={12} /> {this.formatAMPM(item.event_time)}</Text>
-                                <Text style={{
+                                <Text 
+                                 onPress={() => this.EventDetails(item)}
+                                style={{
                                     color: '#ffffff',
                                 }} > <Icon color="#fff" style={{ padding: 5 }} type='font-awesome' name="map-marker" size={12} />{item.location} </Text>
 
