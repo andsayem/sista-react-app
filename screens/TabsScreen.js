@@ -40,7 +40,7 @@ function TabsScreen(props) {
       <Tab.Screen name="Home" component={Posts} 
         options={({ route }) => ({
           tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#783EA4' : styles.home}} >Home</Text>
+            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Home</Text>
           ),  
           tabBarIcon: ({ focused}) => (
             focused ? <Image source={require('../img/icon/home_active.png')} /> 
@@ -56,7 +56,7 @@ function TabsScreen(props) {
         options={({ route }) => ({
           headerShown: true,
           tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#783EA4' : styles.home}} >Chats</Text>
+            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Chats</Text>
           ), 
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/chart_active.png')} /> : <Image source={require('../img/icon/chart.png')} />
@@ -68,7 +68,7 @@ function TabsScreen(props) {
         options={{
           headerShown: true,
           tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#783EA4' : styles.home}} >Add</Text>
+            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Add</Text>
           ),  
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/add_active.png')} /> : <Image source={require('../img/icon/add.png')} />
@@ -87,7 +87,7 @@ function TabsScreen(props) {
         options={{
           headerShown: true,
           tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#783EA4' : styles.home}} >Journal</Text>
+            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Journal</Text>
           ),  
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/journal_active.png')} /> : <Image source={require('../img/icon/journal.png')} />
@@ -98,7 +98,7 @@ function TabsScreen(props) {
         options={{
           headerShown: true,
           tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#783EA4' : styles.home}} >Profile</Text>
+            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Profile</Text>
           ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image source={require('../img/icon/profile_active.png')} /> : <Image source={require('../img/icon/profile.png')} />
