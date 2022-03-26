@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, Text, ToastAndroid } from 'react-native';
+import { View, ImageBackground, StyleSheet, ScrollView, Text, ToastAndroid } from 'react-native';
 import { ListItem, Avatar, colors, Icon, Header } from 'react-native-elements';
 import Styles from "../styles";
 import api from '../api';
@@ -32,6 +32,10 @@ const Events = () => {
     };
     const allEvents = () => {
         navigation.navigate("EventsList");
+    }
+    const EventDetails = () => {
+        console.log('--------------------++++++++');
+        navigation.navigate("EventDetails");
     }
     useEffect(() => setSuccesstext(false), [successtext]);
     useEffect(() => setErrortext(false), [errortext]);
@@ -93,86 +97,98 @@ const Events = () => {
                 }}
             >
 
-                {getCats.map((item, i) => (
-                    <ListItem key={item.id} keyExtractor={(item, i) => item.id.toString()} >
-                        <ListItem.Content
-                            style={{
-                                backgroundColor: "#341BA9",
-                                borderTopLeftRadius: 20,
-                                borderBottomLeftRadius: 20,
-                                height: 100,
-                                width: 70,
-                                paddingStart: 10,
-                                color: '#ffffff',
-                                alignItems: 'center',
-                                paddingHorizontal: 10
-                            }}>
-                            <View
-                                style={{
-                                    borderRadius: 8,
-                                    backgroundColor: '#FFFFFF',
-                                    height: 80,
-                                    width: 55,
-                                    paddingTop: 15,
-                                    paddingLeft: 6
-                                }} >
-                                <Text style={{
-                                    fontSize: 14,
-                                    position: 'absolute',
-                                    fontWeight: 'bold',
-                                    alignItems: 'flex-end',
-                                    textAlign: 'right',
-                                    marginTop: 15,
-                                    paddingEnd: 0,
-                                    color: '#341BA9',
-                                    width: '100%'
-                                }}> {getData(item.event_date, 'th')} </Text>
-                                <ListItem.Title
+                {getCats.map((item, i) => {
+                    //var icon = item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png');
+                    return (
+                        //<ImageBackground source={icon} resizeMode="cover" style={styles.image_bg} >
+                            <ListItem key={item.id} keyExtractor={(item, i) => item.id.toString()} >
+                                <ListItem.Content 
                                     style={{
-                                        fontWeight: 'bold',
-                                        color: '#341BA9',
-                                        fontSize: 20
-                                    }}
-                                > {getData(item.event_date, 'date')}
-                                </ListItem.Title>
-                                <ListItem.Subtitle
-                                    style={{ color: '#341BA9', paddingLeft: 5 }}
-                                > {getData(item.event_date, 'month')} </ListItem.Subtitle>
-                            </View>
-                        </ListItem.Content>
-                        <ListItem.Content
-                            style={{
-                                marginHorizontal: -17,
-                                backgroundColor: "#3D21B2",
-                                borderTopRightRadius: 22,
-                                borderBottomRightRadius: 22,
-                                height: 100,
-                                width: 150,
-                                paddingStart: 10,
-                                color: '#ffffff'
-                            }} >
-                            <Text
-                                style={{
-                                    color: '#ffffff',
-                                    fontWeight: 'bold',
-                                    paddingTop: 0,
-                                    paddingBottom: 3,
-                                    fontSize: 16
-                                }} >{item.title}</Text>
-                            <Text style={{
-                                color: '#ffffff',
-                            }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />  {formatAMPM(item.event_time)}</Text>
-                            <Text style={{
-                                color: '#ffffff',
-                            }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} /> {item.location}</Text>
+                                        backgroundColor: "#341BA9",
+                                        borderTopLeftRadius: 20,
+                                        borderBottomLeftRadius: 20,
+                                        height: 100,
+                                        width: 70,
+                                        paddingStart: 10,
+                                        color: '#ffffff',
+                                        alignItems: 'center',
+                                        paddingHorizontal: 10
+                                    }}>
+                                    <View
+                                        style={{
+                                            borderRadius: 8,
+                                            backgroundColor: '#FFFFFF',
+                                            height: 80,
+                                            width: 55,
+                                            paddingTop: 15,
+                                            paddingLeft: 6
+                                        }} >
+                                        <Text style={{
+                                            fontSize: 14,
+                                            position: 'absolute',
+                                            fontWeight: 'bold',
+                                            alignItems: 'flex-end',
+                                            textAlign: 'right',
+                                            marginTop: 15,
+                                            paddingEnd: 0,
+                                            color: '#341BA9',
+                                            width: '100%'
+                                        }}> {getData(item.event_date, 'th')} </Text>
+                                        <ListItem.Title
+                                            style={{
+                                                fontWeight: 'bold',
+                                                color: '#341BA9',
+                                                fontSize: 20
+                                            }}
+                                        > {getData(item.event_date, 'date')}
+                                        </ListItem.Title>
+                                        <ListItem.Subtitle
+                                            style={{ color: '#341BA9', paddingLeft: 5 }}
+                                        > {getData(item.event_date, 'month')} </ListItem.Subtitle>
+                                    </View>
+                                </ListItem.Content>
+                                <ListItem.Content
+                                    style={{
+                                        marginHorizontal: -17,
+                                        backgroundColor: "#3D21B2",
+                                        borderTopRightRadius: 22,
+                                        borderBottomRightRadius: 22,
+                                        height: 100,
+                                        width: 150,
+                                        paddingStart: 10,
+                                        color: '#ffffff'
+                                    }} >
+                                    <Text
+                                    onPress={EventDetails}
+                                        style={{
+                                            color: '#ffffff',
+                                            fontWeight: 'bold',
+                                            paddingTop: 0,
+                                            paddingBottom: 3,
+                                            fontSize: 16
+                                        }} >{item.title}</Text>
+                                    <Text style={{
+                                        color: '#ffffff',
+                                    }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />  {formatAMPM(item.event_time)}</Text>
+                                    <Text style={{
+                                        color: '#ffffff',
+                                    }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} /> {item.location}</Text>
 
-                        </ListItem.Content>
-                    </ListItem>
-                ))
+                                </ListItem.Content>
+                            </ListItem>
+                        //</ImageBackground>
+                    )
+                }
+                )
                 }
             </ScrollView>
         </View>
     );
 };
-
+const styles = StyleSheet.create({
+    image_bg: {
+        flex: 1,
+        justifyContent: "center"
+    },
+});
 export default React.memo(Events);
