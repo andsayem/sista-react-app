@@ -88,7 +88,7 @@ export default class EventsList extends Component {
                 <Header
                     leftComponent={<View>
                         <Icon color={colors.black} size={30} name='menu'
-                            onPress={() => props.navigation.toggleDrawer()} ></Icon>
+                            onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
                     </View>}
                     centerComponent={{ text: 'Events', style: { color: '#1E1E1E', fontSize: 20, textAlign: 'left' } }}
                     containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }}
