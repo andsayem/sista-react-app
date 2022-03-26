@@ -10,20 +10,18 @@ import IconIonic from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet"; 
-import ReadMore from '@fawazahmed/react-native-read-more';
-import AsyncStorage from '@react-native-community/async-storage';
-import helpers from '../helpers';
-import Video from 'react-native-video'; 
+import ReadMore from '@fawazahmed/react-native-read-more'; 
+import helpers from '../helpers'; 
 import VideoPlayer from 'react-native-video-player'; 
 import * as mime from 'react-native-mime-types';
-const STORAGE_KEY = 'save_user';
-const TOKEN = 'token';
-import api from '../api';
+// const STORAGE_KEY = 'save_user';
+// const TOKEN = 'token';
+// import api from '../api';
 import {
   shareOnFacebook,
-  shareOnTwitter,
+  //shareOnTwitter,
 } from 'react-native-social-share'; 
-const image = { uri: "https://reactjs.org/logo-og.png" };
+//const image = { uri: "https://reactjs.org/logo-og.png" };
  
 class Post extends  React.Component{   
   
