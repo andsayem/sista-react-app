@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, Image, FlatList, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList, ScrollView, StyleSheet } from "react-native";
 import { colors, Icon, Header } from 'react-native-elements';
 import { RadioButton } from 'react-native-paper';
 import api from '../../api';
+import Styles from "../../styles";
 import Textarea from 'react-native-textarea';
 //function About({navigation}) {
 class Support extends React.Component {
@@ -11,7 +12,8 @@ class Support extends React.Component {
     super(props);
     this.state = {
       isChecked: false,
-      items: []
+      items: [],
+      support_type_id :  5
     };
     this.getSupport();
     //this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -26,7 +28,7 @@ class Support extends React.Component {
   };
   render() {
     return (
-      <SafeAreaView styles={{ backgroundColor : '#ffffff'}}>
+      <ScrollView styles={{ backgroundColor: '#ffffff' }}>
         <Header
           leftComponent={<Icon color={colors.black} size={30} name='menu'
             onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
@@ -61,13 +63,16 @@ class Support extends React.Component {
                 <View style={{ flexDirection: "row", alignItems: 'center' }}>
                   <View style={{ textAlign: 'right' }}>
                     <RadioButton
-                      value="first"
-                    //status={checked === 'first' ? 'checked' : 'unchecked'}
-                    // onPress={() => setChecked('first')}
+                      value="{item.id}"
+                      status={this.state.support_type_id == item.id ? 'checked' : 5}
+                      onPress={() =>{
+                       this.setState( {support_type_id : item.id  }  )
+                      }
+                    }
                     />
                   </View>
                   <View style={{ flex: 4 }}>
-                    <Text style={{ color: '#000000' }}>{item.title}</Text>
+                    <Text style={{ color: '#000000' }}>{item.title} </Text>
                   </View>
                 </View>
               )
@@ -79,10 +84,12 @@ class Support extends React.Component {
             onRefresh={this.handleOnRefresh}
           />
           <View
-           style={{ paddingStart: 25, paddingEnd: 25  , backgroundColor : '#ffffff'}}>
+            style={{ paddingStart: 25, paddingEnd: 25, backgroundColor: '#ffffff' }}>
             <Textarea
-              //onChangeText={(post_caption) => setCaption(post_caption)}
-              // value={post_caption}
+               onChangeText={(details) =>{
+                this.setState( {details : details }  ) 
+               }}
+              value={this.state.details}
               blurOnSubmit={true}
               containerStyle={styles.textareaContainerBg}
               backgroundColor="rgba(0,0,0,0)"
@@ -93,8 +100,14 @@ class Support extends React.Component {
               underlineColorAndroid={'transparent'}
             />
           </View>
+          <TouchableOpacity 
+            style={Styles.submit_button}
+            activeOpacity={0.5}
+            onPress={handleSubmitPress}>
+            <Text style={Styles.loginText} >Submit</Text>
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     );
   }
 }

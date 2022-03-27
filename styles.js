@@ -85,6 +85,19 @@ module.exports={
 
 
   },
+  submit_button:{
+    width:"80%",
+    backgroundColor:"#9253C1",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    textAlign : "center",
+    marginTop:20,
+    marginBottom:10,
+
+
+  },
   loginText : {
     color : 'white',
     fontWeight: 'bold'
