@@ -14,9 +14,10 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import helpers from '../helpers'; 
 import VideoPlayer from 'react-native-video-player'; 
 import * as mime from 'react-native-mime-types';
-// const STORAGE_KEY = 'save_user';
-// const TOKEN = 'token';
-// import api from '../api';
+import AsyncStorage from '@react-native-community/async-storage';
+
+const STORAGE_KEY = 'save_user';
+const TOKEN = 'token'; 
 import {
   shareOnFacebook,
   //shareOnTwitter,
@@ -52,6 +53,33 @@ class Post extends  React.Component{
         }
       );
     } 
+    report =  async (id) =>  {
+      console.log(id);
+      var dataToSend = { 
+        user_id: 1, 
+        post_id: id,   
+      };  
+      fetch('https://sista.droidit.net/api/post_reports', {
+        method: 'POST', 
+        headers: { 
+        // Authorization :"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MmU5Njg1Ny00ZmQ4LTQ0N2ItYjEyZC05MGRjMzBlMTU2MTYiLCJqdGkiOiI2MDQwOGNlMmQ4MzkzM2MxNWI1N2VlOWM0ZGZmYTJlZmQyZjFlMTliM2YzOGIwMDkxNjRhOTkwNThkNTEyNzlhNGE0MGU0NWUwNDRhNzMzMiIsImlhdCI6IjE2MjIxNDAwNjkuMzYxMTMxIiwibmJmIjoiMTYyMjE0MDA2OS4zNjExMzQiLCJleHAiOiIxNjUzNjc2MDY5LjM1ODUyMCIsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.A0w81TgcNg-dRAWmxM1dxYgGsgjwjuMnv2oRPbXsZfzqUqawH7uJl9P9iWKQSYIx2uO8SUxdTE2Ky9zray-fHFKW_TF0MPllEyeg6uh0GWDEveHjz8UV3e1W8TzCj9OYcSDjG40ORuKNZrPK2WgrPOzjjyr0w-vhmn4tyBL1XEHlW4gRxRYBjdXBay5LBjSHF_k_7cv_DagK4bscjWYTC5sJpjjYOVIKBj1vyQo6z13s6tAK6DPS899bM89E7AqW_JdUuwI95R6UwVnl1OqFvc0j2DArrHl1XLWa0-iRMseM1k4zibQA10-mzBftuJ-ivfH0zxRQAMg_9U4wIlSkFtNpGF3r93pmdvgvhhoShyEwwvsG8UGr_a3hIq23v2xXBID8flW7239AI__Ss8eDOPoq0A-_B3FFDu2TPVnej7cYl1PS29zi6EtXMVVM2o2hSHKCcY2m5OornonklaUZLrJwWShNG2SchxuLqhAVZsZFoHUjqH6R_451Keke2wyZXNkfprb7MIqiogBkkUWUQtyl5O9qducahbnWwY6CkSNNiLo0rxPhxYYsgQ_oUWUYiYZNhm8FUOIFWMaGQOH56dJVrKAZ-UIU-0Bqt6Zi4FuE6uxjGMHFzbRFT_CYlmC3xE3-F8y_WswE0nqqqYkEe1qnLOGG400I5XQ05mtWXik",
+          'Content-Type': 'application/json',
+          Authorization :"Bearer "+ await AsyncStorage.getItem(TOKEN)
+        },
+        body: JSON.stringify(dataToSend) 
+        })
+        .then((response) => response.json())
+        .then((responseJson) => { 
+          setLoading(false); 
+          if (responseJson.success === true) { 
+            console.log('This post report successful');
+            //setSuccesstext({message:'This post report successful'});  
+          } else { 
+          }
+        })
+        .catch((error) => {  
+        });
+    }
     
   
     render() {                                 
@@ -158,7 +186,7 @@ class Post extends  React.Component{
                       }}
                     > 
                     <View style={{width : '100%'}}>
-                      <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
+                      <Text  onPress={() => this.report(this.props.item.id)}  style={[Styles.share_item, {  color : '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
                       <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconMat  name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
                       <Text style={Styles.share_item}> <IconIonic  name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
                       <Text onPress={() => this.facebookShare(this.props.item)} style={Styles.share_item}> <IconAnt  name="sharealt" size={16} color="#000000" /> Share To....</Text>
