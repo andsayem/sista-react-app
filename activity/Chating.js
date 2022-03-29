@@ -1,5 +1,5 @@
 import React, { useEffect, Component, useRef, useState } from "react";
-import { View, FlatList, ActivityIndicator, Text, SafeAreaView, Image, Button, ToastAndroid, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, FlatList, ActivityIndicator, Text, SafeAreaView, Dimensions, Button, ToastAndroid, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors, Icon, Header } from 'react-native-elements';
@@ -45,10 +45,10 @@ class Chating extends Component {
       successtext: '',
       send_message: '',
       sending: false,
-    };
-
-
-  }
+      windowWidth: Dimensions.get('window').width,
+      windowHeight: Dimensions.get('window').height-305
+    }; 
+  } 
   componentWillUnmount() {
     this._isMounted = false;
     this.focusListener;
@@ -123,12 +123,12 @@ class Chating extends Component {
     return (
       <View  >
         {this.state.user.id != item.sender_id ?
-          <View>
-            <ListItem style={{ backgroundColor: "#FEFEFE", width: '100%' }}>
+          <View style={{backgroundColor: "#f00", minHeight:1505  }}>
+            <ListItem  >
               <Avatar rounded size="small" source={item.receiver.pro_image ? { uri: item.sender.pro_image } : ''} />
               <ListItem.Content  >
                 <Text style={{ backgroundColor: '#E4E4E4', borderRadius: 7, padding: 5, textAlign: 'left' }}>
-                  {item.message}
+                  {item.message}  
                 </Text>
               </ListItem.Content>
             </ListItem>
@@ -182,7 +182,7 @@ class Chating extends Component {
         /> */}
         <View style={{ paddingTop: 35, backgroundColor: "#efefef", }}  >
           <View >
-            <ListItem style={{ backgroundColor: "#efefef", width: '100%', }}>
+            <ListItem >
               <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
               <ListItem.Content>
                 <ListItem.Title> {this.state.user.name}</ListItem.Title>
@@ -213,7 +213,7 @@ class Chating extends Component {
                 blurOnSubmit={true}
                 onBlur={() => this.validation()}
                 underlineColorAndroid="transparent"
-                placeholder="Type something  "
+                placeholder="Type something"
                 multiline={true}
               />
             </View>
