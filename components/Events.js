@@ -34,8 +34,7 @@ const Events = () => {
         navigation.navigate("EventsList");
     }
     const EventDetails = (item) => {
-        console.log('--------------------++++++++');
-        navigation.navigate("EventDetails" , { item: item });
+        navigation.navigate("EventDetails", { item: item });
     }
     useEffect(() => setSuccesstext(false), [successtext]);
     useEffect(() => setErrortext(false), [errortext]);
@@ -48,7 +47,6 @@ const Events = () => {
         var n = new Date(data);
         var date = d.getDate();
         var month = d.getMonth();
-        // var year = new Date().getFullYear();  
         if (type == 'date') {
             return date;
         } else if (type == 'month') {
@@ -68,24 +66,15 @@ const Events = () => {
         return strTime;
     }
     return (
-        <View style={{ paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0 }}>
+        <View style={{ paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 10 }}>
             <Toast visible={errortext} message={errortext.message} />
             <Toast visible={successtext} message={successtext.message} />
-            {/* <Text  onPress={() => navigation.navigate('PostDetails', {id: 69 }) } style={Styles.box_title} >
-        Events Alert
-        </Text>  */}
-            <View style={{ backgroundColor: "#FEFEFE", width: '100%' }}>
-                <ListItem bottomDivider>
-                    <ListItem.Content >
-                        <ListItem.Title>
-                            <Text style={{ backgroundColor: '#fff', paddingBottom: 0, paddingTop: 14, paddingLeft: 12, color: '#535353' }}>Events </Text>
-                        </ListItem.Title>
-                    </ListItem.Content>
-                    <View>
-                        <Text onPress={allEvents} style={{ backgroundColor: '#fff', paddingBottom: 0, paddingTop: 14, paddingLeft: 12, color: '#535353', alignSelf: 'flex-end' }}>See All </Text>
-                    </View>
-                </ListItem>
+
+            <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+                <Text style={{ width: '20%', fontSize: 14, paddingLeft: 6, fontWeight: 'bold', color: '#535353' }}>Events </Text>
+                <Text onPress={allEvents} style={{ textAlign: 'right', fontSize: 13, width: '80%', color: '##535353' }}>See All </Text>
             </View>
+
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -100,89 +89,98 @@ const Events = () => {
                 {getCats.map((item, i) => {
                     //var icon = item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png');
                     return (
-                        //<ImageBackground source={icon} resizeMode="cover" style={styles.image_bg} >
-                            <ListItem key={item.id} keyExtractor={(item, i) => item.id.toString()} >
-                                <ListItem.Content  
-                                 
-                                    style={{
-                                        backgroundColor: "#341BA9",
-                                        borderTopLeftRadius: 20,
-                                        borderBottomLeftRadius: 20,
-                                        height: 100,
-                                        width: 70,
-                                        paddingStart: 10,
-                                        color: '#ffffff',
-                                        alignItems: 'center',
-                                        paddingHorizontal: 10
-                                    }}>
-                                    <View
-                                        style={{
-                                            borderRadius: 8,
-                                            backgroundColor: '#FFFFFF',
-                                            height: 80,
-                                            width: 55,
-                                            paddingTop: 15,
-                                            paddingLeft: 6
-                                        }} >
-                                        <Text style={{
-                                            fontSize: 14,
-                                            position: 'absolute',
-                                            fontWeight: 'bold',
-                                            alignItems: 'flex-end',
-                                            textAlign: 'right',
-                                            marginTop: 15,
-                                            paddingEnd: 0,
-                                            color: '#341BA9',
-                                            width: '100%'
-                                        }}> {getData(item.event_date, 'th')} </Text>
-                                        <ListItem.Title
-                                            style={{
-                                                fontWeight: 'bold',
-                                                color: '#341BA9',
-                                                fontSize: 20
-                                            }}
-                                        > {getData(item.event_date, 'date')}
-                                        </ListItem.Title>
-                                        <ListItem.Subtitle
-                                            style={{ color: '#341BA9', paddingLeft: 5 }}
-                                        > {getData(item.event_date, 'month')} </ListItem.Subtitle>
-                                    </View>
-                                </ListItem.Content>
-                                <ListItem.Content
-                                    style={{
-                                        marginHorizontal: -17,
-                                        backgroundColor: "#3D21B2",
-                                        borderTopRightRadius: 22,
-                                        borderBottomRightRadius: 22,
-                                        height: 100,
-                                        width: 150,
-                                        paddingStart: 10,
-                                        color: '#ffffff'
-                                    }} >
-                                    <Text
-                                   onPress={() => EventDetails(item)}
-                                        style={{
-                                            color: '#ffffff',
-                                            fontWeight: 'bold',
-                                            paddingTop: 0,
-                                            paddingBottom: 3,
-                                            fontSize: 16
-                                        }} >{item.title}</Text>
-                                    <Text style={{
-                                        color: '#ffffff',
-                                    }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />  {formatAMPM(item.event_time)}</Text>
-                                    <Text
-                                    onPress={() => EventDetails(item)}
-                                     style={{
-                                        color: '#ffffff',
-                                    }} > <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} /> {item.location}</Text>
+                        <ListItem key={item.id} keyExtractor={(item, i) => item.id.toString()} >
+                            <ListItem.Content
 
-                                </ListItem.Content>
-                            </ListItem>
-                        //</ImageBackground>
+                                style={{
+                                    backgroundColor: "#341BA9",
+                                    borderTopLeftRadius: 15,
+                                    borderBottomLeftRadius: 15,
+                                    height: 100,
+                                    width: 70,
+                                    paddingStart: 10,
+                                    color: '#ffffff',
+                                    alignItems: 'center',
+                                    paddingHorizontal: 10
+                                }}>
+                                <View
+                                    style={{
+                                        borderRadius: 8,
+                                        backgroundColor: '#FFFFFF',
+                                        height: 80,
+                                        width: 55,
+                                        paddingTop: 15,
+                                        paddingLeft: 6
+                                    }} >
+                                    <Text style={{
+                                        fontSize: 14,
+                                        position: 'absolute',
+                                        fontWeight: 'bold',
+                                        alignItems: 'flex-end',
+                                        textAlign: 'right',
+                                        marginTop: 15,
+                                        paddingEnd: 0,
+                                        color: '#341BA9',
+                                        width: '100%'
+                                    }}> {getData(item.event_date, 'th')} </Text>
+                                    <ListItem.Title
+                                        style={{
+                                            fontWeight: 'bold',
+                                            color: '#341BA9',
+                                            fontSize: 20
+                                        }}
+                                    > {getData(item.event_date, 'date')}
+                                    </ListItem.Title>
+                                    <ListItem.Subtitle
+                                        style={{ color: '#000000', fontSize: 12, textAlign: 'center' }}
+                                    > {getData(item.event_date, 'month')} </ListItem.Subtitle>
+                                </View>
+                            </ListItem.Content>
+                            <ListItem.Content
+                                style={{
+                                    marginHorizontal: -17,
+                                    backgroundColor: "#3D21B2",
+                                    borderTopRightRadius: 15,
+                                    borderBottomRightRadius: 15,
+                                    height: 100,
+                                    width: 150,
+                                    paddingStart: 10,
+                                    color: '#ffffff'
+                                }} >
+                                <Text
+                                    onPress={() => EventDetails(item)}
+                                    style={{
+                                        color: '#FFFFFF',
+                                        fontWeight: 'bold',
+                                        paddingTop: 0,
+                                        paddingBottom: 3,
+                                        fontSize: 16
+                                    }} >{item.title}</Text>
+                                {/* <Text style={{
+                                    color: '#ffffff',
+                                }} >  </Text> */}
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                    <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />
+                                    <Text
+                                        onPress={() => EventDetails(item)}
+                                        style={{
+                                            paddingLeft: 5,
+                                            color: '#ffffff',
+                                        }} >{formatAMPM(item.event_time)}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                    <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} />
+                                    <Text
+                                        onPress={() => EventDetails(item)}
+                                        style={{
+                                            paddingLeft: 5,
+                                            color: '#ffffff',
+                                        }} >{item.location}</Text>
+                                </View>
+                            </ListItem.Content>
+                        </ListItem>
                     )
-                }
-                )
+                })
                 }
             </ScrollView>
         </View>
