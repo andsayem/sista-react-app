@@ -12,31 +12,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
 import Pusher from 'pusher-js/react-native';
 import helpers from '../helpers';
-//import Pusher from 'pusher-js/react-native';
-
-//AppRegistry.registerComponent(appName, () => App);
-//Pusher.logToConsole = true;
-
-// import Pusher from 'pusher-js/react-native';
-// Pusher.logToConsole = true;
-
-// var pusher = new Pusher('28f66afb2b72c8e97219', {
-//   cluster: 'ap2'
-// });
-
-// var channel = pusher.subscribe('post-channel');
-// channel.bind('post-event', function(data) {
-//   alert(JSON.stringify(data));
-// });
-
-
-
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
   _isMounted = false;
   constructor(props) { 
-    //Pusher.logToConsole = true; 
     super(props);
     //this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
@@ -100,9 +80,20 @@ class Posts extends Component {
   renderFooter = () => {  
     useEffect(() => { 
       let isMounted = true; 
-      this.fatchData()
-      return () => { isMounted = false };
+      this.fatchData().then(data =>{
+        isMounted = false
+      })
+     // return () => { isMounted = false };
     },[]) 
+
+    // useEffect(() => {
+    //   let isMounted = true;               // note mutable flag
+    //   someAsyncOperation().then(data => {
+    //     if (isMounted) setState(data);    // add conditional check
+    //   })
+    //   return () => { isMounted = false }; // cleanup toggles value, if unmounted
+    // }, []);   
+
     return(  
         <View style={{height:60}}> 
           { this.state.moreLoding ? (
@@ -211,10 +202,9 @@ class Posts extends Component {
           </View>}
           centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E', fontSize: 20 } }}
           rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }}
-           
+          containerStyle={{ color : '1E1E1E', backgroundColor: '#F5F5F5'  }} 
       />  
-      <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10}}> 
+      <View style={{ backgroundColor:"#F5F5F5" , paddingBottom : 5 , marginTop : 10}}> 
       <SafeAreaView>  
         <FlatList 
           data={Object.values(this.state.items)}

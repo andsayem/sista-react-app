@@ -85,9 +85,9 @@ class Post extends  React.Component{
     render() {                                 
       return (                                                                        
         <ScrollView key={this.props.item.id} >
-          <View style={{ backgroundColor: '#fff', minHeight: 320 , width: '100%', borderRadius: 15, paddingBottom : 10}} > 
+          <View style={{ backgroundColor: '#fff', minHeight: 190 , width: '100%', borderRadius: 15, paddingBottom : 10}} > 
             <View style={{ backgroundColor: "#FEFEFE", width: '100%'}}>
-              <ListItem  style={{borderRadius: 15}}> 
+              <ListItem  > 
                   <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium" 
                  source={this.props.item.userjoin ? {uri: this.props.item.userjoin.pro_image } : null}   />
                   <ListItem.Content >

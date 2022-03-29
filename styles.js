@@ -288,6 +288,7 @@ module.exports={
     height: 66,
     width: 66,
     borderRadius: 50,
+    padding : 0,
     backgroundColor: "#EEEEEE",
   },
   cat_icon_active_style:{
@@ -295,6 +296,7 @@ module.exports={
     height: 66, 
     width: 66, 
     borderRadius: 50, 
+    padding : 0,
     backgroundColor: "#944CD4", 
   },
   icon_active_color :{
