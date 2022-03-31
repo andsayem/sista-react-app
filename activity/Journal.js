@@ -89,10 +89,9 @@ class Journal extends Component {
 
         }}>
         <ListItem.Content
-          style={{
-          }}>
+         onPress={() => this.onPressJournalDetails(item.id)} >
           <ListItem.Title style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}
-            onPress={() => this.onPressJournalDetails(item.id)} >
+            >
             {item.title}
           </ListItem.Title>
           <Text numberOfLines={this.state.numLines} style={{ color: '#707070' }} > {item.details}</Text>
@@ -151,7 +150,7 @@ class Journal extends Component {
         >
           <View style={{ width: '100%' }}>
             <Text onPress={this.changeView} style={Styles.share_item}>{this.state.btnText}</Text>
-            <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text>
+            {/* <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text> */}
 
           </View>
         </RBSheet>
