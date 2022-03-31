@@ -83,11 +83,11 @@ export function DrawerContent(props) {
             onPress={() => { props.navigation.navigate('Tabs') }}
             label={() => <Text style={{ color: '#fff' }}>Home</Text>}
           />
-          <DrawerItem
+          {/* <DrawerItem
             color='#fff'
             onPress={() => { props.navigation.navigate('Quizzes') }}
             label={() => <Text style={{ color: '#fff' }}>Quizzes</Text>}
-          />
+          /> */}
           <DrawerItem
             style={{ color: '#fff' }}
             onPress={() => { props.navigation.navigate('Product') }}
@@ -100,7 +100,6 @@ export function DrawerContent(props) {
           />
           <DrawerItem
             style={{ color: '#fff' }}
-            onPress={() => { props.navigation.navigate('AppInformation') }}
             label={() => <Text style={{ color: '#fff' }}>App Information</Text>}
           />
           <DrawerItem
