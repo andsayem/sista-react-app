@@ -8,6 +8,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import helpers from '../helpers';
 import Pusher from 'pusher-js/react-native';
+import IconAnt from 'react-native-vector-icons/AntDesign';
+import { useFocusEffect } from '@react-navigation/native';
 //Pusher.logToConsole = true;
 const STORAGE_KEY = 'save_user';
 //Pusher.logToConsole = true;
@@ -32,6 +34,7 @@ const Toast = ({ visible, message }) => {
   }
   return null;
 };
+
 class Chating extends Component {
   _isMounted = false;
   constructor(props) {
@@ -64,6 +67,23 @@ class Chating extends Component {
       self.fatchData();
     });
     this.fatchData();
+  }
+  screenWithCustomBackBehavior = () => { 
+    useFocusEffect(
+      React.useCallback(() => {
+        const onBackPress = () => {
+          if (isSelectionModeEnabled()) {
+            disableSelectionMode();
+            return true;
+          } else {
+            return false;
+          }
+        }; 
+        BackHandler.addEventListener('hardwareBackPress', onBackPress);
+        return () =>
+          BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      }, [isSelectionModeEnabled, disableSelectionMode])
+    ); 
   }
   async fatchData() {
     this.setState({ isLoading: true })
@@ -121,24 +141,25 @@ class Chating extends Component {
   }
   renderRow = ({ item, index }) => {
     return (
-      <View  >
+      <View style={{ backgroundColor: "#fff", padding: 12, marginRight:30 }} >
         {this.state.user.id != item.sender_id ?
-          <View style={{backgroundColor: "#f00", minHeight:1505  }}>
-            <ListItem  >
+          <View style={{}}>
+            <ListItem style={{ backgroundColor: "#fff"}} >
               <Avatar rounded size="small" source={item.receiver.pro_image ? { uri: item.sender.pro_image } : ''} />
-              <ListItem.Content  >
-                <Text style={{ backgroundColor: '#E4E4E4', borderRadius: 7, padding: 5, textAlign: 'left' }}>
-                  {item.message}  
+              <ListItem.Content>
+                <Text style={{ color:"#000", backgroundColor: '#E4E4E4', borderRadius: 7, padding: 12, textAlign: 'left' }}>
+                  {item.message} vue3 use computed get set composition api ggg
+                  <Text>12:22 am</Text>
                 </Text>
+                
               </ListItem.Content>
             </ListItem>
           </View>
-          : <ListItem  >
-            <ListItem.Content>
-
-            </ListItem.Content>
-            <Text style={{ textAlign: 'right', alignItems: 'flex-end', backgroundColor: '#FF5D8F', color: '#fff', borderRadius: 7, padding: 5 }}>
-              {item.message}  </Text>
+          : <ListItem  > 
+            <Text>12:22 am</Text>
+            <Text style={{ textAlign: 'right', alignItems: 'flex-end', backgroundColor: '#944CD4', color: '#fff',
+              borderRadius: 7, padding: 12, marginRight:20, paddingRight:20 }}>
+              {item.message} vue3 use computed get set composition api kkk ffffffffffffffffffff dfgf</Text>
             <Avatar rounded size="small" source={item.sender.pro_image ? { uri: item.sender.pro_image } : ''} />
           </ListItem>}
       </View>
@@ -168,10 +189,10 @@ class Chating extends Component {
   render() {
     let { items, isLoading } = this.state;
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView >
         <Toast visible={this.state.errortext} message={this.state.errortext} />
         <Toast visible={this.state.successtext} message={this.state.successtext} />
-        {/* <Header 
+         {/* <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
             onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
             centerComponent={{ text: 'Chats', style: { color: '#1E1E1E' , fontSize : 20 } }}
@@ -179,14 +200,16 @@ class Chating extends Component {
             containerStyle={{   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
-        /> */}
+        />   */}
         <View style={{ paddingTop: 35, backgroundColor: "#efefef", }}  >
           <View >
             <ListItem >
+              <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />  
               <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
+              <View style={ styles.avaterCircle} />
               <ListItem.Content>
                 <ListItem.Title> {this.state.user.name}</ListItem.Title>
-                <ListItem.Subtitle>Active </ListItem.Subtitle>
+                <ListItem.Subtitle>Active</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
           </View>
@@ -234,24 +257,22 @@ class Chating extends Component {
   };
 }
 const styles = StyleSheet.create({
+  avaterCircle:{
+    backgroundColor: '#0DD452', padding: 6, borderRadius:9, marginTop:29, marginLeft:-29,
+  },
   title: {
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
-  container: {
-    marginTop: 20,
-    flex: 1,
-    padding: 2,
+  container: { 
   },
   header: {
     backgroundColor: '#fff',
-    top: 20,
-    height: 200,
-    width: '100%',
+    top: 20, 
     borderRadius: 15,
-    padding: 1,
+    padding: 12,
     marginBottom: 10
   },
   caption: {
