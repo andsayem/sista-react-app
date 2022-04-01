@@ -89,8 +89,8 @@ function Journaladd({ navigation }) {
     <View style={{ backgroundColor: '#ffffff' , height : '100%'}}>
       <Loader loading={loading} />
       <Header
-        leftComponent={<Icon color={colors.black} size={30} name='menu'
-          onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
+        leftComponent={<Icon color={colors.black} size={30} name='arrow-back' 
+        onPress ={ ( ) =>  navigation.goBack() } ></Icon> }
         centerComponent={{ text: 'New Journal', style: { color: '#1E1E1E', fontSize: 20 } }}
 
         containerStyle={{

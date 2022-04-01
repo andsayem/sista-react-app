@@ -111,10 +111,10 @@ export function DrawerContent(props) {
             onPress={() => { facebookShare() }}
             label={() => <Text style={{ color: '#fff' }}>Share app</Text>}
           />
-          <DrawerItem
+          {/* <DrawerItem
             onPress={() => { props.navigation.navigate('RatingApp') }}
             label={() => <Text style={{ color: '#fff' }}>Rate Us</Text>}
-          />
+          /> */}
           <DrawerItem
             onPress={() => { props.navigation.navigate('Support') }}
             label={() => <Text style={{ color: '#fff' }}>Support</Text>}

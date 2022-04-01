@@ -88,14 +88,12 @@ class Journal extends Component {
           shadowOpacity: 1,
 
         }}>
-        <ListItem.Content
-         onPress={() => this.onPressJournalDetails(item.id)} >
-          <ListItem.Title style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}
-            >
+        <ListItem.Content >
+          <ListItem.Title style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}  onPress={() => this.onPressJournalDetails(item.id)} >
             {item.title}
           </ListItem.Title>
-          <Text numberOfLines={this.state.numLines} style={{ color: '#707070' }} > {item.details}</Text>
-          <ListItem.Title style={{ fontSize: 18, paddingTop: 8 }}>
+          <Text numberOfLines={this.state.numLines} style={{ color: '#707070' }}  onPress={() => this.onPressJournalDetails(item.id)}  > {item.details}</Text>
+          <ListItem.Title style={{ fontSize: 18, paddingTop: 8 }}  onPress={() => this.onPressJournalDetails(item.id)} >
             {this.getData(item.created_at)}
           </ListItem.Title>
         </ListItem.Content>
@@ -127,7 +125,7 @@ class Journal extends Component {
             onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
           centerComponent={{ text: 'Journal', style: { color: '#1E1E1E', fontSize: 20 } }}
           rightComponent={
-            <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F"
+            <IconEnt name="dots-three-vertical" size={25} color="#1E1E1E"
               onPress={() => this.RBSheet.open()} />
           }
           containerStyle={{

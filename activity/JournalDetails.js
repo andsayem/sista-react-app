@@ -100,8 +100,8 @@ class JournalDetails extends Component {
         return ( 
         <SafeAreaView   > 
            <Header 
-              leftComponent={<Icon color={colors.black} size={30} name='menu' 
-              onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
+               leftComponent={<Icon color={colors.black} size={30} name='arrow-back' 
+               onPress ={ ( ) =>  this.props.navigation.goBack() } ></Icon> }
               centerComponent={{ text: 'Journal Details', style: { color: '#1E1E1E' , fontSize : 20 } }}
             //   rightComponent={
             //     <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" 
