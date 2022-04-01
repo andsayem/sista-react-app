@@ -11,24 +11,19 @@ class About extends React.Component {
   render() {
     return (
       <SafeAreaView >
-        <Header
-          
-          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}>
-            {/* <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='arrow-back'
-           onPress={() => props.navigation.goBack()} ></Icon> */}
+        <Header 
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
             <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
             <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : -5 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>About My Sista's KeepHer</Text>
           </View>
-          }
-         
+          } 
           rightComponent={{}}
           containerStyle={{
             fontFamily: 'IBMPlexSans-Regular',
             color: '1E1E1E',
             backgroundColor: '#E4E4E4',
             height : 90
-          }}
-        />
+          }} />
 
         <View>
           <Text style={{
