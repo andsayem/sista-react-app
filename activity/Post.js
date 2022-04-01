@@ -92,16 +92,18 @@ class Post extends React.Component {
                 source={this.props.item.userjoin ? { uri: this.props.item.userjoin.pro_image } : null} />
               <ListItem.Content >
                 <ListItem.Title>
-                  <Text onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}>
+                  <Text style={{fontFamily : 'IBMPlexSans-SemiBold',fontSize:15, color:'#0D0E10'}} onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}>
                     {this.props.item.userjoin.name}
                   </Text></ListItem.Title>
                 <ListItem.Subtitle  >
-                  {this.props.item.catjoin.cat_name} - {moment(this.props.item.created_at).fromNow()}
+                  <Text style={{fontFamily : 'IBMPlexSans-Medium',fontSize:13, color:'#000000'}} >
+                  {this.props.item.catjoin.cat_name} <Text style={{fontFamily : 'IBMPlexSans-Light',fontSize:13, color:'#000000'}} >- {moment(this.props.item.created_at).fromNow()}</Text>
+                  </Text>
                 </ListItem.Subtitle>
               </ListItem.Content>
               <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}
                 activeOpacity={0.5} >
-                <View style={{fontFamily : 'IBMPlexSans-Regular', borderRadius: 15 }}>
+                <View style={{borderRadius: 15 }}>
                   {this.props.user.id != this.props.item.userjoin.id ?
                     this.props.item.followings == 1 ?
                       <Text style={styles.following}>+Following  </Text>
@@ -117,14 +119,14 @@ class Post extends React.Component {
 
           {this.props.item.post_type == 3 ?
 
-            <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20 }}  >
+            <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20 }}  >
               <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
                 <Text numberOfLines={5} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
               </ImageBackground>
             </View>
             :
             <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, paddingLeft: 20, paddingRight: 20 }} >
-              <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{fontFamily : 'IBMPlexSans-Regular', fontFamily: "RobotoRegular", fontSize: 15, paddingBottom: 9, color: "#0D0E10", }}>
+              <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{fontFamily : 'IBMPlexSans-Regular', fontSize: 13, paddingBottom: 9, color: "#707070", }}>
                 {this.props.item.caption}
               </ReadMore>
 
@@ -134,12 +136,12 @@ class Post extends React.Component {
                   {mime.lookup(this.props.item.file) == 'video/mp4' ?
                     <VideoPlayer
                       video={{ uri: this.props.item.file }}
-                      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: 200 }}
+                      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: 175 }}
                       thumbnail={require('../img/images/v2.png')}
                     /> :
                     <Image
                       source={this.props.item.file ? { uri: this.props.item.file } : null}
-                      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 130 }} />}
+                      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 175 }} />}
 
                 </TouchableOpacity>
               </View>
@@ -150,9 +152,9 @@ class Post extends React.Component {
               <TouchableOpacity onPress={() => this.props.onPressLike(this.props.index)}
                 activeOpacity={0.5} >
                 {this.props.liked ?
-                  <Text><IconAnt name="heart" size={23} color="#FF5D8F" /> </Text>
+                  <Text><IconAnt name="heart" size={23} color="#FF3D79" /> </Text>
                   :
-                  <Text><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
+                  <Text><IconAnt name="hearto" size={23} color="#FF3D79" /> </Text>
                 }
               </TouchableOpacity>
               <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10, color: "#929292" }}>{this.props.like} </Text>
@@ -168,7 +170,7 @@ class Post extends React.Component {
             <View style={{fontFamily : 'IBMPlexSans-Regular', width: '27%' }}>
               <Text onPress={() => this.RBSheet.open()} style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
                 <Text style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
-                  <IconEnt name="dots-three-vertical" size={20} color="#FF5D8F" />
+                  <IconEnt name="dots-three-vertical" size={20} color="#B461FE" />
                 </Text>
               </Text>
             </View>
@@ -212,8 +214,8 @@ const styles = StyleSheet.create({
   },
   text_bg: {
     fontFamily: 'IBMPlexSans-Regular',
-    color: "black",
-    fontWeight: "bold",
+    color: '#707070',
+    fontSize: 13,
     textAlign: "center",
   },
   container: {
@@ -254,7 +256,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   following: {
-    fontFamily: 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 13,
     paddingLeft: 10,
     color: '#0D0E10',
     borderRadius: 30,
@@ -263,17 +266,16 @@ const styles = StyleSheet.create({
     width: 90,
     paddingTop: 8,
     borderColor: '#E6E8EA',
-    fontWeight: "bold",
   },
   follow: {
-    fontFamily: 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 13,
     paddingLeft: 10,
     color: '#0D0E10',
     borderRadius: 30,
     borderWidth: 1,
     height: 35,
     width: 72,
-    fontWeight: "bold",
     paddingTop: 8,
     borderColor: '#E6E8EA'
   }

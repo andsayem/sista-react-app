@@ -95,7 +95,7 @@ class Posts extends Component {
     // }, []);   
 
     return (
-      <View style={{ fontFamily: 'IBMPlexSans-Regular', height: 60 }}>
+      <View style={{ fontFamily: 'IBMPlexSans-Regular', height: 60, marginBottom:100 }}>
         {this.state.moreLoding ? (
           <View>
             <ActivityIndicator />
