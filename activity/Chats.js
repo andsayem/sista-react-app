@@ -76,7 +76,7 @@ function Chats(props) {
       })} rounded size="medium" source={ItemData.pro_image ? { uri: helpers.storage() + 'app/public/posts/' + ItemData.pro_image } : ''} />
       </View>
       </View>
-      <Text style={{fontFamily : 'IBMPlexSans-Regular', width : 50  ,  textAlign : 'center'}}>
+      <Text style={{ width : 50  ,  textAlign : 'center'}}>
       {ItemData.name.split(" ").length < 2
                 ? `${ItemData.name}`
                 : `${ItemData.name.split(" ")[0]}`}
@@ -89,8 +89,8 @@ function Chats(props) {
     );
   };
   const Convusers = ({ ItemData }) => (
-    <View style={{fontFamily : 'IBMPlexSans-Regular',backgroundColor: "#fff" }}>
-      <ListItem key={ItemData.id + 'cvu'.toString()} style={{fontFamily : 'IBMPlexSans-Regular',
+    <View style={{backgroundColor: "#fff" }}>
+      <ListItem key={ItemData.id + 'cvu'.toString()} style={{
         backgroundColor: "#FEFEFE",
         width: '100%',
       }}> 
@@ -123,7 +123,7 @@ function Chats(props) {
   );
   const SearchData = ({ ItemData }) => (
     <View  >
-      <ListItem key={ItemData.id.toString()} style={{fontFamily : 'IBMPlexSans-Regular',
+      <ListItem key={ItemData.id.toString()} style={{
         backgroundColor: "#FEFEFE",
         width: '100%',
       }}>
@@ -153,8 +153,8 @@ function Chats(props) {
   }
 
   return (
-    <ScrollView style={{fontFamily : 'IBMPlexSans-Regular',backgroundColor: "#efefef",  }}>
-      <View style={{fontFamily : 'IBMPlexSans-Regular',paddingTop :35 }}  > 
+    <ScrollView style={{backgroundColor: "#efefef",  }}>
+      <View style={{paddingTop :35 }}  > 
           <View >
             <ListItem containerStyle={{backgroundColor:"#efefef"}}>
               <Icon color={colors.black} size={30} name='menu' onPress={() => props.navigation.toggleDrawer()} ></Icon>
@@ -172,7 +172,7 @@ function Chats(props) {
         <View>
 
           <ScrollView key={'cvu'.toString()} horizontal
-            style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#fff', marginLeft: 0,padding:15 }}  >
+            style={{ backgroundColor: '#fff', marginLeft: 0,padding:15 }}  >
             <FlatList horizontal
               data={getUsers}
               keyExtractor={(item, index) => index}
@@ -180,7 +180,7 @@ function Chats(props) {
               extraData={selectedId}
             />
           </ScrollView>
-          <View style={{fontFamily : 'IBMPlexSans-Regular', marginTop: 10 }}  > 
+          <View style={{ marginTop: 10 }}  > 
             <FlatList
               data={getUsers}
               keyExtractor={(item, i) => item.sender_id.toString()}
@@ -189,11 +189,11 @@ function Chats(props) {
               refreshing={refreshing} 
               onRefresh={handleOnRefresh}
               ItemSeparatorComponent={() => (
-                <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#efefef", height:2 }} />
+                <View style={{ backgroundColor: "#efefef", height:2 }} />
               )} 
               ListHeaderComponent={
                 <View >
-                  <ListItem key={'nm'.toString()} style={{fontFamily : 'IBMPlexSans-Regular',
+                  <ListItem key={'nm'.toString()} style={{
                     backgroundColor: "#FEFEFE",
                     width: '100%',
                   }}>
@@ -204,20 +204,20 @@ function Chats(props) {
                     </ListItem.Content>
                     <View style={ styles.requestsCircle} />
                   </ListItem>
-                  <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#efefef", height:2 }} />
+                  <View style={{ backgroundColor: "#efefef", height:2 }} />
                 </View>
               }
               ListFooterComponent={
                 <View >
-                <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#efefef", height:2 }} />
-                <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#fff", minHeight:300 }} />
+                <View style={{ backgroundColor: "#efefef", height:2 }} />
+                <View style={{ backgroundColor: "#fff", minHeight:300 }} />
                 </View>
               }
             />
           </View>
         </View>
         :
-        <View style={{fontFamily : 'IBMPlexSans-Regular',  marginTop: 10 }} > 
+        <View style={{  marginTop: 10 }} > 
         <FlatList
           data={getSearchusers}
           keyExtractor={(item, i) => item.id.toString()}
@@ -239,13 +239,11 @@ function Chats(props) {
 }
 const styles = StyleSheet.create({
   container: {
-    fontFamily : 'IBMPlexSans-Regular',
     flex: 1,
     backgroundColor: "#fff",
     minHeight:600
   },
   useAvater: {
-    fontFamily : 'IBMPlexSans-Regular',
     backgroundColor: '#fff', padding: 5
   },
   requestsCircle:{
@@ -261,7 +259,6 @@ const styles = StyleSheet.create({
     borderWidth: 2, borderColor: "#B16DE4", borderRadius: 50,
   },
   container: {
-    fontFamily : 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: "space-between",
     backgroundColor: "#fff",
@@ -269,7 +266,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   top: {
-    fontFamily : 'IBMPlexSans-Regular',
     flex: 0.3,
     backgroundColor: "grey",
     borderWidth: 5,
@@ -277,13 +273,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   middle: {
-    fontFamily : 'IBMPlexSans-Regular',
     flex: 0.3,
     backgroundColor: "beige",
     borderWidth: 5,
   },
   bottom: {
-    fontFamily : 'IBMPlexSans-Regular',
     flex: 0.3,
     backgroundColor: "pink",
     borderWidth: 5,

@@ -118,25 +118,20 @@ class Chating extends Component {
   }
   renderRow = ({ item }) => {
     return (
-      <View  >
-        {this.state.user.id != item.sender_id ?
-          <View style={{fontFamily : 'IBMPlexSans-Regular',backgroundColor: "#f00", minHeight:1505  }}>
-            <ListItem  >
-              <Avatar rounded size="small" source={item.receiver.pro_image ? { uri: item.sender.pro_image } : ''} />
-              <ListItem.Content  >
-                <Text style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#E4E4E4', borderRadius: 7, padding: 5, textAlign: 'left' }}>
-                  {item.message}  
+      <View style={{marginRight:20 }} >
+        {this.state.user.id != item.sender_id ? 
+            <View  style={styles.item} >
+              <Avatar rounded size="small" source={item.receiver.pro_image ? { uri: item.sender.pro_image } : ''} /> 
+                <Text style={{ color:"#0D0E10", backgroundColor: '#F5F5F5', borderRadius: 7, padding: 15, textAlign: 'left', marginLeft:10 }}>
+                  {item.message}   
                 </Text>
-              </ListItem.Content>
-            </ListItem>
-          </View>
-          : <ListItem  >
-            <ListItem.Content>
-
-            </ListItem.Content>
-            <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'right', alignItems: 'flex-end', backgroundColor: '#FF5D8F', color: '#fff', borderRadius: 7, padding: 5 }}>
-              {item.message}  </Text>
-            <Avatar rounded size="small" source={item.sender.pro_image ? { uri: item.sender.pro_image } : ''} />
+                <Text style={{   paddingBottom: 35, paddingLeft:10, alignSelf: 'flex-end', }}>{this.renderDate(item.created_at)}</Text>  
+            </View> 
+          : <ListItem style={styles.itemIn} > 
+            <Text style={styles.itemOut } >{this.renderDate(item.created_at)}</Text>
+            <Text style={{ backgroundColor: '#944CD4', color: '#fff',
+              borderRadius: 7, padding: 15,   }}>
+              {item.message}  </Text> 
           </ListItem>}
       </View>
     )
@@ -168,20 +163,11 @@ class Chating extends Component {
     return (
       <SafeAreaView style={styles.container} >
         <Toast visible={this.state.errortext} message={this.state.errortext} />
-        <Toast visible={this.state.successtext} message={this.state.successtext} />
-        {/* <Header 
-            leftComponent={<Icon color={colors.black} size={30} name='menu' 
-            onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'Chats', style: {
-              fontFamily : 'IBMPlexSans-Regular', color: '#1E1E1E' , fontSize : 20 } }}
-            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{fontFamily : 'IBMPlexSans-Regular',   
-              color : '1E1E1E',
-              backgroundColor: '#E4E4E4' }}
-        /> */}
-        <View style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 35, backgroundColor: "#efefef", }}  >
-          <View >
-            <ListItem >
+        <Toast visible={this.state.successtext} message={this.state.successtext} /> 
+        <View style={{ paddingTop: 35}}  >
+          <View>
+            <ListItem containerStyle={{backgroundColor:"#F5F5F5"}}>
+              <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />  
               <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
               <View style={ styles.avaterCircle} />
               <ListItem.Content>
@@ -245,50 +231,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#0DD452', padding: 6, borderRadius:9, marginTop:37, marginLeft:-28,
   }, 
   title: {
-    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
-  },
-  container: {
-    fontFamily : 'IBMPlexSans-Regular',
-    marginTop: 20,
-    flex: 1,
-    padding: 2,
-  },
-  header: {
-    fontFamily : 'IBMPlexSans-Regular',
-    backgroundColor: '#fff',
-    top: 20,
-    height: 200,
-    width: '100%',
-    borderRadius: 15,
-    padding: 1,
-    marginBottom: 10
-  },
-  caption: {
-    fontFamily : 'IBMPlexSans-Regular',
-    textAlign: 'center',
-    fontSize: 18,
+  }, 
+  textInput:{  
+    elevation: 5,  
   },
   footer: {
-    fontFamily : 'IBMPlexSans-Regular',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 5
   },
-  textAreaContainer: {
-    fontFamily : 'IBMPlexSans-Regular',
-    borderColor: '#efefef',
-    width: 330
-  },
-  textArea: {
-    fontFamily : 'IBMPlexSans-Regular',
-    height: 50,
-  },
+  textAreaContainer: { 
+    flex:1,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    paddingHorizontal:10,
+    padding:5,
+    width: 300, 
+  }, 
   submit: {
-    fontFamily : 'IBMPlexSans-Regular',
     marginTop: 2,
     paddingTop: 0,
   },
