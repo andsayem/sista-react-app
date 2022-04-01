@@ -35,13 +35,15 @@ class Posts extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-
+    
     this.focusListener = this.props.navigation.addListener('focus',
-      () => {
+      () => { 
         this.handleResetParam()
+        console.log('pahfffff======= ',this.state.page)
         if (this._isMounted) {
           this.fatchData();
         }
+        
       });
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
@@ -56,7 +58,7 @@ class Posts extends Component {
 
   fatchData = async () => {
     //console.log('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page);
-    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
+    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + (this._isMounted?1:this.state.page))
       .then(response => response.data.data)
       .then((json) => {
         if (json.length > 1) {
@@ -181,7 +183,7 @@ class Posts extends Component {
 
   }
   handleResetParam = () => {
-    this.setState({ items: [], page: 1 });
+    this.setState({ items: [], page: 0 });
   }
   componentWillUnmount() {
     this._isMounted = false;

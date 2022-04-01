@@ -38,25 +38,25 @@ function ForgotPassword(props) {
       setErrortext({ message: 'Please fill email' });
       return;
     } else {
-      setSuccesstext(false); 
+      setSuccesstext(false);
       const article = { email: email };
-      const headers = { 
-        'Content-Type':'application/json'
+      const headers = {
+        'Content-Type': 'application/json'
       };
-      setLoading(true); 
-      axios.post(helpers.baseurl()+'api/forgot-password', article,{headers})
+      setLoading(true);
+      axios.post(helpers.baseurl() + 'api/forgot-password', article, { headers })
         .then((response) => {
-          setLoading(false); 
-          if(response.data.success){
-            setSuccesstext({message: response.data.message }); 
-            props.navigation.navigate("CheckYourEmail");  
-          }else{
-            setSuccesstext({message: response.data.message });
-          } 
           setLoading(false);
-        }).catch((error) => { 
-         setLoading(false); 
-          setSuccesstext({message: error.response.data.message }); 
+          if (response.data.success) {
+            setSuccesstext({ message: response.data.message });
+            props.navigation.navigate("CheckYourEmail");
+          } else {
+            setSuccesstext({ message: response.data.message });
+          }
+          setLoading(false);
+        }).catch((error) => {
+          setLoading(false);
+          setSuccesstext({ message: error.response.data.message });
         });
 
     }
@@ -67,9 +67,22 @@ function ForgotPassword(props) {
       <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)} />
       <Toast visible={successText} message={successText.message} />
       <Text
-        style={Styles.title_center} >Forgot your password?</Text>
+        style={{
+          fontFamily: 'IBMPlexSans-Regular',
+          width: "80%",
+          paddingLeft: 15,
+          fontSize: 20,
+          textAlign: "center"
+        }} >Forgot your password?</Text>
       <Text
-        style={Styles.sub_title_center} >Enter your registered email below
+        style={{
+          fontFamily: 'Montserrat-Regular',
+          width: "80%",
+          paddingLeft: 15,
+          color: "#929292",
+          fontSize: 13,
+          textAlign: "center"
+        }} >Enter your registered email below
         to receive password reset link </Text>
       <Image
         style={Styles.logo}
@@ -78,8 +91,8 @@ function ForgotPassword(props) {
       <Text> {email} </Text>
 
       <TextInput value={email}
-      style={Styles.inputText}
-      placeholder="Enter your email id" 
+        style={Styles.inputText}
+        placeholder="Enter your email id"
         maxLength={50}
         onChangeText={(email) => setEmail(email)} />
 
@@ -98,36 +111,36 @@ function ForgotPassword(props) {
 }
 const styles = StyleSheet.create({
   textAreaContainer: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     borderColor: '#efefef',
     borderWidth: 1,
   },
   textArea: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     height: 150,
 
   },
   input: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     height: 40,
     margin: 12,
     borderWidth: 1,
   },
   container: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     padding: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textareaContainer: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     height: 180,
     padding: 5,
     backgroundColor: '#F5FCFF',
   },
   textarea: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     textAlignVertical: 'top',  // hack android
     height: 170,
     fontSize: 14,
@@ -135,13 +148,13 @@ const styles = StyleSheet.create({
   },
 
   cat_title: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'left',
     padding: 15,
     width: '100%'
   },
   radio: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     fontSize: 10
   }
 })

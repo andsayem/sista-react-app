@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Image , Text} from "react-native";
+import { StyleSheet, Image, Text } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //import {ContactStackNavigator , MainStackNavigator } from "../navigation/AuthNavigator";
 import { Icon } from "react-native-elements";
@@ -36,16 +36,28 @@ function TabsScreen(props) {
 
 
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Posts} 
+    <Tab.Navigator tabBarOptions={{
+      style: {
+        height: 65 ,
+      },
+    }}>
+      <Tab.Screen name="Home" component={Posts}
         options={({ route }) => ({
-          tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Home</Text>
-          ),  
-          tabBarIcon: ({ focused}) => (
-            focused ? <Image source={require('../img/icon/home_active.png')} /> 
-            : <Image source={require('../img/icon/home.png')} />
-          ), 
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Home</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            focused ? <Image style={{
+              resizeMode: 'contain',
+              flex: 1,
+              aspectRatio: 0.45
+            }} source={require('../img/icon/home_active.png')} />
+              : <Image style={{
+                resizeMode: 'contain',
+                flex: 1,
+                aspectRatio: 0.45
+              }} source={require('../img/icon/home.png')} />
+          ),
           tabBarOnPress: () => {
             props.navigation.navigate("Posts");
             // console.log('onPress:');
@@ -55,11 +67,19 @@ function TabsScreen(props) {
       <Tab.Screen name="Chats" component={Chats}
         options={({ route }) => ({
           headerShown: true,
-          tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Chats</Text>
-          ), 
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Chats</Text>
+          ),
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../img/icon/chart_active.png')} /> : <Image source={require('../img/icon/chart.png')} />
+            focused ? <Image style={{
+              resizeMode: 'contain',
+              flex: 1,
+              aspectRatio: 0.45
+            }} source={require('../img/icon/chart_active.png')} /> : <Image style={{
+              resizeMode: 'contain',
+              flex: 1,
+              aspectRatio: 0.45
+            }} source={require('../img/icon/chart.png')} />
           ),
         })}
       />
@@ -67,11 +87,19 @@ function TabsScreen(props) {
       <Tab.Screen name="Add" onPress={() => navigation.navigate("Newpost")} component={Newpost}
         options={{
           headerShown: true,
-          tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Add</Text>
-          ),  
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Add</Text>
+          ),
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../img/icon/add_active.png')} /> : <Image source={require('../img/icon/add.png')} />
+            focused ? <Image style={{
+              resizeMode: 'contain',
+              flex: 1,
+              aspectRatio: 0.45
+            }} source={require('../img/icon/add_active.png')} /> : <Image style={{
+              resizeMode: 'contain',
+              flex: 1,
+              aspectRatio: 0.45
+            }} source={require('../img/icon/add.png')} />
           ),
         }}
       />
@@ -86,22 +114,42 @@ function TabsScreen(props) {
       <Tab.Screen name="Journal" component={Journal}
         options={{
           headerShown: true,
-          tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Journal</Text>
-          ),  
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Journal</Text>
+          ),
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../img/icon/journal_active.png')} /> : <Image source={require('../img/icon/journal.png')} />
+            focused ? <Image style={{
+              resizeMode: 'contain',
+              flex: 1,
+              aspectRatio: 0.45
+            }} source={require('../img/icon/journal_active.png')} /> : <Image
+              style={{
+                resizeMode: 'contain',
+                flex: 1,
+                aspectRatio: 0.45
+              }} source={require('../img/icon/journal.png')} />
           ),
         }}
       />
       <Tab.Screen name="Profile" component={Profile}
         options={{
           headerShown: true,
-          tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? '#A273C7' : '#ababab', fontWeight: 'bold'}} >Profile</Text>
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Profile</Text>
           ),
           tabBarIcon: ({ focused }) => (
-            focused ? <Image source={require('../img/icon/profile_active.png')} /> : <Image source={require('../img/icon/profile.png')} />
+            focused ? <Image
+              style={{
+                resizeMode: 'contain',
+                flex: 1,
+                aspectRatio: 0.45
+              }}
+              source={require('../img/icon/profile_active.png')} /> : <Image
+              style={{
+                resizeMode: 'contain',
+                flex: 1,
+                aspectRatio: 0.45
+              }} source={require('../img/icon/profile.png')} />
           ),
         }}
       />
@@ -113,9 +161,9 @@ function TabsScreen(props) {
 export default TabsScreen;
 
 const styles = StyleSheet.create({
-  home:{ 
+  home: {
     color: '#783EA4',
-  }, 
+  },
   SectionStyle: {
     flexDirection: 'row',
     height: 40,
@@ -140,7 +188,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: '#FFFFFF',
     paddingVertical: 10,
-    fontSize: 16,
+    fontSize: 16, paddingBottom:10,
   },
   inputStyle: {
     flex: 1,
@@ -154,12 +202,12 @@ const styles = StyleSheet.create({
   errorTextStyle: {
     color: 'red',
     alignItems: 'center',
-    fontSize: 14,
+    fontSize: 14, paddingBottom:10,
   },
   successTextStyle: {
     color: 'white',
     alignItems: 'center',
-    fontSize: 18,
+    fontSize: 18, paddingBottom:10,
     padding: 30,
   },
 });

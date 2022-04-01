@@ -22,6 +22,15 @@ class WelcomeScreen extends Component {
       currentIndex: 0
     };
   }
+
+  async componentDidMount() {
+    const user = await AsyncStorage.getItem(STORAGE_KEY);
+    const token = await AsyncStorage.getItem(TOKEN);
+    // console.log(user, token, 'dfffffffffffffffffff');
+    if ((token) && (user)) {
+      this.props.navigation.navigate("Home");
+    }
+  }
   handleSubmitPress = async () => {
 
     try {

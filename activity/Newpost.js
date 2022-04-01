@@ -377,7 +377,7 @@ function Newpost(props) {
                   :
                   <View></View>
                }
-               {ChildViewEliment()}
+               {/* {ChildViewEliment()} */}
                <View style={{fontFamily : 'IBMPlexSans-Regular',  marginRight: 40, marginLeft: 40,}}>
                   <TouchableOpacity
                      onPress={handleSubmitButton}
