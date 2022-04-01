@@ -227,22 +227,11 @@ class Posts extends Component {
                 <View>
                   <Events  style={{marginHorizontal:-10}}/>
 
-                  <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={{
-                      fontFamily: 'IBMPlexSans-Regular',
-                      marginHorizontal: -10,
-                      paddingEnd: 10,
-                      marginRight: 5,
-                      marginTop: 1
-                    }}
-                  >
+                  
                     <Categories
                       cat_id={this.state.cat_id}
                       handleAllPost={this.handlePostCates}
                       handlePostCate={this.handlePostCateWise} />
-                  </ScrollView>
                 </View>}
             />
           </SafeAreaView>

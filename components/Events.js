@@ -71,7 +71,7 @@ const Events = () => {
             <Toast visible={successtext} message={successtext.message} />
 
             <View style={{ flexDirection: 'row', paddingTop: 10 }}>
-                <Text style={{ fontFamily: 'IBMPlexSans-SemiBold', width: '20%', fontSize: 14, paddingLeft: 6, fontWeight: 'bold', color: '#535353' }}>Events </Text>
+                <Text style={{ fontFamily: 'IBMPlexSans-SemiBold', width: '20%', fontSize: 14, paddingLeft: 5, color: '#535353' }}>Events </Text>
                 <Text onPress={allEvents} style={{ fontFamily: 'IBMPlexSans-Medium', textAlign: 'right', fontSize: 13, width: '80%', color: '#535353' }}>See All </Text>
             </View>
 
