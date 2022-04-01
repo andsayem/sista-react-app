@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import IconAnt from 'react-native-vector-icons/AntDesign';
-import { colors, Icon, Header } from 'react-native-elements';
+import { Header } from 'react-native-elements';
 //function About({navigation}) {
 class About extends React.Component {
   constructor(props) {

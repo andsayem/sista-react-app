@@ -4,6 +4,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import {   Header } from 'react-native-elements';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 class PrivacyPolicy extends React.Component { 
+  constructor(props) {
+    super(props);
+  }
   render() {
     return ( 
       <ScrollView > 
