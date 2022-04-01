@@ -214,17 +214,22 @@ function Newpost(props) {
 
    return (
       <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
-         <Loader loading={loading} />
-         <Header
-            leftComponent={<Icon color={colors.black} size={30} name='menu'
-               onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
-            centerComponent={{ text: 'Add', style: { color: '#1E1E1E', fontSize: 20 } }}
-            rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{
-               color: '1E1E1E',
-               backgroundColor: '#E4E4E4'
-            }}
-         />
+         <Loader loading={loading} /> 
+         <Header 
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
+            <Icon color={colors.black} size={30} name='menu'
+               onPress={() => navigation.toggleDrawer()} ></Icon>
+            <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Add</Text>
+          </View>
+          } 
+          rightComponent={{}}
+          containerStyle={{
+            fontFamily: 'IBMPlexSans-Regular',
+            color: '1E1E1E',
+            backgroundColor: '#E4E4E4',
+            height : 90
+          }} />
+
          <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
             <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
             <Toast style={Styles.errorTextStyle} visible={successtext} message={successtext.message} />
