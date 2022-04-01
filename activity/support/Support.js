@@ -1,19 +1,41 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList, ScrollView, StyleSheet,ToastAndroid } from "react-native";
 import { colors, Icon, Header } from 'react-native-elements';
 import { RadioButton } from 'react-native-paper';
 import api from '../../api';
 import Styles from "../../styles";
 import Textarea from 'react-native-textarea';
 import IconAnt from 'react-native-vector-icons/AntDesign';
+import axios from 'axios';
+import helpers from '../../helpers';
+import AsyncStorage from '@react-native-community/async-storage';
+const STORAGE_KEY = 'save_user';
+const TOKEN = 'token'; 
+const Toast = ({ visible, message }) => {
+  if (visible) {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+    return null;
+  }
+  return null;
+};
 class Support extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isChecked: false,
       items: [],
-      support_type_id :  5
+      support_type_id :  5,
+      details:'',
+      isLoading: false,
+      errortext: '',
+      sending: false,
+      successtext: ''
     };
     this.getSupport();
     //this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -26,9 +48,35 @@ class Support extends React.Component {
       .catch((error) => {
       })
   };
+  handleSubmitButton = async () => {
+    if (!this.state.details) {
+      this.setState({ errortext: 'Please fill field' });
+      return;
+    } else {
+      let formData = new FormData();
+      this.setState({ sending: true });
+      formData.append("support_type_id", this.state.support_type_id);
+      formData.append("details", this.state.details);  
+      axios.post(helpers.baseurl() + 'api/supports', formData,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data',
+            Authorization: "Bearer " + await AsyncStorage.getItem(TOKEN)
+          }
+        }).then((res) => {
+          this.setState({ sending: false })
+          this.setState({ details: '' })
+          this.setState({ successtext: 'Support send successfull!' });
+       })
+       .finally(() => this.setState({ isLoading: false }));
+      }
+    }
   render() {
     return (
       <ScrollView styles={{ backgroundColor: '#ffffff' }}> 
+        <Toast visible={this.state.errortext} message={this.state.errortext} />
+        <Toast visible={this.state.successtext} message={this.state.successtext} />
          <Header 
           leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
             <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
@@ -93,9 +141,7 @@ class Support extends React.Component {
             marginLeft:40,
             marginRight:40,
             marginBottom:30
-          }}></Text> 
-              <Icon size={35} name='sc-telegram' type='evilicon' color='#0000ff'></Icon>
-             
+          }}></Text>              
           <View
             style={{fontFamily : 'IBMPlexSans-Regular', paddingStart: 25, paddingEnd: 25, backgroundColor: '#ffffff' }}>
             <View style={{   
@@ -103,10 +149,8 @@ class Support extends React.Component {
           }}>
           </View>
             
-            <Textarea
-               onChangeText={(details) =>{
-                this.setState( {details : details }  ) 
-               }}
+            <Textarea 
+              onChangeText={(test) => this.setState({ details: test }, this.setState({ errortext: false }))}
               value={this.state.details}
               blurOnSubmit={true}
               containerStyle={styles.textareaContainerBg}
@@ -120,8 +164,11 @@ class Support extends React.Component {
           </View>
           <TouchableOpacity 
             style={styles.submit_button} 
-            onPress={handleSubmitPress}>
-            <Text style={Styles.loginText} >Submit</Text>
+            onPress={this.handleSubmitButton}>
+              {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" /> :
+                  <Text style={Styles.loginText} >Submit</Text>
+                } 
+            
           </TouchableOpacity>
         </View>
       </ScrollView>
