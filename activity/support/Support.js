@@ -46,17 +46,18 @@ class Support extends React.Component {
           <View style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', paddingTop: 30 }}>
             <Image style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'center' }} source={require('../../img/bg/support.png')} />
           </View>
-          <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', paddingTop: 30, color: '#000000', fontSize: 18, paddingEnd: 25, paddingStart: 25 }}>Did you face any app problem ?
+          <Text style={styles.text }>Did you face any app problem ?
             Feel free to tell us</Text>
         </View>
-        <View
-          style={{fontFamily : 'IBMPlexSans-Regular',
-            backgroundColor: '#FFFFFF',
-            paddingStart: 20,
-            borderBottomColor: '#CEC7C7',
-            borderBottomWidth: 1
-          }}
-        />
+        <View style={{   
+            backgroundColor:'#fff'
+          }}>
+          <Text style={{  
+            borderBottomColor: '#ABABAB',
+            borderBottomWidth: 1,
+            marginLeft:40,
+            marginRight:40 
+          }}></Text></View>
         <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#FFFFFF' }}>
           <FlatList
             style={{fontFamily : 'IBMPlexSans-Regular', margin: 10 }}
@@ -85,9 +86,23 @@ class Support extends React.Component {
             onEndReachedThreshold={200}
             refreshing={this.state.refreshing}
             onRefresh={this.handleOnRefresh}
-          />
+          />  
+          <Text style={{  
+            borderBottomColor: '#ABABAB',
+            borderBottomWidth: 1,
+            marginLeft:40,
+            marginRight:40,
+            marginBottom:30
+          }}></Text> 
+              <Icon size={35} name='sc-telegram' type='evilicon' color='#0000ff'></Icon>
+             
           <View
             style={{fontFamily : 'IBMPlexSans-Regular', paddingStart: 25, paddingEnd: 25, backgroundColor: '#ffffff' }}>
+            <View style={{   
+            backgroundColor:'#fff'
+          }}>
+          </View>
+            
             <Textarea
                onChangeText={(details) =>{
                 this.setState( {details : details }  ) 
@@ -104,8 +119,7 @@ class Support extends React.Component {
             />
           </View>
           <TouchableOpacity 
-            style={Styles.submit_button}
-            activeOpacity={0.5}
+            style={styles.submit_button} 
             onPress={handleSubmitPress}>
             <Text style={Styles.loginText} >Submit</Text>
           </TouchableOpacity>
@@ -131,6 +145,33 @@ var styles = StyleSheet.create({
   seperator: {
     fontFamily: 'IBMPlexSans-Regular',
     marginBottom: 20
+  },
+  textareaContainerBg:{ 
+    borderWidth:1,
+    borderColor:'#ABABAB', 
+    borderRadius:6,
+    marginRight:30,
+    paddingRight:40
+  },
+  submit_button:{ 
+    backgroundColor:"#9253C1",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    textAlign : "center",
+    marginTop:20,
+    marginBottom:10,
+    margin:40
+  },
+  text:{
+    fontFamily : 'IBMPlexSans-Regular', 
+    textAlign: 'center',  
+    color: '#000000',
+    fontSize: 18, 
+    paddingTop:19,
+    paddingLeft:50,
+    paddingRight:50
   }
 });
 
