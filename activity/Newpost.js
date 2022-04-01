@@ -199,7 +199,7 @@ function Newpost(props) {
                   <Text
                      style={styles.checkbox}>
                      <CheckBox
-                        style={{fontFamily : 'IBMPlexSans-Regular', padding: 50 }}
+                        style={{ fontFamily: 'IBMPlexSans-Regular', padding: 50 }}
                         value={isSelected}
                         onValueChange={setSelection}
                      />
@@ -214,20 +214,20 @@ function Newpost(props) {
 
    return (
       <View>
-      <Header
-        leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
-          <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
-            onPress={() => props.navigation.toggleDrawer()} ></Icon>
-          <Text style={{ height : 40 ,   marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Add</Text>
-        </View>
-        }
-        rightComponent={{}}
-        // centerComponent={{ text: 'Inspire me', style: { fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E', fontSize: 20 } }}
-        // rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-        containerStyle={{ height : 80 , fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
-      />
+         <Header
+            leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
+               <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
+                  onPress={() => props.navigation.toggleDrawer()} ></Icon>
+               <Text style={{ height: 40, marginTop: 0, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Add</Text>
+            </View>
+            }
+            rightComponent={{}}
+            // centerComponent={{ text: 'Inspire me', style: { fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E', fontSize: 20 } }}
+            // rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            containerStyle={{ height: 80, fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
+         />
 
-      {/* <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
+         {/* <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
          <Loader loading={loading} /> 
          <Header 
            leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
@@ -243,179 +243,179 @@ function Newpost(props) {
             backgroundColor: '#F5F5F5',
             height : 90
           }} /> */}
+         <ScrollView>
+            <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
+               <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
+               <Toast style={Styles.errorTextStyle} visible={successtext} message={successtext.message} />
+               <View style={{ fontFamily: 'IBMPlexSans-Regular', padding: 20, padding: 0 }}>
+                  {photo ? <Image
+                     source={photo ? { uri: photo.uri } : null}
+                     style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%', height: photo.uri ? 300 : 0 }}
+                  /> : ''}
 
-         <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
-            <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
-            <Toast style={Styles.errorTextStyle} visible={successtext} message={successtext.message} />
-            <View style={{fontFamily : 'IBMPlexSans-Regular', padding: 20, padding: 0 }}>
-               {photo ? <Image
-                  source={photo ? { uri: photo.uri } : null}
-                  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: photo.uri ? 300 : 0 }}
-               /> : ''}
+                  {video ?
+                     <Video
+                        source={{ uri: video.uri, type: video.mime }}
+                        style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%', height: video.uri ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
+                        rate={1}
+                        paused={false}
+                        volume={5}
+                        muted={false}
+                        resizeMode={'cover'}
+                        repeat={true}
+                     />
+                     : ""}
 
-               {video ?
-                  <Video
-                     source={{ uri: video.uri, type: video.mime }}
-                     style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: video.uri ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
-                     rate={1}
-                     paused={false}
-                     volume={5}
-                     muted={false}
-                     resizeMode={'cover'}
-                     repeat={true}
-                  />
-                  : ""}
-
-            </View>
-            <ListItem >
-               <ListItem.Content  >
-                  <ListItem.Content >
-                     <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontWeight: 'bold' }} >
-                        Write a caption
-                     </ListItem.Title>
-                  </ListItem.Content>
-               </ListItem.Content>
-            </ListItem>
-            <View style={styles.textAreaContainer} >
-               {index == 2 ?
-                  <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', paddingLeft: 10, paddingRight: 10 }}  >
-                     <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
-                        <Textarea
-                           onChangeText={(post_caption) => setCaption(post_caption)}
-                           value={post_caption}
-                           blurOnSubmit={true}
-                           containerStyle={styles.textareaContainerBg}
-                           backgroundColor="rgba(0,0,0,0)"
-                           maxLength={1000}
-                           placeholder={'Type something...'}
-                           returnKeyType="next"
-                           multiline={true}
-                           underlineColorAndroid={'transparent'}
-                        />
-                     </ImageBackground>
-                  </View>
-                  :
-                  <Textarea
-                     onChangeText={(post_caption) =>
-                        setCaption(post_caption)}
-                     value={post_caption}
-                     blurOnSubmit={true}
-                     containerStyle={styles.textareaContainer}
-                     style={styles.textarea}
-                     maxLength={1000}
-                     placeholder={'Type something...'}
-                     returnKeyType="next"
-                     multiline={true}
-                     underlineColorAndroid={'transparent'}
-                  />
-               }
-            </View>
-            <View >
-            </View>
-            <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: 'row', width: '100%', backgroundColor: '#F5F5F5' }} >
-               <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: 'row', margin: 10, width: '100%', backgroundColor: '#F5F5F5' }}  >
-                  <Text style={
-                     { flexDirection: 'row', color: 'black', width: '92%', backgroundColor: '#F5F5F5' }} onPress={() => refRBSheet.current.open()}> Category : {categoryName}
-                  </Text>
-                  <Icon style={{fontFamily : 'IBMPlexSans-Regular', padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
                </View>
-               <RBSheet
-                  ref={refRBSheet}
-                  closeOnDragDown={true}
-                  closeOnPressMask={true}
-                  height={250}
-                  openDuration={500} >
-                  <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', fontWeight: 'bold' }} >Category   </Text>
-                  <Text onPress={() => refRBSheet.current.close()} style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'right', fontWeight: 'bold' }} >Apply  </Text>
-                  <View>
-                     <RadioForm formHorizontal={false} initial={0} animation={true} >
-                        {
-                           Cats.map((item, i) => (
-                              <RadioButton labelHorizontal={true} key={i} >
-                                 {/*  You can set RadioButtonLabel before RadioButtonInput */}
-                                 <RadioButtonInput
-                                    obj={item}
-                                    index={i}
-                                    isSelected={category === item.value}
-                                    borderWidth={2}
-                                    onPress={() => { categoryChange(item) }}
-                                    buttonOuterColor={'#944CD4'}
-                                    buttonInnerColor={'#B461FE'}
-                                    buttonSize={18}
-                                    buttonOuterSize={25}
-                                    buttonStyle={{}}
-                                    buttonWrapStyle={{ marginLeft: 25, paddingBottom: 20 }} />
-                                 <RadioButtonLabel
-                                    obj={item}
-                                    onPress={() => { categoryChange(item) }}
-                                    index={i}
-                                    labelHorizontal={false}
-                                    labelStyle={{ fontSize: 16, color: '#000000', paddingStart: 10, paddingBottom: 10 }}
-                                    labelWrapStyle={{}} />
-                              </RadioButton>
-                           ))
-                        }
-                     </RadioForm>
+               <ListItem >
+                  <ListItem.Content  >
+                     <ListItem.Content >
+                        <ListItem.Title style={{ fontFamily: 'IBMPlexSans-Regular', fontWeight: 'bold' }} >
+                           Write a caption
+                        </ListItem.Title>
+                     </ListItem.Content>
+                  </ListItem.Content>
+               </ListItem>
+               <View style={styles.textAreaContainer} >
+                  {index == 2 ?
+                     <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%', paddingLeft: 10, paddingRight: 10 }}  >
+                        <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
+                           <Textarea
+                              onChangeText={(post_caption) => setCaption(post_caption)}
+                              value={post_caption}
+                              blurOnSubmit={true}
+                              containerStyle={styles.textareaContainerBg}
+                              backgroundColor="rgba(0,0,0,0)"
+                              maxLength={1000}
+                              placeholder={'Type something...'}
+                              returnKeyType="next"
+                              multiline={true}
+                              underlineColorAndroid={'transparent'}
+                           />
+                        </ImageBackground>
+                     </View>
+                     :
+                     <Textarea
+                        onChangeText={(post_caption) =>
+                           setCaption(post_caption)}
+                        value={post_caption}
+                        blurOnSubmit={true}
+                        containerStyle={styles.textareaContainer}
+                        style={styles.textarea}
+                        maxLength={1000}
+                        placeholder={'Type something...'}
+                        returnKeyType="next"
+                        multiline={true}
+                        underlineColorAndroid={'transparent'}
+                     />
+                  }
+               </View>
+               <View >
+               </View>
+               <View style={{ fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', width: '100%', backgroundColor: '#F5F5F5' }} >
+                  <View style={{ fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', margin: 10, width: '100%', backgroundColor: '#F5F5F5' }}  >
+                     <Text style={
+                        { flexDirection: 'row', color: 'black', width: '92%', backgroundColor: '#F5F5F5' }} onPress={() => refRBSheet.current.open()}> Category : {categoryName}
+                     </Text>
+                     <Icon style={{ fontFamily: 'IBMPlexSans-Regular', padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
                   </View>
-               </RBSheet>
-            </View>
-            <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#F5F5F5' }} >
-               <SegmentedControl appearance='light' backgroundColor="#F5F5F5" selectedIndex={index} values={['Photo', 'Video', 'Text']} onChange={(event) => {
-                  setCaption('');
-                  setIndex(event.nativeEvent.selectedSegmentIndex);
-               }} />
-               {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}
-               {index == 0 || index == 1 ?
-                  index == 0 ?
-                     <TouchableOpacity
-                        style={styles.loginScreenButton}
-                        onPress={handleChoosePhoto}
-                        underlayColor='#fff'>
-                        <Text style={styles.loginText}>Choose Photo</Text>
-                     </TouchableOpacity>
-                     // <View style={{fontFamily : 'IBMPlexSans-Regular',  marginLeft : '25%' , marginRight : '25%',  backgroundColor: '#ffffff', justifyContent: 'center',  }}>
-                     //    <Button  color={} title="Choose Photo" onPress={handleChoosePhoto} />
+                  <RBSheet
+                     ref={refRBSheet}
+                     closeOnDragDown={true}
+                     closeOnPressMask={true}
+                     height={250}
+                     openDuration={500} >
+                     <Text style={{ fontFamily: 'IBMPlexSans-Regular', textAlign: 'center', fontWeight: 'bold' }} >Category   </Text>
+                     <Text onPress={() => refRBSheet.current.close()} style={{ fontFamily: 'IBMPlexSans-Regular', textAlign: 'right', fontWeight: 'bold' }} >Apply  </Text>
+                     <View>
+                        <RadioForm formHorizontal={false} initial={0} animation={true} >
+                           {
+                              Cats.map((item, i) => (
+                                 <RadioButton labelHorizontal={true} key={i} >
+                                    {/*  You can set RadioButtonLabel before RadioButtonInput */}
+                                    <RadioButtonInput
+                                       obj={item}
+                                       index={i}
+                                       isSelected={category === item.value}
+                                       borderWidth={2}
+                                       onPress={() => { categoryChange(item) }}
+                                       buttonOuterColor={'#944CD4'}
+                                       buttonInnerColor={'#B461FE'}
+                                       buttonSize={18}
+                                       buttonOuterSize={25}
+                                       buttonStyle={{}}
+                                       buttonWrapStyle={{ marginLeft: 25, paddingBottom: 20 }} />
+                                    <RadioButtonLabel
+                                       obj={item}
+                                       onPress={() => { categoryChange(item) }}
+                                       index={i}
+                                       labelHorizontal={false}
+                                       labelStyle={{ fontSize: 16, color: '#000000', paddingStart: 10, paddingBottom: 10 }}
+                                       labelWrapStyle={{}} />
+                                 </RadioButton>
+                              ))
+                           }
+                        </RadioForm>
+                     </View>
+                  </RBSheet>
+               </View>
+               <View style={{ fontFamily: 'IBMPlexSans-Regular', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#F5F5F5' }} >
+                  <SegmentedControl appearance='light' backgroundColor="#F5F5F5" selectedIndex={index} values={['Photo', 'Video', 'Text']} onChange={(event) => {
+                     setCaption('');
+                     setIndex(event.nativeEvent.selectedSegmentIndex);
+                  }} />
+                  {/* <SegmentedControl   selectedIndex={index}  values={['Photo', 'Video' , 'Text']}   onChange={handleTabs(event)}  /> */}
+                  {index == 0 || index == 1 ?
+                     index == 0 ?
+                        <TouchableOpacity
+                           style={styles.loginScreenButton}
+                           onPress={handleChoosePhoto}
+                           underlayColor='#fff'>
+                           <Text style={styles.loginText}>Choose Photo</Text>
+                        </TouchableOpacity>
+                        // <View style={{fontFamily : 'IBMPlexSans-Regular',  marginLeft : '25%' , marginRight : '25%',  backgroundColor: '#ffffff', justifyContent: 'center',  }}>
+                        //    <Button  color={} title="Choose Photo" onPress={handleChoosePhoto} />
+                        // </View>
+                        :
+                        <TouchableOpacity
+                           style={styles.loginScreenButton}
+                           onPress={selectVideo}
+                           underlayColor='#fff'>
+                           <Text style={styles.loginText}>Choose Video</Text>
+                        </TouchableOpacity>
+                     // <View>
+                     //    <TouchableOpacity>
+                     //       <Button title="Choose Video" onPress={selectVideo} />
+                     //    </TouchableOpacity>
                      // </View>
                      :
+                     <View></View>
+                  }
+                  {/* {ChildViewEliment()} */}
+                  <View style={{ fontFamily: 'IBMPlexSans-Regular', marginRight: 40, marginLeft: 40, }}>
                      <TouchableOpacity
-                        style={styles.loginScreenButton}
-                        onPress={selectVideo}
-                        underlayColor='#fff'>
-                        <Text style={styles.loginText}>Choose Video</Text>
+                        onPress={handleSubmitButton}
+                        style={Styles.journalBtn}
+                        activeOpacity={0.5} >
+                        <Text style={Styles.journalText}
+                        >Submit</Text>
                      </TouchableOpacity>
-                  // <View>
-                  //    <TouchableOpacity>
-                  //       <Button title="Choose Video" onPress={selectVideo} />
-                  //    </TouchableOpacity>
-                  // </View>
-                  :
-                  <View></View>
-               }
-               {/* {ChildViewEliment()} */}
-               <View style={{fontFamily : 'IBMPlexSans-Regular',  marginRight: 40, marginLeft: 40,}}>
-                  <TouchableOpacity
-                     onPress={handleSubmitButton}
-                     style={Styles.journalBtn}
-                     activeOpacity={0.5} >
-                     <Text style={Styles.journalText}
-                     >Submit</Text>
-                  </TouchableOpacity>
+                  </View>
+                  <View style={{ fontFamily: 'IBMPlexSans-Regular', height: 200, backgroundColor: '#F5F5F5' }} ></View>
                </View>
-               <View style={{fontFamily : 'IBMPlexSans-Regular', height: 200, backgroundColor: '#F5F5F5' }} ></View>
+
             </View>
-
-         </View>
-
+         </ScrollView>
       </View>
    );
 }
 const styles = StyleSheet.create({
    container_bg: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       flex: 1,
    },
    loginScreenButton: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       marginRight: 40,
       marginLeft: 40,
       marginTop: 10,
@@ -427,20 +427,20 @@ const styles = StyleSheet.create({
       borderColor: '#efefef'
    },
    loginText: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       color: '#000000',
       textAlign: 'center',
       paddingLeft: 10,
       paddingRight: 10
    },
    image_bg: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       flex: 1,
       // width : '30%'
       justifyContent: "center"
    },
    backgroundImage: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       height: 100,
       width: 100,
       position: 'relative',
@@ -451,13 +451,13 @@ const styles = StyleSheet.create({
       margin: 0
    },
    checked_bg_image: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       flex: 1,
       width: '30%',
       justifyContent: "center"
    },
    checkbox: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       fontWeight: 'bold',
       color: 'white',
       position: 'absolute',
@@ -468,43 +468,43 @@ const styles = StyleSheet.create({
 
    },
    text_bg: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       color: "black",
       fontWeight: "bold",
       textAlign: "center",
    },
    textAreaContainer: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       borderColor: '#efefef',
       borderWidth: 1,
    },
    textArea: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       paddingLeft: 10,
       paddingRight: 10,
       height: 150,
    },
    input: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       height: 40,
       margin: 12,
       borderWidth: 1,
    },
    container: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       flex: 1,
       padding: 30,
       justifyContent: 'center',
       alignItems: 'center',
    },
    textareaContainer: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       height: 180,
       padding: 5,
       backgroundColor: '#F5FCFF',
    },
    textareaContainerBg: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       height: 180,
       padding: 5,
       justifyContent: 'center',
@@ -512,7 +512,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0)',
    },
    textarea: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       textAlignVertical: 'top',  // hack android
       height: 170,
       fontSize: 14,
@@ -520,17 +520,17 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0)'
    },
    cat_title: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       textAlign: 'left',
       padding: 15,
       width: '100%'
    },
    radio: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       fontSize: 10
    },
    backgroundVideo: {
-      fontFamily : 'IBMPlexSans-Regular',
+      fontFamily: 'IBMPlexSans-Regular',
       position: 'absolute',
       top: 0,
       left: 0,
