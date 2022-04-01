@@ -10,7 +10,6 @@ import { useNavigation } from '@react-navigation/native';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import Echo from 'laravel-echo';
 //import socketio from 'socket.io-client';
-
 function Chats(props) {
   // const ws = useRef(null);
   const windowWidth = Dimensions.get('window').width;
@@ -50,8 +49,7 @@ function Chats(props) {
   const handleOnRefresh = () => {
     getUser()
   }
-  const _onRefresh = () => {
-    console.log('_onRefresh')
+  const _onRefresh = () => { 
     setRefreshing(true); 
   };
   const updateSearch = async (search) => {

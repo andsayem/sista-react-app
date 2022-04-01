@@ -213,22 +213,36 @@ function Newpost(props) {
    }
 
    return (
-      <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
+      <View>
+      <Header
+        leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
+          <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
+            onPress={() => props.navigation.toggleDrawer()} ></Icon>
+          <Text style={{ height : 40 ,   marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Add</Text>
+        </View>
+        }
+        rightComponent={{}}
+        // centerComponent={{ text: 'Inspire me', style: { fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E', fontSize: 20 } }}
+        // rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+        containerStyle={{ height : 80 , fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
+      />
+
+      {/* <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
          <Loader loading={loading} /> 
          <Header 
-          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
-            <Icon color={colors.black} size={30} name='menu'
-               onPress={() => navigation.toggleDrawer()} ></Icon>
-            <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Add</Text>
-          </View>
-          } 
+           leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
+           <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
+             onPress={() => navigation.toggleDrawer()} ></Icon>
+           <Text style={{ textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Inspire me</Text>
+         </View>
+         }
           rightComponent={{}}
           containerStyle={{
             fontFamily: 'IBMPlexSans-Regular',
             color: '1E1E1E',
             backgroundColor: '#F5F5F5',
             height : 90
-          }} />
+          }} /> */}
 
          <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
             <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
@@ -392,7 +406,7 @@ function Newpost(props) {
 
          </View>
 
-      </ScrollView>
+      </View>
    );
 }
 const styles = StyleSheet.create({

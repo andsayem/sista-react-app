@@ -54,8 +54,7 @@ export default class EventsDetails extends Component {
         var strTime = hours + ':' + minutes + '' + ampm;
         return strTime;
     }
-    eventRegister = () => {
-        console.log('Textfghjkl=============');
+    eventRegister = () => { 
     }
     render() {
         return (

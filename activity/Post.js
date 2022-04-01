@@ -53,8 +53,7 @@ class Post extends React.Component {
       }
     );
   }
-  report = async (id) => {
-    console.log(id);
+  report = async (id) => { 
     var dataToSend = {
       user_id: 1,
       post_id: id,
@@ -71,8 +70,7 @@ class Post extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         setLoading(false);
-        if (responseJson.success === true) {
-          console.log('This post report successful');
+        if (responseJson.success === true) { 
           //setSuccesstext({message:'This post report successful'});  
         } else {
         }
@@ -214,7 +212,7 @@ const styles = StyleSheet.create({
   },
   text_bg: {
     fontFamily: 'IBMPlexSans-Regular',
-    color: '#707070',
+    color: '#000000',
     fontSize: 13,
     textAlign: "center",
   },

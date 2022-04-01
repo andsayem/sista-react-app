@@ -81,8 +81,7 @@ export default class EventsList extends Component {
     GetGridViewItem(item) {
         Alert.alert(item);
     }
-    EventDetails = (item) => {
-        console.log('--------------------++++++++');
+    EventDetails = (item) => { 
         this.props.navigation.navigate("EventDetails", { item: item });
     }
     render() {

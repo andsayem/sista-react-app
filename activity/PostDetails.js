@@ -276,7 +276,7 @@ class PostDetails extends Component {
                               {this.state.userData.name}
                             </Text></ListItem.Title>
                           <ListItem.Subtitle  >
-                            <Text style={{ fontFamily: 'IBMPlexSans-Light', fontSize: 13, color: '#000000' }} >{moment(this.state.post_items.created_at).fromNow()}
+                            <Text style={{ fontFamily: 'IBMPlexSans-Light', fontSize: 13, color: '#000000' }} >{moment(this.state.post_items.created_at).fromNow('hh')}
                             </Text>
                           </ListItem.Subtitle>
                         </ListItem.Content>

@@ -104,8 +104,7 @@ function App() {
   }
 
   //useEffect(() => { readData() },[getToken])  
-  useEffect(() => {
-    // console.log('useEffect..............................ddddddddddddd');
+  useEffect(() => { 
     let fontName = 'IBMPlexSans-Regular'
     GlobalFont.applyGlobal(fontName)
   }, [getToken])

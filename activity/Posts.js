@@ -54,8 +54,7 @@ class Posts extends Component {
 
   /* React get method.  */
 
-  fatchData = async () => {
-    //console.log('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page);
+  fatchData = async () => { 
     api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
       .then(response => response.data.data)
       .then((json) => {

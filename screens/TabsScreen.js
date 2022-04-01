@@ -47,9 +47,7 @@ function TabsScreen(props) {
             : <Image source={require('../img/icon/home.png')} />
           ), 
           tabBarOnPress: () => {
-            props.navigation.navigate("Posts");
-            // console.log('onPress:');
-            // jumpToIndex(scene.index);
+            props.navigation.navigate("Posts"); 
           },
         })} />
       <Tab.Screen name="Chats" component={Chats}
