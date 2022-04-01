@@ -17,6 +17,7 @@ import Styles from "../styles";
 import RBSheet from "react-native-raw-bottom-sheet";
 import AutoHeightImage from 'react-native-auto-height-image';
 import VideoPlayer from 'react-native-video-player';
+import moment from 'moment';
 import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
@@ -44,6 +45,7 @@ class PostDetails extends Component {
     this.state = {
       items: [],
       post_items: [],
+      userData: [],
       like: '',
       liked: false,
       isLoading: false,
@@ -93,6 +95,7 @@ class PostDetails extends Component {
       .then(response => {
         this.setState({ post_items: response.data.data })
         this.setState({ items: response.data.data.all_comments })
+        this.setState({ userData: response.data.data.userjoin })
       })
       .finally(() => this.setState({ isLoading: false }))
   }
@@ -217,12 +220,12 @@ class PostDetails extends Component {
     let { items, isLoading } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <Header 
-          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
+        <Header
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
             <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
             {/* <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : -5 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>About My Sista's KeepHer</Text> */}
           </View>
-          } 
+          }
           rightComponent={{}}
           containerStyle={{
             fontFamily: 'IBMPlexSans-Regular',
@@ -234,9 +237,9 @@ class PostDetails extends Component {
         <ScrollView>
           {this.state.post_items ?
             <View style={styles.header}>
-              <View style={{fontFamily : 'IBMPlexSans-Regular', borderRadius: 10 }}>
+              <View style={{ fontFamily: 'IBMPlexSans-Regular', borderRadius: 10 }}>
                 {this.state.post_items.post_type == 3 ?
-                  <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20 }}  >
+                  <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20 }}  >
                     <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
                       <Text numberOfLines={5} style={styles.text_bg}>{this.state.post_items.caption}  </Text>
                     </ImageBackground>
@@ -263,7 +266,24 @@ class PostDetails extends Component {
                         source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
                       />
                     }
-                    <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+                    <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#FEFEFE", width: '100%' }}>
+                      <ListItem style={{ height: 75 }} >
+                        <Avatar rounded size="medium"
+                          source={this.state.userData ? { uri: this.state.userData.pro_image } : null} />
+                        <ListItem.Content >
+                          <ListItem.Title>
+                            <Text style={{ fontFamily: 'IBMPlexSans-SemiBold', fontSize: 15, color: '#0D0E10' }} >
+                              {this.state.userData.name}
+                            </Text></ListItem.Title>
+                          <ListItem.Subtitle  >
+                            <Text style={{ fontFamily: 'IBMPlexSans-Light', fontSize: 13, color: '#000000' }} >{moment(this.state.post_items.created_at).fromNow()}
+                            </Text>
+                          </ListItem.Subtitle>
+                        </ListItem.Content>
+                      </ListItem>
+                      <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+                    </View>
+
                   </View>
                 }
 
@@ -272,28 +292,33 @@ class PostDetails extends Component {
 
               {/* <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
               style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 130 }} /> */}
-              <View style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 20, flexDirection: "row", width: '100%' }}>
-                <View style={{fontFamily : 'IBMPlexSans-Regular', marginStart: 30, flexDirection: "row", width: '25%' }}>
+              <View style={{ fontFamily: 'IBMPlexSans-Regular', paddingTop: 10, flexDirection: "row", width: '100%' }}>
+                <View style={{ fontFamily: 'IBMPlexSans-Regular', marginStart: 30, flexDirection: "row", width: '20%' }}>
                   <TouchableOpacity onPress={() => this.handleLikePost(this.state.post_items.id)}
                     activeOpacity={0.5} >
                     {this.state.post_items.liked ?
-                      <Text><IconAnt name="heart" size={23} color="#FF5D8F" /> </Text>
+                      <Text><IconAnt name="heart" size={23} color="#FF3D79" /> </Text>
                       :
-                      <Text><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
+                      <Text><IconAnt name="hearto" size={23} color="#FF3D79" /> </Text>
                     }
                   </TouchableOpacity>
-                  <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10 }}>{this.state.post_items.like}</Text>
+                  <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10, color: "#929292" }}>{this.state.post_items.like} </Text>
                 </View>
-                <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", width: '28%' }}>
-                  <Text ><IconOct name="comment" size={23} color="#FF5D8F" /> </Text>
-                  <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 12 }}>{this.state.post_items.comment}</Text>
+                <View style={{ fontFamily: 'IBMPlexSans-Regular', flexDirection: "row", width: '20%' }}>
+                  <Text ><IconOct name="comment" size={23} color="#B461FE" /> </Text>
+                  <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 12, color: "#929292" }}>{this.state.post_items.comment}</Text>
+                  
                 </View>
-                <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", width: '30%' }}>
-                  <IconFea name="share" size={23} color="#FF5D8F" />
+                <View style={{ fontFamily: 'IBMPlexSans-Regular', flexDirection: "row", width: '20%' }}>
+                  <IconFea name="share" size={23} color="#B461FE" />
                 </View>
-                <Text style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
-                  <IconEnt onPress={() => this.RBSheet.open()} name="dots-three-vertical" size={23} color="#FF5D8F" />
-                </Text>
+                <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '27%' }}>
+                  <Text onPress={() => this.RBSheet.open()} style={{ fontFamily: 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
+                    <Text style={{ fontFamily: 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
+                      <IconEnt name="dots-three-vertical" size={20} color="#B461FE" />
+                    </Text>
+                  </Text>
+                </View>
                 <RBSheet
                   ref={ref => {
                     this.RBSheet = ref;
@@ -307,10 +332,10 @@ class PostDetails extends Component {
                     }
                   }}
                 >
-                  <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
+                  <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%' }}>
                     <Text style={[Styles.share_item, { color: '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
                     <Text style={[Styles.share_item, { color: '#F00' }]}> <IconMat name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
-                    <Text style={Styles.share_item}> <IconIonic name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
+                    {/* <Text style={Styles.share_item}> <IconIonic name="copy-outline" size={16} color="#000000" /> Copy Link</Text> */}
                     <Text style={Styles.share_item}> <IconAnt name="sharealt" size={16} color="#000000" /> Share To....</Text>
                     <Text style={Styles.share_item}> <IconFea name="bookmark" size={16} color="#000000" /> Save</Text>
                   </View>
@@ -322,7 +347,7 @@ class PostDetails extends Component {
           <Toast visible={this.state.errortext} message={this.state.errortext} />
           {
             this.state.items ?
-              <FlatList style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 30, paddingBottom: 30 }}
+              <FlatList style={{ fontFamily: 'IBMPlexSans-Regular', paddingTop: 3, paddingBottom: 30 }}
                 data={Object.values(this.state.items)}
                 renderItem={this.renderRow}
                 refreshing={isLoading}
@@ -343,7 +368,7 @@ class PostDetails extends Component {
         </ScrollView>
         <View style={styles.main_footer} >
           <View style={styles.footer}>
-            <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
+            <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
               <TextInput
                 onChangeText={(test) => {
                   this.setState({ post_comment: test },
@@ -355,7 +380,8 @@ class PostDetails extends Component {
                 placeholder="Type Here..."
                 multiline={true}
                 placeholderTextColor={'white'}
-                style={{fontFamily : 'IBMPlexSans-Regular',
+                style={{
+                  fontFamily: 'IBMPlexSans-Regular',
                   backgroundColor: '#944CD4',
                   width: '100%',
                   alignSelf: 'center'
@@ -390,18 +416,19 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: 'IBMPlexSans-Regular',
     backgroundColor: '#fff',
-    top: 20,
+    // top: 20,
     width: '100%',
     borderRadius: 15,
     paddingBottom: 20,
     marginBottom: 10
   },
   caption: {
-    fontFamily: 'IBMPlexSans-Regular',
-    paddingTop: 5,
-    textAlign: 'center',
-    fontSize: 18,
-    color: "#535353"
+    lineHeight: 25,
+    letterSpacing: 0.5,
+    fontFamily: 'IBMPlexSans-Medium',
+    paddingLeft: 15,
+    fontSize: 12,
+    color: "#565656"
   },
   main_footer: {
     fontFamily: 'IBMPlexSans-Regular',
