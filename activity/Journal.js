@@ -74,30 +74,37 @@ class Journal extends Component {
     const { liked, like, props } = item
     return (
       <ListItem
-        style={{fontFamily : 'IBMPlexSans-Regular',
+        style={{
+          fontFamily: 'IBMPlexSans-Regular',
           flex: 1,
           flexDirection: 'column',
-          margin: 6,
+          margin: 10,
           //borderStyle: 'solid', 
           // borderWidth: 1,
           borderColor: '#ABABAB',
           borderRadius: 7,
-          borderWidth: 1,
           overflow: 'hidden',
-          shadowColor: '#efefefe',
           shadowRadius: 10,
-          shadowOpacity: 1,
+
+          marginLeft: 10,
+          backgroundColor: 'white',
+          shadowColor: '#1C1C1C',
+          alignItems: 'center',
+          shadowOffset: { width: 3, height: 3 },
+          shadowOpacity: 1.0,
+          elevation: 10,
 
         }}>
         <ListItem.Content
-          style={{fontFamily : 'IBMPlexSans-Regular',
+          style={{
+            fontFamily: 'IBMPlexSans-Regular',
           }}>
-          <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}
+          <ListItem.Title style={{ fontFamily: 'IBMPlexSans-Medium', fontSize: 12, paddingBottom: 8 }}
             onPress={() => this.onPressJournalDetails(item.id)} >
             {item.title}
           </ListItem.Title>
-          <Text numberOfLines={this.state.numLines} style={{fontFamily : 'IBMPlexSans-Regular', color: '#707070' }} > {item.details}</Text>
-          <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontSize: 18, paddingTop: 8 }}>
+          <Text numberOfLines={this.state.numLines} style={{ fontFamily: 'IBMPlexSans-Regular', color: '#707070', fontSize: 10 }} > {item.details}</Text>
+          <ListItem.Title style={{ fontFamily: 'IBMPlexSans-Medium', fontSize: 10, paddingTop: 8 }}>
             {this.getData(item.created_at)}
           </ListItem.Title>
         </ListItem.Content>
@@ -114,7 +121,7 @@ class Journal extends Component {
           </View>
         ) : (
           <View>
-            {this.state.refreshing ? (<Text style={styles.title}>Please wait a moment</Text>) : (<Text style={styles.title}>No more Data...</Text>)}
+            {this.state.refreshing ? (<Text style={styles.title}>Please wait a moment</Text>) : (<Text style={styles.title}>...</Text>)}
           </View>
         )}
       </View>
@@ -123,14 +130,14 @@ class Journal extends Component {
   render() {
     let { items, isLoading } = this.state;
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor:'#fff', margin:0}}>
         <Header
-         leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
-         <Icon color={colors.black} size={30} name='menu'
-           onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
-         <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Journal</Text>
-       </View>
-       }  
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
+            <Icon color={colors.black} size={30} name='menu'
+              onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
+            <Text style={{ paddingTop: 0, paddingLeft: 10, marginTop: 0, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Journal</Text>
+          </View>
+          }
           rightComponent={
             <IconEnt name="dots-three-vertical" size={25} color="#1E1E1E"
               onPress={() => this.RBSheet.open()} />
@@ -138,12 +145,12 @@ class Journal extends Component {
           containerStyle={{
             fontFamily: 'IBMPlexSans-Regular',
             color: '1E1E1E',
-            backgroundColor: '#F5F5F5',
-            height : 90
-          }} 
+            backgroundColor: '#E4E4E4',
+            height: 90
+          }}
         />
 
-        
+
         <RBSheet
           ref={ref => {
             this.RBSheet = ref;
@@ -157,33 +164,40 @@ class Journal extends Component {
             }
           }}
         >
-          <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
+          <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%' }}>
             <Text onPress={this.changeView} style={Styles.share_item}>{this.state.btnText}</Text>
             {/* <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text> */}
 
           </View>
         </RBSheet>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          style={{fontFamily : 'IBMPlexSans-Regular',
-            backgroundColor: '#ffffff'
-          }}
-          data={Object.values(this.state.items)}
-          renderItem={this.renderRow}
-          key={(this.state.gridView) ? 1 : 0}
-          numColumns={this.state.gridView ? 2 : 1}
-          refreshing={isLoading}
-          extraData={this.state}
-          ListFooterComponent={this.renderFooter}
-          onEndReachedThreshold={0.5}
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          onRefresh={this.fatchData}
-        />
-       
+        <View style={{
+          paddingBottom: 200
+        }}>
+          <FlatList
+            keyExtractor={(item) => item.id}
+            style={{
+              fontFamily: 'IBMPlexSans-Regular',
+              backgroundColor: '#ffffff',
+              paddingTop: 10,
+            }}
+            data={Object.values(this.state.items)}
+            renderItem={this.renderRow}
+            key={(this.state.gridView) ? 1 : 0}
+            numColumns={this.state.gridView ? 2 : 1}
+            refreshing={isLoading}
+            extraData={this.state}
+            ListFooterComponent={this.renderFooter}
+            onEndReachedThreshold={0.5}
+            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+            onRefresh={this.fatchData}
+          />
+        </View>
+
         <View style={styles.submitButton}>
           <TouchableOpacity
 
-            style={{fontFamily : 'IBMPlexSans-Regular',
+            style={{
+              fontFamily: 'IBMPlexSans-Regular',
               width: "100%",
               backgroundColor: "#944CD4",
               borderRadius: 25,
@@ -193,8 +207,8 @@ class Journal extends Component {
               textAlign: "center",
               marginTop: 20,
               marginBottom: 20,
-              paddingLeft : 15,
-              paddingRight :  15  
+              paddingLeft: 15,
+              paddingRight: 15
 
             }}
             activeOpacity={0.5}
@@ -202,7 +216,7 @@ class Journal extends Component {
             <Text style={Styles.journalText}
             >Create a new Journal</Text>
           </TouchableOpacity>
-        </View> 
+        </View>
       </SafeAreaView>
     )
   }
@@ -210,52 +224,53 @@ class Journal extends Component {
 
 const styles = StyleSheet.create({
   submitButton: {
-    fontFamily : 'IBMPlexSans-Regular',
-    width :'100%',
+    fontFamily: 'IBMPlexSans-Regular',
+    width: '100%',
     position: 'absolute',
     bottom: 65,
+    paddingBottom:10,
     padding: 0,
     margin: 0,
     backgroundColor: 'rgba(52, 52, 52, 0)',
-    alignItems: 'center', 
+    alignItems: 'center',
     flex: 1,
-    margin : 'auto',
-    paddingLeft : '20%',
-    paddingRight : '20%'
+    margin: 'auto',
+    paddingLeft: '20%',
+    paddingRight: '20%'
   },
 
   container: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 16,
   },
   title: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
   fixToText: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   separator: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   horizontal: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10
   },
   activityIndicator: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     top: '50%',
     justifyContent: 'center',
     marginTop: '50%',

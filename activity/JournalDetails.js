@@ -98,7 +98,7 @@ class JournalDetails extends Component {
                         <Text style={{ paddingTop: 0, paddingLeft: 10, marginTop: -5, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Journal Details</Text>
                     </View>
                     }
-                    
+
                     rightComponent={{}}
                     containerStyle={{
                         fontFamily: 'IBMPlexSans-Regular',
@@ -113,14 +113,17 @@ class JournalDetails extends Component {
                         flex: 1,
                         flexDirection: 'column',
                         margin: 6,
-                        borderStyle: 'solid',
-                        borderWidth: 1,
                         borderColor: '#ABABAB',
                         borderRadius: 7,
                         overflow: 'hidden',
                         shadowColor: '#efefefe',
                         shadowRadius: 10,
-                        shadowOpacity: 1,
+
+                        shadowColor: '#1C1C1C',
+                        alignItems: 'center',
+                        shadowOffset: { width: 3, height: 3 },
+                        shadowOpacity: 1.0,
+                        elevation: 10,
                     }}>
                         <ListItem.Content
                             style={{
@@ -129,9 +132,9 @@ class JournalDetails extends Component {
                             <ListItem.Title style={{ fontFamily: 'IBMPlexSans-Regular', fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}  >
                                 {this.state.journal_items.title}
                             </ListItem.Title>
-                            <Text style={{ color : '#000000'}} numberOfLines={this.state.numLines} >{this.state.journal_items.details}</Text>
+                            <Text style={{ color: '#000000' }} numberOfLines={this.state.numLines} >{this.state.journal_items.details}</Text>
                             <ListItem.Title style={{ fontFamily: 'IBMPlexSans-Regular', fontSize: 18, paddingTop: 8 }}>
-                                { this.state.journal_items.created_at ? this.getData(this.state.journal_items.created_at) : ''}
+                                {this.state.journal_items.created_at ? this.getData(this.state.journal_items.created_at) : ''}
                             </ListItem.Title>
                         </ListItem.Content>
                     </ListItem>
