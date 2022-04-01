@@ -86,25 +86,35 @@ function App() {
   // props.navigation.dispatch(resetAction)
 
   const readData = async () => {
-    try {
+    const user = await AsyncStorage.getItem(STORAGE_KEY);
       const token = await AsyncStorage.getItem(TOKEN);
-      setToken(token);
-      if (getToken) {
-        setInitialRoute('Tabs');
-      } else {
-        props.navigation.navigate("AppTutorial");
-        setInitialRoute('Login');
-      }
-    } catch (e) {
-      //alert('Failed to fetch the data app' ) 
-      //navigate('Login');
-      setInitialRoute('AppTutorial');
-      //props.navigation.navigate("Login");
+      setInitialRoute("Home");
+ 
+    if ((token) && (user)) {
+      props.navigation.navigate("Home");
+      // setInitialRoute("Home");
     }
+
+    // try {
+    //   const token = await AsyncStorage.getItem(TOKEN);
+    //   setToken(token);
+    //   if (getToken) {
+    //     setInitialRoute('Tabs');
+    //   } else {
+    //     props.navigation.navigate("AppTutorial");
+    //     setInitialRoute('Login');
+    //   }
+    // } catch (e) {
+    //   //alert('Failed to fetch the data app' ) 
+    //   //navigate('Login');
+    //   setInitialRoute('AppTutorial');
+    //   //props.navigation.navigate("Login");
+    // }
   }
 
-  //useEffect(() => { readData() },[getToken])  
-  useEffect(() => { 
+  useEffect(() => { readData() },[getToken])  
+  useEffect(() => {
+    // console.log('useEffect..............................ddddddddddddd');
     let fontName = 'IBMPlexSans-Regular'
     GlobalFont.applyGlobal(fontName)
   }, [getToken])
