@@ -14,7 +14,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 const STORAGE_KEY = 'save_user';
 //Pusher.logToConsole = true;
-const TOKEN = 'token';
+const TOKEN = 'token'; 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height; 
+
 // var pusher = new Pusher(helpers.pusherConfig().app_key, {
 //   cluster: helpers.pusherConfig().app_key
 // });
@@ -158,6 +161,10 @@ class Chating extends Component {
       </Text>
     );
   }
+
+  validation = () => {
+    //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
+  }
   render() {
     let { items, isLoading } = this.state;
     return (
@@ -193,33 +200,35 @@ class Chating extends Component {
         <View style={styles.footer}>
           <ScrollView horizontal>
             <View style={styles.textAreaContainer} >
-            <TouchableOpacity >
+              <TouchableOpacity >
               <Entypo size={25} name='camera' color='#9E9E9E' style={{marginTop:6}}></Entypo>
               </TouchableOpacity>
               <TextInput 
+                style={{
+                width:this.state.windowWidth-130 }}
                 onChangeText={(test) => this.setState({ send_message: test }, this.setState({ errortext: false }))}
-                value={this.state.send_message}
-                blurOnSubmit={true}
-                onBlur={() => this.validation()}
+                value={this.state.send_message} 
+                blurOnSubmit={true} 
                 underlineColorAndroid="transparent"
                 placeholder="Type something"
                 multiline={true}
               />
             </View> 
-              <TouchableOpacity
+            
+            <View style={{ flexDirection: 'row', paddingTop:6 }}>
+              <TouchableOpacity 
                 onPress={this.handleSubmitButton}
-                style={styles.submit} >
-                <View style={{flexDirection: 'row', }}>
+                style={styles.submit} > 
+                <View>
                 {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" /> :
                   <Icon size={35} name='sc-telegram' type='evilicon' color='#0000ff'></Icon>
-                }  
+                }   
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <View style={{ flexDirection: 'row', }}> 
-                <Icon size={35} name='like' type='evilicon' color='#5C6BC0'></Icon>
-                </View>
+              <TouchableOpacity> 
+                <Icon size={35} name='like' type='evilicon' color='#5C6BC0'></Icon> 
               </TouchableOpacity>  
+              </View>
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -240,21 +249,19 @@ const styles = StyleSheet.create({
     elevation: 5,  
   },
   footer: {
+    flex:1,
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 5
   },
-  textAreaContainer: { 
+  textAreaContainer: {  
     flex:1,
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    paddingHorizontal:10,
-    padding:5,
-    width: 300, 
+    backgroundColor: '#fff', 
+    padding:3,
+    width: '100%', 
   }, 
-  submit: {
-    marginTop: 2,
-    paddingTop: 0,
+  submit: {    
   },
   container:{
     flex:1, 
