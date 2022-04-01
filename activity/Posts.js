@@ -6,8 +6,7 @@ import api from '../api';
 import { ListItem, colors, Icon, Header } from 'react-native-elements';
 import Events from '../components/Events';
 import Categories from '../components/Categories';
-import Post from './Post';
-import Styles from "../styles";
+import Post from './Post'; 
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native-paper';
 import Pusher from 'pusher-js/react-native';
@@ -34,16 +33,10 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    this._isMounted = true;
-    
+    this._isMounted = true; 
     this.focusListener = this.props.navigation.addListener('focus',
-      () => { 
-        this.handleResetParam()
-        console.log('pahfffff======= ',this.state.page)
-        if (this._isMounted) {
-          this.fatchData();
-        }
-        
+      () => {  
+        this.handleResetParam()         
       });
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
@@ -58,7 +51,7 @@ class Posts extends Component {
 
   fatchData = async () => {
     //console.log('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page);
-    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + (this._isMounted?1:this.state.page))
+    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
       .then(response => response.data.data)
       .then((json) => {
         if (json.length > 1) {
@@ -84,18 +77,8 @@ class Posts extends Component {
       let isMounted = true;
       this.fatchData().then(data => {
         isMounted = false
-      })
-      // return () => { isMounted = false };
-    }, [])
-
-    // useEffect(() => {
-    //   let isMounted = true;               // note mutable flag
-    //   someAsyncOperation().then(data => {
-    //     if (isMounted) setState(data);    // add conditional check
-    //   })
-    //   return () => { isMounted = false }; // cleanup toggles value, if unmounted
-    // }, []);   
-
+      }) 
+    }, []) 
     return (
       <View style={{ fontFamily: 'IBMPlexSans-Regular', height: 60, marginBottom:100 }}>
         {this.state.moreLoding ? (
@@ -183,7 +166,9 @@ class Posts extends Component {
 
   }
   handleResetParam = () => {
-    this.setState({ items: [], page: 0 });
+    this.setState({ items: [], page: 0, cat_id: '' }, function () {
+      this.fatchData();
+    }); 
   }
   componentWillUnmount() {
     this._isMounted = false;
@@ -227,9 +212,7 @@ class Posts extends Component {
               onRefresh={this.handleOnRefresh}
               ListHeaderComponent={
                 <View>
-                  <Events  style={{marginHorizontal:-10}}/>
-
-                  
+                  <Events  style={{marginHorizontal:-10}}/> 
                     <Categories
                       cat_id={this.state.cat_id}
                       handleAllPost={this.handlePostCates}
