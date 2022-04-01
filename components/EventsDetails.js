@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View, BackHandler } from "react-native";
 import { colors, Icon, Header } from 'react-native-elements';
 import api from '../api';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 export default class EventsDetails extends Component {
     constructor(props) {
         super(props);
@@ -26,14 +27,7 @@ export default class EventsDetails extends Component {
     handleBackButtonClick() {
         return true;   // when back button don't need to go back 
     }
-    // getEvent = async => {
-    //     api.getData('events/'+this.props.route.params.id)
-    //         .then((res) => {
-    //             this.setState({ item: res.data.data });
-    //         })
-    //         .catch((error) => {
-    //         })
-    // };
+    
     getData = (data, type) => {
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "December"
@@ -66,13 +60,26 @@ export default class EventsDetails extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header
+                <Header 
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
+            <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
+            <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : -5 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Events</Text>
+          </View>
+          } 
+          rightComponent={{}}
+          containerStyle={{
+            fontFamily: 'IBMPlexSans-Regular',
+            color: '1E1E1E',
+            backgroundColor: '#E4E4E4',
+            height : 90
+          }} />
+                {/* <Header
                     leftComponent={<View>
                         <Icon color={colors.black} size={30} name='menu'
                             onPress={() => props.navigation.toggleDrawer()} ></Icon>
                     </View>}
                     centerComponent={{ text: 'Events', style: { color: '#1E1E1E', fontSize: 20, textAlign: 'left' } }}
-                    containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }} />
+                    containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }} /> */}
                 <View style={{ height: 200 }}>
                     <ImageBackground source={this.state.img} resizeMode="cover" style={styles.image_bg} >
                         <Text style={{ color: '#ffffff', textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}> {this.state.item.title}</Text>

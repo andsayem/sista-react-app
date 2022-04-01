@@ -88,14 +88,29 @@ export default class EventsList extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header
+                {/* <Header
                     leftComponent={<View>
                         <Icon color={colors.black} size={30} name='menu'
                             onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
                     </View>}
                     centerComponent={{ text: 'Events', style: { color: '#1E1E1E', fontSize: 20, textAlign: 'left' } }}
                     containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }}
-                />
+                /> */}
+                       <Header
+         leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
+         <Icon color={colors.black} size={30} name='menu'
+           onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
+         <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Events</Text>
+       </View>
+       }  
+          rightComponent={{}}
+          containerStyle={{
+            fontFamily: 'IBMPlexSans-Regular',
+            color: '1E1E1E',
+            backgroundColor: '#E4E4E4',
+            height : 90
+          }} 
+        />
                 <FlatList
                     style={{ margin: 10 }}
                     data={this.state.items}

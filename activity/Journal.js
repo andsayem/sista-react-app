@@ -130,10 +130,7 @@ class Journal extends Component {
            onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
          <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : 0 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Journal</Text>
        </View>
-       } 
-          // leftComponent={<Icon color={colors.black} size={30} name='menu'
-          //   onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
-         // centerComponent={{ text: 'Journal', style: { color: '#1E1E1E', fontSize: 20 } }}
+       }  
           rightComponent={
             <IconEnt name="dots-three-vertical" size={25} color="#1E1E1E"
               onPress={() => this.RBSheet.open()} />
