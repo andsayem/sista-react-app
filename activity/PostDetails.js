@@ -358,13 +358,13 @@ class PostDetails extends Component {
                 onRefresh={this.fatchData}
               /> : <View>Empty</View>
           }
-          <View>
+          {/* <View>
             {this.state.reply_to_name ?
 
               <Text>{this.state.reply_to_name} <Text onPress={this.handleCancelButton} >Cancel</Text> </Text>
 
               : <View></View>}
-          </View>
+          </View> */}
         </ScrollView>
         <View style={styles.main_footer} >
           <View style={styles.footer}>

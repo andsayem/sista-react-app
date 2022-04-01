@@ -8,6 +8,7 @@ import Styles from "../styles";
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
 import { useHistory } from "react-router-dom";
+import IconFea from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
@@ -102,7 +103,7 @@ function LoginScreen(props) {
     } else {
       setLoading(false);
     }
-    axios.post(helpers.baseurl()+'api/auth/login',
+    axios.post(helpers.baseurl() + 'api/auth/login',
       {
         email: userEmail,
         password: userPassword
@@ -112,21 +113,21 @@ function LoginScreen(props) {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => { 
+      .then((res) => {
         let userData = res.data;
         if (userData.status === 1) {
           setLoginData(res.data);
           saveToken(userData.access_token);
           saveData(userData.user);
-          setUserData(userData) 
+          setUserData(userData)
           props.navigation.navigate("Home");
-          
+
         } else {
           setErrortext({ message: 'Your User or password wrong!' });
         }
         // props.navigation.navigate("Home");
         setLoading(false);
-      }).catch(function (error) { 
+      }).catch(function (error) {
         setLoading(false);
       });
   };
@@ -142,11 +143,11 @@ function LoginScreen(props) {
   }
 
   const saveData = async (loginData) => {
-    try { 
+    try {
       let userData = JSON.stringify(loginData);
       await AsyncStorage.setItem(STORAGE_KEY, userData)
       setSuccesstext({ message: 'Data successfully saved' });
-    } catch (e) { 
+    } catch (e) {
       setErrortext({ message: 'Failed to save the data to the storage' });
     }
   }
@@ -166,7 +167,7 @@ function LoginScreen(props) {
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({}));
       props.navigation.navigate("Home");
-    } catch (err) { 
+    } catch (err) {
     }
   }
 
@@ -204,13 +205,43 @@ function LoginScreen(props) {
 
   return (
     <ScrollView>
-      <View style={Styles.container} >
+      <View style={{
+        fontFamily: 'IBMPlexSans-Regular',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        paddingTop: 20,
+      }} >
         <Loader loading={loading} />
-        <Text style={Styles.title} >Login </Text>
-        <Text style={Styles.sub_title} >Get in touch with your inner artist and
+        <Text style={{
+          fontFamily: 'IBMPlexSans-Regular',
+          width: "80%",
+          paddingLeft: 15,
+          fontSize: 24,
+          // fontWeight: 'bold',
+          textAlign: "left"
+        }} >Login </Text>
+        <Text style={{
+          fontFamily: 'IBMPlexSans-Light',
+          width: "80%",
+          paddingLeft: 15,
+          paddingTop: 15,
+          color: "#929292",
+          fontSize: 14,
+          textAlign: "left"
+        }} >Get in touch with your inner artist and
           a community of other creatives  </Text>
         <Image style={Styles.logo} source={require('../img/Screenshot_1.png')} />
-        <Text style={Styles.lebel} >E-mail address</Text>
+        <Text style={{
+          fontFamily: 'IBMPlexSans-Light',
+          width: "80%",
+          color: "#383838",
+          paddingLeft: 15,
+          fontSize: 12,
+          textAlign: "left"
+        }} >E-mail address</Text>
 
         <View style={{
           flexDirection: 'row',
@@ -246,7 +277,14 @@ function LoginScreen(props) {
 
         </View>
         <Text
-          style={Styles.lebel} >Password</Text>
+          style={{
+            fontFamily: 'IBMPlexSans-Light',
+            width: "80%",
+            color: "#383838",
+            paddingLeft: 15,
+            textAlign: "left",
+            fontSize: 12
+          }} >Password</Text>
         <View style={{
           flexDirection: 'row',
           justifyContent: 'center',
@@ -255,15 +293,16 @@ function LoginScreen(props) {
           borderColor: '#efefef',
           height: 50,
           borderRadius: 25,
-          margin: 10, backgroundColor: passFocusStyle.backgroundColor,
+          marginTop: 10, backgroundColor: passFocusStyle.backgroundColor,
           color: passFocusStyle.color
         }}>
 
-          <Icon color={passFocusStyle.iconColor} style={{ padding: 10 }} type='font-awesome' name="key" size={20} />
+          {/* <Icon color={passFocusStyle.iconColor} style={{ padding: 10 }} type='font-awesome' name="key" size={20} /> */}
 
+          <IconFea color={passFocusStyle.iconColor} style={{ padding: 10 }} name="lock" size={23} />
           <TextInput
             style={{
-              width: '65%',
+              width: '61%',
               color: passFocusStyle.inputColor
             }}
             onChangeText={(UserPassword) =>
@@ -277,10 +316,20 @@ function LoginScreen(props) {
             blurOnSubmit={false}
             secureTextEntry={passtype}
             returnKeyType="next" />
-          <Icon color={passFocusStyle.iconColor} style={{ padding: 10 }} onPress={() => { _changeIcon() }} name={getEye} type='font-awesome' size={20} />
+          <View style={{ paddingRight: 10 }}>
+            <Icon color={passFocusStyle.iconColor} style={{ padding: 0 }} onPress={() => { _changeIcon() }} name={getEye} type='font-awesome' size={20} />
+
+          </View>
         </View>
         <Text title="Forgot Password" onPress={handleForgotPasswordPress}
-          style={Styles.lebel_right} >Forgot password?</Text>
+          style={{
+            width: "80%",
+            paddingRight: 15,
+            paddingTop: 20,
+            underline: { textDecorationLine: 'underline' },
+            fontSize: 12,
+            textAlign: "right"
+          }} >Forgot password?</Text>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} />
 
@@ -295,7 +344,7 @@ function LoginScreen(props) {
         </TouchableOpacity>
 
       </View>
-    </ScrollView>
+    </ScrollView >
   );
 }
 
