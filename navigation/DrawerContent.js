@@ -62,7 +62,7 @@ export function DrawerContent(props) {
   });
   return (
 
-    <LinearGradient style={{ flex: 1 }} colors={['#AD76D6', '#985BC6', '#424241']} >
+    <LinearGradient style={{ flex: 1 }} colors={['#AD76D6','#823FB5']} >
       <ScrollView style={{ flex: 1, }}>
         <DrawerContentScrollView {...props} >
           <View style={styles.drawerContent}>
@@ -83,11 +83,11 @@ export function DrawerContent(props) {
             onPress={() => { props.navigation.navigate('Tabs') }}
             label={() => <Text style={{ color: '#fff' }}>Home</Text>}
           />
-          <DrawerItem
+          {/* <DrawerItem
             color='#fff'
             onPress={() => { props.navigation.navigate('Quizzes') }}
             label={() => <Text style={{ color: '#fff' }}>Quizzes</Text>}
-          />
+          /> */}
           <DrawerItem
             style={{ color: '#fff' }}
             onPress={() => { props.navigation.navigate('Product') }}
@@ -99,8 +99,7 @@ export function DrawerContent(props) {
             label={() => <Text style={{ color: '#fff' }}>Settings</Text>}
           />
           <DrawerItem
-            style={{ color: '#fff' }}
-            onPress={() => { props.navigation.navigate('AppInformation') }}
+            style={{ color: '#fff' , backgroundColor : '#E2C4FC'}}
             label={() => <Text style={{ color: '#fff' }}>App Information</Text>}
           />
           <DrawerItem
@@ -112,10 +111,10 @@ export function DrawerContent(props) {
             onPress={() => { facebookShare() }}
             label={() => <Text style={{ color: '#fff' }}>Share app</Text>}
           />
-          <DrawerItem
+          {/* <DrawerItem
             onPress={() => { props.navigation.navigate('RatingApp') }}
             label={() => <Text style={{ color: '#fff' }}>Rate Us</Text>}
-          />
+          /> */}
           <DrawerItem
             onPress={() => { props.navigation.navigate('Support') }}
             label={() => <Text style={{ color: '#fff' }}>Support</Text>}
@@ -123,11 +122,7 @@ export function DrawerContent(props) {
           <DrawerItem
             onPress={() => { props.navigation.navigate('PrivacyPolicy') }}
             label={() => <Text style={{ color: '#fff' }}>Privacy Policy</Text>}
-          />
-          <DrawerItem
-            onPress={() => { props.navigation.navigate('EventsList') }}
-            label={() => <Text style={{ color: '#fff' }}>EventsList</Text>}
-          />
+          /> 
           {getToken ?
             <DrawerItem
               onPress={() => { clearAsyncStorage() }}

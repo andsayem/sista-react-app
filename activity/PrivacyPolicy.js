@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text,  TouchableHighlight , StyleSheet } from "react-native";
 //import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { ScrollView  } from "react-native-gesture-handler";
-import {  Header } from 'react-native-elements'; 
+import {  colors , Icon ,  Header  } from 'react-native-elements'; 
 class PrivacyPolicy extends  React.Component{  
 //function PrivacyPolicy({navigation}) { 
   render(){
@@ -10,13 +10,17 @@ class PrivacyPolicy extends  React.Component{
       
         <ScrollView >
           <Header
-            leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'Privacy and Policy', style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
+            leftComponent={<Icon color={colors.black} size={30} name='arrow-back' 
+            onPress ={ ( ) =>  this.props.navigation.goBack() } ></Icon> }
+            centerComponent={{ text: 'Privacy and Policy', style: {  fontSize : 18  , color: '#1E1E1E' } }}
+            containerStyle={{   
+              color : '1E1E1E',
+              backgroundColor: '#E4E4E4' }}
           />
           <View> 
             <Text style={{fontFamily : 'IBMPlexSans-Regular',
               padding : 20,
+              color : '#000000',
               lineHeight: 30,
             }}> 
              <Text

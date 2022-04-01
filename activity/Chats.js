@@ -110,7 +110,7 @@ function Chats(props) {
           })}  >{ItemData.name}  </ListItem.Title>
           <ListItem.Subtitle onPress={() => props.navigation.navigate('Chating', {
             receiver_id: ItemData.show_id,
-          })} > {ItemData.latest_message} {ItemData.show_id} </ListItem.Subtitle>
+          })} > {ItemData.latest_message} </ListItem.Subtitle>
         </ListItem.Content> 
         { ItemData.show_id == 45 ? 
         <Text><IconAnt name="checkcircleo" size={23} color="#efefef" /> </Text> 

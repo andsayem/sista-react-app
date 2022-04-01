@@ -21,7 +21,7 @@ class Settings extends Component {
       <SafeAreaView> 
             <Header 
                 leftComponent={<IconIonic  name="arrow-back" color={colors.black} size={30} 
-                onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } /> }
+                onPress ={ ( ) =>  this.props.navigation.goBack()  } /> }
                 centerComponent={{ text: 'Settings', style: { color: '#1E1E1E' , fontSize : 20  , textAlign : 'left'  } }}
                
                 containerStyle={{   
@@ -60,7 +60,7 @@ class Settings extends Component {
           />
 
 
-          <ToggleSwitch
+          {/* <ToggleSwitch
             isOn={ this.state.information }
             onColor="green"
             offColor="#757575"
@@ -69,9 +69,9 @@ class Settings extends Component {
             labelStyle={{ marginVertical  : 25, color: "black",  fontWeight: "900" , width : '80%' }}
             size="small"
             onToggle={isOn =>  this.setState({information : this.state.information ? false : true })}
-          />
+          /> */}
        
-          <ToggleSwitch
+          {/* <ToggleSwitch
             isOn={ this.state.everythingn }
             onColor="green"
             offColor="#757575"
@@ -82,7 +82,7 @@ class Settings extends Component {
             onToggle={isOn =>  this.setState({everythingn : this.state.everythingn ? false : true })}
           />
           <Text>Your Journal, Quotes, Short Story etc will be auto saved
-without your feed post's</Text>
+without your feed post's</Text> */}
 
          {/*<CheckBox*/}
          {/*  checkedIcon={<Image source={require('../checked.png')} />}*/}

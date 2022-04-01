@@ -129,7 +129,7 @@ class Journal extends Component {
             onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
           centerComponent={{ text: 'Journal', style: { color: '#1E1E1E', fontSize: 20 } }}
           rightComponent={
-            <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F"
+            <IconEnt name="dots-three-vertical" size={25} color="#1E1E1E"
               onPress={() => this.RBSheet.open()} />
           }
           containerStyle={{
@@ -152,7 +152,7 @@ class Journal extends Component {
         >
           <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
             <Text onPress={this.changeView} style={Styles.share_item}>{this.state.btnText}</Text>
-            <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text>
+            {/* <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text> */}
 
           </View>
         </RBSheet>

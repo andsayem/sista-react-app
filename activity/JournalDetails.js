@@ -100,13 +100,13 @@ class JournalDetails extends Component {
         return ( 
         <SafeAreaView   > 
            <Header 
-              leftComponent={<Icon color={colors.black} size={30} name='menu' 
-              onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-              centerComponent={{ text: 'Journal', style: { color: '#1E1E1E' , fontSize : 20 } }}
-              rightComponent={
-                <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" 
-                 onPress ={ ( ) => this.RBSheet.open() } /> 
-              }
+               leftComponent={<Icon color={colors.black} size={30} name='arrow-back' 
+               onPress ={ ( ) =>  this.props.navigation.goBack() } ></Icon> }
+              centerComponent={{ text: 'Journal Details', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            //   rightComponent={
+            //     <IconEnt name="dots-three-vertical" size={25} color="#FF5D8F" 
+            //      onPress ={ ( ) => this.RBSheet.open() } /> 
+            //   }
               containerStyle={{   
                 color : '1E1E1E',
                 backgroundColor: '#E4E4E4' }}
@@ -119,8 +119,12 @@ class JournalDetails extends Component {
                 margin: 6,
                 borderStyle : 'solid',
                 borderWidth : 1,
-                borderColor : '#ABABAB',
-                borderRadius: 7
+                borderColor: '#ABABAB',
+                borderRadius: 7, 
+                overflow: 'hidden',
+                shadowColor: '#efefefe',
+                shadowRadius: 10,
+                shadowOpacity: 1,
             }}>   
                 <ListItem.Content   
                  style={{fontFamily : 'IBMPlexSans-Regular',   
