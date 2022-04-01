@@ -94,7 +94,7 @@ export default class EventsList extends Component {
                             onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
                     </View>}
                     centerComponent={{ text: 'Events', style: { color: '#1E1E1E', fontSize: 20, textAlign: 'left' } }}
-                    containerStyle={{ color: '1E1E1E', backgroundColor: '#E4E4E4' }}
+                    containerStyle={{ color: '1E1E1E', backgroundColor: '#F5F5F5' }}
                 /> */}
                        <Header
          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
@@ -107,7 +107,7 @@ export default class EventsList extends Component {
           containerStyle={{
             fontFamily: 'IBMPlexSans-Regular',
             color: '1E1E1E',
-            backgroundColor: '#E4E4E4',
+            backgroundColor: '#F5F5F5',
             height : 90
           }} 
         />

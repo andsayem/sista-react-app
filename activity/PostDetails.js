@@ -217,6 +217,20 @@ class PostDetails extends Component {
     let { items, isLoading } = this.state;
     return (
       <SafeAreaView style={styles.container}>
+        <Header 
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
+            <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
+            {/* <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : -5 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>About My Sista's KeepHer</Text> */}
+          </View>
+          } 
+          rightComponent={{}}
+          containerStyle={{
+            fontFamily: 'IBMPlexSans-Regular',
+            color: '1E1E1E',
+            backgroundColor: '#F5F5F5',
+            height: 90
+
+          }} />
         <ScrollView>
           {this.state.post_items ?
             <View style={styles.header}>
@@ -368,7 +382,7 @@ class PostDetails extends Component {
 const styles = StyleSheet.create({
   container: {
     fontFamily: 'IBMPlexSans-Regular',
-    marginTop: 20,
+    // marginTop: 20,
     flex: 1,
     padding: 2,
     width: '100%'

@@ -132,7 +132,7 @@ class UserProfile extends Component {
             rightComponent={<IconEnt color={colors.black} size={23} name='dots-three-vertical'/>}
             containerStyle={{   
               color : '1E1E1E',
-              backgroundColor: '#E4E4E4' }}
+              backgroundColor: '#F5F5F5' }}
         />  
         <View  style={{fontFamily : 'IBMPlexSans-Regular',  backgroundColor: "#fff", width:"100%", padding:15 }}  > 
         <Toast visible={this.state.errortext} message={this.state.errortext} />

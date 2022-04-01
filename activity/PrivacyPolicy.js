@@ -20,7 +20,7 @@ class PrivacyPolicy extends React.Component {
           containerStyle={{
             fontFamily: 'IBMPlexSans-Regular',
             color: '1E1E1E',
-            backgroundColor: '#E4E4E4',
+            backgroundColor: '#F5F5F5',
             height: 90
           }} />
         <View>

@@ -15,7 +15,7 @@ class JournalSettings extends Component {
                 rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
                 containerStyle={{   
                   color : '1E1E1E',
-                  backgroundColor: '#E4E4E4' }}
+                  backgroundColor: '#F5F5F5' }}
             /> 
        <View>
          <CheckBox

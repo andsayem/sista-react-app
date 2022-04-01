@@ -168,11 +168,11 @@ class Posts extends Component {
             </View> }
             centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }} 
+            containerStyle={{ color : '1E1E1E', backgroundColor: '#F5F5F5' }} 
         /> 
         <Events/> 
         <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', margin: 10, backgroundColor: '#fff'}}>
-        <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 290}}>   
+        <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor:"#F5F5F5" , paddingBottom : 5 , marginTop : 10, marginBottom : 290}}>   
         <Text style={{fontFamily : 'IBMPlexSans-Regular',backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
         <ScrollView
           horizontal

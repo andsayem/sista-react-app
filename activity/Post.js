@@ -178,7 +178,7 @@ class Post extends React.Component {
               ref={ref => {
                 this.RBSheet = ref;
               }}
-              height={300}
+              height={230}
               openDuration={250}
               customStyles={{
                 container: {
@@ -190,7 +190,7 @@ class Post extends React.Component {
               <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
                 <Text onPress={() => this.report(this.props.item.id)} style={[Styles.share_item, { color: '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
                 <Text style={[Styles.share_item, { color: '#F00' }]}> <IconMat name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
-                <Text style={Styles.share_item}> <IconIonic name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
+                {/* <Text style={Styles.share_item}> <IconIonic name="copy-outline" size={16} color="#000000" /> Copy Link</Text> */}
                 <Text onPress={() => this.facebookShare(this.props.item)} style={Styles.share_item}> <IconAnt name="sharealt" size={16} color="#000000" /> Share To....</Text>
                 <Text style={Styles.share_item}> <IconFea name="bookmark" size={16} color="#000000" /> Save</Text>
               </View>
