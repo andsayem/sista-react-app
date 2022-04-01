@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 import { color } from "react-native-reanimated";
 
 module.exports={
+
   container: {
+    fontFamily : 'IBMPlexSans-Regular',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -11,6 +13,7 @@ module.exports={
   },
 
   logo: {
+    fontFamily : 'IBMPlexSans-Regular',
     width: 300,
     height: 230,
     resizeMode: 'stretch'
@@ -54,6 +57,7 @@ module.exports={
     textAlign: "left"
   },
   sub_title : {
+    fontFamily : 'IBMPlexSans-Regular',
     width:"80%",
     paddingLeft: 15,
     color : "#929292",
@@ -99,6 +103,7 @@ module.exports={
 
   },
   loginText : {
+    fontFamily : 'IBMPlexSans-Regular',
     color : 'white',
     fontWeight: 'bold'
   },
@@ -117,6 +122,7 @@ module.exports={
     textAlign: "center"
   },
   gridView: {
+    fontFamily : 'IBMPlexSans-Regular',
     marginTop: 10,
     flex: 1,
   },
@@ -126,6 +132,7 @@ module.exports={
     alignContent : 'center',
   },
   itemContainer: {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'center',
     paddingTop: 15 ,
     height: 150,
@@ -134,6 +141,7 @@ module.exports={
     textAlign: 'center',
   },
   subtitle : {
+    fontFamily : 'IBMPlexSans-Regular',
     fontSize :18 ,
     fontWeight :'bold',
     textAlign: 'center',
@@ -142,11 +150,13 @@ module.exports={
     paddingRight : 60
   },
   sub_subtitle : {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'center',
     fontSize :11 ,
   },
 
   lodin_button: {
+    fontFamily : 'IBMPlexSans-Regular',
     width:"40%",
     fontSize: 17 ,
     backgroundColor:"#944CD4",
@@ -162,18 +172,21 @@ module.exports={
     color : 'white',
   },
   box_title : {
+    fontFamily : 'IBMPlexSans-Regular',
     color: "#535353",
     fontFamily: "RobotoRegular",
     marginTop: 10,
     fontSize: 17,
   },
   categories_icon : {
+    fontFamily : 'IBMPlexSans-Regular',
     paddingHorizontal: 10 ,
     backgroundColor: '#fff' ,
     paddingBottom : 15 ,
     marginTop : 10
   },
   cat_icon : {
+    fontFamily : 'IBMPlexSans-Regular',
     alignItems: "center",
     justifyContent: "center",
     height: 66,
@@ -187,24 +200,28 @@ module.exports={
     borderColor : '#ff5c83',
     color : '#ff5c83'
   },
-  event_title : {  
+  event_title : {
+    fontFamily : 'IBMPlexSans-Regular',  
       borderColor : '#ff5c83',
       color : '#ff5c83'
   },
-  event_date_box : { 
+  event_date_box : {
+    fontFamily : 'IBMPlexSans-Regular', 
     padding : 25, 
     backgroundColor: "#374485", 
     borderTopLeftRadius: 20, 
     marginHorizontal : 0 ,
     borderBottomLeftRadius: 20,
   },
-  event_text_box : {  
+  event_text_box : {
+    fontFamily : 'IBMPlexSans-Regular',  
     backgroundColor: "#3D21B2", 
     borderTopRightRadius: 20, 
     borderBottomRightRadius: 20,
     marginLeft : 0 ,
   },
   event_date_section : {
+    fontFamily : 'IBMPlexSans-Regular',
     backgroundColor :  '#FFFFFF' , 
   },
   journalBtn:{
@@ -221,6 +238,7 @@ module.exports={
 
   },
   journalText : {
+    fontFamily : 'IBMPlexSans-Regular',
     color : 'white',
     fontWeight: 'bold'
   },
@@ -276,6 +294,7 @@ module.exports={
     textAlign : 'center', 
   },
   selectSheet : {
+    fontFamily : 'IBMPlexSans-Regular',
     width : '100%',
     justifyContent: "center",
     alignItems: "center",

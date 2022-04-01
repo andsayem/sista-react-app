@@ -113,7 +113,7 @@ class JournalDetails extends Component {
           /> 
             <ScrollView >
 
-            <ListItem style={{
+            <ListItem style={{fontFamily : 'IBMPlexSans-Regular',
                 flex: 1,
                 flexDirection: 'column',
                 margin: 6,
@@ -123,13 +123,13 @@ class JournalDetails extends Component {
                 borderRadius: 7
             }}>   
                 <ListItem.Content   
-                 style={{   
+                 style={{fontFamily : 'IBMPlexSans-Regular',   
                   }}>
-                  <ListItem.Title style={{ fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}  >
+                  <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontSize : 18 , fontWeight : 'bold' , paddingBottom : 8}}  >
                   {this.state.journal_items.title}
                     </ListItem.Title>
                     <Text numberOfLines={this.state.numLines} >{this.state.journal_items.details}</Text>
-                    <ListItem.Title style={{ fontSize : 18  , paddingTop : 8}}>
+                    <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontSize : 18  , paddingTop : 8}}>
                     { this.getData(this.state.journal_items.created_at)}
                     </ListItem.Title>
                   </ListItem.Content>      
@@ -143,12 +143,14 @@ class JournalDetails extends Component {
 }
 const styles = StyleSheet.create({
     container: {
+        fontFamily : 'IBMPlexSans-Regular',
         marginTop: 60,
         flex: 1,
         padding: 2,
         width: '100%'
     },
     header: {
+        fontFamily : 'IBMPlexSans-Regular',
         backgroundColor: '#fff',
         top: 20,
         width: '100%',
@@ -157,17 +159,20 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     caption: {
+        fontFamily : 'IBMPlexSans-Regular',
         paddingTop: 5,
         textAlign: 'center',
         fontSize: 18,
         color: "#535353"
     },
     main_footer: {
+        fontFamily : 'IBMPlexSans-Regular',
         alignItems: "center",
         justifyContent: "center",
         paddingBottom: 40
     },
     footer: {
+        fontFamily : 'IBMPlexSans-Regular',
         position: 'absolute',
         backgroundColor: '#fff',
         borderRadius: 10,
@@ -175,14 +180,17 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     textAreaContainer: {
+        fontFamily : 'IBMPlexSans-Regular',
         borderColor: '#944CD4',
         backgroundColor: 'blue',
         // width: '90%'
     },
     textArea: {
+        fontFamily : 'IBMPlexSans-Regular',
         height: 50,
     },
     submit: {
+        fontFamily : 'IBMPlexSans-Regular',
         paddingTop: 4,
         paddingBottom: 4,
         paddingRight: 1,
@@ -195,10 +203,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     image_bg: {
+        fontFamily : 'IBMPlexSans-Regular',
         flex: 1,
         justifyContent: "center"
     },
     text_bg: {
+        fontFamily : 'IBMPlexSans-Regular',
         color: "black",
         fontWeight: "bold",
         textAlign: "center",

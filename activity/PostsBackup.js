@@ -66,7 +66,7 @@ class Posts extends Component {
   renderFooter = () => { 
     useEffect(() => { this.fatchData()},[]) 
     return(  
-        <View style={{height:60}}> 
+        <View style={{fontFamily : 'IBMPlexSans-Regular',height:60}}> 
           { this.state.moreLoding ? (
             <View>
               <ActivityIndicator /> 
@@ -95,7 +95,7 @@ class Posts extends Component {
   renderRow = ({ item , index }) => {  
     const { liked, like, props } = item
     return (
-      <View style={{padding:5}}>
+      <View style={{fontFamily : 'IBMPlexSans-Regular',padding:5}}>
         <Post
         item= {item} 
         index={index.toString()}
@@ -171,16 +171,16 @@ class Posts extends Component {
             containerStyle={{ color : '1E1E1E', backgroundColor: '#E4E4E4' }} 
         /> 
         <Events/> 
-        <ScrollView style={{ margin: 10, backgroundColor: '#fff'}}>
-        <View style={{ backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 290}}>   
-        <Text style={{backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
+        <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', margin: 10, backgroundColor: '#fff'}}>
+        <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor:"#E4E4E4" , paddingBottom : 5 , marginTop : 10, marginBottom : 290}}>   
+        <Text style={{fontFamily : 'IBMPlexSans-Regular',backgroundColor: '#fff' , paddingBottom : 0, paddingTop:14, paddingLeft:12, color:'#535353'}}>Category </Text>     
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{ backgroundColor: '#fff'}}
+          style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#fff'}}
           >
-            <ListItem key={'all'} style={{ padding : 0 , margin : 0}} > 
-              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+            <ListItem key={'all'} style={{fontFamily : 'IBMPlexSans-Regular', padding : 0 , margin : 0}} > 
+              <ListItem.Content style={{fontFamily : 'IBMPlexSans-Regular', padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
               <TouchableOpacity onPress={this.handlePostCates}          
               style={[this.state.cat_id == '' ? Styles.cat_icon_active_style : Styles.cat_icon_style  ]}
               > 
@@ -189,7 +189,7 @@ class Posts extends Component {
                 color={ this.state.cat_id == '' ? '#FFFFFF' : '#000000'} 
                 name='border-all' />  
             </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%',color:'#535353'}} >All</Text>
+            <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign : 'center' , width : '100%',color:'#535353'}} >All</Text>
               </ListItem.Content>
             </ListItem>
             <Categories 
@@ -222,31 +222,37 @@ class Posts extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 16,
   },
   title: {
+    fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
   fixToText: {
+    fontFamily: 'IBMPlexSans-Regular',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   separator: {
+    fontFamily: 'IBMPlexSans-Regular',
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   horizontal: {
+    fontFamily: 'IBMPlexSans-Regular',
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10
   },
   activityIndicator:{  
+    fontFamily: 'IBMPlexSans-Regular',
     top: '50%',
     justifyContent: 'center',
     marginTop: '50%',

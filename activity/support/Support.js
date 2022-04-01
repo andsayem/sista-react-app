@@ -39,29 +39,29 @@ class Support extends React.Component {
             backgroundColor: '#E4E4E4'
           }}
         />
-        <View style={{ backgroundColor: '#FFFFFF' }}>
-          <View style={{ textAlign: 'center', paddingTop: 30 }}>
-            <Image style={{ alignSelf: 'center' }} source={require('../../img/bg/support.png')} />
+        <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#FFFFFF' }}>
+          <View style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', paddingTop: 30 }}>
+            <Image style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'center' }} source={require('../../img/bg/support.png')} />
           </View>
-          <Text style={{ textAlign: 'center', paddingTop: 30, color: '#000000', fontSize: 18, paddingEnd: 25, paddingStart: 25 }}>Did you face any app problem ?
+          <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', paddingTop: 30, color: '#000000', fontSize: 18, paddingEnd: 25, paddingStart: 25 }}>Did you face any app problem ?
             Feel free to tell us</Text>
         </View>
         <View
-          style={{
+          style={{fontFamily : 'IBMPlexSans-Regular',
             backgroundColor: '#FFFFFF',
             paddingStart: 20,
             borderBottomColor: '#CEC7C7',
             borderBottomWidth: 1
           }}
         />
-        <View style={{ backgroundColor: '#FFFFFF' }}>
+        <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#FFFFFF' }}>
           <FlatList
-            style={{ margin: 10 }}
+            style={{fontFamily : 'IBMPlexSans-Regular', margin: 10 }}
             data={this.state.items}
             renderItem={({ item, index }) => {
               return (
-                <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                  <View style={{ textAlign: 'right' }}>
+                <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", alignItems: 'center' }}>
+                  <View style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'right' }}>
                     <RadioButton
                       value="{item.id}"
                       status={this.state.support_type_id == item.id ? 'checked' : 5}
@@ -71,8 +71,8 @@ class Support extends React.Component {
                     }
                     />
                   </View>
-                  <View style={{ flex: 4 }}>
-                    <Text style={{ color: '#000000' }}>{item.title} </Text>
+                  <View style={{fontFamily : 'IBMPlexSans-Regular', flex: 4 }}>
+                    <Text style={{fontFamily : 'IBMPlexSans-Regular', color: '#000000' }}>{item.title} </Text>
                   </View>
                 </View>
               )
@@ -84,7 +84,7 @@ class Support extends React.Component {
             onRefresh={this.handleOnRefresh}
           />
           <View
-            style={{ paddingStart: 25, paddingEnd: 25, backgroundColor: '#ffffff' }}>
+            style={{fontFamily : 'IBMPlexSans-Regular', paddingStart: 25, paddingEnd: 25, backgroundColor: '#ffffff' }}>
             <Textarea
                onChangeText={(details) =>{
                 this.setState( {details : details }  ) 
@@ -113,17 +113,20 @@ class Support extends React.Component {
 }
 var styles = StyleSheet.create({
   container: {
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
+    fontFamily: 'IBMPlexSans-Regular',
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
   seperator: {
+    fontFamily: 'IBMPlexSans-Regular',
     marginBottom: 20
   }
 });

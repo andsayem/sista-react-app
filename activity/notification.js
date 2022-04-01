@@ -92,15 +92,18 @@ class Notification extends Component {
 
 styles = StyleSheet.create({
   subtitleView: {
+    fontFamily : 'IBMPlexSans-Regular',
     flexDirection: 'row',
     paddingLeft: 10,
     paddingTop: 5
   },
   ratingImage: {
+    fontFamily : 'IBMPlexSans-Regular',
     height: 19.21,
     width: 100
   },
   ratingText: {
+    fontFamily : 'IBMPlexSans-Regular',
     paddingLeft: 10,
     color: 'grey'
   }

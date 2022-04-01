@@ -108,8 +108,8 @@ const Home = ({navigation}) => {
  
   const Item = ({ ItemData, onPress, likecount }) => (
     <View key={ItemData.id}
-     style={{   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
-      <ListItem key={ItemData.id+'avt'} style={{  backgroundColor: "#FEFEFE", width: '100%',    }}>
+     style={{fontFamily : 'IBMPlexSans-Regular',   backgroundColor: '#fff' , height: 310,  width: '100%', borderRadius: 15,   padding: 10,  marginBottom :10  }} >
+      <ListItem key={ItemData.id+'avt'} style={{fontFamily : 'IBMPlexSans-Regular',  backgroundColor: "#FEFEFE", width: '100%',    }}>
         <Avatar rounded   size="medium" source={require('../img/images/user_3.jpg')} />
         <ListItem.Content key={ItemData.id}>
           <ListItem.Title>  {ItemData.userjoin.name}</ListItem.Title>
@@ -119,34 +119,34 @@ const Home = ({navigation}) => {
           <Text  style={Styles.following}>+ Following Test</Text>
         </ListItem.Content>
       </ListItem>
-      <Text onPress={() => this.navigation.navigate('PostDetails', {id: 69 }) } key={ItemData.id+'dsc'} style={{  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
+      <Text onPress={() => this.navigation.navigate('PostDetails', {id: 69 }) } key={ItemData.id+'dsc'} style={{fontFamily : 'IBMPlexSans-Regular',  fontFamily: "RobotoRegular", fontSize: 12,  paddingBottom :5 ,  color: "#0D0E10",  }} >
        Post details
       </Text>  
       <Image  source={ItemData.file ? {uri: ItemData.file } : null}  
-      style={{ width: '100%', borderRadius: 10, height: 130 }}   />
+      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 130 }}   />
      
-      <View key={ItemData.id+'like-comment'} horizontal showsHorizontalScrollIndicator={false} style={{ marginRight: -40, marginTop: 10 }}  > 
+      <View key={ItemData.id+'like-comment'} horizontal showsHorizontalScrollIndicator={false} style={{fontFamily : 'IBMPlexSans-Regular', marginRight: -40, marginTop: 10 }}  > 
         {/* 
           onPress={() => likeSubmitButton(ItemData)}  */}
         <TouchableOpacity     
           onPress={onPress}   
             activeOpacity={0.5} >
-            <View style={{   height: 66,  width: 80, }} 
+            <View style={{fontFamily : 'IBMPlexSans-Regular',   height: 66,  width: 80, }} 
             >
             {ItemData.like ?
-              <Text style={{ color : '#a21919'}}  
+              <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#a21919'}}  
                >Unlike 
               {ItemData.like}</Text>
               : 
-              <Text style={{ color : '#a21919'}} >Like
+              <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#a21919'}} >Like
               {ItemData.like}</Text> }
             </View>
         </TouchableOpacity>   
-        <View  style={{   height: 66, width: 120}} >
-          <Text> Comment <Icon  style={{paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {ItemData.comment} </Text>
+        <View  style={{fontFamily : 'IBMPlexSans-Regular',   height: 66, width: 120}} >
+          <Text> Comment <Icon  style={{fontFamily : 'IBMPlexSans-Regular',paddingTop : 10}}  type='font-awesome' name="comment-o" size={12}  /> {ItemData.comment} </Text>
         </View>
-        <View style={{  height: 66,  width: 100}}  >
-          <Text style={{ color : '#1c81b0'}} > <Icon  style={{paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {ItemData.share} </Text>
+        <View style={{fontFamily : 'IBMPlexSans-Regular',  height: 66,  width: 100}}  >
+          <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#1c81b0'}} > <Icon  style={{fontFamily : 'IBMPlexSans-Regular',paddingTop : 10}}  type='font-awesome' name="upload" size={12}  /> {ItemData.share} </Text>
         </View>
       </View>
     </View> 
@@ -166,13 +166,13 @@ const Home = ({navigation}) => {
       <SafeAreaView>
         <ScrollView>
         <Header
-            style={{ backgroundColor : 'red'}}
+            style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor : 'red'}}
               leftComponent={<Icon color={colors.white} size={30} name='menu' 
               onPress={() => navigation.toggleDrawer()} />}
               centerComponent={{ text: 'Inspire me', style: { color: '#fff' , fontSize : 20 } }}
               rightComponent={{ icon: 'notifications', color: '#fff' }}
                 /> 
-        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
+        <View style={{fontFamily : 'IBMPlexSans-Regular', paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 0}}>
         <Toast visible={errortext} message={errortext.message} />
         <Toast visible={successtext} message={successtext.message} /> 
           <Text  onPress={() => navigation.navigate('PostDetails', {id: 69 }) } style={Styles.box_title} >
@@ -181,7 +181,7 @@ const Home = ({navigation}) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{
+            style={{fontFamily : 'IBMPlexSans-Regular',
               marginHorizontal: -10,
               paddingEnd : 20 , 
               marginRight : 5,
@@ -189,7 +189,7 @@ const Home = ({navigation}) => {
               >
             <ListItem > 
               <ListItem.Content 
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   backgroundColor: "#341BA9",
                   borderTopLeftRadius: 20, 
                   borderBottomLeftRadius: 20, 
@@ -201,7 +201,7 @@ const Home = ({navigation}) => {
                   paddingHorizontal : 10
                   }}>
                 <View  
-                style={{ borderRadius : 8 ,
+                style={{fontFamily : 'IBMPlexSans-Regular', borderRadius : 8 ,
                 backgroundColor : '#FFFFFF',
                 height : 80 , 
                 width : 55,
@@ -219,18 +219,18 @@ const Home = ({navigation}) => {
                     width : '100%'
                   }}> th </Text>  
                   <ListItem.Title
-                    style={{ fontWeight : 'bold' , 
+                    style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold' , 
                     color : '#341BA9' ,
                   fontSize : 20 }}
                   > 24
                   </ListItem.Title> 
                   <ListItem.Subtitle
-                  style={{ color : '#341BA9' , paddingLeft : 5}}
+                  style={{fontFamily : 'IBMPlexSans-Regular', color : '#341BA9' , paddingLeft : 5}}
                   >July</ListItem.Subtitle>
                 </View> 
               </ListItem.Content> 
               <ListItem.Content 
-              style={{ marginHorizontal : -17,  
+              style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal : -17,  
                 backgroundColor: "#3D21B2",
                 borderTopRightRadius: 22, 
                 borderBottomRightRadius: 22, 
@@ -240,24 +240,24 @@ const Home = ({navigation}) => {
                 color : '#ffffff'
                 }} >
                 <Text 
-                style={{ color : '#ffffff' , 
+                style={{fontFamily : 'IBMPlexSans-Regular', color : '#ffffff' , 
                 fontWeight : 'bold' , 
                 paddingTop: 0,
                 paddingBottom: 3,
                 fontSize : 16}} >Poetry With Sista</Text>
-                <Text style={{
+                <Text style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
-                }} > <Icon color="#fff" style={{padding : 2 }}  type='font-awesome' name="clock-o" size={12}  /> 4:00 Pm</Text>
-                <Text  style={{
+                }} > <Icon color="#fff" style={{fontFamily : 'IBMPlexSans-Regular',padding : 2 }}  type='font-awesome' name="clock-o" size={12}  /> 4:00 Pm</Text>
+                <Text  style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
-                }} > <Icon color="#fff" style={{padding : 2 }}  type='font-awesome' name="map-marker" size={12}  /> Los Angeles,
+                }} > <Icon color="#fff" style={{fontFamily : 'IBMPlexSans-Regular',padding : 2 }}  type='font-awesome' name="map-marker" size={12}  /> Los Angeles,
                 Calefornia</Text>
 
               </ListItem.Content>
             </ListItem>
             <ListItem > 
               <ListItem.Content 
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   backgroundColor: "#6F1A98",
                   borderTopLeftRadius: 20, 
                   borderBottomLeftRadius: 20, 
@@ -269,7 +269,7 @@ const Home = ({navigation}) => {
                   paddingHorizontal : 10
                   }}>
                 <View  
-                style={{ borderRadius : 8 ,
+                style={{fontFamily : 'IBMPlexSans-Regular', borderRadius : 8 ,
                 backgroundColor : '#FFFFFF',
                 height : 80 , 
                 width : 55,
@@ -287,18 +287,18 @@ const Home = ({navigation}) => {
                     width : '100%'
                   }}> th </Text>  
                   <ListItem.Title
-                    style={{ fontWeight : 'bold' , 
+                    style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold' , 
                     color : '#341BA9' ,
                   fontSize : 20 }}
                   > 24
                   </ListItem.Title> 
                   <ListItem.Subtitle
-                  style={{ color : '#341BA9' , paddingLeft : 5}}
+                  style={{fontFamily : 'IBMPlexSans-Regular', color : '#341BA9' , paddingLeft : 5}}
                   >July</ListItem.Subtitle>
                 </View> 
               </ListItem.Content> 
               <ListItem.Content 
-              style={{ marginHorizontal : -17,  
+              style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal : -17,  
                 backgroundColor: "#6F1A98",
                 borderTopRightRadius: 22, 
                 borderBottomRightRadius: 22, 
@@ -308,15 +308,15 @@ const Home = ({navigation}) => {
                 color : '#ffffff'
                 }} >
                 <Text 
-                style={{ color : '#ffffff' , 
+                style={{fontFamily : 'IBMPlexSans-Regular', color : '#ffffff' , 
                 fontWeight : 'bold' , 
                 paddingTop: 0,
                 paddingBottom: 3,
                 fontSize : 16}} >Poetry With Sista</Text>
-                <Text style={{
+                <Text style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} > 4:00 Pm</Text>
-                <Text  style={{
+                <Text  style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} >Los Angeles,
                 Calefornia</Text>
@@ -325,7 +325,7 @@ const Home = ({navigation}) => {
             </ListItem>
             <ListItem > 
               <ListItem.Content 
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   backgroundColor: "#341BA9",
                   borderTopLeftRadius: 20, 
                   borderBottomLeftRadius: 20, 
@@ -337,7 +337,7 @@ const Home = ({navigation}) => {
                   paddingHorizontal : 10
                   }}>
                 <View  
-                style={{ borderRadius : 8 ,
+                style={{fontFamily : 'IBMPlexSans-Regular', borderRadius : 8 ,
                 backgroundColor : '#FFFFFF',
                 height : 80 , 
                 width : 55,
@@ -355,18 +355,18 @@ const Home = ({navigation}) => {
                     width : '100%'
                   }}> th </Text>  
                   <ListItem.Title
-                    style={{ fontWeight : 'bold' , 
+                    style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold' , 
                     color : '#341BA9' ,
                   fontSize : 20 }}
                   > 24
                   </ListItem.Title> 
                   <ListItem.Subtitle
-                  style={{ color : '#341BA9' , paddingLeft : 5}}
+                  style={{fontFamily : 'IBMPlexSans-Regular', color : '#341BA9' , paddingLeft : 5}}
                   >July</ListItem.Subtitle>
                 </View> 
               </ListItem.Content> 
               <ListItem.Content 
-              style={{ marginHorizontal : -17,  
+              style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal : -17,  
                 backgroundColor: "#3D21B2",
                 borderTopRightRadius: 22, 
                 borderBottomRightRadius: 22, 
@@ -376,15 +376,15 @@ const Home = ({navigation}) => {
                 color : '#ffffff'
                 }} >
                 <Text 
-                style={{ color : '#ffffff' , 
+                style={{fontFamily : 'IBMPlexSans-Regular', color : '#ffffff' , 
                 fontWeight : 'bold' , 
                 paddingTop: 0,
                 paddingBottom: 3,
                 fontSize : 16}} >Poetry With Sista</Text>
-                <Text style={{
+                <Text style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} > 4:00 Pm</Text>
-                <Text  style={{
+                <Text  style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} >Los Angeles,
                 Calefornia</Text>
@@ -393,7 +393,7 @@ const Home = ({navigation}) => {
             </ListItem>
             <ListItem > 
               <ListItem.Content 
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   backgroundColor: "#341BA9",
                   borderTopLeftRadius: 20, 
                   borderBottomLeftRadius: 20, 
@@ -405,7 +405,7 @@ const Home = ({navigation}) => {
                   paddingHorizontal : 10
                   }}>
                 <View  
-                style={{ borderRadius : 8 ,
+                style={{fontFamily : 'IBMPlexSans-Regular', borderRadius : 8 ,
                 backgroundColor : '#FFFFFF',
                 height : 80 , 
                 width : 55,
@@ -423,18 +423,18 @@ const Home = ({navigation}) => {
                     width : '100%'
                   }}> th </Text>  
                   <ListItem.Title
-                    style={{ fontWeight : 'bold' , 
+                    style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold' , 
                     color : '#341BA9' ,
                   fontSize : 20 }}
                   > 24
                   </ListItem.Title> 
                   <ListItem.Subtitle
-                  style={{ color : '#341BA9' , paddingLeft : 5}}
+                  style={{fontFamily : 'IBMPlexSans-Regular', color : '#341BA9' , paddingLeft : 5}}
                   >July</ListItem.Subtitle>
                 </View> 
               </ListItem.Content> 
               <ListItem.Content 
-              style={{ marginHorizontal : -17,  
+              style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal : -17,  
                 backgroundColor: "#3D21B2",
                 borderTopRightRadius: 22, 
                 borderBottomRightRadius: 22, 
@@ -444,15 +444,15 @@ const Home = ({navigation}) => {
                 color : '#ffffff'
                 }} >
                 <Text 
-                style={{ color : '#ffffff' , 
+                style={{fontFamily : 'IBMPlexSans-Regular', color : '#ffffff' , 
                 fontWeight : 'bold' , 
                 paddingTop: 0,
                 paddingBottom: 3,
                 fontSize : 16}} >Poetry With Sista</Text>
-                <Text style={{
+                <Text style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} > 4:00 Pm</Text>
-                <Text  style={{
+                <Text  style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} >Los Angeles,
                 Calefornia</Text>
@@ -461,7 +461,7 @@ const Home = ({navigation}) => {
             </ListItem>
             <ListItem > 
               <ListItem.Content 
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   backgroundColor: "#6F1A98",
                   borderTopLeftRadius: 20, 
                   borderBottomLeftRadius: 20, 
@@ -473,7 +473,7 @@ const Home = ({navigation}) => {
                   paddingHorizontal : 10
                   }}>
                 <View  
-                style={{ borderRadius : 8 ,
+                style={{fontFamily : 'IBMPlexSans-Regular', borderRadius : 8 ,
                 backgroundColor : '#FFFFFF',
                 height : 80 , 
                 width : 55,
@@ -491,18 +491,18 @@ const Home = ({navigation}) => {
                     width : '100%'
                   }}> th </Text>  
                   <ListItem.Title
-                    style={{ fontWeight : 'bold' , 
+                    style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold' , 
                     color : '#341BA9' ,
                   fontSize : 20 }}
                   > 24
                   </ListItem.Title> 
                   <ListItem.Subtitle
-                  style={{ color : '#341BA9' , paddingLeft : 5}}
+                  style={{fontFamily : 'IBMPlexSans-Regular', color : '#341BA9' , paddingLeft : 5}}
                   >July</ListItem.Subtitle>
                 </View> 
               </ListItem.Content> 
               <ListItem.Content 
-              style={{ marginHorizontal : -17,  
+              style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal : -17,  
                 backgroundColor: "#6F1A98",
                 borderTopRightRadius: 22, 
                 borderBottomRightRadius: 22, 
@@ -512,15 +512,15 @@ const Home = ({navigation}) => {
                 color : '#ffffff'
                 }} >
                 <Text 
-                style={{ color : '#ffffff' , 
+                style={{fontFamily : 'IBMPlexSans-Regular', color : '#ffffff' , 
                 fontWeight : 'bold' , 
                 paddingTop: 0,
                 paddingBottom: 3,
                 fontSize : 16}} >Poetry With Sista</Text>
-                <Text style={{
+                <Text style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} > 4:00 Pm</Text>
-                <Text  style={{
+                <Text  style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} >Los Angeles,
                 Calefornia</Text>
@@ -529,7 +529,7 @@ const Home = ({navigation}) => {
             </ListItem>
             <ListItem > 
               <ListItem.Content 
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   backgroundColor: "#341BA9",
                   borderTopLeftRadius: 20, 
                   borderBottomLeftRadius: 20, 
@@ -541,7 +541,7 @@ const Home = ({navigation}) => {
                   paddingHorizontal : 10
                   }}>
                 <View  
-                style={{ borderRadius : 8 ,
+                style={{fontFamily : 'IBMPlexSans-Regular', borderRadius : 8 ,
                 backgroundColor : '#FFFFFF',
                 height : 80 , 
                 width : 55,
@@ -559,18 +559,18 @@ const Home = ({navigation}) => {
                     width : '100%'
                   }}> th </Text>  
                   <ListItem.Title
-                    style={{ fontWeight : 'bold' , 
+                    style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold' , 
                     color : '#341BA9' ,
                   fontSize : 20 }}
                   > 24
                   </ListItem.Title> 
                   <ListItem.Subtitle
-                  style={{ color : '#341BA9' , paddingLeft : 5}}
+                  style={{fontFamily : 'IBMPlexSans-Regular', color : '#341BA9' , paddingLeft : 5}}
                   >July</ListItem.Subtitle>
                 </View> 
               </ListItem.Content> 
               <ListItem.Content 
-              style={{ marginHorizontal : -17,  
+              style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal : -17,  
                 backgroundColor: "#3D21B2",
                 borderTopRightRadius: 22, 
                 borderBottomRightRadius: 22, 
@@ -580,15 +580,15 @@ const Home = ({navigation}) => {
                 color : '#ffffff'
                 }} >
                 <Text 
-                style={{ color : '#ffffff' , 
+                style={{fontFamily : 'IBMPlexSans-Regular', color : '#ffffff' , 
                 fontWeight : 'bold' , 
                 paddingTop: 0,
                 paddingBottom: 3,
                 fontSize : 16}} >Poetry With Sista</Text>
-                <Text style={{
+                <Text style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} > 4:00 Pm</Text>
-                <Text  style={{
+                <Text  style={{fontFamily : 'IBMPlexSans-Regular',
                   color : '#ffffff' , 
                 }} >Los Angeles,
                 Calefornia</Text>
@@ -597,12 +597,12 @@ const Home = ({navigation}) => {
             </ListItem>         
           </ScrollView>
         </View>
-        <View style={{ paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
+        <View style={{fontFamily : 'IBMPlexSans-Regular', paddingHorizontal: 10 , backgroundColor: '#fff' , paddingBottom : 15 , marginTop : 10}}>
         <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false} 
             >
-            <ListItem style={{ marginBottom: -10}} > 
+            <ListItem style={{fontFamily : 'IBMPlexSans-Regular', marginBottom: -10}} > 
                     <ListItem.Content  >
                       <Text  style={Styles.box_title} >
                         Category
@@ -613,12 +613,12 @@ const Home = ({navigation}) => {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{ marginRight: -30}}
+          style={{fontFamily : 'IBMPlexSans-Regular', marginRight: -30}}
           >
-            <ListItem style={{ padding : 0 , margin : 0}} > 
-              <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
+            <ListItem style={{fontFamily : 'IBMPlexSans-Regular', padding : 0 , margin : 0}} > 
+              <ListItem.Content style={{fontFamily : 'IBMPlexSans-Regular', padding : 0 , margin : 0 , marginRight : -10  , marginLeft  : -10}} > 
               <TouchableOpacity              
-              style={{ 
+              style={{fontFamily : 'IBMPlexSans-Regular', 
                 justifyContent: "center",
                 height: 66,
                 width: 66,
@@ -630,15 +630,15 @@ const Home = ({navigation}) => {
                 color='#FFFFFF' 
                 name='book' />  
             </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >All</Text>
+            <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign : 'center' , width : '100%'}} >All</Text>
               </ListItem.Content>
             </ListItem>
 
             <ListItem >  
             { getCats.map((item, i) => (
-            <ListItem.Content style={{ padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
+            <ListItem.Content style={{fontFamily : 'IBMPlexSans-Regular', padding : 0 , margin : 0 , marginRight : 4  , marginLeft  : 3}} > 
               <TouchableOpacity              
-                style={{ 
+                style={{fontFamily : 'IBMPlexSans-Regular', 
                   justifyContent: "center",
                   height: 66,
                   width: 66,
@@ -650,14 +650,14 @@ const Home = ({navigation}) => {
                 color='#000000' 
                 name={item.cat_image} />  
             </TouchableOpacity> 
-            <Text style={{ textAlign : 'center' , width : '100%'}} >{item.cat_name}</Text>
+            <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign : 'center' , width : '100%'}} >{item.cat_name}</Text>
               </ListItem.Content>
             ))
             }
             </ListItem>
           </ScrollView>
         </View>
-        <View style={{ marginHorizontal :10 , borderRadius: 10, paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
+        <View style={{fontFamily : 'IBMPlexSans-Regular', marginHorizontal :10 , borderRadius: 10, paddingHorizontal: 8 , paddingBottom : 15 ,   marginTop : 10}} > 
         <FlatList
           data={PostItems} 
           keyExtractor={(PostItems, index) => PostItems.id+'flt'+index.toString()} 

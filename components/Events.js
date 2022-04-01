@@ -66,13 +66,13 @@ const Events = () => {
         return strTime;
     }
     return (
-        <View style={{ paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 10 }}>
+        <View style={{ fontFamily: 'IBMPlexSans-Regular', paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 10, paddingTop: 10 }}>
             <Toast visible={errortext} message={errortext.message} />
             <Toast visible={successtext} message={successtext.message} />
 
             <View style={{ flexDirection: 'row', paddingTop: 10 }}>
-                <Text style={{ width: '20%', fontSize: 14, paddingLeft: 6, fontWeight: 'bold', color: '#535353' }}>Events </Text>
-                <Text onPress={allEvents} style={{ textAlign: 'right', fontSize: 13, width: '80%', color: '##535353' }}>See All </Text>
+                <Text style={{ fontFamily: 'IBMPlexSans-SemiBold', width: '20%', fontSize: 14, paddingLeft: 6, fontWeight: 'bold', color: '#535353' }}>Events </Text>
+                <Text onPress={allEvents} style={{ fontFamily: 'IBMPlexSans-Medium', textAlign: 'right', fontSize: 13, width: '80%', color: '#535353' }}>See All </Text>
             </View>
 
             <ScrollView
@@ -80,8 +80,8 @@ const Events = () => {
                 showsHorizontalScrollIndicator={false}
                 style={{
                     marginHorizontal: -10,
-                    paddingEnd: 20,
-                    marginRight: 5,
+                    // paddingEnd: 20,
+                    marginRight: -8,
                     marginTop: 1
                 }}
             >
@@ -89,22 +89,23 @@ const Events = () => {
                 {getCats.map((item, i) => {
                     //var icon = item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png');
                     return (
-                        <ListItem key={item.id} keyExtractor={(item, i) => item.id.toString()} >
+                        <ListItem style={{}} key={item.id} keyExtractor={(item, i) => item.id.toString()} >
                             <ListItem.Content
 
                                 style={{
                                     backgroundColor: "#341BA9",
-                                    borderTopLeftRadius: 15,
-                                    borderBottomLeftRadius: 15,
+                                    borderTopLeftRadius: 10,
+                                    borderBottomLeftRadius: 10,
                                     height: 100,
-                                    width: 70,
-                                    paddingStart: 10,
+                                    width: 80,
+                                    // paddingStart: 10,
+                                    paddingVertical:20,
                                     color: '#ffffff',
-                                    alignItems: 'center',
-                                    paddingHorizontal: 10
+                                    alignItems: 'center'
                                 }}>
                                 <View
                                     style={{
+                                        fontFamily: 'IBMPlexSans-Regular',
                                         borderRadius: 8,
                                         backgroundColor: '#FFFFFF',
                                         height: 80,
@@ -113,69 +114,76 @@ const Events = () => {
                                         paddingLeft: 6
                                     }} >
                                     <Text style={{
+                                        fontFamily: 'IBMPlexSans-Bold',
                                         fontSize: 14,
                                         position: 'absolute',
-                                        fontWeight: 'bold',
                                         alignItems: 'flex-end',
                                         textAlign: 'right',
                                         marginTop: 15,
+                                        marginLeft:1,
                                         paddingEnd: 0,
                                         color: '#341BA9',
                                         width: '100%'
                                     }}> {getData(item.event_date, 'th')} </Text>
                                     <ListItem.Title
                                         style={{
-                                            fontWeight: 'bold',
+                                            fontFamily: 'IBMPlexSans-Bold',
                                             color: '#341BA9',
-                                            fontSize: 20
+                                            fontSize: 22
                                         }}
                                     > {getData(item.event_date, 'date')}
                                     </ListItem.Title>
                                     <ListItem.Subtitle
-                                        style={{ color: '#000000', fontSize: 12, textAlign: 'center' }}
+                                        style={{ fontFamily: 'IBMPlexSans-Light', color: '#000000', fontSize: 12, textAlign: 'center' }}
                                     > {getData(item.event_date, 'month')} </ListItem.Subtitle>
                                 </View>
                             </ListItem.Content>
                             <ListItem.Content
                                 style={{
+                                    fontFamily: 'IBMPlexSans-Regular',
                                     marginHorizontal: -17,
                                     backgroundColor: "#3D21B2",
-                                    borderTopRightRadius: 15,
-                                    borderBottomRightRadius: 15,
+                                    borderTopRightRadius: 10,
+                                    borderBottomRightRadius: 10,
                                     height: 100,
-                                    width: 150,
-                                    paddingStart: 10,
+                                    width: 140,
+                                    paddingStart: 5,
                                     color: '#ffffff'
                                 }} >
                                 <Text
                                     onPress={() => EventDetails(item)}
                                     style={{
+                                        fontFamily: 'IBMPlexSans-SemiBold',
                                         color: '#FFFFFF',
-                                        fontWeight: 'bold',
+                                        marginTop:-10,
                                         paddingTop: 0,
-                                        paddingBottom: 3,
-                                        fontSize: 16
+                                        paddingBottom: 5,
+                                        fontSize: 14
                                     }} >{item.title}</Text>
-                                {/* <Text style={{
+                                {/* <Text style={{fontFamily: 'IBMPlexSans-Regular',
                                     color: '#ffffff',
                                 }} >  </Text> */}
-                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-                                    <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="clock-o" size={12} />
+                                <View style={{paddingBottom:5, fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                    <Icon color="#fff" style={{ fontFamily: 'IBMPlexSans-Regular', padding: 2 }} type='font-awesome' name="clock-o" size={10} />
                                     <Text
                                         onPress={() => EventDetails(item)}
                                         style={{
+                                            fontFamily: 'Montserrat-Regular',
                                             paddingLeft: 5,
                                             color: '#ffffff',
+                                            fontSize:10,
                                         }} >{formatAMPM(item.event_time)}</Text>
                                 </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-                                    <Icon color="#fff" style={{ padding: 2 }} type='font-awesome' name="map-marker" size={12} />
+                                <View style={{ fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', justifyContent: 'flex-start' }}>
+                                    <Icon color="#fff" style={{ fontFamily: 'IBMPlexSans-Regular', padding: 2 }} type='font-awesome' name="map-marker" size={10} />
                                     <Text
                                         onPress={() => EventDetails(item)}
                                         style={{
+                                            fontFamily: 'Montserrat-Regular',
                                             paddingLeft: 5,
+                                            fontSize:10,
                                             color: '#ffffff',
-                                        }} >{item.location}</Text>
+                                        }} > {item.location}</Text>
                                 </View>
                             </ListItem.Content>
                         </ListItem>

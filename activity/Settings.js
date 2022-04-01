@@ -28,7 +28,7 @@ class Settings extends Component {
                   color : '1E1E1E',
                   backgroundColor: '#E4E4E4' }}
             /> 
-       <View style={{ backgroundColor : '#ffffff' , height : '100%'}}>
+       <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor : '#ffffff' , height : '100%'}}>
         <ToggleSwitch
             isOn={ this.state.notification }
             onColor="green" 

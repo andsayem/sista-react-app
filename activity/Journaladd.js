@@ -102,11 +102,11 @@ function Journaladd({navigation}) {
                     <ListItem.Subtitle>Title : </ListItem.Subtitle> 
               </ListItem.Content>  
               <ListItem.Content
-               style={{
+               style={{fontFamily : 'IBMPlexSans-Regular',
                 width: 100
               }}>  
                   
-                  <ListItem.Input style={{
+                  <ListItem.Input style={{fontFamily : 'IBMPlexSans-Regular',
                     textAlign: 'left'
                   }}
                   onChangeText={(title) => setTitle(title)} 
@@ -151,30 +151,36 @@ function Journaladd({navigation}) {
 }
 const styles = StyleSheet.create({
   textAreaContainer: {
+    fontFamily : 'IBMPlexSans-Regular',
     borderColor:  '#efefef',
     borderWidth: 1,  
   },
   textArea: {
+    fontFamily : 'IBMPlexSans-Regular',
     height: 150, 
     
   } ,
   input: {
+    fontFamily : 'IBMPlexSans-Regular',
     height: 40,
     margin: 12,
     borderWidth: 1,
   },
   container: {
+    fontFamily : 'IBMPlexSans-Regular',
     flex: 1,
     padding: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textareaContainer: {
+    fontFamily : 'IBMPlexSans-Regular',
     height: 180,
     padding: 5,
     backgroundColor: '#F5FCFF',
   },
   textarea: {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlignVertical: 'top',  // hack android
     height: 170,
     fontSize: 14,
@@ -182,11 +188,13 @@ const styles = StyleSheet.create({
   },
  
   cat_title : {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'left', 
     padding : 15,  
     width : '100%'
     },
   radio : {
+    fontFamily : 'IBMPlexSans-Regular',
     fontSize : 10
   }
 })

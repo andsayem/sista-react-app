@@ -69,14 +69,17 @@ class Signup extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   scrollView : {
+    fontFamily: 'IBMPlexSans-Regular',
   },
   logo: {
+    fontFamily: 'IBMPlexSans-Regular',
     width: 300,
     height: 230,
     resizeMode: 'stretch'
@@ -122,6 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "left"
   },
   sub_title : {
+    fontFamily: 'IBMPlexSans-Regular',
     width:"80%",
     paddingLeft: 15,
     color : "#929292",

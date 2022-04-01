@@ -149,16 +149,20 @@ export default class NewFeedScreen extends React.Component {
 
 const styles = StyleSheet.create({
     SplashLayout: {
+        fontFamily : 'IBMPlexSans-Regular',
         flex: 1,
     },
     inputLayout: {
+        fontFamily : 'IBMPlexSans-Regular',
         paddingHorizontal: 20,
         paddingVertical: 20,
     },
     textDanger: {
+        fontFamily : 'IBMPlexSans-Regular',
         color: "#dc3545"
     },
     MediaLayout: {
+        fontFamily : 'IBMPlexSans-Regular',
         paddingHorizontal: 20,
         width: screen.width - 40,
         flex: 1,
@@ -166,6 +170,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     Media: {
+        fontFamily : 'IBMPlexSans-Regular',
         width: (screen.width - 60) / 2,
         height: (screen.width - 60) / 2,
         backgroundColor: "#fff",

@@ -17,13 +17,13 @@ function Newpost_text({navigation}) {
                
           <ListItem>
             <ListItem.Content>
-              <Image  source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 190 }}  /> 
+              <Image  source={require("../img/images/img1.png")}  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 190 }}  /> 
             </ListItem.Content> 
           </ListItem>
           <ListItem > 
               <ListItem.Content  > 
                   <ListItem.Content >
-                    <ListItem.Title style={{ fontWeight : 'bold'}} >
+                    <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold'}} >
                       Write a caption  
                     </ListItem.Title> 
                   </ListItem.Content>  
@@ -41,7 +41,7 @@ function Newpost_text({navigation}) {
           <ListItem > 
               <ListItem.Content  > 
                   <ListItem.Content >
-                    <ListItem.Title style={{ fontWeight : 'bold'}} >
+                    <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontWeight : 'bold'}} >
                       Photo
                     </ListItem.Title> 
                   </ListItem.Content>  
@@ -67,13 +67,13 @@ function Newpost_text({navigation}) {
           
             <ListItem>
               <ListItem.Content>
-                <Image   source={require("../img/images/img1.png")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
+                <Image   source={require("../img/images/img1.png")}  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 100 }}  /> 
               </ListItem.Content> 
               <ListItem.Content>
-                <Image   source={require("../img/images/2.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
+                <Image   source={require("../img/images/2.jpg")}  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 100 }}  /> 
               </ListItem.Content> 
               <ListItem.Content>
-                <Image   source={require("../img/images/3.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  /> 
+                <Image   source={require("../img/images/3.jpg")}  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 100 }}  /> 
               </ListItem.Content> 
             </ListItem>
             <ListItem>
@@ -92,10 +92,12 @@ function Newpost_text({navigation}) {
 }
 const styles = StyleSheet.create({
   textAreaContainer: {
+    fontFamily : 'IBMPlexSans-Regular',
     borderColor:  '#efefef',
     borderWidth: 1,  
   },
   textArea: {
+    fontFamily : 'IBMPlexSans-Regular',
     height: 150, 
     
   }

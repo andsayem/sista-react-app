@@ -9,19 +9,19 @@ import {colors , Icon , Header } from 'react-native-elements';
             <Header 
                 leftComponent={<Icon color={colors.black} size={30} name='menu' 
                 onPress ={ ( ) =>  this.props.navigation.toggleDrawer()  } ></Icon> }
-                centerComponent={{ text: 'Quizzes', style: { color: '#1E1E1E' , fontSize : 20 } }}
+                centerComponent={{ text: 'Quizzes', style: {fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E' , fontSize : 20 } }}
                 rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
                 containerStyle={{   
                   color : '1E1E1E',
                   backgroundColor: '#E4E4E4' }}
             /> 
           <View> 
-            <Text style={{
+            <Text style={{fontFamily : 'IBMPlexSans-Regular',
               padding : 20,
               lineHeight: 30,
             }}> 
              <Text
-             style={{
+             style={{fontFamily : 'IBMPlexSans-Regular',
               fontWeight :'bold'
              }}>Coming soon</Text> 
           </Text>
@@ -31,13 +31,13 @@ import {colors , Icon , Header } from 'react-native-elements';
   }
 }
 var styles = StyleSheet.create({
-  container: {
+  container: {fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  welcome: {fontFamily: 'IBMPlexSans-Regular',
     fontSize: 20,
     textAlign: 'center',
     margin: 10,

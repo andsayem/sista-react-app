@@ -199,13 +199,13 @@ function Newpost(props) {
                   <Text
                      style={styles.checkbox}>
                      <CheckBox
-                        style={{ padding: 50 }}
+                        style={{fontFamily : 'IBMPlexSans-Regular', padding: 50 }}
                         value={isSelected}
                         onValueChange={setSelection}
                      />
                   </Text>
                </ImageBackground>
-               {/* <Image   source={require("../img/text/1.jpg")}  style={{ width: '100%', borderRadius: 10, height: 100 }}  />  */}
+               {/* <Image   source={require("../img/text/1.jpg")}  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 100 }}  />  */}
 
             </View>
          )
@@ -213,7 +213,7 @@ function Newpost(props) {
    }
 
    return (
-      <ScrollView style={{ height: '100%' }}  >
+      <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
          <Loader loading={loading} />
          <Header
             leftComponent={<Icon color={colors.black} size={30} name='menu'
@@ -225,19 +225,19 @@ function Newpost(props) {
                backgroundColor: '#E4E4E4'
             }}
          />
-         <View style={{ backgroundColor: "#F5F5F5", height: '100%' }}>
+         <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
             <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
             <Toast style={Styles.errorTextStyle} visible={successtext} message={successtext.message} />
-            <View style={{ padding: 20, padding: 0 }}>
+            <View style={{fontFamily : 'IBMPlexSans-Regular', padding: 20, padding: 0 }}>
                {photo ? <Image
                   source={photo ? { uri: photo.uri } : null}
-                  style={{ width: '100%', height: photo.uri ? 300 : 0 }}
+                  style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: photo.uri ? 300 : 0 }}
                /> : ''}
 
                {video ?
                   <Video
                      source={{ uri: video.uri, type: video.mime }}
-                     style={{ width: '100%', height: video.uri ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
+                     style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: video.uri ? 300 : 0, top: 0, left: 0, bottom: 0, right: 0 }}
                      rate={1}
                      paused={false}
                      volume={5}
@@ -251,7 +251,7 @@ function Newpost(props) {
             <ListItem >
                <ListItem.Content  >
                   <ListItem.Content >
-                     <ListItem.Title style={{ fontWeight: 'bold' }} >
+                     <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontWeight: 'bold' }} >
                         Write a caption
                      </ListItem.Title>
                   </ListItem.Content>
@@ -259,7 +259,7 @@ function Newpost(props) {
             </ListItem>
             <View style={styles.textAreaContainer} >
                {index == 2 ?
-                  <View style={{ width: '100%', paddingLeft: 10, paddingRight: 10 }}  >
+                  <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', paddingLeft: 10, paddingRight: 10 }}  >
                      <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
                         <Textarea
                            onChangeText={(post_caption) => setCaption(post_caption)}
@@ -293,12 +293,12 @@ function Newpost(props) {
             </View>
             <View >
             </View>
-            <View style={{ flexDirection: 'row', width: '100%', backgroundColor: '#F5F5F5' }} >
-               <View style={{ flexDirection: 'row', margin: 10, width: '100%', backgroundColor: '#F5F5F5' }}  >
+            <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: 'row', width: '100%', backgroundColor: '#F5F5F5' }} >
+               <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: 'row', margin: 10, width: '100%', backgroundColor: '#F5F5F5' }}  >
                   <Text style={
                      { flexDirection: 'row', color: 'black', width: '92%', backgroundColor: '#F5F5F5' }} onPress={() => refRBSheet.current.open()}> Category : {categoryName}
                   </Text>
-                  <Icon style={{ padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
+                  <Icon style={{fontFamily : 'IBMPlexSans-Regular', padding: 2, textAlign: 'right', right: 0 }} type='font-awesome' name="angle-right" size={20} />
                </View>
                <RBSheet
                   ref={refRBSheet}
@@ -306,8 +306,8 @@ function Newpost(props) {
                   closeOnPressMask={true}
                   height={250}
                   openDuration={500} >
-                  <Text style={{ textAlign: 'center', fontWeight: 'bold' }} >Category   </Text>
-                  <Text onPress={() => refRBSheet.current.close()} style={{ textAlign: 'right', fontWeight: 'bold' }} >Apply  </Text>
+                  <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', fontWeight: 'bold' }} >Category   </Text>
+                  <Text onPress={() => refRBSheet.current.close()} style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'right', fontWeight: 'bold' }} >Apply  </Text>
                   <View>
                      <RadioForm formHorizontal={false} initial={0} animation={true} >
                         {
@@ -340,7 +340,7 @@ function Newpost(props) {
                   </View>
                </RBSheet>
             </View>
-            <View style={{ flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#F5F5F5' }} >
+            <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: 'column', width: '100%', height: '100%', backgroundColor: '#F5F5F5' }} >
                <SegmentedControl appearance='light' backgroundColor="#F5F5F5" selectedIndex={index} values={['Photo', 'Video', 'Text']} onChange={(event) => {
                   setCaption('');
                   setIndex(event.nativeEvent.selectedSegmentIndex);
@@ -354,7 +354,7 @@ function Newpost(props) {
                         underlayColor='#fff'>
                         <Text style={styles.loginText}>Choose Photo</Text>
                      </TouchableOpacity>
-                     // <View style={{  marginLeft : '25%' , marginRight : '25%',  backgroundColor: '#ffffff', justifyContent: 'center',  }}>
+                     // <View style={{fontFamily : 'IBMPlexSans-Regular',  marginLeft : '25%' , marginRight : '25%',  backgroundColor: '#ffffff', justifyContent: 'center',  }}>
                      //    <Button  color={} title="Choose Photo" onPress={handleChoosePhoto} />
                      // </View>
                      :
@@ -373,7 +373,7 @@ function Newpost(props) {
                   <View></View>
                }
                {ChildViewEliment()}
-               <View style={{  marginRight: 40, marginLeft: 40,}}>
+               <View style={{fontFamily : 'IBMPlexSans-Regular',  marginRight: 40, marginLeft: 40,}}>
                   <TouchableOpacity
                      onPress={handleSubmitButton}
                      style={Styles.journalBtn}
@@ -382,7 +382,7 @@ function Newpost(props) {
                      >Submit</Text>
                   </TouchableOpacity>
                </View>
-               <View style={{ height: 200, backgroundColor: '#F5F5F5' }} ></View>
+               <View style={{fontFamily : 'IBMPlexSans-Regular', height: 200, backgroundColor: '#F5F5F5' }} ></View>
             </View>
 
          </View>
@@ -392,9 +392,11 @@ function Newpost(props) {
 }
 const styles = StyleSheet.create({
    container_bg: {
+      fontFamily : 'IBMPlexSans-Regular',
       flex: 1,
    },
    loginScreenButton: {
+      fontFamily : 'IBMPlexSans-Regular',
       marginRight: 40,
       marginLeft: 40,
       marginTop: 10,
@@ -406,17 +408,20 @@ const styles = StyleSheet.create({
       borderColor: '#efefef'
    },
    loginText: {
+      fontFamily : 'IBMPlexSans-Regular',
       color: '#000000',
       textAlign: 'center',
       paddingLeft: 10,
       paddingRight: 10
    },
    image_bg: {
+      fontFamily : 'IBMPlexSans-Regular',
       flex: 1,
       // width : '30%'
       justifyContent: "center"
    },
    backgroundImage: {
+      fontFamily : 'IBMPlexSans-Regular',
       height: 100,
       width: 100,
       position: 'relative',
@@ -427,11 +432,13 @@ const styles = StyleSheet.create({
       margin: 0
    },
    checked_bg_image: {
+      fontFamily : 'IBMPlexSans-Regular',
       flex: 1,
       width: '30%',
       justifyContent: "center"
    },
    checkbox: {
+      fontFamily : 'IBMPlexSans-Regular',
       fontWeight: 'bold',
       color: 'white',
       position: 'absolute',
@@ -442,36 +449,43 @@ const styles = StyleSheet.create({
 
    },
    text_bg: {
+      fontFamily : 'IBMPlexSans-Regular',
       color: "black",
       fontWeight: "bold",
       textAlign: "center",
    },
    textAreaContainer: {
+      fontFamily : 'IBMPlexSans-Regular',
       borderColor: '#efefef',
       borderWidth: 1,
    },
    textArea: {
+      fontFamily : 'IBMPlexSans-Regular',
       paddingLeft: 10,
       paddingRight: 10,
       height: 150,
    },
    input: {
+      fontFamily : 'IBMPlexSans-Regular',
       height: 40,
       margin: 12,
       borderWidth: 1,
    },
    container: {
+      fontFamily : 'IBMPlexSans-Regular',
       flex: 1,
       padding: 30,
       justifyContent: 'center',
       alignItems: 'center',
    },
    textareaContainer: {
+      fontFamily : 'IBMPlexSans-Regular',
       height: 180,
       padding: 5,
       backgroundColor: '#F5FCFF',
    },
    textareaContainerBg: {
+      fontFamily : 'IBMPlexSans-Regular',
       height: 180,
       padding: 5,
       justifyContent: 'center',
@@ -479,6 +493,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0)',
    },
    textarea: {
+      fontFamily : 'IBMPlexSans-Regular',
       textAlignVertical: 'top',  // hack android
       height: 170,
       fontSize: 14,
@@ -486,14 +501,17 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0)'
    },
    cat_title: {
+      fontFamily : 'IBMPlexSans-Regular',
       textAlign: 'left',
       padding: 15,
       width: '100%'
    },
    radio: {
+      fontFamily : 'IBMPlexSans-Regular',
       fontSize: 10
    },
    backgroundVideo: {
+      fontFamily : 'IBMPlexSans-Regular',
       position: 'absolute',
       top: 0,
       left: 0,

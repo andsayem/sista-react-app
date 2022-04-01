@@ -67,13 +67,14 @@ class Journal extends Component {
     })
   }
   state = {
-    items: {}
+    items: {
+    }
   }
   renderRow = ({ item, index }) => {
     const { liked, like, props } = item
     return (
       <ListItem
-        style={{
+        style={{fontFamily : 'IBMPlexSans-Regular',
           flex: 1,
           flexDirection: 'column',
           margin: 6,
@@ -89,14 +90,14 @@ class Journal extends Component {
 
         }}>
         <ListItem.Content
-          style={{
+          style={{fontFamily : 'IBMPlexSans-Regular',
           }}>
-          <ListItem.Title style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}
+          <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontSize: 18, fontWeight: 'bold', paddingBottom: 8 }}
             onPress={() => this.onPressJournalDetails(item.id)} >
             {item.title}
           </ListItem.Title>
-          <Text numberOfLines={this.state.numLines} style={{ color: '#707070' }} > {item.details}</Text>
-          <ListItem.Title style={{ fontSize: 18, paddingTop: 8 }}>
+          <Text numberOfLines={this.state.numLines} style={{fontFamily : 'IBMPlexSans-Regular', color: '#707070' }} > {item.details}</Text>
+          <ListItem.Title style={{fontFamily : 'IBMPlexSans-Regular', fontSize: 18, paddingTop: 8 }}>
             {this.getData(item.created_at)}
           </ListItem.Title>
         </ListItem.Content>
@@ -149,7 +150,7 @@ class Journal extends Component {
             }
           }}
         >
-          <View style={{ width: '100%' }}>
+          <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
             <Text onPress={this.changeView} style={Styles.share_item}>{this.state.btnText}</Text>
             <Text onPress={this.journalSettings} style={Styles.share_item}>Settings</Text>
 
@@ -157,7 +158,7 @@ class Journal extends Component {
         </RBSheet>
         <FlatList
           keyExtractor={(item) => item.id}
-          style={{
+          style={{fontFamily : 'IBMPlexSans-Regular',
             backgroundColor: '#ffffff'
           }}
           data={Object.values(this.state.items)}
@@ -175,7 +176,7 @@ class Journal extends Component {
         <View style={styles.submitButton}>
           <TouchableOpacity
 
-            style={{
+            style={{fontFamily : 'IBMPlexSans-Regular',
               width: "100%",
               backgroundColor: "#944CD4",
               borderRadius: 25,
@@ -202,6 +203,7 @@ class Journal extends Component {
 
 const styles = StyleSheet.create({
   submitButton: {
+    fontFamily : 'IBMPlexSans-Regular',
     width :'100%',
     position: 'absolute',
     bottom: 65,
@@ -216,31 +218,37 @@ const styles = StyleSheet.create({
   },
 
   container: {
+    fontFamily : 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 16,
   },
   title: {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
   fixToText: {
+    fontFamily : 'IBMPlexSans-Regular',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   separator: {
+    fontFamily : 'IBMPlexSans-Regular',
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   horizontal: {
+    fontFamily : 'IBMPlexSans-Regular',
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10
   },
   activityIndicator: {
+    fontFamily : 'IBMPlexSans-Regular',
     top: '50%',
     justifyContent: 'center',
     marginTop: '50%',

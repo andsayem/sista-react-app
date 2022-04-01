@@ -29,7 +29,7 @@ class RatingApp extends Component {
          <Rating
            showRating
            onFinishRating={this.ratingCompleted}
-           style={{ paddingVertical: 10 }}
+           style={{fontFamily : 'IBMPlexSans-Regular', paddingVertical: 10 }}
          /> 
         
        </View>

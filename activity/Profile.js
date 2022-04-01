@@ -134,115 +134,115 @@ class UserProfile extends Component {
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
         />  
-        <View  style={{  backgroundColor: "#fff", width:"100%", padding:15 }}  > 
+        <View  style={{fontFamily : 'IBMPlexSans-Regular',  backgroundColor: "#fff", width:"100%", padding:15 }}  > 
         <Toast visible={this.state.errortext} message={this.state.errortext} />
         <Toast visible={this.state.successtext} message={this.state.successtext} /> 
           
         <ScrollView
           horizontal 
-          style={{ marginRight: 0, width:'100%',  marginTop: 10 }}
+          style={{fontFamily : 'IBMPlexSans-Regular', marginRight: 0, width:'100%',  marginTop: 10 }}
         >
-          <View style={{ width : 110}} >
+          <View style={{fontFamily : 'IBMPlexSans-Regular', width : 110}} >
             <Avatar  onPress={this.handleChoosePhoto}  source={this.state.userData ? {uri: this.state.userData.pro_image } : require('../img/images/user_1.jpg')}
             rounded size="medium" />
-            <Text style={{ color:"#000", fontSize : 16 , fontWeight : '600' , paddingBottom : 17, paddingTop:12}}>{ this.state.userData.name}</Text>  
+            <Text style={{fontFamily : 'IBMPlexSans-Regular', color:"#000", fontSize : 16 , fontWeight : '600' , paddingBottom : 17, paddingTop:12}}>{ this.state.userData.name}</Text>  
           </View>  
-          {/* <View style={{paddingLeft:40}}>  
+          {/* <View style={{fontFamily : 'IBMPlexSans-Regular',paddingLeft:40}}>  
             <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
            </View>  */}
         </ScrollView> 
-        <Text style={{color:'#535353'}}>
+        <Text style={{fontFamily : 'IBMPlexSans-Regular',color:'#535353'}}>
            { this.state.userData.description } 
         </Text> 
-        <View style={{borderTopWidth: 2, borderTopColor: '#F5F5F5', backgroundColor:"#fff", color : '#535353', width:'100%', paddingTop:15, marginTop: 10, flexDirection: "row", }}  >              
-            <View  style={{  width:'33%', alignItems : 'flex-start'  }} >
-              <Text style={{ color : '#535353',paddingBottom:8, paddingLeft:5}}> { this.state.userData.total_potos } </Text>
-              <Text style={{  color : '#535353'}}> Photos </Text>
+        <View style={{fontFamily : 'IBMPlexSans-Regular',borderTopWidth: 2, borderTopColor: '#F5F5F5', backgroundColor:"#fff", color : '#535353', width:'100%', paddingTop:15, marginTop: 10, flexDirection: "row", }}  >              
+            <View  style={{fontFamily : 'IBMPlexSans-Regular',  width:'33%', alignItems : 'flex-start'  }} >
+              <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#535353',paddingBottom:8, paddingLeft:5}}> { this.state.userData.total_potos } </Text>
+              <Text style={{fontFamily : 'IBMPlexSans-Regular',  color : '#535353'}}> Photos </Text>
             </View>
-            <View style={{  width:'33%',   alignItems : 'center' }} >
-              <Text style={{  color : '#535353',paddingBottom:8, textAlign:"justify"}}> { this.state.userData.total_followers } </Text>
-              <Text style={{ color : '#535353'}}> Followers </Text> 
+            <View style={{fontFamily : 'IBMPlexSans-Regular',  width:'33%',   alignItems : 'center' }} >
+              <Text style={{fontFamily : 'IBMPlexSans-Regular',  color : '#535353',paddingBottom:8, textAlign:"justify"}}> { this.state.userData.total_followers } </Text>
+              <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#535353'}}> Followers </Text> 
             </View>
-            <View  style={{  width:'33%',  alignItems : 'flex-end' }}  >
-              <Text style={{ color : '#535353',paddingBottom:8, paddingRight:5}}> { this.state.userData.total_post } </Text>
-              <Text style={{ color : '#535353'}}> Posts </Text> 
+            <View  style={{fontFamily : 'IBMPlexSans-Regular',  width:'33%',  alignItems : 'flex-end' }}  >
+              <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#535353',paddingBottom:8, paddingRight:5}}> { this.state.userData.total_post } </Text>
+              <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#535353'}}> Posts </Text> 
             </View>
         </View> 
         </View>
-        <View  style={{  backgroundColor: "#FEFEFE", width:"100%",  padding : 15 , marginTop: 10 , borderRadius: 10  }}  > 
-            <View style={{  width:'100%',  marginTop: 10,flexDirection: "row", }}  > 
-              <View  style={{   width: "50%",   alignItems : 'flex-start' }} > 
-                <Text style={{ color : '#0D0E10'}}> Videos</Text> 
+        <View  style={{fontFamily : 'IBMPlexSans-Regular',  backgroundColor: "#FEFEFE", width:"100%",  padding : 15 , marginTop: 10 , borderRadius: 10  }}  > 
+            <View style={{fontFamily : 'IBMPlexSans-Regular',  width:'100%',  marginTop: 10,flexDirection: "row", }}  > 
+              <View  style={{fontFamily : 'IBMPlexSans-Regular',   width: "50%",   alignItems : 'flex-start' }} > 
+                <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#0D0E10'}}> Videos</Text> 
               </View> 
               { this.state.userData.total_videos > 3 ?
-                <View  style={{   width: "50%", alignItems : 'flex-end'  }}  > 
-                  <Text style={{ color : '#707070'}}> View all </Text>  
+                <View  style={{fontFamily : 'IBMPlexSans-Regular',   width: "50%", alignItems : 'flex-end'  }}  > 
+                  <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#707070'}}> View all </Text>  
                 </View> 
-                : <View  style={{   width: "50%", alignItems : 'flex-end'  }}  > 
-                <Text style={{ color : '#707070'}}> View all </Text>  
+                : <View  style={{fontFamily : 'IBMPlexSans-Regular',   width: "50%", alignItems : 'flex-end'  }}  > 
+                <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#707070'}}> View all </Text>  
               </View> 
               }
             </View>
             { this.state.userData.total_videos > 3 ?
-            <View style={{  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
-              <View  style={{ width: "50%", alignItems : 'flex-start' }} > 
+            <View style={{fontFamily : 'IBMPlexSans-Regular',  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
+              <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%", alignItems : 'flex-start' }} > 
                 <Image
                 source={require('../img/images/v1.png')}
-                style={{ height: 100, width: 170 , borderRadius: 10 }}
+                style={{fontFamily : 'IBMPlexSans-Regular', height: 100, width: 170 , borderRadius: 10 }}
               />
               </View> 
-              <View  style={{ width: "50%", alignItems : 'flex-end'  }}  > 
+              <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%", alignItems : 'flex-end'  }}  > 
                 <Image
                 source={require('../img/images/v2.png')}
-                style={{ height: 100, width: 170 ,  borderRadius: 10 }}
+                style={{fontFamily : 'IBMPlexSans-Regular', height: 100, width: 170 ,  borderRadius: 10 }}
               />
               </View>
             </View>
             : 
-            <View style={{  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
-                <View  style={{ width: "50%", alignItems : 'flex-start' }} > 
+            <View style={{fontFamily : 'IBMPlexSans-Regular',  width:'100%',  marginTop: 10, flexDirection: "row" }}  > 
+                <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%", alignItems : 'flex-start' }} > 
                   <Image
                   source={require('../img/images/v1.png')}
-                  style={{ height: 100, width: 170 , borderRadius: 10 }}
+                  style={{fontFamily : 'IBMPlexSans-Regular', height: 100, width: 170 , borderRadius: 10 }}
                 />
                 </View> 
-                <View  style={{ width: "50%", alignItems : 'flex-end'  }}  > 
+                <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%", alignItems : 'flex-end'  }}  > 
                   <Image
                   source={require('../img/images/v2.png')}
-                  style={{ height: 100, width: 170 ,  borderRadius: 10 }}
+                  style={{fontFamily : 'IBMPlexSans-Regular', height: 100, width: 170 ,  borderRadius: 10 }}
                 />
                 </View>
             </View>
              }
 
-            <View style={{ width:'100%',  marginTop: 20,flexDirection:"row" }}  > 
-              <View  style={{ width: "50%",   alignItems : 'flex-start' }} > 
-                <Text style={{ color : '#0D0E10'}}> Photos </Text>                
+            <View style={{fontFamily : 'IBMPlexSans-Regular', width:'100%',  marginTop: 20,flexDirection:"row" }}  > 
+              <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%",   alignItems : 'flex-start' }} > 
+                <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#0D0E10'}}> Photos </Text>                
               </View> 
               { this.state.userData.total_potos > 3 ?
-              <View  style={{ width: "50%", alignItems : 'flex-end'  }}  > 
-                <Text style={{ color : '#707070'}}> View all </Text>  
+              <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%", alignItems : 'flex-end'  }}  > 
+                <Text style={{fontFamily : 'IBMPlexSans-Regular', color : '#707070'}}> View all </Text>  
               </View> 
               :<View></View> }
             </View> 
-            <View style={{  width:'100%',  marginTop: 10,flexDirection:"row" }}  >               
-              <View  style={{ width: "50%",   alignItems : 'flex-start' }} >  
+            <View style={{fontFamily : 'IBMPlexSans-Regular',  width:'100%',  marginTop: 10,flexDirection:"row" }}  >               
+              <View  style={{fontFamily : 'IBMPlexSans-Regular', width: "50%",   alignItems : 'flex-start' }} >  
               { this.state.userData.photos ?
                 <Image
                 onPress={() =>  { this.state.pro1 ? this.onPressPostDetails(this.state.pro1.id) : ''}}
                   source={this.state.pro1 ? {uri: this.state.pro1.file } : null} 
-                  style={{ height: 150, width: 170 , borderRadius: 10 }}
+                  style={{fontFamily : 'IBMPlexSans-Regular', height: 150, width: 170 , borderRadius: 10 }}
                 />
                 : 
               <Text style={styles.noimage}>No image found</Text>
               }
               </View>  
-              <View  style={{  width: "50%", alignItems : 'flex-end'  }}  > 
+              <View  style={{fontFamily : 'IBMPlexSans-Regular',  width: "50%", alignItems : 'flex-end'  }}  > 
               { this.state.userData.photos ?
               <Image
                onPress={() => { this.state.pro2 ? this.onPressPostDetails(this.state.pro2.id) : ''}}
                  source={this.state.pro2 ? {uri: this.state.pro2.file } : null} 
-                style={{ height: 72, width: 165 ,  borderRadius: 10 }}
+                style={{fontFamily : 'IBMPlexSans-Regular', height: 72, width: 165 ,  borderRadius: 10 }}
               />
               : 
               <Text style={styles.noimage}>No image found</Text>
@@ -251,7 +251,7 @@ class UserProfile extends Component {
                 <Image
                 onPress={() =>  { this.state.pro3 ? this.onPressPostDetails(this.state.pro3.id) : ''}}
                   source={this.state.pro3 ? {uri: this.state.pro3.file } : null} 
-                 style={{ height: 72, width: 165 , marginTop :10 ,  borderRadius: 10 }}
+                 style={{fontFamily : 'IBMPlexSans-Regular', height: 72, width: 165 , marginTop :10 ,  borderRadius: 10 }}
                /> 
                 : 
                 <Text style={styles.noimage}>No image found</Text>
@@ -266,7 +266,7 @@ class UserProfile extends Component {
   const styles = StyleSheet.create({
 
     MainContainer :{
-    
+      fontFamily: 'IBMPlexSans-Regular',
     justifyContent: 'center',
     flex:1,
     margin: 10,
@@ -275,7 +275,7 @@ class UserProfile extends Component {
     },
     
     GridViewBlockStyle: {
-    
+      fontFamily: 'IBMPlexSans-Regular',
       justifyContent: 'center',
       flex:1,
       alignItems: 'center',
@@ -287,7 +287,7 @@ class UserProfile extends Component {
     ,
     
     GridViewInsideTextItemStyle: {
-    
+      fontFamily: 'IBMPlexSans-Regular',
        color: '#fff',
        padding: 10,
        fontSize: 18,

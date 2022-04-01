@@ -16,7 +16,7 @@ const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
   _isMounted = false;
-  constructor(props) { 
+  constructor(props) {
     super(props);
     //this.handlePostCates = this.handlePostCates.bind(this);
     this.fatchData = this.fatchData.bind(this);
@@ -28,63 +28,63 @@ class Posts extends Component {
       cat_active: '',
       userData: [],
       moreLoding: true,
-      refreshing:false,
-      page:1
-      };
-  }  
- 
-  componentDidMount(){   
+      refreshing: false,
+      page: 1
+    };
+  }
+
+  componentDidMount() {
     this._isMounted = true;
-    
+
     this.focusListener = this.props.navigation.addListener('focus',
-        () =>{ 
-          this.handleResetParam()
-          if (this._isMounted) {
-            this.fatchData();
-          } 
-        } ); 
+      () => {
+        this.handleResetParam()
+        if (this._isMounted) {
+          this.fatchData();
+        }
+      });
     var pusher = new Pusher(helpers.pusherConfig().app_key, {
       cluster: helpers.pusherConfig().app_key
-    }); 
-    var channel = pusher.subscribe('blog-channel'); 
-    channel.bind('blog-event', function(data) {  
-    }); 
-   
+    });
+    var channel = pusher.subscribe('blog-channel');
+    channel.bind('blog-event', function (data) {
+    });
+
   }
 
   /* React get method.  */
-  
+
   fatchData = async () => {
     //console.log('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page);
-    api.getData('post_datas?cat_id='+this.state.cat_id+'&page='+this.state.page)
-    .then(response => response.data.data)
-    .then((json) => {  
-      if(json.length > 1){  
-        this.setState({items:this.state.items.concat(json)})
-        this.setState({moreLoding:true})
-        this.setState({page:this.state.page+1})
-      }else{  
-        this.setState({moreLoding:false})
-      } 
-    })
-    .finally( ()=>{
-      this.setState({isLoading: false, refreshing:false,moreLoding:false})
-    }) 
-  }   
-  handleLoadMore = () => {   
-    if(this.state.moreLoding ){ 
-      this.setState({page: this.state.page, isLoading:true }, () => { this.fatchData()});
-    } 
-       
-  }  
-  renderFooter = () => {  
-    useEffect(() => { 
-      let isMounted = true; 
-      this.fatchData().then(data =>{
+    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
+      .then(response => response.data.data)
+      .then((json) => {
+        if (json.length > 1) {
+          this.setState({ items: this.state.items.concat(json) })
+          this.setState({ moreLoding: true })
+          this.setState({ page: this.state.page + 1 })
+        } else {
+          this.setState({ moreLoding: false })
+        }
+      })
+      .finally(() => {
+        this.setState({ isLoading: false, refreshing: false, moreLoding: false })
+      })
+  }
+  handleLoadMore = () => {
+    if (this.state.moreLoding) {
+      this.setState({ page: this.state.page, isLoading: true }, () => { this.fatchData() });
+    }
+
+  }
+  renderFooter = () => {
+    useEffect(() => {
+      let isMounted = true;
+      this.fatchData().then(data => {
         isMounted = false
       })
-     // return () => { isMounted = false };
-    },[]) 
+      // return () => { isMounted = false };
+    }, [])
 
     // useEffect(() => {
     //   let isMounted = true;               // note mutable flag
@@ -94,19 +94,19 @@ class Posts extends Component {
     //   return () => { isMounted = false }; // cleanup toggles value, if unmounted
     // }, []);   
 
-    return(  
-        <View style={{height:60}}> 
-          { this.state.moreLoding ? (
-            <View>
-              <ActivityIndicator /> 
-              <Text style={styles.title}>Loading Data..</Text> 
-            </View>
-          ):(
-            <View> 
-              <Text style={styles.title}>Loading Data..</Text> 
-            </View>
-          )}
-        </View> 
+    return (
+      <View style={{ fontFamily: 'IBMPlexSans-Regular', height: 60 }}>
+        {this.state.moreLoding ? (
+          <View>
+            <ActivityIndicator />
+            <Text style={styles.title}>Loading Data..</Text>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.title}>Loading Data..</Text>
+          </View>
+        )}
+      </View>
     );
   }
   handleOnRefresh = () => {
@@ -124,7 +124,7 @@ class Posts extends Component {
   renderRow = ({ item, index }) => {
     const { liked, like, props } = item
     return (
-      <View style={{ padding: 5 }}>
+      <View style={{ fontFamily: 'IBMPlexSans-Regular', padding: 5 }}>
         <Post
           item={item}
           index={index.toString()}
@@ -145,17 +145,17 @@ class Posts extends Component {
   handleUserProfile = (id) => {
     this.props.navigation.navigate('UserProfile', { id: id });
   }
-  handlePostCateWise = (id) => {    
+  handlePostCateWise = (id) => {
     this.handleResetParam()
-    this.setState({cat_id: id}, function () {      
+    this.setState({ cat_id: id }, function () {
       this.fatchData();
     });
   }
   handlePostCates = () => {
     this.handleResetParam()
-    this.setState({cat_id:''}, function () {      
+    this.setState({ cat_id: '' }, function () {
       this.fatchData();
-    }); 
+    });
   }
   handleLikePost = index => {
     let post = this.state.items[index]
@@ -178,15 +178,15 @@ class Posts extends Component {
     api.getData('following/' + post.user_id).then((res) => {
       this.fatchData();
     })
-    
-  } 
-  handleResetParam = () =>{
-    this.setState({items:[],page:1});
+
   }
-  componentWillUnmount() {  
-    this._isMounted = false; 
+  handleResetParam = () => {
+    this.setState({ items: [], page: 1 });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
     this.focusListener;
-    this.handlePostCates();  
+    this.handlePostCates();
     this.fatchUserData();
     this.renderFooter();
   }
@@ -196,48 +196,57 @@ class Posts extends Component {
     return (
       <View>
         <Header
-          leftComponent={<View>
-            <Icon color={colors.black} size={30} name='menu'
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
+            <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
               onPress={() => props.navigation.toggleDrawer()} ></Icon>
-          </View>}
-          centerComponent={{ text: 'Inspire me', style: { color: '#1E1E1E', fontSize: 20 } }}
-          rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-          containerStyle={{ color : '1E1E1E', backgroundColor: '#F5F5F5'  }} 
-      />  
-      <View style={{ backgroundColor:"#F5F5F5" , paddingBottom : 5 , marginTop : 10}}> 
-      <SafeAreaView>  
-        <FlatList 
-          data={Object.values(this.state.items)}
-          keyExtractor={(item) => new Date().getTime().toString() + (Math.floor(Math.random() * Math.floor(new Date().getTime()))).toString()} 
-           
-          onEndReached={this.handleLoadMore}
-          renderItem={this.renderRow}
-          ListFooterComponent={this.renderFooter}
-          onEndReachedThreshold={200}
-          refreshing={this.state.refreshing} 
-          onRefresh={this.handleOnRefresh} 
-          ListHeaderComponent={
-            <View>
-              <Events/>
-            
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{
-                marginHorizontal: -10,
-                paddingEnd : 10 , 
-                marginRight : 5,
-                marginTop: 1 }}
-            > 
-            <Categories 
-            cat_id= {this.state.cat_id} 
-            handleAllPost= {this.handlePostCates} 
-            handlePostCate={this.handlePostCateWise} />
-            </ScrollView>
-            </View>}    
-        />   
-      </SafeAreaView>
-      </View> 
+            <Text style={{ textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Inspire me</Text>
+          </View>
+          }
+          rightComponent={<View style={{ flexDirection: 'row', flexWrap: 'nowrap', minWidth: 60 }}>
+            <Icon style={{ textAlign: 'left', paddingRight:12 }} color={colors.black} size={24} name='search' ></Icon>
+            <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='notifications' ></Icon>
+          </View>
+          }
+          // centerComponent={{ text: 'Inspire me', style: { fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E', fontSize: 20 } }}
+          // rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+          containerStyle={{ fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
+        />
+        <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10 }}>
+          <SafeAreaView>
+            <FlatList
+              data={Object.values(this.state.items)}
+              keyExtractor={(item) => new Date().getTime().toString() + (Math.floor(Math.random() * Math.floor(new Date().getTime()))).toString()}
+
+              onEndReached={this.handleLoadMore}
+              renderItem={this.renderRow}
+              ListFooterComponent={this.renderFooter}
+              onEndReachedThreshold={200}
+              refreshing={this.state.refreshing}
+              onRefresh={this.handleOnRefresh}
+              ListHeaderComponent={
+                <View>
+                  <Events  style={{marginHorizontal:-10}}/>
+
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={{
+                      fontFamily: 'IBMPlexSans-Regular',
+                      marginHorizontal: -10,
+                      paddingEnd: 10,
+                      marginRight: 5,
+                      marginTop: 1
+                    }}
+                  >
+                    <Categories
+                      cat_id={this.state.cat_id}
+                      handleAllPost={this.handlePostCates}
+                      handlePostCate={this.handlePostCateWise} />
+                  </ScrollView>
+                </View>}
+            />
+          </SafeAreaView>
+        </View>
       </View>
     )
   }
@@ -246,31 +255,37 @@ class Posts extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 16,
   },
   title: {
+    fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
   fixToText: {
+    fontFamily: 'IBMPlexSans-Regular',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   separator: {
+    fontFamily: 'IBMPlexSans-Regular',
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   horizontal: {
+    fontFamily: 'IBMPlexSans-Regular',
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10
   },
   activityIndicator: {
+    fontFamily: 'IBMPlexSans-Regular',
     top: '50%',
     justifyContent: 'center',
     marginTop: '50%',

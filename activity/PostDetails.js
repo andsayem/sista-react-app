@@ -1,5 +1,5 @@
-import React, { Component, useEffect , useRef } from 'react';
-import { StyleSheet, Dimensions, FlatList,  Text, View, SafeAreaView, ActivityIndicator, ImageBackground, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import React, { Component, useEffect, useRef } from 'react';
+import { StyleSheet, Dimensions, FlatList, Text, View, SafeAreaView, ActivityIndicator, ImageBackground, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import api from '../api';
 import { colors, Icon, Header } from 'react-native-elements';
 import Comment from './Comment';
@@ -14,9 +14,9 @@ import IconEnt from 'react-native-vector-icons/Entypo';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 import Styles from "../styles";
-import RBSheet from "react-native-raw-bottom-sheet"; 
-import AutoHeightImage from 'react-native-auto-height-image'; 
-import VideoPlayer from 'react-native-video-player'; 
+import RBSheet from "react-native-raw-bottom-sheet";
+import AutoHeightImage from 'react-native-auto-height-image';
+import VideoPlayer from 'react-native-video-player';
 import * as mime from 'react-native-mime-types';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
@@ -44,8 +44,8 @@ class PostDetails extends Component {
     this.state = {
       items: [],
       post_items: [],
-      like:'',
-      liked:false,
+      like: '',
+      liked: false,
       isLoading: false,
       errortext: '',
       successtext: '',
@@ -81,13 +81,13 @@ class PostDetails extends Component {
     try {
       const value = await AsyncStorage.getItem('TOKEN');
       if (value !== null) {
-        this.setState({ token: value }); 
+        this.setState({ token: value });
       }
     } catch (error) {
       // Error retrieving data  
     }
   };
-  fatchData = () => { 
+  fatchData = () => {
     this.setState({ isLoading: true })
     api.getData('singelpost/' + this.props.route.params.id)
       .then(response => {
@@ -96,7 +96,7 @@ class PostDetails extends Component {
       })
       .finally(() => this.setState({ isLoading: false }))
   }
-  renderFooter = () => { 
+  renderFooter = () => {
     return (
       <View>
         <SafeAreaView>
@@ -123,7 +123,7 @@ class PostDetails extends Component {
         user_id: 2,
         comm_test: this.state.post_comment,
       };
-      fetch(helpers.baseurl()+'api/all_comments', {
+      fetch(helpers.baseurl() + 'api/all_comments', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -146,7 +146,7 @@ class PostDetails extends Component {
           } else {
           }
         })
-        .catch((error) => { 
+        .catch((error) => {
           this.setState({ loading: false });
         });
     }
@@ -184,10 +184,10 @@ class PostDetails extends Component {
   handleToggleDrawer = () => {
     this.props.navigation.navigate.toggleDrawer();
   }
- 
+
   handleFollowPost = index => {
-    let post = this.state.items[index] 
-    api.getData('following/' + post.user_id).then((res) => { 
+    let post = this.state.items[index]
+    api.getData('following/' + post.user_id).then((res) => {
       this.fatchData();
     })
   }
@@ -196,89 +196,89 @@ class PostDetails extends Component {
     this.setState({ reply_to_name: '' });
   }
   handleLikeComment = (index) => {
-    
-    api.getData('commentlike/'+index)
-    .catch((error) => { 
-    });
-    
+
+    api.getData('commentlike/' + index)
+      .catch((error) => {
+      });
+
     this.fatchData();
   }
-  handleLikePost2 = (id) => { 
-    api.getData('postlike/' + id) 
+  handleLikePost2 = (id) => {
+    api.getData('postlike/' + id)
     this.fatchData();
-    
-  } 
-  handleLikePost = index => {     
-    let post = this.state.items[index] 
-    this.state.post_items 
-     
+
+  }
+  handleLikePost = index => {
+    let post = this.state.items[index]
+    this.state.post_items
+
   }
   render() {
-    let { items, isLoading } = this.state; 
-    return ( 
-      <SafeAreaView style={styles.container}>  
-      <ScrollView>
-        {this.state.post_items ?
-          <View style={styles.header}>
-            <View style={{ borderRadius: 10 }}> 
-            {this.state.post_items.post_type == 3 ?
-              <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom :5,paddingLeft:20, paddingRight:20 }}  >  
-                <ImageBackground  source={require("../img/text/1.jpg")}  resizeMode="cover" style={styles.image_bg}>
-                  <Text numberOfLines={5}  style={styles.text_bg}>{this.state.post_items.caption}  </Text>
-                </ImageBackground>  
-              </View>
-            //  <AutoHeightImage
-            //     width={win}
-            //     source={require("../img/text/1.jpg")}
-            //   />  
-            : 
-            <View>
-              
-              { mime.lookup(this.state.post_items.file) =='video/mp4' ? 
-                <VideoPlayer
-                  onBuffer={this.onBuffer}
-                  fullScreenOnLongPress={true}
-                  ref={r => this.player = r}
-                  playControl={true}
-                  controlButton={true}
-                  video={{ uri: this.state.post_items.file }} 
-                  thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
-                  style={styles.backgroundVideo}
-              /> : 
-              <AutoHeightImage width={win}
-                source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
-              />  
-              }
-              <Text style={styles.caption}>{this.state.post_items.caption}</Text>
-            </View> 
-            } 
-          
-              
-            </View>
+    let { items, isLoading } = this.state;
+    return (
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          {this.state.post_items ?
+            <View style={styles.header}>
+              <View style={{fontFamily : 'IBMPlexSans-Regular', borderRadius: 10 }}>
+                {this.state.post_items.post_type == 3 ?
+                  <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20 }}  >
+                    <ImageBackground source={require("../img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
+                      <Text numberOfLines={5} style={styles.text_bg}>{this.state.post_items.caption}  </Text>
+                    </ImageBackground>
+                  </View>
+                  //  <AutoHeightImage
+                  //     width={win}
+                  //     source={require("../img/text/1.jpg")}
+                  //   />  
+                  :
+                  <View>
 
-            {/* <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
-              style={{ width: '100%', borderRadius: 10, height: 130 }} /> */} 
-              <View style={{ paddingTop: 20, flexDirection: "row", width: '100%' }}>
-                <View style={{ marginStart: 30, flexDirection: "row", width: '25%' }}>
-                  <TouchableOpacity onPress={() => this.handleLikePost(this.state.post_items.id)}    
-                  activeOpacity={0.5} >  
-                  {this.state.post_items.liked ?
-                    <Text><IconAnt name="heart" size={23} color="#FF5D8F" /> </Text>
-                    : 
-                    <Text><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
-                  }                    
-                  </TouchableOpacity>  
-                  <Text style={{ paddingLeft: 10 }}>{this.state.post_items.like}</Text>
+                    {mime.lookup(this.state.post_items.file) == 'video/mp4' ?
+                      <VideoPlayer
+                        onBuffer={this.onBuffer}
+                        fullScreenOnLongPress={true}
+                        ref={r => this.player = r}
+                        playControl={true}
+                        controlButton={true}
+                        video={{ uri: this.state.post_items.file }}
+                        thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
+                        style={styles.backgroundVideo}
+                      /> :
+                      <AutoHeightImage width={win}
+                        source={{ uri: this.state.post_items.file ? this.state.post_items.file : '' }}
+                      />
+                    }
+                    <Text style={styles.caption}>{this.state.post_items.caption}</Text>
+                  </View>
+                }
+
+
+              </View>
+
+              {/* <Image source={this.state.post_items.file ? { uri: this.state.post_items.file } : null}
+              style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 130 }} /> */}
+              <View style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 20, flexDirection: "row", width: '100%' }}>
+                <View style={{fontFamily : 'IBMPlexSans-Regular', marginStart: 30, flexDirection: "row", width: '25%' }}>
+                  <TouchableOpacity onPress={() => this.handleLikePost(this.state.post_items.id)}
+                    activeOpacity={0.5} >
+                    {this.state.post_items.liked ?
+                      <Text><IconAnt name="heart" size={23} color="#FF5D8F" /> </Text>
+                      :
+                      <Text><IconAnt name="hearto" size={23} color="#FF5D8F" /> </Text>
+                    }
+                  </TouchableOpacity>
+                  <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10 }}>{this.state.post_items.like}</Text>
                 </View>
-                <View style={{ flexDirection: "row", width: '28%' }}>
+                <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", width: '28%' }}>
                   <Text ><IconOct name="comment" size={23} color="#FF5D8F" /> </Text>
-                  <Text style={{ paddingLeft: 12 }}>{this.state.post_items.comment}</Text>
+                  <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 12 }}>{this.state.post_items.comment}</Text>
                 </View>
-                <View style={{ flexDirection: "row", width: '30%' }}>
+                <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", width: '30%' }}>
                   <IconFea name="share" size={23} color="#FF5D8F" />
                 </View>
-                <Text style={{ alignSelf: 'flex-end' }}>
-                  <IconEnt  onPress={() => this.RBSheet.open()}  name="dots-three-vertical" size={23} color="#FF5D8F" />
+                <Text style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
+                  <IconEnt onPress={() => this.RBSheet.open()} name="dots-three-vertical" size={23} color="#FF5D8F" />
                 </Text>
                 <RBSheet
                   ref={ref => {
@@ -292,44 +292,44 @@ class PostDetails extends Component {
                       alignItems: "center"
                     }
                   }}
-                > 
-                <View style={{width : '100%'}}>
-                  <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
-                  <Text style={[Styles.share_item, {  color : '#F00' }]}> <IconMat  name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
-                  <Text style={Styles.share_item}> <IconIonic  name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
-                  <Text style={Styles.share_item}> <IconAnt  name="sharealt" size={16} color="#000000" /> Share To....</Text>
-                  <Text style={Styles.share_item}> <IconFea  name="bookmark" size={16} color="#000000" /> Save</Text>
-                </View>
+                >
+                  <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
+                    <Text style={[Styles.share_item, { color: '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
+                    <Text style={[Styles.share_item, { color: '#F00' }]}> <IconMat name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
+                    <Text style={Styles.share_item}> <IconIonic name="copy-outline" size={16} color="#000000" /> Copy Link</Text>
+                    <Text style={Styles.share_item}> <IconAnt name="sharealt" size={16} color="#000000" /> Share To....</Text>
+                    <Text style={Styles.share_item}> <IconFea name="bookmark" size={16} color="#000000" /> Save</Text>
+                  </View>
                 </RBSheet>
-              </View>  
-              </View>  
-          : ''
-        }
-        <Toast visible={this.state.errortext} message={this.state.errortext} />
-        {
-          this.state.items ?
-            <FlatList style={{ paddingTop: 30, paddingBottom:30}}
-              data={Object.values(this.state.items)}
-              renderItem={this.renderRow}
-              refreshing={isLoading}
-              extraData={this.state.items}
-              ListFooterComponent={this.renderFooter}
-              onEndReachedThreshold={0.1}
-              onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-              onRefresh={this.fatchData}
-            /> : <View>Empty</View>
-        }
-        <View>
-          {this.state.reply_to_name ?
+              </View>
+            </View>
+            : ''
+          }
+          <Toast visible={this.state.errortext} message={this.state.errortext} />
+          {
+            this.state.items ?
+              <FlatList style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 30, paddingBottom: 30 }}
+                data={Object.values(this.state.items)}
+                renderItem={this.renderRow}
+                refreshing={isLoading}
+                extraData={this.state.items}
+                ListFooterComponent={this.renderFooter}
+                onEndReachedThreshold={0.1}
+                onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+                onRefresh={this.fatchData}
+              /> : <View>Empty</View>
+          }
+          <View>
+            {this.state.reply_to_name ?
 
-            <Text>{this.state.reply_to_name} <Text onPress={this.handleCancelButton} >Cancel</Text> </Text>
+              <Text>{this.state.reply_to_name} <Text onPress={this.handleCancelButton} >Cancel</Text> </Text>
 
-            : <View></View>}
-        </View>
+              : <View></View>}
+          </View>
         </ScrollView>
-         <View style={styles.main_footer} >
+        <View style={styles.main_footer} >
           <View style={styles.footer}>
-            <View style={{ width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
+            <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', flexDirection: 'column' }} horizontal showsHorizontalScrollIndicator={false} >
               <TextInput
                 onChangeText={(test) => {
                   this.setState({ post_comment: test },
@@ -341,7 +341,7 @@ class PostDetails extends Component {
                 placeholder="Type Here..."
                 multiline={true}
                 placeholderTextColor={'white'}
-                style={{
+                style={{fontFamily : 'IBMPlexSans-Regular',
                   backgroundColor: '#944CD4',
                   width: '100%',
                   alignSelf: 'center'
@@ -358,8 +358,8 @@ class PostDetails extends Component {
               </TouchableOpacity>
             </View>
           </View>
-        </View>  
-        
+        </View>
+
       </SafeAreaView>
     )
   }
@@ -367,46 +367,54 @@ class PostDetails extends Component {
 }
 const styles = StyleSheet.create({
   container: {
+    fontFamily: 'IBMPlexSans-Regular',
     marginTop: 20,
     flex: 1,
     padding: 2,
     width: '100%'
   },
   header: {
+    fontFamily: 'IBMPlexSans-Regular',
     backgroundColor: '#fff',
-    top: 20, 
+    top: 20,
     width: '100%',
     borderRadius: 15,
     paddingBottom: 20,
     marginBottom: 10
   },
   caption: {
-    paddingTop:5,
+    fontFamily: 'IBMPlexSans-Regular',
+    paddingTop: 5,
     textAlign: 'center',
     fontSize: 18,
-    color:"#535353"
+    color: "#535353"
   },
   main_footer: {
+    fontFamily: 'IBMPlexSans-Regular',
     alignItems: "center",
-    justifyContent: "center", 
-    paddingBottom:40
+    justifyContent: "center",
+    paddingBottom: 40
   },
-  footer: {  
-    position: 'absolute',  
+  footer: {
+    fontFamily: 'IBMPlexSans-Regular',
+    position: 'absolute',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 5,
     width: '90%'
   },
   textAreaContainer: {
+    fontFamily: 'IBMPlexSans-Regular',
     borderColor: '#944CD4',
     backgroundColor: 'blue',
     // width: '90%'
   },
   textArea: {
+    fontFamily: 'IBMPlexSans-Regular',
     height: 50,
   },
   submit: {
+    fontFamily: 'IBMPlexSans-Regular',
     paddingTop: 4,
     paddingBottom: 4,
     paddingRight: 1,
@@ -419,15 +427,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   image_bg: {
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: "center"
   },
-    text_bg: {
+  text_bg: {
+    fontFamily: 'IBMPlexSans-Regular',
     color: "black",
     fontWeight: "bold",
     textAlign: "center",
   },
-  backgroundVideo: { 
+  backgroundVideo: {
+    fontFamily: 'IBMPlexSans-Regular',
     top: 0,
     left: 0,
     bottom: 0,

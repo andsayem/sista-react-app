@@ -21,10 +21,10 @@ const Categories = (props) => {
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => { getCategories() }, []);
   return (
-    <View style={{ paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 1 }}>
+    <View style={{fontFamily: 'IBMPlexSans-Regular', paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 1 }}>
       <View style={{ flexDirection: 'row', paddingTop: 10 }}>
       { getCats.length > 0 }
-        <Text style={{ paddingStart: 20 , width: '100%', fontSize: 14,   fontWeight: 'bold', color: '#535353' }}>Category </Text> 
+        <Text style={{ fontFamily: 'IBMPlexSans-Regular', paddingStart: 20 , width: '100%', fontSize: 14,   fontWeight: 'bold', color: '#535353' }}>Category </Text> 
       </View>
 
       <ListItem style={{ padding: -10 ,margin: 0 }} >

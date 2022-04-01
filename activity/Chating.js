@@ -123,11 +123,11 @@ class Chating extends Component {
     return (
       <View  >
         {this.state.user.id != item.sender_id ?
-          <View style={{backgroundColor: "#f00", minHeight:1505  }}>
+          <View style={{fontFamily : 'IBMPlexSans-Regular',backgroundColor: "#f00", minHeight:1505  }}>
             <ListItem  >
               <Avatar rounded size="small" source={item.receiver.pro_image ? { uri: item.sender.pro_image } : ''} />
               <ListItem.Content  >
-                <Text style={{ backgroundColor: '#E4E4E4', borderRadius: 7, padding: 5, textAlign: 'left' }}>
+                <Text style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#E4E4E4', borderRadius: 7, padding: 5, textAlign: 'left' }}>
                   {item.message}  
                 </Text>
               </ListItem.Content>
@@ -137,7 +137,7 @@ class Chating extends Component {
             <ListItem.Content>
 
             </ListItem.Content>
-            <Text style={{ textAlign: 'right', alignItems: 'flex-end', backgroundColor: '#FF5D8F', color: '#fff', borderRadius: 7, padding: 5 }}>
+            <Text style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'right', alignItems: 'flex-end', backgroundColor: '#FF5D8F', color: '#fff', borderRadius: 7, padding: 5 }}>
               {item.message}  </Text>
             <Avatar rounded size="small" source={item.sender.pro_image ? { uri: item.sender.pro_image } : ''} />
           </ListItem>}
@@ -174,13 +174,14 @@ class Chating extends Component {
         {/* <Header 
             leftComponent={<Icon color={colors.black} size={30} name='menu' 
             onPress ={ ( ) =>  props.navigation.toggleDrawer()  } ></Icon> }
-            centerComponent={{ text: 'Chats', style: { color: '#1E1E1E' , fontSize : 20 } }}
+            centerComponent={{ text: 'Chats', style: {
+              fontFamily : 'IBMPlexSans-Regular', color: '#1E1E1E' , fontSize : 20 } }}
             rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
-            containerStyle={{   
+            containerStyle={{fontFamily : 'IBMPlexSans-Regular',   
               color : '1E1E1E',
               backgroundColor: '#E4E4E4' }}
         /> */}
-        <View style={{ paddingTop: 35, backgroundColor: "#efefef", }}  >
+        <View style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 35, backgroundColor: "#efefef", }}  >
           <View >
             <ListItem >
               <Avatar rounded size="medium" source={require('../img/images/user_1.jpg')} />
@@ -235,17 +236,20 @@ class Chating extends Component {
 }
 const styles = StyleSheet.create({
   title: {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
   container: {
+    fontFamily : 'IBMPlexSans-Regular',
     marginTop: 20,
     flex: 1,
     padding: 2,
   },
   header: {
+    fontFamily : 'IBMPlexSans-Regular',
     backgroundColor: '#fff',
     top: 20,
     height: 200,
@@ -255,22 +259,27 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   caption: {
+    fontFamily : 'IBMPlexSans-Regular',
     textAlign: 'center',
     fontSize: 18,
   },
   footer: {
+    fontFamily : 'IBMPlexSans-Regular',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 5
   },
   textAreaContainer: {
+    fontFamily : 'IBMPlexSans-Regular',
     borderColor: '#efefef',
     width: 330
   },
   textArea: {
+    fontFamily : 'IBMPlexSans-Regular',
     height: 50,
   },
   submit: {
+    fontFamily : 'IBMPlexSans-Regular',
     marginTop: 2,
     paddingTop: 0,
   },
