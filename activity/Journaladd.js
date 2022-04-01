@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, View, Text, Image, Button, ImageBackground, TextInput, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
-//import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-//import { ScrollView  } from "react-native-gesture-handler";
-import { ListItem, Avatar, colors, Header, Icon } from 'react-native-elements';
+import { View, Text, TextInput, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
 import Styles from "../styles";
+import { Header } from 'react-native-elements';
 import Loader from '../components/Loader';
-import BottomSheet from 'react-native-simple-bottom-sheet';
 import Textarea from 'react-native-textarea';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 //import renderIf from './renderIf'
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -86,9 +84,9 @@ function Journaladd({ navigation }) {
 
   return (
 
-    <View style={{ backgroundColor: '#ffffff' , height : '100%'}}>
+    <View style={{ backgroundColor: '#ffffff', height: '100%' }}>
       <Loader loading={loading} />
-      <Header
+      {/* <Header
         leftComponent={<Icon color={colors.black} size={30} name='arrow-back' 
         onPress ={ ( ) =>  navigation.goBack() } ></Icon> }
         centerComponent={{ text: 'New Journal', style: { color: '#1E1E1E', fontSize: 20 } }}
@@ -97,15 +95,30 @@ function Journaladd({ navigation }) {
           color: '1E1E1E',
           backgroundColor: '#E4E4E4'
         }}
-      />
+      /> */}
+
+      <Header
+        leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
+          <IconAnt name="left" size={18} color="#000" onPress={() => navigation.goBack()} />
+          <Text style={{ paddingTop: 0, paddingLeft: 10, marginTop: -5, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>New Journal</Text>
+        </View>
+        }
+        rightComponent={{}}
+        containerStyle={{
+          fontFamily: 'IBMPlexSans-Regular',
+          color: '1E1E1E',
+          backgroundColor: '#E4E4E4',
+          height: 90
+        }} />
+
       <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} ref={(ref) => Toast.setRef(ref)} />
       <Toast visible={successText} message={successText.message} />
       <View >
         <Text style={{ color: '#000000', paddingLeft: 20, paddingTop: 10, paddingBottom: 0, fontSize: 18 }}>Title : </Text>
       </View >
-      <View style={{ padding : 0 , margin : 0}} >
+      <View style={{ padding: 0, margin: 0 }} >
         <TextInput
-          style={{   padding : 5 ,  borderColor : '#efefef' , borderWidth : 1, borderRadius : 10 , marginLeft : 20 , marginRight : 20 , marginBottom : 10}}
+          style={{ padding: 5, borderColor: '#efefef', borderWidth: 1, borderRadius: 10, marginLeft: 20, marginRight: 20, marginBottom: 10 }}
           multiline
           numberOfLines={1}
           placeholder="Title here"
@@ -118,7 +131,7 @@ function Journaladd({ navigation }) {
             value={title}
             placeholder="Title here" >  */}
       </View>
-      <View  style = {{ margin :  20}}>
+      <View style={{ margin: 20 }}>
 
         <Textarea
           onChangeText={(details) => setDetails(details)}
@@ -133,7 +146,7 @@ function Journaladd({ navigation }) {
           underlineColorAndroid={'transparent'}
         />
       </View>
-      <View style = {{ marginLeft : '15%' , marginRight :'15%'}}>
+      <View style={{ marginLeft: '15%', marginRight: '15%' }}>
         <TouchableOpacity
           onPress={handleSubmitButton}
           style={Styles.journalBtn}
@@ -152,26 +165,26 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     height: 40,
     margin: 12,
     borderWidth: 1,
   },
   container: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     padding: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textareaContainer: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     height: 180,
     padding: 5,
     backgroundColor: '#F5FCFF',
   },
   textarea: {
-    fontFamily : 'IBMPlexSans-Regular',
+    fontFamily: 'IBMPlexSans-Regular',
     textAlignVertical: 'top',  // hack android
     height: '100%',
     fontSize: 14,

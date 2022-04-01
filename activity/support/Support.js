@@ -5,7 +5,7 @@ import { RadioButton } from 'react-native-paper';
 import api from '../../api';
 import Styles from "../../styles";
 import Textarea from 'react-native-textarea';
-//function About({navigation}) {
+import IconAnt from 'react-native-vector-icons/AntDesign';
 class Support extends React.Component {
 
   constructor(props) {
@@ -28,17 +28,20 @@ class Support extends React.Component {
   };
   render() {
     return (
-      <ScrollView styles={{ backgroundColor: '#ffffff' }}>
-        <Header
-          leftComponent={<Icon color={colors.black} size={30} name='menu'
-            onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
-          centerComponent={{ text: 'Support', style: { color: '#1E1E1E', fontSize: 20 } }}
-          rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+      <ScrollView styles={{ backgroundColor: '#ffffff' }}> 
+         <Header 
+          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300 , minHeight  : 30}}> 
+            <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
+            <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : -5 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Suppot</Text>
+          </View>
+          } 
+          rightComponent={{}}
           containerStyle={{
+            fontFamily: 'IBMPlexSans-Regular',
             color: '1E1E1E',
-            backgroundColor: '#E4E4E4'
-          }}
-        />
+            backgroundColor: '#E4E4E4',
+            height : 90
+          }} />
         <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#FFFFFF' }}>
           <View style={{fontFamily : 'IBMPlexSans-Regular', textAlign: 'center', paddingTop: 30 }}>
             <Image style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'center' }} source={require('../../img/bg/support.png')} />
