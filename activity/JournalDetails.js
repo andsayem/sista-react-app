@@ -98,6 +98,7 @@ class JournalDetails extends Component {
                         <Text style={{ paddingTop: 0, paddingLeft: 10, marginTop: -5, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>Journal Details</Text>
                     </View>
                     }
+                    
                     rightComponent={{}}
                     containerStyle={{
                         fontFamily: 'IBMPlexSans-Regular',
