@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, ToastAndroid , TextInput, TouchableOpacity, View } from "react-native";
 import Styles from "../../theme/styles";
 import Loader from '../components/Loader';
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token'
 import helpers from '../../providers/helpers';
@@ -66,9 +65,7 @@ function CheckYourEmail(props ) {
 
     }
   }
-  const handlePasswordResetPress = ()=>{
-    props.navigation.navigate('PasswordReset')
-  }
+ 
   return (
     <View style={Styles.container}>
       <Loader loading={loading} />

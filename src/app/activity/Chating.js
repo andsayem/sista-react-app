@@ -154,10 +154,6 @@ class Chating extends Component {
       </Text>
     );
   }
-
-  validation = () => {
-    //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
-  }
   render() {
     let { items, isLoading } = this.state;
     return (

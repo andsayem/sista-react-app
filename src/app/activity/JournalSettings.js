@@ -1,6 +1,6 @@
  
 import React, { Component } from "react";
-import { View, Text,  SafeAreaView , StyleSheet } from "react-native";
+import { View, SafeAreaView  } from "react-native";
 import {colors , Icon , Header , CheckBox } from 'react-native-elements';
 //function About({navigation}) {
 
@@ -42,14 +42,7 @@ class JournalSettings extends Component {
            checkedIcon='clear'
            uncheckedIcon='add'
            checkedColor='red'
-         />
-
-         {/*<CheckBox*/}
-         {/*  checkedIcon={<Image source={require('../checked.png')} />}*/}
-         {/*  uncheckedIcon={<Image source={require('../unchecked.png')} />}*/}
-         {/*  checked={this.state.checked}*/}
-         {/*  onPress={() => this.setState({checked: !this.state.checked})}*/}
-         {/*/>*/}
+         /> 
        </View>
       </SafeAreaView>
     );

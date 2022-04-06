@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import Styles from "../../theme/styles";
 function CongratulationResetPassword (props) {
   const handleLoginPress = () =>{

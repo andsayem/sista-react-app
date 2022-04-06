@@ -41,23 +41,5 @@ class About extends React.Component {
     );
   }
 }
-var styles = StyleSheet.create({
-  container: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontFamily: 'IBMPlexSans-Regular',
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  seperator: {
-    marginBottom: 20
-  }
-});
 
 export default About;

@@ -7,8 +7,7 @@ import SegmentedControl from '@react-native-community/segmented-control'
 import ImagePicker from 'react-native-image-crop-picker';
 import Video from 'react-native-video';
 import Textarea from 'react-native-textarea';
-import RBSheet from "react-native-raw-bottom-sheet";
-import api from '../../providers/api';
+import RBSheet from "react-native-raw-bottom-sheet"; 
 import axios from 'axios';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage'; 
@@ -214,28 +213,10 @@ function Newpost(props) {
                <Text style={{ height: 40, marginTop: 0, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Add</Text>
             </View>
             }
-            rightComponent={{}}
-            // centerComponent={{ text: 'Inspire me', style: { fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E', fontSize: 20 } }}
-            // rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+            rightComponent={{}} 
             containerStyle={{ height: 80, fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
-         />
-
-         {/* <ScrollView style={{fontFamily : 'IBMPlexSans-Regular', height: '100%' }}  >
-         <Loader loading={loading} /> 
-         <Header 
-           leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
-           <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
-             onPress={() => navigation.toggleDrawer()} ></Icon>
-           <Text style={{ textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Inspire me</Text>
-         </View>
-         }
-          rightComponent={{}}
-          containerStyle={{
-            fontFamily: 'IBMPlexSans-Regular',
-            color: '1E1E1E',
-            backgroundColor: '#F5F5F5',
-            height : 90
-          }} /> */}
+         /> 
+         
          <ScrollView>
             <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
                <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
@@ -365,22 +346,14 @@ function Newpost(props) {
                            onPress={handleChoosePhoto}
                            underlayColor='#fff'>
                            <Text style={styles.loginText}>Choose Photo</Text>
-                        </TouchableOpacity>
-                        // <View style={{fontFamily : 'IBMPlexSans-Regular',  marginLeft : '25%' , marginRight : '25%',  backgroundColor: '#ffffff', justifyContent: 'center',  }}>
-                        //    <Button  color={} title="Choose Photo" onPress={handleChoosePhoto} />
-                        // </View>
+                        </TouchableOpacity> 
                         :
                         <TouchableOpacity
                            style={styles.loginScreenButton}
                            onPress={selectVideo}
                            underlayColor='#fff'>
                            <Text style={styles.loginText}>Choose Video</Text>
-                        </TouchableOpacity>
-                     // <View>
-                     //    <TouchableOpacity>
-                     //       <Button title="Choose Video" onPress={selectVideo} />
-                     //    </TouchableOpacity>
-                     // </View>
+                        </TouchableOpacity> 
                      :
                      <View></View>
                   }

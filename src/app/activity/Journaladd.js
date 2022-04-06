@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import { View, Text, TextInput, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
 import Styles from "../../theme/styles";
 import { Header } from 'react-native-elements';
@@ -85,18 +85,7 @@ function Journaladd({ navigation }) {
   return (
 
     <View style={{ backgroundColor: '#ffffff', height: '100%' }}>
-      <Loader loading={loading} />
-      {/* <Header
-        leftComponent={<Icon color={colors.black} size={30} name='arrow-back' 
-        onPress ={ ( ) =>  navigation.goBack() } ></Icon> }
-        centerComponent={{ text: 'New Journal', style: { color: '#1E1E1E', fontSize: 20 } }}
-
-        containerStyle={{
-          color: '1E1E1E',
-          backgroundColor: '#F5F5F5'
-        }}
-      /> */}
-
+      <Loader loading={loading} /> 
       <Header
         leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
           <IconAnt name="left" size={18} color="#000" onPress={() => navigation.goBack()} />
@@ -124,12 +113,7 @@ function Journaladd({ navigation }) {
           placeholder="Title here"
           onChangeText={(title) => setTitle(title)}
           value={title}
-        />
-        {/* <Input
-            style={{ textAlign: 'left' }}
-            onChangeText={(title) => setTitle(title)}
-            value={title}
-            placeholder="Title here" >  */}
+        /> 
       </View>
       <View style={{ margin: 20 }}>
 

@@ -1,7 +1,7 @@
-import React, { useEffect, Component } from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { ListItem, Avatar, Icon } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 import IconFnt from 'react-native-vector-icons/FontAwesome';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
@@ -118,9 +118,7 @@ const styles = StyleSheet.create({
     width: '93%',
     backgroundColor: '#fff',
     borderRadius: 10,
-    paddingBottom: 10,
-    // padding: 1,
-    // marginTop: 10,
+    paddingBottom: 10, 
     marginBottom: 2,
     marginLeft: 5,
     marginRight: 5
@@ -128,12 +126,9 @@ const styles = StyleSheet.create({
   child: {
     fontFamily: 'IBMPlexSans-Regular',
     backgroundColor: '#fff',
-    borderRadius: 10,
-    // padding: 1,
-    // marginBottom: 2,
+    borderRadius: 10, 
     marginLeft: -15,
-    marginRight: -10,
-    // marginRight: 20,
+    marginRight: -10, 
     paddingBottom: 10,
 
   },

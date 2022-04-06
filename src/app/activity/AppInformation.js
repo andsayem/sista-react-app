@@ -1,9 +1,6 @@
- 
 import React, { Component } from "react";
-import { View, Text,  SafeAreaView , StyleSheet } from "react-native";
-import {colors , Icon , Header , CheckBox } from 'react-native-elements';
-//function About({navigation}) {
-
+import { View, Text,  SafeAreaView  } from "react-native";
+import {colors , Icon , Header  } from 'react-native-elements';
 class AppInformation extends Component {
   render() {
     return (
@@ -18,7 +15,6 @@ class AppInformation extends Component {
                   color : '1E1E1E',
                   backgroundColor: '#F5F5F5' }}
             /> 
-       
        <View> 
             <Text style={{fontFamily : 'IBMPlexSans-Regular',
               padding : 20,
@@ -34,5 +30,4 @@ class AppInformation extends Component {
     );
   }
 }
-
 export default AppInformation;
