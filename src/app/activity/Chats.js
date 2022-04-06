@@ -10,10 +10,11 @@ function Chats(props) {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height; 
   const navigation = useNavigation();
-  
+ 
   const [getUsers, setUsers] = useState([]);
   const [getSearchusers, setSearchusers] = useState([]);
-  const [getSearchkey, setSearchkey] = useState(''); 
+  const [getSearchkey, setSearchkey] = useState('');
+  const [selectedId, setSelectedId] = useState(null);
   const [refreshing, setRefreshing] = useState(false)
    
   const getUser = () => {
