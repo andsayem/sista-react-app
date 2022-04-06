@@ -1,41 +1,41 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Flatform, LogBox } from 'react-native';
+import React, {useEffect, useState } from "react";
+import { LogBox } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerContent } from './navigation/DrawerContent';
+import { DrawerContent } from './src/app/navigation/DrawerContent';
 import AsyncStorage from '@react-native-community/async-storage';
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
-import TabsScreen from "./screens/TabsScreen";
-import Login from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import ForgotPassword from './activity/ForgotPassword';
-import CheckYourEmail from './activity/CheckYourEmail';
-import PasswordReset from './activity/PasswordReset';
-import CongratulationResetPassword from './activity/Congratulation_reset_password';
-import Journaladd from "./activity/Journaladd";
-import JournalSettings from "./activity/JournalSettings";
-import Quizzes from "./activity/Quizzes";
-import Product from "./product/Product";
-import PrivacyPolicy from "./activity/PrivacyPolicy";
-import Settings from "./activity/Settings";
-import About from "./activity/About";
-import EventsList from "./components/EventsList";
-import ProductInfo from "./product/ProductInfo";
-import AppInformation from "./activity/AppInformation";
-import RatingApp from "./activity/RatingApp";
-import Support from "./activity/support/Support";
-import Chating from "./activity/Chating";
+import TabsScreen from "./src/app/screens/TabsScreen"; 
+import Login from './src/app/screens/LoginScreen';
+import RegisterScreen from './src/app/screens/RegisterScreen';
+import ForgotPassword from './src/app/activity/ForgotPassword';
+import CheckYourEmail from './src/app/activity/CheckYourEmail';
+import PasswordReset from './src/app/activity/PasswordReset';
+import CongratulationResetPassword from './src/app/activity/Congratulation_reset_password';
+import Journaladd from "./src/app/activity/Journaladd";
+import JournalSettings from "./src/app/activity/JournalSettings";
+import Quizzes from "./src/app/activity/Quizzes";
+import Product from "./src/app/product/Product";
+import PrivacyPolicy from "./src/app/activity/PrivacyPolicy";
+import Settings from "./src/app/activity/Settings";
+import About from "./src/app/activity/About";
+import EventsList from "./src/app/components/EventsList";
+import ProductInfo from "./src/app/product/ProductInfo";
+import AppInformation from "./src/app/activity/AppInformation";
+import RatingApp from "./src/app/activity/RatingApp";
+import Support from "./src/app/activity/support/Support";
+import Chating from "./src/app/activity/Chating";
 import { useHistory } from "react-router-dom";
 import SplashScreen from "react-native-splash-screen";
-import PostDetails from './activity/PostDetails';
-import EventDetails from './components/EventsDetails';
-import JournalDetails from './activity/JournalDetails';
-import Profile from "./activity/Profile";
-import UserProfile from './activity/UserProfile';
-import AppTutorial from './screens/WelcomeScreen';
-import ProductDetail from "./product/ProductDetail";
+import PostDetails from './src/app/activity/PostDetails';
+import EventDetails from './src/app/components/EventsDetails';
+import JournalDetails from './src/app/activity/JournalDetails';
+import Profile from "./src/app/activity/Profile";
+import UserProfile from './src/app/activity/UserProfile';
+import AppTutorial from './src/app/screens/WelcomeScreen';
+import ProductDetail from "./src/app/product/ProductDetail";
 import Chat from './Chat';
 
 import GlobalFont from 'react-native-global-font'
@@ -50,8 +50,7 @@ function DrawerNavigator() {
   return (
     <Drawer.Navigator initialRouteName="Tabs" drawerContent={props => <DrawerContent {...props}></DrawerContent>}>
       <Drawer.Screen name="Tabs" component={TabsScreen} />
-      <Drawer.Screen name="AppTutorial" component={AppTutorial} />
-      {/* <Drawer.Screen name="Login" component={Login} />   */}
+      <Drawer.Screen name="AppTutorial" component={AppTutorial} /> 
       <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
       <Drawer.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
       <Drawer.Screen name="CheckYourEmail" component={CheckYourEmail} options={{ headerShown: false }} />
@@ -78,13 +77,6 @@ function DrawerNavigator() {
 function App() {
   const [getToken, setToken] = useState(false);
   const [initialRoute, setInitialRoute] = useState('AppTutorial');
-
-  // const resetAction = StackActions.reset({
-  //   index: 0,
-  //   actions: [NavigationActions.navigate({ routeName: 'Login' })],
-  // });
-  // props.navigation.dispatch(resetAction)
-
   const readData = async () => {
     const user = await AsyncStorage.getItem(STORAGE_KEY);
       const token = await AsyncStorage.getItem(TOKEN);
@@ -92,29 +84,11 @@ function App() {
  
     if ((token) && (user)) {
       props.navigation.navigate("Home");
-      // setInitialRoute("Home");
-    }
-
-    // try {
-    //   const token = await AsyncStorage.getItem(TOKEN);
-    //   setToken(token);
-    //   if (getToken) {
-    //     setInitialRoute('Tabs');
-    //   } else {
-    //     props.navigation.navigate("AppTutorial");
-    //     setInitialRoute('Login');
-    //   }
-    // } catch (e) {
-    //   //alert('Failed to fetch the data app' ) 
-    //   //navigate('Login');
-    //   setInitialRoute('AppTutorial');
-    //   //props.navigation.navigate("Login");
-    // }
+    } 
   }
 
   useEffect(() => { readData() },[getToken])  
-  useEffect(() => {
-    // console.log('useEffect..............................ddddddddddddd');
+  useEffect(() => { 
     let fontName = 'IBMPlexSans-Regular'
     GlobalFont.applyGlobal(fontName)
   }, [getToken])
@@ -157,104 +131,6 @@ function App() {
         <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown: false, name: 'UserProfile' }} />
         <Stack.Screen name="Chat" component={Chat} />
       </StackApp.Navigator>
-    </NavigationContainer>
-  );
-}
-
-function App22(navigation) {
-  const [user, setUser] = useState('');
-  const [token, setToken] = useState(null);
-  const [loggedIn, setLogin] = useState(false);
-  const history = useHistory();
-  const readData = async () => {
-    try {
-      const getToken = await AsyncStorage.getItem(TOKEN);
-      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-      setToken(getToken);
-      if (getToken) {
-        setLogin(true);
-      } else {
-        setLogin(false);
-      }
-    } catch (e) {
-      //alert('Failed to fetch the data from storage App.js page') 
-      history.push("/AppTutorial");
-    }
-  }
-
-  // useEffect(() => {
-  //   readData();
-  // })
-
-  useEffect(() => {
-    window.addEventListener('mousemove', () => {
-    });
-
-    return () => {
-      window.removeEventListener('mousemove', () => {
-      })
-    }
-
-  }, [])
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {loggedIn ?
-          <Stack.Screen
-            name="Root"
-            component={Root}
-            options={{
-              title: 'Sign in',
-              animationTypeForReplace: loggedIn ? 'pop' : 'push',
-              headerShown: false
-            }}
-          />
-          :
-          <Stack.Screen name="AppTutorial" component={AppTutorial} />
-        }
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-function Apps() {
-  const [user, setUser] = useState('');
-  const [token, setToken] = useState(null);
-  const [loggedIn, setLogin] = useState(false);
-
-  const history = useHistory();
-
-  const readData = async () => {
-    try {
-      const getToken = await AsyncStorage.getItem(TOKEN);
-      const userInfo = await AsyncStorage.getItem(STORAGE_KEY);
-      setToken(getToken);
-      if (getToken) {
-        setLogin(true);
-      } else {
-        setLogin(false);
-      }
-
-    } catch (e) {
-      alert('Failed to fetch the data from storage App.js page')
-      history.push("/AppTutorial");
-    }
-  }
-  useEffect(() => {
-    readData();
-  })
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <DrawerContent {...props}></DrawerContent>}>
-        {/* <Drawer.Screen name="Home" component={TabsScreen}   />    */}
-        {loggedIn ?
-          <Drawer.Screen name="Home" component={TabsScreen} />
-          :
-          <Drawer.Screen name="AppTutorial" component={AppTutorial} />
-        }
-        <Drawer.Screen name="RegisterScreen" component={RegisterScreen} />
-      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
