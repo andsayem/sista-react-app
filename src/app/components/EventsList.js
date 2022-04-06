@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Platform, ImageBackground, StyleSheet, FlatList, Text, View, Alert } from "react-native";
-import { ListItem, Avatar, SearchBar, colors, Icon, Header } from 'react-native-elements';
+import { ImageBackground, StyleSheet, FlatList, Text, View, Alert } from "react-native";
+import { ListItem, colors, Icon, Header } from 'react-native-elements';
 import api from '../../providers/api';
 import { ActivityIndicator } from 'react-native-paper';
 export default class EventsList extends Component {
@@ -19,7 +19,6 @@ export default class EventsList extends Component {
 
     handleOnRefresh = () => {
         this.setState({ refreshing: false }, () => {
-            //this.setState({ items: [] })
             this.getEvents();
         })
     }

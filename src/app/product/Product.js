@@ -41,9 +41,7 @@ class Product extends Component {
   handleProductDetails = (item) => {
     this.props.navigation.navigate('ProductDetail', { item: item });
   }
-  renderDestinations(item, index) {
-    var destinationStyle = {};
-
+  renderDestinations(item, index) { 
     if (index == 0) { 
     }
 
@@ -116,10 +114,7 @@ class Product extends Component {
           />
           <View style={{ flex: 1, marginTop: SIZES.base, paddingHorizontal: SIZES.padding, }}>
             <SearchBar
-              lightTheme
-              //  containerStyle={{backgroundColor: '#ffffff' , borderWidth : 0 }}
-              //  iconStyle={{backgroundColor:'#fff'}}
-              //  inputStyle={{backgroundColor: '#ffffff'}}
+              lightTheme 
               showLoading={false}
               clearIcon={true}
               placeholder="Type Here..." />

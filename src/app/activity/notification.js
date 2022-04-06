@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { ListItem, Avatar , Image } from 'react-native-elements';
 import  Styles   from "../styles";
 

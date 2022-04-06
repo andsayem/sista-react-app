@@ -70,14 +70,7 @@ export default class EventsDetails extends Component {
             color: '1E1E1E',
             backgroundColor: '#F5F5F5',
             height : 90
-          }} />
-                {/* <Header
-                    leftComponent={<View>
-                        <Icon color={colors.black} size={30} name='menu'
-                            onPress={() => props.navigation.toggleDrawer()} ></Icon>
-                    </View>}
-                    centerComponent={{ text: 'Events', style: { color: '#1E1E1E', fontSize: 20, textAlign: 'left' } }}
-                    containerStyle={{ color: '1E1E1E', backgroundColor: '#F5F5F5' }} /> */}
+          }} /> 
                 <View style={{ height: 200 }}>
                     <ImageBackground source={this.state.img} resizeMode="cover" style={styles.image_bg} >
                         <Text style={{ color: '#ffffff', textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}> {this.state.item.title}</Text>

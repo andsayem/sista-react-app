@@ -1,7 +1,5 @@
 import React from 'react' ;
-import { View , StyleSheet , Text,  TouchableOpacity} from  'react-native' ;
-import { colors } from 'react-native-elements';
-import { Icon } from "react-native-elements";  
+import { View , StyleSheet , Text,  TouchableOpacity} from  'react-native' ;  
 function PostNextButton({onPress}) {
     return (
         <TouchableOpacity  onPress={onPress}>

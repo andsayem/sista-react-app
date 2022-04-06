@@ -1,8 +1,5 @@
 import React, { useEffect, useState, createRef } from "react";
-import {
-  Image, Text, ScrollView, TextInput, TouchableOpacity, View, ToastAndroid, StyleSheet, Button, StatusBar,
-  Keyboard
-} from "react-native";
+import { Image, Text, ScrollView, TextInput, TouchableOpacity, View, ToastAndroid, StyleSheet, Keyboard } from "react-native";
 import { Icon } from 'react-native-elements';
 import Styles from "../../theme/styles";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -33,9 +30,7 @@ function LoginScreen(props) {
   const [userPassword, setUserPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState(false);
-  const [successtext, setSuccesstext] = useState(false);
-  const [userData, setUserData] = useState('');
-  const [loginData, setLoginData] = useState('');
+  const [successtext, setSuccesstext] = useState(false); 
   const [visibleToast, setvisibleToast] = useState(false);
   const [emailFocusStyle, setEmailInpuStyle] = useState({
     backgroundColor: "#f8f8f8",

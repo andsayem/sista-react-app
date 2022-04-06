@@ -1,9 +1,6 @@
-import React, { Component } from "react";
-import { View, Text, SafeAreaView  , StyleSheet } from "react-native";
-//import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import React from "react";
+import { View, Text,  StyleSheet } from "react-native"; 
  
-import {  colors , Icon ,  Header } from 'react-native-elements';  
-//function About({navigation}) {
   const StarReview = ({ rate }) => {
     var starComponents = [];
     var fullStar = Math.floor(rate)

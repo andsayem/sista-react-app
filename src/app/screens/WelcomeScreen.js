@@ -1,9 +1,8 @@
-import React, { Component, useEffect, useState } from "react";
-import { View, Text, Image, ScrollView, SafeAreaView } from "react-native";
+import React, { Component  } from "react";
+import { View, Text, Image, ScrollView } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import Styles from "../../theme/styles";
-import AsyncStorage from '@react-native-community/async-storage';
-import Loader from '../components/Loader';
+import AsyncStorage from '@react-native-community/async-storage'; 
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class WelcomeScreen extends Component {
@@ -25,8 +24,7 @@ class WelcomeScreen extends Component {
 
   async componentDidMount() {
     const user = await AsyncStorage.getItem(STORAGE_KEY);
-    const token = await AsyncStorage.getItem(TOKEN);
-    // console.log(user, token, 'dfffffffffffffffffff');
+    const token = await AsyncStorage.getItem(TOKEN); 
     if ((token) && (user)) {
       this.props.navigation.navigate("Home");
     }

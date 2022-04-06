@@ -1,11 +1,9 @@
  
 import React, { Component } from "react";
-import { View, Text,  SafeAreaView , StyleSheet } from "react-native";
-import {colors , Icon , Header , CheckBox } from 'react-native-elements';
+import { View, SafeAreaView  } from "react-native";
+import {colors , Header  } from 'react-native-elements';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 import ToggleSwitch from 'toggle-switch-react-native'
-//function About({navigation}) {
-//arrow-back
 class Settings extends Component {
   constructor(props) {
     super(props); 

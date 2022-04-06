@@ -14,8 +14,7 @@ const TOKEN = 'token';
 class Posts extends Component {
   _isMounted = false;
   constructor(props) {
-    super(props);
-    //this.handlePostCates = this.handlePostCates.bind(this);
+    super(props); 
     this.fatchData = this.fatchData.bind(this);
     this.fatchUserData = this.fatchUserData.bind(this);
     this.state = {
@@ -43,10 +42,8 @@ class Posts extends Component {
     channel.bind('blog-event', function (data) {
     });
 
-  }
-
-  /* React get method.  */
-
+  } 
+  /* React get method.  */ 
   fatchData = async () => { 
     api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
       .then(response => response.data.data)
@@ -190,9 +187,7 @@ class Posts extends Component {
             <Icon style={{ textAlign: 'left', paddingRight:12 }} color={colors.black} size={24} name='search' ></Icon>
             <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='notifications' ></Icon>
           </View>
-          }
-          // centerComponent={{ text: 'Inspire me', style: { fontFamily: 'IBMPlexSans-Regular', color: '#1E1E1E', fontSize: 20 } }}
-          // rightComponent={{ icon: 'notifications', color: '#1E1E1E' }}
+          } 
           containerStyle={{ fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
         />
         <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10 }}>

@@ -1,8 +1,7 @@
 import React from 'react' ;
-import { View , StyleSheet , TouchableOpacity} from  'react-native' ;
+import { View , StyleSheet } from  'react-native' ;
 import { colors } from 'react-native-elements';
-import { Icon } from "react-native-elements"; 
-import { DrawerActions } from '@react-navigation/native';
+import { Icon } from "react-native-elements";  
 function MyCustomLeftComponent() {
     return ( 
             <View  onPress={() => navigation.toggleDrawer()}  style={styles.container}>

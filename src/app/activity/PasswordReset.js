@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, Text, ToastAndroid , TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image,  Text, ToastAndroid , TextInput, TouchableOpacity, View } from "react-native";
 import Styles from "../../theme/styles";
 import Loader from '../components/Loader';
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
-const STORAGE_KEY = 'save_user';
-const TOKEN = 'token'
 import helpers from '../../providers/helpers';
 const Toast = ({ visible, message }) => {
   if (visible) {
@@ -118,54 +115,4 @@ function PasswordReset(props) {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  textAreaContainer: {
-    fontFamily : 'IBMPlexSans-Regular',
-    borderColor: '#efefef',
-    borderWidth: 1,
-  },
-  textArea: {
-    fontFamily : 'IBMPlexSans-Regular',
-    height: 150,
-
-  },
-  input: {
-    fontFamily : 'IBMPlexSans-Regular',
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-  },
-  container: {
-    fontFamily : 'IBMPlexSans-Regular',
-    flex: 1,
-    padding: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textareaContainer: {
-    fontFamily : 'IBMPlexSans-Regular',
-    height: 180,
-    padding: 5,
-    backgroundColor: '#F5FCFF',
-  },
-  textarea: {
-    fontFamily : 'IBMPlexSans-Regular',
-    textAlignVertical: 'top',  // hack android
-    height: 170,
-    fontSize: 14,
-    color: '#333',
-  },
-
-  cat_title: {
-    fontFamily : 'IBMPlexSans-Regular',
-    textAlign: 'left',
-    padding: 15,
-    width: '100%'
-  },
-  radio: {
-    fontFamily : 'IBMPlexSans-Regular',
-    fontSize: 10
-  }
-})
-
 export default PasswordReset;

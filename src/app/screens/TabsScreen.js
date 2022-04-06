@@ -93,15 +93,7 @@ function TabsScreen(props) {
             }} source={require('../../assets/img/icon/add.png')} />
           ),
         }}
-      />
-      {/* <Tab.Screen name="Newpost" component={Newpost}
-        options={({ navigation }) => ({
-          tabBarButton: () => <NewListingButton onPress={() => navigation.navigate("Newpost")}  ></NewListingButton>,
-          tabBarIcon: ({ color, size }) => (
-            <Icon name='add' />
-          )
-        })}
-      /> */}
+      /> 
       <Tab.Screen name="Journal" component={Journal}
         options={{
           headerShown: true,

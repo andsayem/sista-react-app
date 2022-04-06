@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, ImageBackground, StyleSheet, ScrollView, Text, ToastAndroid } from 'react-native';
-import { ListItem, Avatar, colors, Icon, Header } from 'react-native-elements';
+import { View, StyleSheet, ScrollView, Text, ToastAndroid } from 'react-native';
+import { ListItem, Icon} from 'react-native-elements';
 import Styles from "../../theme/styles";
 import api from '../../providers/api'; 
 import { useNavigation } from '@react-navigation/native';
@@ -87,7 +87,6 @@ const Events = () => {
             >
 
                 {getCats.map((item, i) => {
-                    //var icon = item.bg_style_image == 'event_bg_1.png' ? require('../img/bg/event_bg_1.png') : require('../img/bg/event_bg_2.png');
                     return (
                         <ListItem style={{}} key={item.id} keyExtractor={(item, i) => item.id.toString()} >
                             <ListItem.Content
@@ -160,9 +159,6 @@ const Events = () => {
                                         paddingBottom: 5,
                                         fontSize: 14
                                     }} >{item.title}</Text>
-                                {/* <Text style={{fontFamily: 'IBMPlexSans-Regular',
-                                    color: '#ffffff',
-                                }} >  </Text> */}
                                 <View style={{paddingBottom:5, fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', justifyContent: 'flex-start' }}>
                                     <Icon color="#fff" style={{ fontFamily: 'IBMPlexSans-Regular', padding: 2 }} type='font-awesome' name="clock-o" size={10} />
                                     <Text

@@ -16,8 +16,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import AutoHeightImage from 'react-native-auto-height-image';
 import VideoPlayer from 'react-native-video-player';
 import moment from 'moment';
-import * as mime from 'react-native-mime-types';
-const STORAGE_KEY = 'save_user';
+import * as mime from 'react-native-mime-types'; 
 const TOKEN = 'token';
 const win = Dimensions.get('window').width;
 import helpers from '../../providers/helpers';
@@ -59,11 +58,7 @@ class PostDetails extends Component {
     };
   }
   componentDidMount() {
-    this.fatchData();
-    // ChatAPI.subscribeToFriendStatus(      
-    //   this.props.friend.id,      
-    //   this.handleStatusChange    
-    // );  
+    this.fatchData(); 
   }
   componentWillUnmount() {
     this.fatchData(); 
@@ -103,7 +98,6 @@ class PostDetails extends Component {
     );
   }
   validation = () => {
-    //this.state.post_comment ? this.setState({errortext:''}) :  this.setState({errortext:'Comment field is required'}); 
   }
   handleSubmitButton = async () => {
     if (!this.state.post_comment) {
@@ -216,8 +210,7 @@ class PostDetails extends Component {
       <SafeAreaView style={styles.container}>
         <Header
           leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
-            <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
-            {/* <Text style={{ paddingTop : 0 , paddingLeft: 10, marginTop : -5 , textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}>About My Sista's KeepHer</Text> */}
+            <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} /> 
           </View>
           }
           rightComponent={{}}
@@ -347,14 +340,7 @@ class PostDetails extends Component {
                 onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
                 onRefresh={this.fatchData}
               /> : <View>Empty</View>
-          }
-          {/* <View>
-            {this.state.reply_to_name ?
-
-              <Text>{this.state.reply_to_name} <Text onPress={this.handleCancelButton} >Cancel</Text> </Text>
-
-              : <View></View>}
-          </View> */}
+          } 
         </ScrollView>
         <View style={styles.main_footer} >
           <View style={styles.footer}>

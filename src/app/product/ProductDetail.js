@@ -10,15 +10,12 @@ import {
     Dimensions
 } from 'react-native';
 import Styles from "../../theme/styles";
-import api from '../../providers/api';
-import LinearGradient from 'react-native-linear-gradient';
+import api from '../../providers/api'; 
 import IconFea from 'react-native-vector-icons/Feather';
-import { images, icons, COLORS, FONTS, SIZES } from '../../providers/constants';
+import { icons, COLORS, FONTS, SIZES } from '../../providers/constants';
 import AutoHeightImage from 'react-native-auto-height-image';
 import helpers from '../../providers/helpers';
-const win = Dimensions.get('window').width;
-const STORAGE_KEY = 'save_user';
-const TOKEN = 'token';
+const win = Dimensions.get('window').width; 
 const StarReview = ({ rate }) => {
     var starComponents = [];
     var fullStar = Math.floor(rate)
@@ -139,10 +136,7 @@ class ProductDetail extends Component {
                 <View style={{ paddingEnd: 5 }}>
                     
                     <View style={{ paddingHorizontal: SIZES.padding, paddingTop: 10 }}>
-                        <View style={{ marginHorizontal: SIZES.radius, justifyContent: 'space-around' }}>
-                            {/* <Text style={{ ...FONTS.h3 }}>Ski Villa</Text>
-                            <Text style={{ color: COLORS.gray, ...FONTS.body3 }}>France</Text> */}
-
+                        <View style={{ marginHorizontal: SIZES.radius, justifyContent: 'space-around' }}> 
                             <StarReview
                                 rate={4.5}
                             />

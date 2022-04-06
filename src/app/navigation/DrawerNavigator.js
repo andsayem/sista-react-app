@@ -1,12 +1,10 @@
 
-import React from "react";
-
+import React from "react"; 
 import { createDrawerNavigator } from "@react-navigation/drawer"; 
 import TabsScreen from "../screens/TabsScreen";
 import Chats from "../activity/Chats"; 
 import {
-  shareOnFacebook,
-  shareOnTwitter,
+  shareOnFacebook, 
 } from 'react-native-social-share';
 
 const Drawer = createDrawerNavigator();

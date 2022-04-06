@@ -7,16 +7,14 @@ import PasswordReset  from  '../activity/password_reset';
 import CheckYourEmail  from '../activity/check_your_email';
 import PostDetails  from '../activity/PostDetails';
 import Chats from "../activity/Chats";
-import CongratulationResetPassword from '../activity/Congratulation_reset_password';
-import Home from '../activity/home'; 
+import CongratulationResetPassword from '../activity/Congratulation_reset_password'; 
 import Posts from '../activity/Posts';
 import Chating from "../activity/Chating";
 import Newpost_text from "../activity/Newpost_text";
 import Journaladd from "../activity/Journaladd";
 import About from "../activity/About";
 import Product from "../product/Product";
-import PrivacyPolicy from "../activity/PrivacyPolicy";
-import Tabs from '../screens/TabsScreen'; 
+import PrivacyPolicy from "../activity/PrivacyPolicy"; 
 const Stack = createStackNavigator(); 
 const screenOptionStyle = {
   headerStyle: {

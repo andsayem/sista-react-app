@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text, Image, LogBox, refreshControl, SafeAreaView, Alert, Button, TextInput, TouchableOpacity, ToastAndroid, StyleSheet } from "react-native";
+import { View,  Text, TouchableOpacity} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { ListItem, Avatar, colors, Icon, Header } from 'react-native-elements';
+import { ListItem, Icon } from 'react-native-elements';
 import Styles from "../../theme/styles";
 import api from '../../providers/api'; 
 const Categories = (props) => {
@@ -16,7 +16,6 @@ const Categories = (props) => {
       .catch((error) => {
       })
   };
-  //useEffect(() => getCategories(false), [getCats]);
   useEffect(() => setSuccesstext(false), [successtext]);
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => { getCategories() }, []);
