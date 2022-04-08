@@ -10,10 +10,11 @@ import Pusher from 'pusher-js/react-native';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo'; 
 import moment from 'moment';
+import Styles from "../../theme/styles";
 const STORAGE_KEY = 'save_user'; 
 const TOKEN = 'token'; 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;  
+// const windowWidth = Dimensions.get('window').width;
+// const windowHeight = Dimensions.get('window').height;  
 var pusher = new Pusher('28f66afb2b72c8e97219', {
   cluster: 'ap2'
 });
@@ -116,17 +117,16 @@ class Chating extends Component {
     return (
       <View style={{marginRight:20 }} >
         {this.state.user.id != item.sender_id ? 
-            <View  style={styles.item} >
+            <View  style={Styles.messageitem} >
               <Avatar rounded size="small" source={item.receiver.pro_image ? { uri: item.sender.pro_image } : ''} /> 
-                <Text style={{ color:"#0D0E10", backgroundColor: '#F5F5F5', borderRadius: 7, padding: 15, textAlign: 'left', marginLeft:10 }}>
+                <Text style={Styles.charting_message}>
                   {item.message}   
                 </Text>
                 <Text style={{   paddingBottom: 35, paddingLeft:10, alignSelf: 'flex-end', }}>{this.renderDate(item.created_at)}</Text>  
             </View> 
-          : <ListItem style={styles.itemIn} > 
-            <Text style={styles.itemOut } >{this.renderDate(item.created_at)}</Text>
-            <Text style={{ backgroundColor: '#944CD4', color: '#fff',
-              borderRadius: 7, padding: 15,   }}>
+          : <ListItem style={Styles.messageitemIn} > 
+            <Text style={Styles.messageitemOut } >{this.renderDate(item.created_at)}</Text>
+            <Text style={Styles.charting_message_sende}>
               {item.message}  </Text> 
           </ListItem>}
       </View>
@@ -137,11 +137,11 @@ class Chating extends Component {
       <View> 
         {this.state.isLoading ? (
           <View>
-            <Text style={styles.title}>Loading Data..</Text>
+            <Text style={Styles.loadert}>Loading Data..</Text>
           </View>
         ) : (
           <View>
-            {this.state.refreshing ? (<Text style={styles.title}>Please wait a moment</Text>) : (<Text style={styles.title}></Text>)}
+            {this.state.refreshing ? (<Text style={Styles.loadert}>Please wait a moment</Text>) : (<Text style={Styles.loadert}></Text>)}
           </View>
         )}
       </View>
@@ -149,7 +149,7 @@ class Chating extends Component {
   }   
   renderDate = (date) => {
     return(
-      <Text style={styles.time}>
+      <Text style={Styles.messageTime}>
         {moment(date).fromNow('a A')}
       </Text>
     );
@@ -157,7 +157,7 @@ class Chating extends Component {
   render() {
     let { items, isLoading } = this.state;
     return (
-      <SafeAreaView style={styles.container} >
+      <SafeAreaView style={Styles.messageAreaView} >
         <Toast visible={this.state.errortext} message={this.state.errortext} />
         <Toast visible={this.state.successtext} message={this.state.successtext} /> 
         <View style={{ paddingTop: 35}}  >
@@ -165,7 +165,7 @@ class Chating extends Component {
             <ListItem containerStyle={{backgroundColor:"#F5F5F5"}}>
               <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />  
               <Avatar rounded size="medium" source={require('../../assets/img/images/user_1.jpg')} />
-              <View style={ styles.avaterCircle} />
+              <View style={ Styles.avaterCircle} />
               <ListItem.Content>
                 <ListItem.Title> <Text style={{fontSize:15}}>{this.state.user.name}</Text></ListItem.Title>
                 <ListItem.Title> <ListItem.Subtitle>
@@ -186,9 +186,9 @@ class Chating extends Component {
             onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
             onRefresh={this.fatchData}
           /> : <View>Empty</View>}
-        <View style={styles.footer}>
+        <View style={Styles.messagefooter}>
           <ScrollView horizontal>
-            <View style={styles.textAreaContainer} >
+            <View style={Styles.textAreaContainer} >
               <TouchableOpacity >
               <Entypo size={25} name='camera' color='#9E9E9E' style={{marginTop:6}}></Entypo>
               </TouchableOpacity>
@@ -206,8 +206,7 @@ class Chating extends Component {
             
             <View style={{ flexDirection: 'row', paddingTop:6 }}>
               <TouchableOpacity 
-                onPress={this.handleSubmitButton}
-                style={styles.submit} > 
+                onPress={this.handleSubmitButton}  > 
                 <View>
                 {this.state.sending ? <ActivityIndicator size="small" color="#0000ff" /> :
                   <Icon size={35} name='sc-telegram' type='evilicon' color='#0000ff'></Icon>
@@ -224,63 +223,5 @@ class Chating extends Component {
     );
   };
 }
-const styles = StyleSheet.create({
-  avaterCircle:{
-    backgroundColor: '#0DD452', padding: 6, borderRadius:9, marginTop:37, marginLeft:-28,
-  }, 
-  title: {
-    textAlign: 'center',
-    marginVertical: 10,
-    fontSize: 18,
-    fontWeight: "bold"
-  }, 
-  textInput:{  
-    elevation: 5,  
-  },
-  footer: {
-    flex:1,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 5
-  },
-  textAreaContainer: {  
-    flex:1,
-    flexDirection: 'row',
-    backgroundColor: '#fff', 
-    padding:3,
-    width: '100%', 
-  }, 
-  submit: {    
-  },
-  container:{
-    flex:1, 
-  }, 
-  footer:{
-    flexDirection: 'row',
-    height:60,
-    backgroundColor: '#fff',
-    paddingHorizontal:10,
-    padding:5,
-  } ,    
-  itemIn: {
-    alignSelf: 'flex-end', 
-  },
-  itemOut: {
-    alignSelf: 'flex-start'
-  },
-  time: {
-    alignSelf: 'flex-end',
-    margin: 15,
-    fontSize:12,
-    color:"#ABABAB",
-  },
-  item: { 
-    marginVertical: 14,
-    flex: 1,
-    flexDirection: 'row', 
-    borderRadius:300,
-    padding:5,
-  },
-})
-
+  
 export default Chating;

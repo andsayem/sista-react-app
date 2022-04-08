@@ -188,10 +188,10 @@ function Newpost(props) {
             <View>
                <ImageBackground
                   source={require("../../assets/img/text/1.jpg")}
-                  style={styles.backgroundImage}
+                  style={Styles.backgroundImage}
                >
                   <Text
-                     style={styles.checkbox}>
+                     style={Styles.checkbox}>
                      <CheckBox
                         style={{ fontFamily: 'IBMPlexSans-Regular', padding: 50 }}
                         value={isSelected}
@@ -250,15 +250,15 @@ function Newpost(props) {
                      </ListItem.Content>
                   </ListItem.Content>
                </ListItem>
-               <View style={styles.textAreaContainer} >
+               <View style={Styles.textAreaContainer} >
                   {index == 2 ?
                      <View style={{ fontFamily: 'IBMPlexSans-Regular', width: '100%', paddingLeft: 10, paddingRight: 10 }}  >
-                        <ImageBackground source={require("../../assets/img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
+                        <ImageBackground source={require("../../assets/img/text/1.jpg")} resizeMode="cover" style={Styles.image_bg}>
                            <Textarea
                               onChangeText={(post_caption) => setCaption(post_caption)}
                               value={post_caption}
                               blurOnSubmit={true}
-                              containerStyle={styles.textareaContainerBg}
+                              containerStyle={Styles.textareaContainerBg}
                               backgroundColor="rgba(0,0,0,0)"
                               maxLength={1000}
                               placeholder={'Type something...'}
@@ -274,8 +274,8 @@ function Newpost(props) {
                            setCaption(post_caption)}
                         value={post_caption}
                         blurOnSubmit={true}
-                        containerStyle={styles.textareaContainer}
-                        style={styles.textarea}
+                        containerStyle={Styles.textareaContainer}
+                        style={Styles.textarea}
                         maxLength={1000}
                         placeholder={'Type something...'}
                         returnKeyType="next"
@@ -342,17 +342,17 @@ function Newpost(props) {
                   {index == 0 || index == 1 ?
                      index == 0 ?
                         <TouchableOpacity
-                           style={styles.loginScreenButton}
+                           style={Styles.post_submit_Button}
                            onPress={handleChoosePhoto}
                            underlayColor='#fff'>
-                           <Text style={styles.loginText}>Choose Photo</Text>
+                           <Text style={Styles.buttonText}>Choose Photo</Text>
                         </TouchableOpacity> 
                         :
                         <TouchableOpacity
-                           style={styles.loginScreenButton}
+                           style={Styles.post_submit_Button}
                            onPress={selectVideo}
                            underlayColor='#fff'>
-                           <Text style={styles.loginText}>Choose Video</Text>
+                           <Text style={Styles.buttonText}>Choose Video</Text>
                         </TouchableOpacity> 
                      :
                      <View></View>
@@ -375,133 +375,5 @@ function Newpost(props) {
       </View>
    );
 }
-const styles = StyleSheet.create({
-   container_bg: {
-      fontFamily: 'IBMPlexSans-Regular',
-      flex: 1,
-   },
-   loginScreenButton: {
-      fontFamily: 'IBMPlexSans-Regular',
-      marginRight: 40,
-      marginLeft: 40,
-      marginTop: 10,
-      paddingTop: 10,
-      paddingBottom: 10,
-      backgroundColor: '#ffffff',
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#efefef'
-   },
-   loginText: {
-      fontFamily: 'IBMPlexSans-Regular',
-      color: '#000000',
-      textAlign: 'center',
-      paddingLeft: 10,
-      paddingRight: 10
-   },
-   image_bg: {
-      fontFamily: 'IBMPlexSans-Regular',
-      flex: 1,
-      // width : '30%'
-      justifyContent: "center"
-   },
-   backgroundImage: {
-      fontFamily: 'IBMPlexSans-Regular',
-      height: 100,
-      width: 100,
-      position: 'relative',
-      top: 0,
-      left: 0,
-      marginRight: 5,
-      padding: 0,
-      margin: 0
-   },
-   checked_bg_image: {
-      fontFamily: 'IBMPlexSans-Regular',
-      flex: 1,
-      width: '30%',
-      justifyContent: "center"
-   },
-   checkbox: {
-      fontFamily: 'IBMPlexSans-Regular',
-      fontWeight: 'bold',
-      color: 'white',
-      position: 'absolute',
-      marginVertical: 32,
-      marginHorizontal: 32,
-      borderRadius: 15,
-      paddingEnd: 5
-
-   },
-   text_bg: {
-      fontFamily: 'IBMPlexSans-Regular',
-      color: "black",
-      fontWeight: "bold",
-      textAlign: "center",
-   },
-   textAreaContainer: {
-      fontFamily: 'IBMPlexSans-Regular',
-      borderColor: '#efefef',
-      borderWidth: 1,
-   },
-   textArea: {
-      fontFamily: 'IBMPlexSans-Regular',
-      paddingLeft: 10,
-      paddingRight: 10,
-      height: 150,
-   },
-   input: {
-      fontFamily: 'IBMPlexSans-Regular',
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-   },
-   container: {
-      fontFamily: 'IBMPlexSans-Regular',
-      flex: 1,
-      padding: 30,
-      justifyContent: 'center',
-      alignItems: 'center',
-   },
-   textareaContainer: {
-      fontFamily: 'IBMPlexSans-Regular',
-      height: 180,
-      padding: 5,
-      backgroundColor: '#F5FCFF',
-   },
-   textareaContainerBg: {
-      fontFamily: 'IBMPlexSans-Regular',
-      height: 180,
-      padding: 5,
-      justifyContent: 'center',
-      textAlign: 'center',
-      backgroundColor: 'rgba(0,0,0,0)',
-   },
-   textarea: {
-      fontFamily: 'IBMPlexSans-Regular',
-      textAlignVertical: 'top',  // hack android
-      height: 170,
-      fontSize: 14,
-      color: '#333',
-      backgroundColor: 'rgba(0,0,0,0)'
-   },
-   cat_title: {
-      fontFamily: 'IBMPlexSans-Regular',
-      textAlign: 'left',
-      padding: 15,
-      width: '100%'
-   },
-   radio: {
-      fontFamily: 'IBMPlexSans-Regular',
-      fontSize: 10
-   },
-   backgroundVideo: {
-      fontFamily: 'IBMPlexSans-Regular',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-   },
-})
+ 
 export default Newpost;

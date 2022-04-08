@@ -4,12 +4,13 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ListItem, Avatar, colors, Icon } from 'react-native-elements'; 
 import api from '../../providers/api';
 import helpers from "../../providers/helpers";
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import IconAnt from 'react-native-vector-icons/AntDesign'; 
+import Styles from "../../theme/styles";
 function Chats(props) { 
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height; 
-  const navigation = useNavigation();
+  // const windowWidth = Dimensions.get('window').width;
+  // const windowHeight = Dimensions.get('window').height; 
+  // const navigation = useNavigation();
  
   const [getUsers, setUsers] = useState([]);
   const [getSearchusers, setSearchusers] = useState([]);
@@ -45,15 +46,15 @@ function Chats(props) {
     getUser()
   }, []);
   const Allusers = ({ ItemData }) => (
-    <View key={ItemData.sender_id + 'cu'.toString()} style={styles.useAvater} >
-      <View style={styles.avatarBorder}> 
-      <View style={styles.avatarBorder2}> 
+    <View key={ItemData.sender_id + 'cu'.toString()} style={Styles.useAvater} >
+      <View style={Styles.avatarBorder}> 
+      <View style={Styles.avatarBorder2}> 
       <Avatar onPress={() => props.navigation.navigate('Chating', {
         receiver_id: ItemData.show_id,
       })} rounded size="medium" source={ItemData.pro_image ? { uri: helpers.storage() + 'app/public/posts/' + ItemData.pro_image } : ''} />
       </View>
       </View>
-      <Text style={{ width : 50  ,  textAlign : 'center'}}>
+      <Text style={Styles.chart_live_user}>
       {ItemData.name.split(" ").length < 2
                 ? `${ItemData.name}`
                 : `${ItemData.name.split(" ")[0]}`}
@@ -80,7 +81,7 @@ function Chats(props) {
         source={ItemData.pro_image ? { uri: helpers.storage() + 'app/public/posts/' + ItemData.pro_image } : ''}
         > 
       </Avatar>
-      <View style={ styles.avaterCircle} />
+      <View style={ Styles.avaterCircle} />
         <ListItem.Content >
           <ListItem.Title onPress={() => props.navigation.navigate('Chating', {
             receiver_id: ItemData.show_id,
@@ -170,23 +171,20 @@ function Chats(props) {
               )} 
               ListHeaderComponent={
                 <View >
-                  <ListItem key={'nm'.toString()} style={{
-                    backgroundColor: "#FEFEFE",
-                    width: '100%',
-                  }}>
+                  <ListItem key={'nm'.toString()} style={Styles.chartListItem}>
                     <Avatar rounded size="medium" source={require('../../assets/img/images/massage.png')} />
                     <ListItem.Content>
                       <ListItem.Title> New Message Requests</ListItem.Title>
                       <ListItem.Subtitle>From Mayank Jain</ListItem.Subtitle>
                     </ListItem.Content>
-                    <View style={ styles.requestsCircle} />
+                    <View style={ Styles.requestsCircle} />
                   </ListItem>
-                  <View style={{ backgroundColor: "#efefef", height:2 }} />
+                  <View style={Styles.chartListFooterComponent} />
                 </View>
               }
               ListFooterComponent={
                 <View >
-                <View style={{ backgroundColor: "#efefef", height:2 }} />
+                <View style={Styles.chartListFooterComponent} />
                 <View style={{ backgroundColor: "#fff", minHeight:300 }} />
                 </View>
               }
@@ -214,52 +212,5 @@ function Chats(props) {
 
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    minHeight:600
-  },
-  useAvater: {
-    backgroundColor: '#fff', padding: 5
-  },
-  requestsCircle:{
-    backgroundColor: '#0287FA', padding: 9, borderRadius:9
-  },
-  avaterCircle:{
-    backgroundColor: '#B16DE4', padding: 6, borderRadius:9, marginTop:29, marginLeft:-29,
-  },
-  avatarBorder2:{
-    borderWidth: 1.2, borderColor: "#fff", borderRadius: 50,
-  },
-  avatarBorder:{
-    borderWidth: 2, borderColor: "#B16DE4", borderRadius: 50,
-  },
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
-    padding: 20,
-    margin: 10,
-  },
-  top: {
-    flex: 0.3,
-    backgroundColor: "grey",
-    borderWidth: 5,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  middle: {
-    flex: 0.3,
-    backgroundColor: "beige",
-    borderWidth: 5,
-  },
-  bottom: {
-    flex: 0.3,
-    backgroundColor: "pink",
-    borderWidth: 5,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-});
+ 
 export default Chats;

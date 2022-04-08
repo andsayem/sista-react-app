@@ -368,10 +368,12 @@ module.exports = {
     fontSize: 22
   },
   event_date_month_name:
-    { fontFamily: 'IBMPlexSans-Light', 
-    color: '#000000', fontSize: 12, 
-    textAlign: 'center' },
-  event_info : {
+  {
+    fontFamily: 'IBMPlexSans-Light',
+    color: '#000000', fontSize: 12,
+    textAlign: 'center'
+  },
+  event_info: {
     fontFamily: 'IBMPlexSans-Regular',
     marginHorizontal: -17,
     backgroundColor: "#3D21B2",
@@ -381,100 +383,100 @@ module.exports = {
     width: 140,
     paddingStart: 5,
     color: '#ffffff'
-  } ,
-  event_title :{
+  },
+  event_title: {
     fontFamily: 'IBMPlexSans-SemiBold',
     color: '#FFFFFF',
-    marginTop:-10,
+    marginTop: -10,
     paddingTop: 0,
     paddingBottom: 5,
     fontSize: 14
   },
-  event_time : {
+  event_time: {
     fontFamily: 'Montserrat-Regular',
     paddingLeft: 5,
     color: '#ffffff',
-    fontSize:10,
-  } ,
-  event_icon :{
-    fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', justifyContent: 'flex-start' 
-  } ,
-  event_address :{
+    fontSize: 10,
+  },
+  event_icon: {
+    fontFamily: 'IBMPlexSans-Regular', flexDirection: 'row', justifyContent: 'flex-start'
+  },
+  event_address: {
     fontFamily: 'Montserrat-Regular',
     paddingLeft: 5,
-    fontSize:10,
+    fontSize: 10,
     color: '#ffffff',
   },
   // Category 
-  cat_section : {
-    fontFamily: 'IBMPlexSans-Regular', paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 1, height:160
+  cat_section: {
+    fontFamily: 'IBMPlexSans-Regular', paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 1, height: 160
   },
-  cat_view : {
+  cat_view: {
     flexDirection: 'row', paddingTop: 10
-  } ,
-  cat_section_title : {
-    fontFamily: 'IBMPlexSans-SemiBold',  paddingLeft: 5, width: '100%', fontSize: 14, color: '#535353'
-  } ,
-  cat_scrollview : {
+  },
+  cat_section_title: {
+    fontFamily: 'IBMPlexSans-SemiBold', paddingLeft: 5, width: '100%', fontSize: 14, color: '#535353'
+  },
+  cat_scrollview: {
     fontFamily: 'IBMPlexSans-Regular',
-    marginHorizontal: -15, 
+    marginHorizontal: -15,
     marginRight: 5,
     marginTop: 1
-  } ,
-  cat_list_item :{
-    padding: 0 ,height:100
   },
-  cat_all : {
+  cat_list_item: {
+    padding: 0, height: 100
+  },
+  cat_all: {
     padding: -10, margin: 0
   },
-  cat_all_listItem:{
-    padding: 0, margin: 0, marginRight: -10, marginLeft: -10 
+  cat_all_listItem: {
+    padding: 0, margin: 0, marginRight: -10, marginLeft: -10
   },
-  cat_all_title : {
-    paddingTop:10, textAlign: 'center', width: '100%', color: '#535353'
+  cat_all_title: {
+    paddingTop: 10, textAlign: 'center', width: '100%', color: '#535353'
   },
-  cat_name : {
-    paddingTop:10,textAlign: 'center', width: '100%', color: '#535353'
+  cat_name: {
+    paddingTop: 10, textAlign: 'center', width: '100%', color: '#535353'
   },
   // Heater 
-  leftComponent :{
+  leftComponent: {
     lex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120
   },
-  heater_title:{
-    textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 
+  heater_title: {
+    textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18
   },
-  containerStyle:{
-    fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' 
+  containerStyle: {
+    fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5'
   },
   // Posts
-  loadert : {
-    fontFamily: 'IBMPlexSans-Regular', height: 60, marginBottom:100
-  }, 
-  loading_title:{
+  loadert: {
+    fontFamily: 'IBMPlexSans-Regular', height: 60, marginBottom: 100
+  },
+  loading_title: {
     fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 18,
     fontWeight: "bold"
   },
-  posts_section : {
-    fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10 
+  posts_section: {
+    fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10
   },
   // post Item 
-  post_item:{
-    fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#fff', minHeight: 190, width: '100%', borderRadius: 15, paddingBottom: 10 
+  post_item: {
+    fontFamily: 'IBMPlexSans-Regular', backgroundColor: '#fff', minHeight: 190, width: '100%', borderRadius: 15, paddingBottom: 10
   },
-  post_item_view:{
-    fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#FEFEFE", width: '100%' 
+  post_item_view: {
+    fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#FEFEFE", width: '100%'
   },
-  post_item_user_name : {
-    fontFamily : 'IBMPlexSans-SemiBold',fontSize:15, color:'#0D0E10'
+  post_item_user_name: {
+    fontFamily: 'IBMPlexSans-SemiBold', fontSize: 15, color: '#0D0E10'
   },
-  post_item_cat_name : {
-    fontFamily : 'IBMPlexSans-Medium',fontSize:13, color:'#000000'
+  post_item_cat_name: {
+    fontFamily: 'IBMPlexSans-Medium', fontSize: 13, color: '#000000'
   },
-  post_date : {
-    fontFamily : 'IBMPlexSans-Light',fontSize:13, color:'#000000'
+  post_date: {
+    fontFamily: 'IBMPlexSans-Light', fontSize: 13, color: '#000000'
   },
   activityIndicator: {
     fontFamily: 'IBMPlexSans-Regular',
@@ -507,7 +509,7 @@ module.exports = {
     paddingTop: 8,
     borderColor: '#E6E8EA'
   },
-  post_image_bg :{
+  post_image_bg: {
     fontFamily: 'IBMPlexSans-Regular',
     flex: 1,
     justifyContent: "center"
@@ -518,52 +520,203 @@ module.exports = {
     fontSize: 13,
     textAlign: "center",
   },
-  post_text_view : {
+  post_text_view: {
     width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20
   },
-  post_rb_sheet :{
-    fontFamily : 'IBMPlexSans-Regular', width: '100%' 
+  post_rb_sheet: {
+    fontFamily: 'IBMPlexSans-Regular', width: '100%'
   },
-  text_ReadMore_view : {
-    fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, paddingLeft: 20, paddingRight: 20 
+  text_ReadMore_view: {
+    fontFamily: 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, paddingLeft: 20, paddingRight: 20
   },
-  text_ReadMore : {
-    fontFamily : 'IBMPlexSans-Regular', fontSize: 13, paddingBottom: 9, color: "#707070",
+  text_ReadMore: {
+    fontFamily: 'IBMPlexSans-Regular', fontSize: 13, paddingBottom: 9, color: "#707070",
   },
-  VideoPlayer:{
-    fontFamily : 'IBMPlexSans-Regular', width: '100%', height: 175 
+  VideoPlayer: {
+    fontFamily: 'IBMPlexSans-Regular', width: '100%', height: 175
   },
-  post_image  : {
-    fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 175 
+  post_image: {
+    fontFamily: 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 175
   },
-  post_like_section : {
-    fontFamily : 'IBMPlexSans-Regular', paddingTop: 10, paddingLeft: 20, paddingRight: 20, flexDirection: "row", width: '100%'
+  post_like_section: {
+    fontFamily: 'IBMPlexSans-Regular', paddingTop: 10, paddingLeft: 20, paddingRight: 20, flexDirection: "row", width: '100%'
   },
-  post_like_view : {
-    fontFamily : 'IBMPlexSans-Regular', marginStart: 2, flexDirection: "row", width: '25%' 
+  post_like_view: {
+    fontFamily: 'IBMPlexSans-Regular', marginStart: 2, flexDirection: "row", width: '25%'
   },
-  like  : {
-    fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10, color: "#929292" 
+  like: {
+    fontFamily: 'IBMPlexSans-Regular', paddingLeft: 10, color: "#929292"
   },
-  post_comment_section : {
-    fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", left: 0, width: '25%'
+  post_comment_section: {
+    fontFamily: 'IBMPlexSans-Regular', flexDirection: "row", left: 0, width: '25%'
   },
-  post_comment_section_icon :{
-    fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-start'
+  post_comment_section_icon: {
+    fontFamily: 'IBMPlexSans-Regular', alignSelf: 'flex-start'
   },
-  post_comment_text :{
-    fontFamily : 'IBMPlexSans-Regular', paddingLeft: 12, color: "#929292" 
+  post_comment_text: {
+    fontFamily: 'IBMPlexSans-Regular', paddingLeft: 12, color: "#929292"
   },
-  post_share_icon : {
-    fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' 
+  post_share_icon: {
+    fontFamily: 'IBMPlexSans-Regular', alignSelf: 'flex-end'
+  },
+  post_share_text: {
+    fontFamily: 'IBMPlexSans-Regular', alignSelf: 'flex-end'
+  },
+  // chart 
+  chart_live_user: {
+    width: 50, textAlign: 'center'
+  },
+  avatarBorder2: {
+    borderWidth: 1.2, borderColor: "#fff", borderRadius: 50,
+  },
+  avatarBorder: {
+    borderWidth: 2, borderColor: "#B16DE4", borderRadius: 50,
+  },
+  useAvater: {
+    backgroundColor: '#fff', padding: 5
+  },
+  requestsCircle: {
+    backgroundColor: '#0287FA', padding: 9, borderRadius: 9
+  },
+  avaterCircle: {
+    backgroundColor: '#B16DE4', padding: 6, borderRadius: 9, marginTop: 29, marginLeft: -29,
+  },
+  chartListItem: {
+    backgroundColor: "#FEFEFE",
+    width: '100%',
+  },
+  chartListFooterComponent: {
+    backgroundColor: "#efefef", height: 2
+  },
+  //charting 
+  charting_message: {
+    color: "#0D0E10", backgroundColor: '#F5F5F5', borderRadius: 7, padding: 15, textAlign: 'left', marginLeft: 10
+  },
+  charting_message_sende: {
+    backgroundColor: '#944CD4', color: '#fff',
+    borderRadius: 7, padding: 15,
+  },
+  messageitem : {
+    marginVertical: 14,
+    flex: 1,
+    flexDirection: 'row', 
+    borderRadius:300,
+    padding:5,
+  },
+  messageitemIn : {
+    alignSelf: 'flex-end',
+  },
+  messageitemOut : {
+    alignSelf: 'flex-start'
+  },
+  messageTime : {
+    alignSelf: 'flex-end',
+    margin: 15,
+    fontSize:12,
+    color:"#ABABAB",
+  },
+  messagefooter : {
+    flexDirection: 'row',
+    height:60,
+    backgroundColor: '#fff',
+    paddingHorizontal:10,
+    padding:5,
+  },
+  textAreaContainer: {  
+    flex:1,
+    flexDirection: 'row',
+    backgroundColor: '#fff', 
+    padding:3,
+    width: '100%', 
+    fontFamily: 'IBMPlexSans-Regular',
+    borderColor: '#efefef',
+    borderWidth: 1,
+  },
+  messageAreaView : {
+    flex:1, 
+  },
+  avaterCircle:{
+    backgroundColor: '#0DD452', padding: 6, borderRadius:9, marginTop:37, marginLeft:-28,
   }, 
-  post_share_text : {
-    fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' 
-  }
-
-
-
- 
-
+// New Post 
+  post_submit_Button :{
+    fontFamily: 'IBMPlexSans-Regular',
+      marginRight: 40,
+      marginLeft: 40,
+      marginTop: 10,
+      paddingTop: 10,
+      paddingBottom: 10,
+      backgroundColor: '#ffffff',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#efefef'
+  },
+  checkbox: {
+    fontFamily: 'IBMPlexSans-Regular',
+    fontWeight: 'bold',
+    color: 'white',
+    position: 'absolute',
+    marginVertical: 32,
+    marginHorizontal: 32,
+    borderRadius: 15,
+    paddingEnd: 5 
+ },
+ backgroundImage: {
+  fontFamily: 'IBMPlexSans-Regular',
+  height: 100,
+  width: 100,
+  position: 'relative',
+  top: 0,
+  left: 0,
+  marginRight: 5,
+  padding: 0,
+  margin: 0
+},
+buttonText: {
+  fontFamily: 'IBMPlexSans-Regular',
+  color: '#000000',
+  textAlign: 'center',
+  paddingLeft: 10,
+  paddingRight: 10
+},
+backgroundVideo: {
+  fontFamily: 'IBMPlexSans-Regular',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+},
+textArea: {
+  fontFamily: 'IBMPlexSans-Regular',
+  paddingLeft: 10,
+  paddingRight: 10,
+  height: 150,
+},
+textareaContainerBg: {
+  fontFamily: 'IBMPlexSans-Regular',
+  height: 180,
+  padding: 5,
+  justifyContent: 'center',
+  textAlign: 'center',
+  backgroundColor: 'rgba(0,0,0,0)',
+},
+textarea: {
+  fontFamily: 'IBMPlexSans-Regular',
+  textAlignVertical: 'top',  // hack android
+  height: 170,
+  fontSize: 14,
+  color: '#333',
+  backgroundColor: 'rgba(0,0,0,0)'
+},
+image_bg: {
+  fontFamily: 'IBMPlexSans-Regular',
+  flex: 1,
+  // width : '30%'
+  justifyContent: "center"
+},
+container_bg: {
+  fontFamily: 'IBMPlexSans-Regular',
+  flex: 1,
+},
 }
- 
