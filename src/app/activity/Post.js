@@ -130,9 +130,9 @@ class Post extends React.Component {
                       video={{ uri: this.props.item.file }}
                       style={Styles.VideoPlayer}
                       thumbnail={require('../../assets/img/images/v2.png')}
-                    /> :
+                    /> : 
                     <Image
-                      source={this.props.item.file ? { uri: this.props.item.file } : null}
+                      source={this.props.item.file ? { uri: this.props.item.file_path + 'thumbnail/large_'+ this.props.item.file} : null}
                       style={Styles.post_image} />}
 
                 </TouchableOpacity>

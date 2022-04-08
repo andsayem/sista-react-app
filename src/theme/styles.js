@@ -536,7 +536,7 @@ module.exports = {
     fontFamily: 'IBMPlexSans-Regular', width: '100%', height: 175
   },
   post_image: {
-    fontFamily: 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 175
+    fontFamily: 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, minHeight: 175
   },
   post_like_section: {
     fontFamily: 'IBMPlexSans-Regular', paddingTop: 10, paddingLeft: 20, paddingRight: 20, flexDirection: "row", width: '100%'
