@@ -15,7 +15,6 @@ import VideoPlayer from 'react-native-video-player';
 import * as mime from 'react-native-mime-types';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 import {
   shareOnFacebook,
@@ -78,19 +77,19 @@ class Post extends React.Component {
   render() {
     return (
       <ScrollView key={this.props.item.id} >
-        <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#fff', minHeight: 190, width: '100%', borderRadius: 15, paddingBottom: 10 }} >
-          <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#FEFEFE", width: '100%' }}>
+        <View style={Styles.post_item} >
+          <View style={Styles.post_item_view}>
             <ListItem  >
               <Avatar onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)} rounded size="medium"
                 source={this.props.item.userjoin ? { uri: this.props.item.userjoin.pro_image } : null} />
               <ListItem.Content >
                 <ListItem.Title>
-                  <Text style={{fontFamily : 'IBMPlexSans-SemiBold',fontSize:15, color:'#0D0E10'}} onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}>
+                  <Text style={Styles.post_item_user_name} onPress={() => this.props.onPressUserProfile(this.props.item.userjoin.id)}>
                     {this.props.item.userjoin.name}
                   </Text></ListItem.Title>
                 <ListItem.Subtitle  >
-                  <Text style={{fontFamily : 'IBMPlexSans-Medium',fontSize:13, color:'#000000'}} >
-                  {this.props.item.catjoin.cat_name} <Text style={{fontFamily : 'IBMPlexSans-Light',fontSize:13, color:'#000000'}} >- {moment(this.props.item.created_at).fromNow()}</Text>
+                  <Text style={Styles.post_item_cat_name} >
+                  {this.props.item.catjoin.cat_name} <Text style={Styles.post_date} >- {moment(this.props.item.created_at).fromNow()}</Text>
                   </Text>
                 </ListItem.Subtitle>
               </ListItem.Content>
@@ -99,9 +98,9 @@ class Post extends React.Component {
                 <View style={{borderRadius: 15 }}>
                   {this.props.user.id != this.props.item.userjoin.id ?
                     this.props.item.followings == 1 ?
-                      <Text style={styles.following}>+Following  </Text>
+                      <Text style={Styles.following}>+Following  </Text>
                       :
-                      <Text style={styles.follow}>+Follow </Text>
+                      <Text style={Styles.follow}>+Follow </Text>
                     :
                     <Text ></Text>
                   }
@@ -112,14 +111,14 @@ class Post extends React.Component {
 
           {this.props.item.post_type == 3 ?
 
-            <View style={{ width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20 }}  >
-              <ImageBackground source={require("../../assets/img/text/1.jpg")} resizeMode="cover" style={styles.image_bg}>
-                <Text numberOfLines={5} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={styles.text_bg}>{this.props.item.caption}  </Text>
+            <View style={Styles.post_text_view}  >
+              <ImageBackground source={require("../../assets/img/text/1.jpg")} resizeMode="cover" style={Styles.post_image_bg}>
+                <Text numberOfLines={5} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={Styles.post_text_bg}>{this.props.item.caption}  </Text>
               </ImageBackground>
             </View>
             :
-            <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, paddingLeft: 20, paddingRight: 20 }} >
-              <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{fontFamily : 'IBMPlexSans-Regular', fontSize: 13, paddingBottom: 9, color: "#707070", }}>
+            <View style={ Styles.text_ReadMore_view } >
+              <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={ Styles.text_ReadMore }>
                 {this.props.item.caption}
               </ReadMore>
 
@@ -129,19 +128,19 @@ class Post extends React.Component {
                   {mime.lookup(this.props.item.file) == 'video/mp4' ?
                     <VideoPlayer
                       video={{ uri: this.props.item.file }}
-                      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', height: 175 }}
+                      style={Styles.VideoPlayer}
                       thumbnail={require('../../assets/img/images/v2.png')}
                     /> :
                     <Image
                       source={this.props.item.file ? { uri: this.props.item.file } : null}
-                      style={{fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 175 }} />}
+                      style={Styles.post_image} />}
 
                 </TouchableOpacity>
               </View>
             </View>
           }
-          <View style={{fontFamily : 'IBMPlexSans-Regular', paddingTop: 10, paddingLeft: 20, paddingRight: 20, flexDirection: "row", width: '100%' }}>
-            <View style={{fontFamily : 'IBMPlexSans-Regular', marginStart: 2, flexDirection: "row", width: '25%' }}>
+          <View style={Styles.post_like_section}>
+            <View style={Styles.post_like_view}>
               <TouchableOpacity onPress={() => this.props.onPressLike(this.props.index)}
                 activeOpacity={0.5} >
                 {this.props.liked ?
@@ -150,19 +149,19 @@ class Post extends React.Component {
                   <Text><IconAnt name="hearto" size={23} color="#FF3D79" /> </Text>
                 }
               </TouchableOpacity>
-              <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10, color: "#929292" }}>{this.props.like} </Text>
+              <Text style={Styles.like}>{this.props.like} </Text>
             </View>
-            <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", left: 0, width: '25%' }}>
-              <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-start' }} >
+            <View style={Styles.post_comment_section}>
+              <Text onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={Styles.post_comment_section_icon} >
                 <IconOct name="comment" size={25} color="#B461FE" /> </Text>
-              <Text style={{fontFamily : 'IBMPlexSans-Regular', paddingLeft: 12, color: "#929292" }}>{this.props.item.comment}</Text>
+              <Text style={Styles.post_comment_text}>{this.props.item.comment}</Text>
             </View>
             <View style={{fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", width: '25%' }}>
               <IconFea onPress={() => this.facebookShare(this.props.item)} name="share" size={23} color="#B461FE" />
             </View>
             <View style={{fontFamily : 'IBMPlexSans-Regular', width: '27%' }}>
-              <Text onPress={() => this.RBSheet.open()} style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
-                <Text style={{fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' }}>
+              <Text onPress={() => this.RBSheet.open()} style={ Styles.post_share_icon}>
+                <Text style={Styles.post_share_text}>
                   <IconEnt name="dots-three-vertical" size={20} color="#B461FE" />
                 </Text>
               </Text>
@@ -180,7 +179,7 @@ class Post extends React.Component {
                 }
               }}
             >
-              <View style={{fontFamily : 'IBMPlexSans-Regular', width: '100%' }}>
+              <View style={Styles.post_rb_sheet}>
                 <Text onPress={() => this.report(this.props.item.id)} style={[Styles.share_item, { color: '#F00' }]}> <IconAnt name="warning" size={16} color="#000000" />  Report</Text>
                 <Text style={[Styles.share_item, { color: '#F00' }]}> <IconMat name="do-not-disturb" size={17} color="#000000" /> Not Interested</Text>
                 {/* <Text style={Styles.share_item}> <IconIonic name="copy-outline" size={16} color="#000000" /> Copy Link</Text> */}
@@ -195,81 +194,4 @@ class Post extends React.Component {
   }
 }
 export default Post;
-const styles = StyleSheet.create({
-  container_bg: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flex: 1,
-  },
-  image_bg: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flex: 1,
-    justifyContent: "center"
-  },
-  text_bg: {
-    fontFamily: 'IBMPlexSans-Regular',
-    color: '#000000',
-    fontSize: 13,
-    textAlign: "center",
-  },
-  container: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 16,
-  },
-  title: {
-    fontFamily: 'IBMPlexSans-Regular',
-    textAlign: 'center',
-    marginVertical: 10,
-    fontSize: 18,
-    fontWeight: "bold"
-  },
-  fixToText: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  separator: {
-    fontFamily: 'IBMPlexSans-Regular',
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  horizontal: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
-  },
-  activityIndicator: {
-    fontFamily: 'IBMPlexSans-Regular',
-    top: '50%',
-    justifyContent: 'center',
-    marginTop: '50%',
-    alignItems: 'center',
-  },
-  following: {
-    fontFamily: 'IBMPlexSans-Medium',
-    fontSize: 13,
-    paddingLeft: 10,
-    color: '#0D0E10',
-    borderRadius: 30,
-    borderWidth: 1,
-    height: 35,
-    width: 90,
-    paddingTop: 8,
-    borderColor: '#E6E8EA',
-  },
-  follow: {
-    fontFamily: 'IBMPlexSans-Medium',
-    fontSize: 13,
-    paddingLeft: 10,
-    color: '#0D0E10',
-    borderRadius: 30,
-    borderWidth: 1,
-    height: 35,
-    width: 72,
-    paddingTop: 8,
-    borderColor: '#E6E8EA'
-  }
-});
+ 

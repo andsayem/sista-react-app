@@ -459,8 +459,111 @@ module.exports = {
   },
   posts_section : {
     fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10 
+  },
+  // post Item 
+  post_item:{
+    fontFamily : 'IBMPlexSans-Regular', backgroundColor: '#fff', minHeight: 190, width: '100%', borderRadius: 15, paddingBottom: 10 
+  },
+  post_item_view:{
+    fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#FEFEFE", width: '100%' 
+  },
+  post_item_user_name : {
+    fontFamily : 'IBMPlexSans-SemiBold',fontSize:15, color:'#0D0E10'
+  },
+  post_item_cat_name : {
+    fontFamily : 'IBMPlexSans-Medium',fontSize:13, color:'#000000'
+  },
+  post_date : {
+    fontFamily : 'IBMPlexSans-Light',fontSize:13, color:'#000000'
+  },
+  activityIndicator: {
+    fontFamily: 'IBMPlexSans-Regular',
+    top: '50%',
+    justifyContent: 'center',
+    marginTop: '50%',
+    alignItems: 'center',
+  },
+  following: {
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 13,
+    paddingLeft: 10,
+    color: '#0D0E10',
+    borderRadius: 30,
+    borderWidth: 1,
+    height: 35,
+    width: 90,
+    paddingTop: 8,
+    borderColor: '#E6E8EA',
+  },
+  follow: {
+    fontFamily: 'IBMPlexSans-Medium',
+    fontSize: 13,
+    paddingLeft: 10,
+    color: '#0D0E10',
+    borderRadius: 30,
+    borderWidth: 1,
+    height: 35,
+    width: 72,
+    paddingTop: 8,
+    borderColor: '#E6E8EA'
+  },
+  post_image_bg :{
+    fontFamily: 'IBMPlexSans-Regular',
+    flex: 1,
+    justifyContent: "center"
+  },
+  post_text_bg: {
+    fontFamily: 'IBMPlexSans-Regular',
+    color: '#000000',
+    fontSize: 13,
+    textAlign: "center",
+  },
+  post_text_view : {
+    width: '100%', borderRadius: 10, height: 160, paddingBottom: 5, paddingLeft: 20, paddingRight: 20
+  },
+  post_rb_sheet :{
+    fontFamily : 'IBMPlexSans-Regular', width: '100%' 
+  },
+  text_ReadMore_view : {
+    fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, paddingLeft: 20, paddingRight: 20 
+  },
+  text_ReadMore : {
+    fontFamily : 'IBMPlexSans-Regular', fontSize: 13, paddingBottom: 9, color: "#707070",
+  },
+  VideoPlayer:{
+    fontFamily : 'IBMPlexSans-Regular', width: '100%', height: 175 
+  },
+  post_image  : {
+    fontFamily : 'IBMPlexSans-Regular', width: '100%', borderRadius: 10, height: 175 
+  },
+  post_like_section : {
+    fontFamily : 'IBMPlexSans-Regular', paddingTop: 10, paddingLeft: 20, paddingRight: 20, flexDirection: "row", width: '100%'
+  },
+  post_like_view : {
+    fontFamily : 'IBMPlexSans-Regular', marginStart: 2, flexDirection: "row", width: '25%' 
+  },
+  like  : {
+    fontFamily : 'IBMPlexSans-Regular', paddingLeft: 10, color: "#929292" 
+  },
+  post_comment_section : {
+    fontFamily : 'IBMPlexSans-Regular', flexDirection: "row", left: 0, width: '25%'
+  },
+  post_comment_section_icon :{
+    fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-start'
+  },
+  post_comment_text :{
+    fontFamily : 'IBMPlexSans-Regular', paddingLeft: 12, color: "#929292" 
+  },
+  post_share_icon : {
+    fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' 
+  }, 
+  post_share_text : {
+    fontFamily : 'IBMPlexSans-Regular', alignSelf: 'flex-end' 
   }
 
+
+
+ 
 
 }
  
