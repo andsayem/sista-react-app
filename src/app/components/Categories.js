@@ -20,35 +20,27 @@ const Categories = (props) => {
   useEffect(() => setErrortext(false), [errortext]);
   useEffect(() => { getCategories() }, []);
   return (
-    <View style={{ fontFamily: 'IBMPlexSans-Regular', paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 1, height:160 }}>
-      <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+    <View style={Styles.cat_section}>
+      <View style={ Styles.cat_view}>
         {getCats.length > 0}
-        <Text style={{ fontFamily: 'IBMPlexSans-SemiBold',  paddingLeft: 5, width: '100%', fontSize: 14, color: '#535353' }}>Category </Text>
+        <Text style={Styles.cat_section_title }>Category </Text>
       </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{
-          fontFamily: 'IBMPlexSans-Regular',
-          marginHorizontal: -15,
-          // paddingEnd: 10,
-          marginRight: 5,
-          marginTop: 1
-        }}
-      >
-        <ListItem style={{ padding: 0 ,height:100}} >
+        style={Styles.cat_scrollview} >
+        <ListItem style={Styles.cat_list_item} >
           {getCats.length > 0}
-          <ListItem key={'all'} style={{ padding: -10, margin: 0 }} >
-            <ListItem.Content style={{  padding: 0, margin: 0, marginRight: -10, marginLeft: -10 }} >
+          <ListItem key={'all'} style={Styles.cat_all} >
+            <ListItem.Content style={Styles.cat_all_listItem} >
               <TouchableOpacity onPress={props.handleAllPost}
                 style={[props.cat_id == '' ? Styles.cat_icon_active_style : Styles.cat_icon_style]}
-              >
-
+              > 
                 <Icon
                   color={props.cat_id == '' ? '#FFFFFF' : '#000000'}
                   name='border-all' />
               </TouchableOpacity>
-              <Text style={{paddingTop:10, textAlign: 'center', width: '100%', color: '#535353' }} >All</Text>
+              <Text style={Styles.cat_all_title} >All</Text>
             </ListItem.Content>
           </ListItem>
 
@@ -62,7 +54,7 @@ const Categories = (props) => {
                   color={props.cat_id == item.id ? '#FFFFFF' : '#000000'}
                   name={item.cat_image} />
               </TouchableOpacity>
-              <Text style={{ paddingTop:10,textAlign: 'center', width: '100%', color: '#535353' }} >
+              <Text style={Styles.cat_name} >
                 {item.cat_name} </Text>
             </ListItem.Content>
           ))

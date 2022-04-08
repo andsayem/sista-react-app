@@ -404,5 +404,37 @@ module.exports = {
     paddingLeft: 5,
     fontSize:10,
     color: '#ffffff',
+  },
+  // Category 
+  cat_section : {
+    fontFamily: 'IBMPlexSans-Regular', paddingHorizontal: 10, backgroundColor: '#fff', paddingBottom: 0, marginBottom: 1, height:160
+  },
+  cat_view : {
+    flexDirection: 'row', paddingTop: 10
+  } ,
+  cat_section_title : {
+    fontFamily: 'IBMPlexSans-SemiBold',  paddingLeft: 5, width: '100%', fontSize: 14, color: '#535353'
+  } ,
+  cat_scrollview : {
+    fontFamily: 'IBMPlexSans-Regular',
+    marginHorizontal: -15, 
+    marginRight: 5,
+    marginTop: 1
+  } ,
+  cat_list_item :{
+    padding: 0 ,height:100
+  },
+  cat_all : {
+    padding: -10, margin: 0
+  },
+  cat_all_listItem:{
+    padding: 0, margin: 0, marginRight: -10, marginLeft: -10 
+  },
+  cat_all_title : {
+    paddingTop:10, textAlign: 'center', width: '100%', color: '#535353'
+  },
+  cat_name : {
+    paddingTop:10,textAlign: 'center', width: '100%', color: '#535353'
   }
 }
+ 
