@@ -42,8 +42,7 @@ const Categories = (props) => {
               </TouchableOpacity>
               <Text style={Styles.cat_all_title} >All</Text>
             </ListItem.Content>
-          </ListItem>
-
+          </ListItem> 
           {getCats.map((item, i) => (
             <ListItem.Content key={item.id} data={item} keyExtractor={(item, i) => item.id.toString()} style={{  height:55, width:55, padding: 0, margin: 0, marginRight: 10, }} >
               <TouchableOpacity
@@ -61,8 +60,7 @@ const Categories = (props) => {
           }
         </ListItem>
       </ScrollView>
-    </View>
-
+    </View> 
   );
 };
 

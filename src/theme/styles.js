@@ -435,6 +435,32 @@ module.exports = {
   },
   cat_name : {
     paddingTop:10,textAlign: 'center', width: '100%', color: '#535353'
+  },
+  // Heater 
+  leftComponent :{
+    lex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120
+  },
+  heater_title:{
+    textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 
+  },
+  containerStyle:{
+    fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' 
+  },
+  // Posts
+  loadert : {
+    fontFamily: 'IBMPlexSans-Regular', height: 60, marginBottom:100
+  }, 
+  loading_title:{
+    fontFamily: 'IBMPlexSans-Regular',
+    textAlign: 'center',
+    marginVertical: 10,
+    fontSize: 18,
+    fontWeight: "bold"
+  },
+  posts_section : {
+    fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10 
   }
+
+
 }
  

@@ -1,14 +1,15 @@
 import React, { Component, useEffect } from 'react';
-import {  StyleSheet,  FlatList, Text, View, SafeAreaView   } from 'react-native';
+import {StyleSheet,  FlatList, Text, View, SafeAreaView   } from 'react-native';
 import api from '../../providers/api';
-import {  colors, Icon, Header } from 'react-native-elements';
+import {colors, Icon, Header } from 'react-native-elements';
 import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post'; 
 import AsyncStorage from '@react-native-community/async-storage';
-import { ActivityIndicator } from 'react-native-paper';
+import {ActivityIndicator } from 'react-native-paper';
 import Pusher from 'pusher-js/react-native';
 import helpers from '../../providers/helpers';
+import Styles from "../../theme/styles";
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
@@ -74,15 +75,15 @@ class Posts extends Component {
       }) 
     }, []) 
     return (
-      <View style={{ fontFamily: 'IBMPlexSans-Regular', height: 60, marginBottom:100 }}>
+      <View style={ Styles.loadert }>
         {this.state.moreLoding ? (
           <View>
             <ActivityIndicator />
-            <Text style={styles.title}>Loading Data..</Text>
+            <Text style={Styles.loading_title}>Loading Data..</Text>
           </View>
         ) : (
           <View>
-            <Text style={styles.title}>Loading Data..</Text>
+            <Text style={Styles.loading_title}>Loading Data..</Text>
           </View>
         )}
       </View>
@@ -177,10 +178,10 @@ class Posts extends Component {
     return (
       <View>
         <Header
-          leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
+          leftComponent={<View style={ Styles.leftComponent }>
             <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
               onPress={() => props.navigation.toggleDrawer()} ></Icon>
-            <Text style={{ textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Inspire me</Text>
+            <Text style={Styles.heater_title}> Inspire me</Text>
           </View>
           }
           rightComponent={<View style={{ flexDirection: 'row', flexWrap: 'nowrap', minWidth: 60 }}>
@@ -188,9 +189,9 @@ class Posts extends Component {
             <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='notifications' ></Icon>
           </View>
           } 
-          containerStyle={{ fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
+          containerStyle={Styles.containerStyle}
         />
-        <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", paddingBottom: 5, marginTop: 10 }}>
+        <View style={Styles.posts_section}>
           <SafeAreaView>
             <FlatList
               data={Object.values(this.state.items)}
@@ -215,48 +216,7 @@ class Posts extends Component {
         </View>
       </View>
     )
-  }
-
+  } 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 16,
-  },
-  title: {
-    fontFamily: 'IBMPlexSans-Regular',
-    textAlign: 'center',
-    marginVertical: 10,
-    fontSize: 18,
-    fontWeight: "bold"
-  },
-  fixToText: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  separator: {
-    fontFamily: 'IBMPlexSans-Regular',
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  horizontal: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
-  },
-  activityIndicator: {
-    fontFamily: 'IBMPlexSans-Regular',
-    top: '50%',
-    justifyContent: 'center',
-    marginTop: '50%',
-    alignItems: 'center',
-  }
-});
-
+ 
 export default Posts;
