@@ -35,9 +35,7 @@ import JournalDetails from './src/app/activity/JournalDetails';
 import Profile from "./src/app/activity/Profile";
 import UserProfile from './src/app/activity/UserProfile';
 import AppTutorial from './src/app/screens/WelcomeScreen';
-import ProductDetail from "./src/app/product/ProductDetail";
-import Chat from './Chat';
-
+import ProductDetail from "./src/app/product/ProductDetail"; 
 import GlobalFont from 'react-native-global-font'
 
 
@@ -128,8 +126,7 @@ function App() {
         <StackApp.Screen name="EventDetails" component={EventDetails} options={{ headerShown: false, name: 'Event Details' }} />
         <StackApp.Screen name="JournalDetails" component={JournalDetails} options={{ headerShown: false, name: 'JournalDetails' }} />
         <StackApp.Screen name="Profile" component={Profile} options={{ headerShown: false, name: 'UserProfile' }} />
-        <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown: false, name: 'UserProfile' }} />
-        <Stack.Screen name="Chat" component={Chat} />
+        <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown: false, name: 'UserProfile' }} /> 
       </StackApp.Navigator>
     </NavigationContainer>
   );
