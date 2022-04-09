@@ -36,9 +36,7 @@ import Profile from "./src/app/activity/Profile";
 import UserProfile from './src/app/activity/UserProfile';
 import AppTutorial from './src/app/screens/WelcomeScreen';
 import ProductDetail from "./src/app/product/ProductDetail";
-import Chat from './Chat';
-
-import GlobalFont from 'react-native-global-font'
+ import GlobalFont from 'react-native-global-font'
 
 
 const Stack = createStackNavigator();
