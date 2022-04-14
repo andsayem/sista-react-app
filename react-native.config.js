@@ -3,5 +3,15 @@ module.exports = {
       ios: {},
       android: {},
     },
-    assets: ['./assets/fonts/'],
+    assets: ['./src/assets/fonts'],
+    dependencies: {
+      'react-native-beacons-manager': {
+        platforms: {
+          ios: null
+        },
+      },
+    },
   };
+
+  
+ 
