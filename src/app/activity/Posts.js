@@ -31,6 +31,7 @@ class Posts extends Component {
   }
 
   componentDidMount() {
+    this.fatchUserData()
     this._isMounted = true; 
     this.focusListener = this.props.navigation.addListener('focus',
       () => {  
@@ -97,10 +98,10 @@ class Posts extends Component {
   }
 
   fatchUserData = async () => {
-    const userData = await AsyncStorage.getItem(STORAGE_KEY);
-    let user_data = JSON.parse(userData)
+    const userData = await AsyncStorage.getItem(STORAGE_KEY); 
+    let user_data = JSON.parse(userData) 
     this.setState({ userData: user_data })
-  }
+  } 
   renderRow = ({ item, index }) => {
     const { liked, like, props } = item
     return (
@@ -153,25 +154,28 @@ class Posts extends Component {
       }
     })
   }
-  handleFollowPost = index => {
-    let post = this.state.items[index]
-    api.getData('following/' + post.user_id).then((res) => {
-      this.fatchData();
-    })
-
+  handleFollowPost = userId => {   
+    let filteredNumbers = this.state.items.filter(function (currentElement) {
+      return currentElement.userjoin.id == userId;
+    });  
+    let followings = filteredNumbers[0].followings == 1 ? 0 : 1;
+    let newItems = this.state.items.map(el => ( 
+      el.user_id === userId ? {...el, followings: followings}: el 
+    ))
+    this.setState({ items: newItems})
   }
   handleResetParam = () => {
     this.setState({ items: [], page: 0, cat_id: '' }, function () {
       this.fatchData();
     }); 
   }
-  componentWillUnmount() {
-    this._isMounted = false;
-    this.focusListener;
-    this.handlePostCates();
-    this.fatchUserData();
-    this.renderFooter();
-  }
+  // componentWillUnmount() {
+  //   this._isMounted = false;
+  //   this.focusListener;
+  //   this.handlePostCates();
+  //   this.fatchUserData();
+  //   this.renderFooter();
+  // }
   render() {
     let { isLoading } = this.state;
     let props = this.props;

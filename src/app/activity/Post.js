@@ -93,16 +93,16 @@ class Post extends React.Component {
                   </Text>
                 </ListItem.Subtitle>
               </ListItem.Content>
-              <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.index)}
+              <TouchableOpacity onPress={() => this.props.onPressFollow(this.props.item.userjoin.id)}
                 activeOpacity={0.5} >
-                <View style={{borderRadius: 15 }}>
+                <View>
                   {this.props.user.id != this.props.item.userjoin.id ?
                     this.props.item.followings == 1 ?
-                      <Text style={Styles.following}>+Following  </Text>
+                      <Text style={Styles.following}>+Following </Text>
                       :
                       <Text style={Styles.follow}>+Follow </Text>
                     :
-                    <Text ></Text>
+                    <Text></Text>
                   }
                 </View>
               </TouchableOpacity>
