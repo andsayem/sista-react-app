@@ -42,7 +42,12 @@
 
 	<key>UIAppFonts</key>
 	<array>
-		<string></string>
+		<string>IBMPlexSans-Bold.ttf</string>
+		<string>IBMPlexSans-BoldItalic.ttf</string>
+		<string>IBMPlexSans-ExtraLight.ttf</string>
+		<string>IBMPlexSans-ExtraLightItalic.ttf</string>
+		<string>IBMPlexSans-Italic.ttf</string>
+		<string>IBMPlexSans-Light.ttf</string>
 	</array>
 
 	<key>UIRequiredDeviceCapabilities</key>
