@@ -46,9 +46,7 @@ function LoginScreen(props) {
 
   const emailInputRef = createRef();
   const passwordInputRef = createRef();
-
   const history = useHistory();
-
   const onFocusEmail = () => {
     setEmailInpuStyle({
       backgroundColor: "#944CD4",
@@ -110,13 +108,14 @@ function LoginScreen(props) {
       })
       .then((res) => {
         let userData = res.data;
+        
         if (userData.status === 1) {
-          setLoginData(res.data);
+          //setLoginData(res.data);
+          //console.log(userData)
           saveToken(userData.access_token);
           saveData(userData.user);
-          setUserData(userData)
-          props.navigation.navigate("Home");
-
+          //setUserData(userData)
+          props.navigation.navigate("Home"); 
         } else {
           setErrortext({ message: 'Your User or password wrong!' });
         }
