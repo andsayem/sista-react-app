@@ -48,6 +48,7 @@
 		<string>IBMPlexSans-ExtraLightItalic.ttf</string>
 		<string>IBMPlexSans-Italic.ttf</string>
 		<string>IBMPlexSans-Light.ttf</string>
+		<string>IBMPlexSans-Medium.ttf</string>
 	</array>
 
 	<key>UIRequiredDeviceCapabilities</key>
