@@ -291,9 +291,9 @@ function LoginScreen(props) {
           color: passFocusStyle.color
         }}>
 
-          {/* <Icon color={passFocusStyle.iconColor} style={{ padding: 10 }} type='font-awesome' name="key" size={20} /> */}
+          <Icon color={passFocusStyle.iconColor} style={{ padding: 10 }} type='font-awesome' name="key" size={20} />
 
-          <IconFea color={passFocusStyle.iconColor} style={{ padding: 10 }} name="lock" size={23} />
+          {/* <IconFea color={passFocusStyle.iconColor} style={{ padding: 10 }} name="lock" size={23} /> */}
           <TextInput
             style={{
               width: '61%',
