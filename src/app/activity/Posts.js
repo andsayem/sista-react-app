@@ -162,7 +162,10 @@ class Posts extends Component {
     let newItems = this.state.items.map(el => ( 
       el.user_id === userId ? {...el, followings: followings}: el 
     ))
+    let ffff = api.getData('following/' + userId)
+    console.log('following',userId);
     this.setState({ items: newItems})
+    
   }
   handleResetParam = () => {
     this.setState({ items: [], page: 0, cat_id: '' }, function () {
