@@ -39,9 +39,20 @@
 	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-
 	<key>UIAppFonts</key>
 	<array>
+		<string>FontAwesome.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>IBMPlexSans-SemiBold.ttf</string>
+		<string>AntDesign.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Feather.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
 		<string>IBMPlexSans-Bold.ttf</string>
 		<string>IBMPlexSans-BoldItalic.ttf</string>
 		<string>IBMPlexSans-ExtraLight.ttf</string>
@@ -51,7 +62,6 @@
 		<string>IBMPlexSans-Medium.ttf</string>
 		<string>IBMPlexSans-Regular.ttf</string>
 	</array>
-
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
