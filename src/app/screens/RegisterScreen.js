@@ -169,8 +169,7 @@ function RegisterScreen({ navigation, props }) {
           <TextInput
             style={Styles.inputText}
             onChangeText={(UserName) => setUserName(UserName)}
-            value={userName}
-            keyboardType="Name"
+            value={userName} 
             ref={nameInputRef}
             returnKeyType="next"
             blurOnSubmit={true}

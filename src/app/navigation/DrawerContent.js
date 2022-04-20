@@ -84,7 +84,7 @@ export function DrawerContent(props) {
           <DrawerItem
             style={{ color: '#fff' }}
             onPress={() => { props.navigation.navigate('Settings') }}
-            label={() => <Text style={{ color: '#fff' }}>Settings</Text>}
+            label={() => <Text style={{ color: '#fff' }}>Settings  </Text>}
           />
           <DrawerItem
             style={{ color: '#fff' , backgroundColor : '#E2C4FC'}}

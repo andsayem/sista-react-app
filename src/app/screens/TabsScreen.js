@@ -31,7 +31,7 @@ function TabsScreen(props) {
   return (
     <Tab.Navigator tabBarOptions={{
       style: {
-        height: 65 ,
+        height: 100 ,
       },
     }}>
       <Tab.Screen name="Home" component={Posts}
@@ -48,7 +48,7 @@ function TabsScreen(props) {
               : <Image style={{
                 resizeMode: 'contain',
                 flex: 1,
-                aspectRatio: 0.45
+                aspectRatio: 0.45 
               }} source={require('../../assets/img/icon/home.png')} />
           ),
           tabBarOnPress: () => {

@@ -40,6 +40,9 @@ function LoginScreen(props) {
     backgroundColor: "#f8f8f8",
     iconColor: '#BABDC3'
   });
+  const [getPlaceholder, setPlaceholder] = useState('');
+  const [getPlaceholderPass, setPlaceholderPass] = useState('');
+  
   const [getEye, setEye] = useState('eye');
   const [passtype, setPassType] = useState(true);
   const onChangeText = userUser => setUser(userUser)
@@ -48,32 +51,41 @@ function LoginScreen(props) {
   const passwordInputRef = createRef();
   const history = useHistory();
   const onFocusEmail = () => {
+     setPlaceholder('#FFFFFF');
     setEmailInpuStyle({
       backgroundColor: "#944CD4",
       iconColor: "#fff",
-      inputColor: '#ffffff'
+      inputColor: '#ffffff',
+      placeholderTextColor :'#ffffff'
     });
   }
 
   const onBlurEmail = () => {
     setEmailInpuStyle({
-      backgroundColor: "#f8f8f8",
-      color: '#929292'
+      backgroundColor: "#944CD4",
+      iconColor: "#fff",
+      inputColor: '#ffffff',
+      placeholderTextColor :'#ffffff'
     });
   }
 
   const onFocusPass = () => {
+    setPlaceholderPass('#FFFFFF');
     setPassInpuStyle({
       backgroundColor: "#944CD4",
       iconColor: "#fff",
-      inputColor: '#ffffff'
+      inputColor: '#ffffff',
+      placeholderTextColor :'#ffffff'
     });
   }
 
   const onBlurPass = () => {
     setPassInpuStyle({
-      backgroundColor: "#f8f8f8",
-      color: '#929292'
+      backgroundColor: "#944CD4",
+      iconColor: "#fff",
+      inputColor: '#ffffff',
+      placeholderTextColor :'#ffffff'
+
     });
   }
 
@@ -252,13 +264,14 @@ function LoginScreen(props) {
 
           <Icon color={emailFocusStyle.iconColor} style={{ padding: 10 }} type='font-awesome' name="envelope-o" size={20} />
           <TextInput
-            onFocus={() => onFocusEmail()}
-            placeholderStyle={{ color: 'red' }}
+            onFocus={() => onFocusEmail()} 
+            onBlur={()=>onBlurEmail()}
             style={{
               width: '75%',
               color: emailFocusStyle.inputColor
             }}
             onChangeText={(userEmail) => setUserEmail(userEmail)}
+            placeholderTextColor = {getPlaceholder}
             placeholder="Enter your email id"
             keyboardType="email-address"
             ref={emailInputRef}
@@ -298,12 +311,16 @@ function LoginScreen(props) {
             style={{
               width: '61%',
               color: passFocusStyle.inputColor
+             
+
             }}
             onChangeText={(UserPassword) =>
               setUserPassword(UserPassword)
-            }
+            } 
+            placeholderTextColor = {getPlaceholderPass}
             onFocus={() => onFocusPass()}
-            placeholder="Enter password"
+            onBlur={() =>onBlurPass()}
+            placeholder="Enter password "
             keyboardType="default"
             ref={passwordInputRef}
             onSubmitEditing={Keyboard.dismiss}
