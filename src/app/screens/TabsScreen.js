@@ -31,7 +31,7 @@ function TabsScreen(props) {
   return (
     <Tab.Navigator tabBarOptions={{
       style: {
-        height: 100 ,
+        height: 80 ,
       },
     }}>
       <Tab.Screen name="Home" component={Posts}
