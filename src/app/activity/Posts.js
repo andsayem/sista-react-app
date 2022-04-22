@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from 'react';
-import {StyleSheet,  FlatList, Text, View, SafeAreaView   } from 'react-native';
+import {StyleSheet,  FlatList, Text, View, SafeAreaView, TextInput   } from 'react-native';
 import api from '../../providers/api';
-import {colors, Icon, Header } from 'react-native-elements';
+import {colors, Icon, Header, SearchBar } from 'react-native-elements';
 import Events from '../components/Events';
 import Categories from '../components/Categories';
 import Post from './Post'; 
@@ -14,6 +14,7 @@ const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 class Posts extends Component {
   _isMounted = false;
+  arrayholder=[];
   constructor(props) {
     super(props); 
     this.fatchData = this.fatchData.bind(this);
@@ -26,6 +27,8 @@ class Posts extends Component {
       userData: [],
       moreLoding: true,
       refreshing: false,
+      searchText:'',
+      activeSearchIcon:true,
       page: 1
     };
   }
@@ -47,13 +50,14 @@ class Posts extends Component {
   } 
   /* React get method.  */ 
   fatchData = async () => { 
-    api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
+    await api.getData('post_datas?cat_id=' + this.state.cat_id + '&page=' + this.state.page)
       .then(response => response.data.data)
       .then((json) => {
         if (json.length > 1) {
           this.setState({ items: this.state.items.concat(json) })
           this.setState({ moreLoding: true })
           this.setState({ page: this.state.page + 1 })
+          this.arrayholder = json;
         } else {
           this.setState({ moreLoding: false })
         }
@@ -172,6 +176,32 @@ class Posts extends Component {
       this.fatchData();
     }); 
   }
+  renderHeader = () => {    
+    console.log('searchbar');
+    return (      
+      <SearchBar        
+        placeholder="Type Here..."        
+        lightTheme        
+        round        
+        onChangeText={text => this.searchFilterFunction(text)}
+        autoCorrect={false}             
+      />    
+    );  
+  }
+  searchFilterFunction = text => {    
+    const newData = this.arrayholder.filter(item => { 
+      const itemData = `${item.userjoin.name.toUpperCase()}`;  
+      //  ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}      
+      const textData = text.toUpperCase(); 
+      if(textData.length==0){
+        this.setState({ activeSearchIcon:true }); 
+      }else{
+        this.setState({ activeSearchIcon:false }); 
+      } 
+      return itemData.indexOf(textData) > -1;    
+    });
+    this.setState({ items: newData });  
+  };
   // componentWillUnmount() {
   //   this._isMounted = false;
   //   this.focusListener;
@@ -192,7 +222,15 @@ class Posts extends Component {
           </View>
           }
           rightComponent={<View style={{ flexDirection: 'row', flexWrap: 'nowrap', minWidth: 60 }}>
-            <Icon style={{ textAlign: 'left', paddingRight:12 }} color={colors.black} size={24} name='search' ></Icon>
+            {this.state.activeSearchIcon ? 
+            <Icon style={{ textAlign: 'left', paddingRight:12 }} color={colors.black} size={24} name='search' 
+            onPress={() => this.setState({ activeSearchIcon: false})}></Icon> : 
+            <TextInput    
+            style={{ minWidth: 180}}    
+            placeholder="Type Here..." 
+            onChangeText={text => this.searchFilterFunction( text)}          
+            />
+            } 
             <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='notifications' ></Icon>
           </View>
           } 
@@ -211,7 +249,7 @@ class Posts extends Component {
               refreshing={this.state.refreshing}
               onRefresh={this.handleOnRefresh}
               ListHeaderComponent={
-                <View>
+                <View> 
                   <Events  style={{marginHorizontal:-10}}/> 
                     <Categories
                       cat_id={this.state.cat_id}
