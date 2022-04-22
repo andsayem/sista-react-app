@@ -1,7 +1,7 @@
 //import React, { Component, useEffect, useState, createRef } from "react";
 import React, { useEffect, useRef, useState, createRef } from "react";
 import {
-  Image, SafeAreaView, ScrollView, StyleSheet, Text,
+  Image, SafeAreaView, ScrollView, KeyboardAvoidingView , StyleSheet, Text,
   TextInput, TouchableOpacity, SectionList, View, Keyboard, ToastAndroid
 } from "react-native";
 import Styles from "../../theme/styles";
@@ -123,6 +123,7 @@ function RegisterScreen({ navigation, props }) {
       });
   };
   return (
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}  > 
     <ScrollView >
       <View style={{
         fontFamily: 'IBMPlexSans-Regular',
@@ -406,6 +407,7 @@ function RegisterScreen({ navigation, props }) {
         </View>
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
