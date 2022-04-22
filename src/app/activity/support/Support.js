@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList, ScrollView, StyleSheet,ToastAndroid } from "react-native";
+import { View, Text, KeyboardAvoidingView , TouchableOpacity, Image, ActivityIndicator, FlatList, ScrollView, StyleSheet,ToastAndroid } from "react-native";
 import { colors, Icon, Header } from 'react-native-elements';
 import { RadioButton } from 'react-native-paper';
 import api from '../../../providers/api';
@@ -74,6 +74,7 @@ class Support extends React.Component {
     }
   render() {
     return (
+      <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}  > 
       <ScrollView styles={{ backgroundColor: '#ffffff' }}> 
         <Toast visible={this.state.errortext} message={this.state.errortext} />
         <Toast visible={this.state.successtext} message={this.state.successtext} />
@@ -172,6 +173,7 @@ class Support extends React.Component {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

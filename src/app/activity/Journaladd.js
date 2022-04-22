@@ -1,5 +1,5 @@
 import React, { useEffect,  useState } from "react";
-import { View, Text, TextInput, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput, ToastAndroid, KeyboardAvoidingView , TouchableOpacity, StyleSheet } from "react-native";
 import Styles from "../../theme/styles";
 import { Header } from 'react-native-elements';
 import Loader from '../components/Loader';
@@ -83,7 +83,7 @@ function Journaladd({ navigation }) {
   };
 
   return (
-
+<KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}  > 
     <View style={{ backgroundColor: '#ffffff', height: '100%' }}>
       <Loader loading={loading} /> 
       <Header
@@ -139,7 +139,7 @@ function Journaladd({ navigation }) {
         </TouchableOpacity>
       </View>
     </View>
-
+</KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
