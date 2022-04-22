@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image, Text } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from '../activity/Profile';
@@ -29,15 +29,14 @@ function TabsScreen(props) {
 
 
   return (
-    <Tab.Navigator tabBarOptions={{
-      style: {
-        height: 80 ,
-      },
-    }}>
+    <Tab.Navigator
+      tabBarStyle={{
+        height: 120
+      }} >
       <Tab.Screen name="Home" component={Posts}
         options={({ route }) => ({
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Home</Text>
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom: 10 }} >Home</Text>
           ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image style={{
@@ -48,18 +47,18 @@ function TabsScreen(props) {
               : <Image style={{
                 resizeMode: 'contain',
                 flex: 1,
-                aspectRatio: 0.45 
+                aspectRatio: 0.45
               }} source={require('../../assets/img/icon/home.png')} />
           ),
           tabBarOnPress: () => {
-            props.navigation.navigate("Posts"); 
+            props.navigation.navigate("Posts");
           },
         })} />
       <Tab.Screen name="Chats" component={Chats}
         options={({ route }) => ({
           headerShown: true,
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Chats</Text>
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom: 10 }} >Chats</Text>
           ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image style={{
@@ -79,7 +78,7 @@ function TabsScreen(props) {
         options={{
           headerShown: true,
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Add</Text>
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom: 10 }} >Add</Text>
           ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image style={{
@@ -93,12 +92,12 @@ function TabsScreen(props) {
             }} source={require('../../assets/img/icon/add.png')} />
           ),
         }}
-      /> 
+      />
       <Tab.Screen name="Journal" component={Journal}
         options={{
           headerShown: true,
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Journal</Text>
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom: 10 }} >Journal</Text>
           ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image style={{
@@ -118,7 +117,7 @@ function TabsScreen(props) {
         options={{
           headerShown: true,
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom:10 }} >Profile</Text>
+            <Text style={{ color: focused ? '#944CD4' : '#ababab', fontFamily: 'Montserrat-SemiBold', fontSize: 12, paddingBottom: 10 }} >Profile</Text>
           ),
           tabBarIcon: ({ focused }) => (
             focused ? <Image
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: '#FFFFFF',
     paddingVertical: 10,
-    fontSize: 16, paddingBottom:10,
+    fontSize: 16, paddingBottom: 10,
   },
   inputStyle: {
     flex: 1,
@@ -185,12 +184,12 @@ const styles = StyleSheet.create({
   errorTextStyle: {
     color: 'red',
     alignItems: 'center',
-    fontSize: 14, paddingBottom:10,
+    fontSize: 14, paddingBottom: 10,
   },
   successTextStyle: {
     color: 'white',
     alignItems: 'center',
-    fontSize: 18, paddingBottom:10,
+    fontSize: 18, paddingBottom: 10,
     padding: 30,
   },
 });
