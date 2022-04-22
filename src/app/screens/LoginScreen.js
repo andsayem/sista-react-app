@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createRef } from "react";
-import { Image, Text, ScrollView, TextInput, TouchableOpacity, View, ToastAndroid, StyleSheet, Keyboard } from "react-native";
+import { Image, Text, ScrollView, TextInput, TouchableOpacity, View, KeyboardAvoidingView ,ToastAndroid, StyleSheet, Keyboard ,Platform } from "react-native";
 import { Icon } from 'react-native-elements';
 import Styles from "../../theme/styles";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -210,6 +210,7 @@ function LoginScreen(props) {
   }
 
   return (
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}  > 
     <ScrollView>
       <View style={{
         fontFamily: 'IBMPlexSans-Regular',
@@ -356,6 +357,7 @@ function LoginScreen(props) {
 
       </View>
     </ScrollView >
+    </KeyboardAvoidingView>
   );
 }
 
