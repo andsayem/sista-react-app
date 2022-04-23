@@ -211,34 +211,11 @@ function LoginScreen(props) {
 
   return (
     <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}  > 
-    <ScrollView>
-      <View style={{
-        fontFamily: 'IBMPlexSans-Regular',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        paddingTop: 20,
-      }} >
+    <ScrollView style={Styles.container_tutorial}>
+      <View style={Styles.loginScrollView} >
         <Loader loading={loading} />
-        <Text style={{
-          fontFamily: 'IBMPlexSans-Regular',
-          width: "80%",
-          paddingLeft: 15,
-          fontSize: 24,
-          // fontWeight: 'bold',
-          textAlign: "left"
-        }} >Login </Text>
-        <Text style={{
-          fontFamily: 'IBMPlexSans-Light',
-          width: "80%",
-          paddingLeft: 15,
-          paddingTop: 15,
-          color: "#929292",
-          fontSize: 14,
-          textAlign: "left"
-        }} >Get in touch with your inner artist and
+        <Text style={Styles.loginPageTitle} >Login </Text>
+        <Text style={ Styles.login_massage} >Get in touch with your inner artist and
           a community of other creatives  </Text>
         <Image style={Styles.logo} source={require('../../assets/img/Screenshot_1.png')} />
         <Text style={{
@@ -363,39 +340,7 @@ function LoginScreen(props) {
 
 export default LoginScreen;
 const styles2 = StyleSheet.create({
-  loginPassword: {
-
-  },
-  SectionStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 0.5,
-    borderColor: '#000',
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "#944CD4",
-    margin: 10,
-    color: "black",
-    borderColor: '#efefef'
-  },
-  inputStyle: {
-    width: '75%'
-  },
-  inputStylePass: {
-    width: '65%'
-  },
-  searchSection: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  leftIcon: {
-    padding: 10,
-    color: '#efefef'
-  },
+ 
   rightIcon: {
     padding: 10,
     color: '#efefef'

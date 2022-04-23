@@ -134,7 +134,7 @@ module.exports = {
   itemContainer: {
     fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'center',
-    paddingTop: 15,
+    paddingTop: 45,
     height: 150,
   },
   itemContainerSlider: {
@@ -170,6 +170,7 @@ module.exports = {
     marginLeft: '30%',
     paddingTop: 13,
     color: 'white',
+    overflow: "hidden"
   },
   box_title: {
     fontFamily: 'IBMPlexSans-Regular',
@@ -719,4 +720,32 @@ container_bg: {
   fontFamily: 'IBMPlexSans-Regular',
   flex: 1,
 },
+loginScrollView : { 
+    fontFamily: 'IBMPlexSans-Regular',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingTop: 20,
+    height : '100%'
+  } ,
+  loginPageTitle : { 
+      fontFamily: 'IBMPlexSans-Regular',
+      width: "80%",
+      paddingLeft: 15,
+      fontSize: 24,
+      paddingTop : 30,
+      // fontWeight: 'bold',
+      textAlign: "left" 
+  },
+  login_massage : {
+    fontFamily: 'IBMPlexSans-Light',
+    width: "80%",
+    paddingLeft: 15,
+    paddingTop: 15,
+    color: "#929292",
+    fontSize: 14,
+    textAlign: "left"
+  }
 }

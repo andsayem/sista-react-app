@@ -30,9 +30,7 @@ function TabsScreen(props) {
 
   return (
     <Tab.Navigator
-      tabBarStyle={{
-        height: 120
-      }} >
+        >
       <Tab.Screen name="Home" component={Posts}
         options={({ route }) => ({
           tabBarLabel: ({ focused }) => (

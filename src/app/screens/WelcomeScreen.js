@@ -58,12 +58,12 @@ class WelcomeScreen extends Component {
   render() {
     return (
       <ScrollView style={Styles.container_tutorial} >
-        <Text style={Styles.itemContainer} >
-          <Image
-            style={Styles.icone}
+        <Text style={Styles.itemContainer } >
+          {/* <Image
+            style={[Styles.icone,{ paddingTop : 30}]}
             source={require('../../assets/img/Screenshot_9.png')}
-          />
-          My Sista's KeepHer </Text>
+          /> */}
+          My Sista's KeepHer  </Text>
         <SliderBox style={Styles.itemContainerSlider}
           parentWidth={this.state.width}
           sliderBoxHeight={20}

@@ -141,6 +141,7 @@ function RegisterScreen({ navigation, props }) {
               width: "80%",
               paddingLeft: 15,
               fontSize: 24,
+              paddingTop : 40,
               // fontWeight: 'bold',
               textAlign: "left"
             }} >Sign up</Text>
