@@ -199,7 +199,8 @@ module.exports = {
   following: {
     borderRadius: 25,
     borderColor: '#ff5c83',
-    color: '#ff5c83'
+    color: '#ff5c83',
+    overflow : 'hidden'
   },
   event_title: {
     fontFamily: 'IBMPlexSans-Regular',
@@ -491,24 +492,26 @@ module.exports = {
     fontSize: 13,
     paddingLeft: 10,
     color: '#0D0E10',
-    borderRadius: 30,
+    borderRadius: 16,
     borderWidth: 1,
     height: 35,
     width: 90,
     paddingTop: 8,
     borderColor: '#E6E8EA',
+    overflow : 'hidden'
   },
   follow: {
     fontFamily: 'IBMPlexSans-Medium',
     fontSize: 13,
     paddingLeft: 10,
     color: '#0D0E10',
-    borderRadius: 30,
+    borderRadius: 16,
     borderWidth: 1,
     height: 35,
     width: 72,
     paddingTop: 8,
-    borderColor: '#E6E8EA'
+    borderColor: '#E6E8EA',
+    overflow : 'hidden'
   },
   post_image_bg: {
     fontFamily: 'IBMPlexSans-Regular',
@@ -747,5 +750,72 @@ loginScrollView : {
     color: "#929292",
     fontSize: 14,
     textAlign: "left"
+  },
+  message_button : {
+    fontFamily: 'IBMPlexSans-Regular',
+    borderRadius: 16,
+    height: 30,
+    textAlign: "center",
+    textAlignVertical: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    color: "#535353",
+    borderColor: '#E6E8EA',
+    overflow : 'hidden',
+    borderWidth: 1,
+    marginRight: 20
+  },
+   
+  follow_button: {
+    fontFamily: 'IBMPlexSans-Regular',
+    borderRadius:  16,
+    height: 30,
+    textAlign: "center",
+    overflow : 'hidden',
+    textAlignVertical: 'center',
+    alignItems: 'center',
+    backgroundColor: '#934CD5',
+    color: "#fff"
+  },
+  noimage: {
+    fontFamily: 'IBMPlexSans-Regular',
+    backgroundColor: '#ededed',
+    height: 80,
+    width: "95%",
+    borderRadius: 8,
+    textAlign: "center",
+    textAlignVertical: 'center',
+    alignItems: 'center', //Centered vertically
+
+  },
+  submitButton_news: {
+    fontFamily: 'IBMPlexSans-Regular',
+    width: '100%',
+    position: 'absolute',
+    bottom: 65,
+    paddingBottom:10,
+    padding: 0,
+    margin: 0,
+    backgroundColor: 'rgba(52, 52, 52, 0)',
+    alignItems: 'center',
+    flex: 1,
+    margin: 'auto',
+    paddingLeft: '20%',
+    paddingRight: '20%'
+  },
+  news_Touchable :{
+    fontFamily: 'IBMPlexSans-Regular',
+    width: "100%",
+    backgroundColor: "#944CD4",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 20,
+    paddingLeft: 15,
+    paddingRight: 15
+
   }
 }

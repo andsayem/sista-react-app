@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import {  View, Text, ImageBackground, CheckBox, Image,  ToastAndroid, TouchableOpacity, StyleSheet } from "react-native"; 
+import { View, Text, ImageBackground, CheckBox, Image, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { ListItem, colors, Icon, Header } from 'react-native-elements';
-import Styles from "../../theme/styles"; 
-import SegmentedControl from '@react-native-community/segmented-control' 
+import Styles from "../../theme/styles";
+import SegmentedControl from '@react-native-community/segmented-control'
 import ImagePicker from 'react-native-image-crop-picker';
 import Video from 'react-native-video';
 import Textarea from 'react-native-textarea';
-import RBSheet from "react-native-raw-bottom-sheet"; 
+import RBSheet from "react-native-raw-bottom-sheet";
 import axios from 'axios';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
-import AsyncStorage from '@react-native-community/async-storage'; 
+import AsyncStorage from '@react-native-community/async-storage';
 import FormData from 'form-data';
 import helpers from '../../providers/helpers';
 const STORAGE_KEY = 'save_user';
@@ -198,7 +198,7 @@ function Newpost(props) {
                         onValueChange={setSelection}
                      />
                   </Text>
-               </ImageBackground> 
+               </ImageBackground>
             </View>
          )
       }
@@ -206,17 +206,18 @@ function Newpost(props) {
 
    return (
       <View>
+
          <Header
-            leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 120 }}>
+            leftComponent={<View style={Styles.leftComponent}>
                <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
                   onPress={() => props.navigation.toggleDrawer()} ></Icon>
-               <Text style={{ height: 40, marginTop: 0, textAlign: 'right', fontFamily: 'IBMPlexSans-SemiBold', color: '#000000', fontSize: 18 }}> Add</Text>
+               <Text style={Styles.heater_title}>Add</Text>
             </View>
             }
-            rightComponent={{}} 
-            containerStyle={{ height: 80, fontFamily: 'IBMPlexSans-Regular', color: '1E1E1E', backgroundColor: '#F5F5F5' }}
-         /> 
-         
+            rightComponent={{}}
+            containerStyle={Styles.containerStyle}
+         />
+
          <ScrollView>
             <View style={{ fontFamily: 'IBMPlexSans-Regular', backgroundColor: "#F5F5F5", height: '100%' }}>
                <Toast style={Styles.errorTextStyle} visible={errortext} message={errortext.message} />
@@ -346,14 +347,14 @@ function Newpost(props) {
                            onPress={handleChoosePhoto}
                            underlayColor='#fff'>
                            <Text style={Styles.buttonText}>Choose Photo</Text>
-                        </TouchableOpacity> 
+                        </TouchableOpacity>
                         :
                         <TouchableOpacity
                            style={Styles.post_submit_Button}
                            onPress={selectVideo}
                            underlayColor='#fff'>
                            <Text style={Styles.buttonText}>Choose Video</Text>
-                        </TouchableOpacity> 
+                        </TouchableOpacity>
                      :
                      <View></View>
                   }
@@ -375,5 +376,5 @@ function Newpost(props) {
       </View>
    );
 }
- 
+
 export default Newpost;

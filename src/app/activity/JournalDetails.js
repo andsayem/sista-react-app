@@ -91,7 +91,7 @@ class JournalDetails extends Component {
     render() {
         let { items, isLoading } = this.state;
         return (
-            <SafeAreaView   >
+            <View   >
                 <Header
                     leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
                         <IconAnt name="left" size={18} color="#000" onPress={() => this.props.navigation.goBack()} />
@@ -140,7 +140,7 @@ class JournalDetails extends Component {
                     </ListItem>
 
                 </ScrollView>
-            </SafeAreaView>
+            </View>
         )
     }
 

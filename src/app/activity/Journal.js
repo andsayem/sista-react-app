@@ -80,7 +80,7 @@ class Journal extends Component {
           flexDirection: 'column',
           margin: 10,
           //borderStyle: 'solid', 
-          // borderWidth: 1,
+          borderWidth: 1,
           borderColor: '#ABABAB',
           borderRadius: 7,
           overflow: 'hidden',
@@ -130,7 +130,7 @@ class Journal extends Component {
   render() {
     let { items, isLoading } = this.state;
     return (
-      <SafeAreaView style={{backgroundColor:'#fff', margin:0}}>
+      <View style={{backgroundColor:'#fff', margin:0}}>
         <Header
           leftComponent={<View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', minWidth: 300, minHeight: 30 }}>
             <Icon color={colors.black} size={30} name='menu'
@@ -193,58 +193,25 @@ class Journal extends Component {
           />
         </View>
 
-        <View style={styles.submitButton}>
+        <View style={Styles.submitButton_news}>
           <TouchableOpacity
 
-            style={{
-              fontFamily: 'IBMPlexSans-Regular',
-              width: "100%",
-              backgroundColor: "#944CD4",
-              borderRadius: 25,
-              height: 50,
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              marginTop: 20,
-              marginBottom: 20,
-              paddingLeft: 15,
-              paddingRight: 15
-
-            }}
+            style={Styles.news_Touchable}
             activeOpacity={0.5}
             onPress={this.handlePressAddJurnal} >
             <Text style={Styles.journalText}
             >Create a new Journal</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  submitButton: {
-    fontFamily: 'IBMPlexSans-Regular',
-    width: '100%',
-    position: 'absolute',
-    bottom: 65,
-    paddingBottom:10,
-    padding: 0,
-    margin: 0,
-    backgroundColor: 'rgba(52, 52, 52, 0)',
-    alignItems: 'center',
-    flex: 1,
-    margin: 'auto',
-    paddingLeft: '20%',
-    paddingRight: '20%'
-  },
 
-  container: {
-    fontFamily: 'IBMPlexSans-Regular',
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 16,
-  },
+
+  
   title: {
     fontFamily: 'IBMPlexSans-Regular',
     textAlign: 'center',

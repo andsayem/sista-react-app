@@ -5,7 +5,7 @@ import IconEnt from 'react-native-vector-icons/Entypo';
 import api from '../../providers/api'; 
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
-
+import Styles from "../../theme/styles";
 const Toast = ({ visible, message }) => {
   if (visible) {
     ToastAndroid.showWithGravityAndOffset(
@@ -81,8 +81,18 @@ class UserProfile extends Component {
   render() {
     let { items, isLoading } = this.state;
     let props = this.props;
-    return (<SafeAreaView>
+    return (<View>
       <Header
+          leftComponent={<View style={ Styles.leftComponent }>
+            <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='menu'
+              onPress={() => this.props.navigation.toggleDrawer()} ></Icon>
+            <Text style={Styles.heater_title}>Profile</Text>
+          </View>
+          }
+          rightComponent={{}} 
+          containerStyle={Styles.containerStyle}
+        />
+      {/* <Header
         placement="left"
         leftComponent={<Icon color={colors.black} size={30} name='menu'
           onPress={() => this.props.navigation.toggleDrawer()} ></Icon>}
@@ -92,7 +102,7 @@ class UserProfile extends Component {
           color: '1E1E1E',
           backgroundColor: '#F5F5F5'
         }}
-      />
+      /> */}
 
       <View style={{fontFamily : 'IBMPlexSans-Regular', backgroundColor: "#fff", width: "100%", padding: 15 }}  >
         <ScrollView horizontal style={{fontFamily : 'IBMPlexSans-Regular', marginRight: 0, width: '100%', marginTop: 10 }} >
@@ -104,11 +114,11 @@ class UserProfile extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Chating', {
               receiver_id: this.state.userData.id,
             })}>
-              <Text style={styles.message}>Message</Text>
+              <Text style={Styles.message_button}>Message</Text>
             </TouchableOpacity>
           </View>
           <View style={{fontFamily : 'IBMPlexSans-Regular', width: 100 }} >
-            <Text style={styles.follow}>Follow </Text>
+            <Text style={Styles.follow_button}>Follow </Text>
 
           </View>
         </ScrollView>
@@ -196,7 +206,7 @@ class UserProfile extends Component {
                 style={{fontFamily : 'IBMPlexSans-Regular', height: 150, width: 170, borderRadius: 10 }}
               />
               :
-              <Text style={styles.noimage}>No image found</Text>
+              <Text style={Styles.noimage}>No image found</Text>
             }
           </View>
           <View style={{fontFamily : 'IBMPlexSans-Regular', width: "50%", alignItems: 'flex-end' }}  >
@@ -207,7 +217,7 @@ class UserProfile extends Component {
                 style={{fontFamily : 'IBMPlexSans-Regular', height: 72, width: 165, borderRadius: 10 }}
               />
               :
-              <Text style={styles.noimage}>No image found</Text>
+              <Text style={Styles.noimage}>No image found</Text>
             }
             {this.state.userData.photos ?
               <Image
@@ -216,80 +226,14 @@ class UserProfile extends Component {
                 style={{fontFamily : 'IBMPlexSans-Regular', height: 72, width: 165, marginTop: 10, borderRadius: 10 }}
               />
               :
-              <Text style={styles.noimage}>No image found</Text>
+              <Text style={Styles.noimage}>No image found</Text>
             }
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  message: {
-    fontFamily: 'IBMPlexSans-Regular',
-    borderRadius: 30,
-    height: 30,
-    textAlign: "center",
-    textAlignVertical: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    color: "#535353",
-    borderColor: '#E6E8EA',
-    borderWidth: 1,
-    marginRight: 20
-  },
-  follow: {
-    fontFamily: 'IBMPlexSans-Regular',
-    borderRadius: 30,
-    height: 30,
-    textAlign: "center",
-    textAlignVertical: 'center',
-    alignItems: 'center',
-    backgroundColor: '#934CD5',
-    color: "#fff"
-  },
-  noimage: {
-    fontFamily: 'IBMPlexSans-Regular',
-    backgroundColor: '#ededed',
-    height: 80,
-    width: "95%",
-    borderRadius: 8,
-    textAlign: "center",
-    textAlignVertical: 'center',
-    alignItems: 'center', //Centered vertically
-
-  },
-  MainContainer: {
-    fontFamily: 'IBMPlexSans-Regular',
-    justifyContent: 'center',
-    flex: 1,
-    margin: 10,
-    paddingTop: (Platform.OS) === 'ios' ? 20 : 0
-
-  },
-
-  GridViewBlockStyle: {
-    fontFamily: 'IBMPlexSans-Regular',
-
-    justifyContent: 'center',
-    flex: 1,
-    alignItems: 'center',
-    height: 100,
-    margin: 5,
-    backgroundColor: '#00BCD4'
-
-  }
-  ,
-
-  GridViewInsideTextItemStyle: {
-    fontFamily: 'IBMPlexSans-Regular',
-    color: '#fff',
-    padding: 10,
-    fontSize: 18,
-    justifyContent: 'center',
-
-  },
-
-});
+ 
 export default UserProfile;
