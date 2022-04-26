@@ -117,9 +117,10 @@ class Post extends React.Component {
               </ImageBackground>
             </View>
             :
-            <View style={ Styles.text_ReadMore_view } >
+            <View style={ Styles.text_ReadMore_view } > 
               <ReadMore numberOfLines={2} onPress={() => this.props.onPressPostDetails(this.props.item.id)} style={ Styles.text_ReadMore }>
                 {this.props.item.caption}
+                
               </ReadMore>
 
               <View>
@@ -132,7 +133,7 @@ class Post extends React.Component {
                       thumbnail={require('../../assets/img/images/v2.png')}
                     /> : 
                     <Image
-                      source={this.props.item.file ? { uri: this.props.item.file_path + 'thumbnail/large_'+ this.props.item.file} : null}
+                      source={this.props.item.file ? { uri: this.props.item.file_path + 'posts/'+ this.props.item.file} : null}
                       style={Styles.post_image} />}
 
                 </TouchableOpacity>
