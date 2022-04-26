@@ -816,6 +816,53 @@ loginScrollView : {
     marginBottom: 20,
     paddingLeft: 15,
     paddingRight: 15
-
+  },
+  notifyContainer: {
+    padding: 16, 
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: "#FFFFFF",
+    alignItems: 'flex-start'
+  },
+  notifyAvatar: {
+    width:50,
+    height:50,
+    borderRadius:25,
+  },
+  notifyText: {
+    marginBottom: 5,
+    flexDirection: 'row',
+    flexWrap:'wrap'
+  },
+  notifyContent: {
+    flex: 1,
+    marginLeft: 16,
+    marginRight: 0
+  },
+  notifyMainContent: {
+    marginRight: 60
+  },
+  notifyImg: {
+    height: 50,
+    width: 50,
+    margin: 0
+  },
+  notifyAttachment: {
+    position: 'absolute',
+    right: 0,
+    height: 50,
+    width: 50
+  },
+  notifySeparator: {
+    height: 1,
+    backgroundColor: "#CCCCCC"
+  },
+  notifyTimeAgo:{
+    fontSize:12,
+    color:"#696969"
+  },
+  notifyName:{
+    fontSize:16,
+    color:"#1E90FF"
   }
 }

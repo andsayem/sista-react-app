@@ -166,8 +166,7 @@ class Posts extends Component {
     let newItems = this.state.items.map(el => ( 
       el.user_id === userId ? {...el, followings: followings}: el 
     ))
-    let ffff = api.getData('following/' + userId)
-    console.log('following',userId);
+    let ffff = api.getData('following/' + userId) 
     this.setState({ items: newItems})
     
   }
@@ -176,8 +175,7 @@ class Posts extends Component {
       this.fatchData();
     }); 
   }
-  renderHeader = () => {    
-    console.log('searchbar');
+  renderHeader = () => {     
     return (      
       <SearchBar        
         placeholder="Type Here..."        
@@ -202,6 +200,10 @@ class Posts extends Component {
     });
     this.setState({ items: newData });  
   };
+  notifications = () => {
+    this.props.navigation.navigate('Notifications'); 
+    console.log('Notifications')
+  }
   // componentWillUnmount() {
   //   this._isMounted = false;
   //   this.focusListener;
@@ -231,7 +233,7 @@ class Posts extends Component {
             onChangeText={text => this.searchFilterFunction( text)}          
             />
             } 
-            <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='notifications' ></Icon>
+            <Icon style={{ textAlign: 'left' }} color={colors.black} size={24} name='notifications' onPress={()=> this.notifications()} ></Icon>
           </View>
           } 
           containerStyle={Styles.containerStyle}

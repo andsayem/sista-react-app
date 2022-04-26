@@ -36,6 +36,7 @@ import Profile from "./src/app/activity/Profile";
 import UserProfile from './src/app/activity/UserProfile';
 import AppTutorial from './src/app/screens/WelcomeScreen';
 import ProductDetail from "./src/app/product/ProductDetail"; 
+import Notifications from "./src/app/activity/Notifications"; 
 import GlobalFont from 'react-native-global-font'
 
 
@@ -127,6 +128,7 @@ function App() {
         <StackApp.Screen name="JournalDetails" component={JournalDetails} options={{ headerShown: false, name: 'JournalDetails' }} />
         <StackApp.Screen name="Profile" component={Profile} options={{ headerShown: false, name: 'UserProfile' }} />
         <StackApp.Screen name="UserProfile" component={UserProfile} options={{ headerShown: false, name: 'UserProfile' }} /> 
+        <StackApp.Screen name="Notifications" component={Notifications} options={{ headerShown: false, name: 'Notifications' }} /> 
       </StackApp.Navigator>
     </NavigationContainer>
   );
