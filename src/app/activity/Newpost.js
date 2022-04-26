@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, ImageBackground, CheckBox, Image, ToastAndroid, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, CheckBox, Image, ToastAndroid ,
+      Platform,
+      AlertIOS, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { ListItem, colors, Icon, Header } from 'react-native-elements';
 import Styles from "../../theme/styles";
@@ -13,18 +15,29 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import AsyncStorage from '@react-native-community/async-storage';
 import FormData from 'form-data';
 import helpers from '../../providers/helpers';
+import { launchImageLibrary } from 'react-native-image-picker';
+
 const STORAGE_KEY = 'save_user';
 const TOKEN = 'token';
 //import renderIf from './renderIf'
+
+
+
 const Toast = ({ visible, message }) => {
    if (visible) {
-      ToastAndroid.showWithGravityAndOffset(
-         message,
-         ToastAndroid.LONG,
-         ToastAndroid.TOP,
-         25,
-         50
-      );
+
+      if (Platform.OS === 'android') {
+         ToastAndroid.showWithGravityAndOffset(
+            message,
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+            25,
+            50
+         );
+       } else {
+         alert(message);
+       }
+      
       return null;
    }
    return null;
@@ -79,6 +92,7 @@ function Newpost(props) {
    const handleSubmitButton = async () => {
       setErrortext(false);
       if (!category) {
+          
          setErrortext({ message: 'Please fill category' });
          return;
       } else {
@@ -92,14 +106,24 @@ function Newpost(props) {
          formData.append("font_style", 'small');
          formData.append("font_size", 12);
          formData.append("post_type", index == 0 ? 1 : index == 1 ? 2 : index == 2 ? 3 : 3);
+        
+       
          if (photo) {
             formData.append("files_base", {
-               uri: photo.uri,
+               //uri: photo.uri,
+               uri:  Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
                name: 'image.png',
                fileName: 'image',
                type: 'image/png'
             })
          }
+
+         // formData.append('photo', {
+         //    name: photo.fileName,
+         //    type: photo.type,
+         //    uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri,
+         //  });
+
          if (video) {
             formData.append("files_base", {
                uri: video.uri,
@@ -139,6 +163,31 @@ function Newpost(props) {
             });
       }
    };
+
+
+
+   const handleUploadPhoto = () => {
+      fetch(helpers.baseurl() + 'api/post_datas', {
+        method: 'POST',
+        body: createFormData(photo, { userId: '123' }),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log('response', response);
+        })
+        .catch((error) => {
+          console.log('error', error);
+        });
+    };
+
+   // const handleChoosePhoto = () => {
+   //    launchImageLibrary({ noData: true }, (response) => {
+   //      // console.log(response);
+   //      if (response) {
+   //        setPhoto(response);
+   //      }
+   //    });
+   //  };
    const handleChoosePhoto = () => {
       ImagePicker.openPicker({
          width: 300,

@@ -19,6 +19,8 @@ const TOKEN = 'token';
 export function DrawerContent(props) {
   const [getToken, setToken] = useState(false);
   const [getUserdata, setUserdata] = useState({});
+
+  
   const facebookShare = () => {
     shareOnFacebook({
       'text': 'Global democratized marketplace for art',
@@ -86,10 +88,10 @@ export function DrawerContent(props) {
             onPress={() => { props.navigation.navigate('Settings') }}
             label={() => <Text style={{ color: '#fff' }}>Settings  </Text>}
           />
-          <DrawerItem
+          {/* <DrawerItem
             style={{ color: '#fff' , backgroundColor : '#E2C4FC'}}
             label={() => <Text style={{ color: '#fff' }}>App Information</Text>}
-          />
+          /> */}
           <DrawerItem
             onPress={() => { props.navigation.navigate('About') }}
             label={() => <Text style={{ color: '#fff' }}>About My Sista's KeepHer </Text>}
