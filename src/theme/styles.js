@@ -817,11 +817,15 @@ loginScrollView : {
     paddingLeft: 15,
     paddingRight: 15
   },
+  notifyRoot:{
+    fontFamily: 'IBMPlexSans-Regular', backgroundColor: '#000', 
+  },
   notifyContainer: {
     padding: 16, 
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: "#FFFFFF",
+    backgroundColor: "#fff",
+    borderColor: "#fff",
     alignItems: 'flex-start'
   },
   notifyAvatar: {
@@ -830,6 +834,10 @@ loginScrollView : {
     borderRadius:25,
   },
   notifyText: {
+    fontFamily: 'IBMPlexSans-Medium', 
+    fontSize: 13, 
+    color: '#000000',
+    backgroundColor: "#fff",
     marginBottom: 5,
     flexDirection: 'row',
     flexWrap:'wrap'
@@ -858,11 +866,9 @@ loginScrollView : {
     backgroundColor: "#CCCCCC"
   },
   notifyTimeAgo:{
-    fontSize:12,
-    color:"#696969"
+    fontFamily: 'IBMPlexSans-Light', fontSize: 13, color: '#000000' 
   },
   notifyName:{
-    fontSize:16,
-    color:"#1E90FF"
+    fontFamily: 'IBMPlexSans-SemiBold', fontSize: 15, color: '#0D0E10'
   }
 }

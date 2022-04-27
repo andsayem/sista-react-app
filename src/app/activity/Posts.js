@@ -201,8 +201,7 @@ class Posts extends Component {
     this.setState({ items: newData });  
   };
   notifications = () => {
-    this.props.navigation.navigate('Notifications'); 
-    console.log('Notifications')
+    this.props.navigation.navigate('Notifications');  
   }
   // componentWillUnmount() {
   //   this._isMounted = false;

@@ -34,6 +34,7 @@ export default class Notifications extends Component {
   render() {
     return (
       <FlatList 
+        style={Styles.notifyRoot}
         data={this.state.data}
         extraData={this.state}
         ListHeaderComponent={
@@ -75,7 +76,7 @@ export default class Notifications extends Component {
                 <View style={mainContentStyle}>
                   <View style={Styles.notifyText}>
                     <Text style={Styles.notifyName}>{Notification.name}</Text>
-                    <Text>{Notification.text}</Text>
+                    <Text style={Styles.notifyText}>{Notification.text}</Text>
                   </View>
                   <Text style={Styles.notifyTimeAgo}>
                     2 hours ago
