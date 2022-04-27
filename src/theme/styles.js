@@ -869,6 +869,6 @@ loginScrollView : {
     fontFamily: 'IBMPlexSans-Light', fontSize: 13, color: '#000000' 
   },
   notifyName:{
-    fontFamily: 'IBMPlexSans-SemiBold', fontSize: 15, color: '#0D0E10'
+    fontFamily:  'IBMPlexSans-SemiBold', fontSize: 15, color: '#0D0E10' , width : '50%'
   }
 }
