@@ -7,33 +7,40 @@ import {
   TouchableOpacity,
   FlatList
 } from 'react-native';
-import {  Icon, Header } from 'react-native-elements';
-import IconAnt from 'react-native-vector-icons/AntDesign';
-import IconOct from 'react-native-vector-icons/Octicons';
-import IconFea from 'react-native-vector-icons/Feather';
-import IconEnt from 'react-native-vector-icons/Entypo';
-import IconMat from 'react-native-vector-icons/MaterialIcons'; 
+import Pusher from 'pusher-js/react-native';
+import { Header } from 'react-native-elements';
+import IconAnt from 'react-native-vector-icons/AntDesign'; 
 import Styles from "../../theme/styles";
 import api from '../../providers/api';
+import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
-export default class Notifications extends Component {
+var pusher = new Pusher('28f66afb2b72c8e97219', {
+  cluster: 'ap2'
+});
+const STORAGE_KEY = 'save_user'; 
+const TOKEN = 'token'; 
+class Notifications extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       items:[
         //{id:3, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name:"March SoulLaComa", text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:"https://via.placeholder.com/100x100/FFB6C1/000000"},
-        // {id:2, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name:"John DoeLink",     text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:"https://via.placeholder.com/100x100/20B2AA/000000"},
-        // {id:4, image: "https://bootdey.com/img/Content/avatar/avatar2.png", name:"Finn DoRemiFaso",  text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:""},
-        // {id:5, image: "https://bootdey.com/img/Content/avatar/avatar3.png", name:"Maria More More",  text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:""},
-        // {id:1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name:"Frank Odalthh",    text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:"https://via.placeholder.com/100x100/7B68EE/000000"},
-        // {id:6, image: "https://bootdey.com/img/Content/avatar/avatar4.png", name:"Clark June Boom!", text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:""},
-        // {id:7, image: "https://bootdey.com/img/Content/avatar/avatar5.png", name:"The googler",      text:"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.", attachment:""},
-      ]
+      ],
+      user: [],
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+     const user = await AsyncStorage.getItem(STORAGE_KEY);
+    this.setState({ user: JSON.parse(user) });
+    let self = this;
+    var channel = pusher.subscribe('notification-channel.2');
+    console.log('------------------',channel);
+    alert('check');
+    channel.bind('notification-event', function (data) {   
+      self.fatchData();
+    });
     this.fatchData();
   }
   componentwillmount() {
@@ -114,4 +121,4 @@ export default class Notifications extends Component {
 const styles = StyleSheet.create({ 
   
 }); 
-                                            
+export default Notifications;                                           
